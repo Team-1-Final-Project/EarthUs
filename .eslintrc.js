@@ -15,7 +15,18 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
-    'import/extensions': ['error', 'ignorePackages', { js: 'always' }],
+    'import/no-unresolved': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+        json: 'never',
+      },
+    ],
     'no-alert': 'off',
     'prefer-destructuring': ['error', { object: false, array: false }],
     'class-methods-use-this': 'off',
@@ -25,4 +36,11 @@ module.exports = {
     'class-methods-use-this': 'off',
   },
   ignorePatterns: ['**/*.test.*'],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 };
