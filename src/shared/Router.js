@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import MainPage from 'pages/MainPage';
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-      </Routes>
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_ID}>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+        </Routes>
+      </GoogleOAuthProvider>
     </BrowserRouter>
   );
 };
