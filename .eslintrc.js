@@ -32,7 +32,7 @@ module.exports = {
     'prefer-destructuring': ['error', { object: false, array: false }],
     'class-methods-use-this': 'off',
     'max-depth': ['error', 2],
-    'max-lines-per-function': ['error', 15],
+    'max-lines-per-function': ['error', 200],
     'no-unused-expressions': ['error', { allowShortCircuit: true }],
     'class-methods-use-this': 'off',
   },
