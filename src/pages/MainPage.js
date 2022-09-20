@@ -1,5 +1,5 @@
 import React from 'react';
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 
 function MainPage() {
   return (
