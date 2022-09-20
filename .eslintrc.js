@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
   parser: babel-eslint
-  parserOptions: {
+  parserOptions:{
     ecmaVersion: 13,
     sourceType: 'module',
   },
