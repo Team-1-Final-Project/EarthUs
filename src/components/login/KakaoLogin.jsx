@@ -7,7 +7,7 @@ const KakaoLogin = () => {
   return (
     <div>
       <a href={KAKAO_AUTH_URL}>
-        <img src="image/kakao_login_medium_wide.png"></img>
+        <img src="image/kakaologin/kakao_login_large_wide.png"></img>
       </a>
     </div>
   );
