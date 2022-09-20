@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AiOutlineLike, AiOutlineComment } from 'react-icons/ai';
 
-const BoardList = () => {
+const PostList = () => {
   return (
     <ContainerStyled>
       <TagStyled>태그</TagStyled>
@@ -69,4 +69,4 @@ const ContentStyled = styled.span`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
-export default BoardList;
+export default PostList;
