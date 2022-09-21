@@ -9,4 +9,9 @@ export const api = axios.create({
   withCredentials: true,
 });
 
-export const apis = {};
+export const apis = {
+  getPosts: async () => {
+    const response = await api.get('posts');
+    return response.data;
+  },
+};
