@@ -1,13 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
 import MainPage from 'pages/MainPage';
-
 import PostList from 'components/post/PostList';
 import PostDetail from 'components/post/PostDetail';
-import KakaoAuth from 'components/login/KakaoAuth';
-
+import KakaoAuth from 'components/Login/KakaoAuth';
 const Router = () => {
   return (
     <BrowserRouter>
