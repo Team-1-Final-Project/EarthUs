@@ -5,7 +5,7 @@ const GatherCard = () => {
     <>
       <StyledCard>
         <div>
-          <img src="image/cardimg.jpg"></img>
+          <img src="image/card/cardimg.jpg"></img>
         </div>
         <StyledDetail>
           <StyledH1>아차산 플로깅 주2회</StyledH1>

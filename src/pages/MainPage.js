@@ -1,13 +1,7 @@
 import React from 'react';
-import GatherCardList from 'components/gathering/GatherCardList';
 
 const MainPage = () => {
-  return (
-    <div>
-      MainPage
-      <GatherCardList />
-    </div>
-  );
+  return <div>MainPage</div>;
 };
 
 export default MainPage;
