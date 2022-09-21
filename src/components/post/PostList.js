@@ -1,22 +1,32 @@
 import styled from 'styled-components';
 import { AiOutlineLike, AiOutlineComment } from 'react-icons/ai';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const PostList = () => {
+  const [data, setData] = useState();
+
+  const getPosts = async () => {
+    const response = await axios.get('http://localhost:3001/posts');
+    setData(response.data[0]);
+    return response.data[0];
+  };
+  useEffect(() => {
+    getPosts().then((res) => {
+      setData(res);
+    });
+  }, []);
+  console.log(data);
   return (
     <ContainerStyled>
-      <TagStyled>태그</TagStyled>
-      <TitleStyled>나는 타이틀</TitleStyled>
-      <ContentStyled>
-        로렘 입숨은 전통 라틴어와 닮은 점 때문에 종종 호기심을 유발하기도 하지만 그 이상의 의미를
-        담지는 않는다. 문서에서 텍스트가 보이면 사람들은 전체적인 프레젠테이션보다는 텍스트에 담긴
-        뜻에 집중하는 경향이 있어서 출판사들은 서체나 디자인을 보일 때는 프레젠테이션 자체에 초점을
-        맞추기 위해 로렘 입숨을 사용한다.
-      </ContentStyled>
+      <TagStyled>{data && data.tag}</TagStyled>
+      <TitleStyled>{data && data.title}</TitleStyled>
+      <ContentStyled>{data && data.content}</ContentStyled>
       <div className="iconWrap">
         <AiOutlineLike />
-        <span className="count">7</span>
+        <span className="count">{data && data.likeNums}</span>
         <AiOutlineComment />
-        <span className="count">3</span>
+        <span className="count">{data && data.commentNums}</span>
       </div>
     </ContainerStyled>
   );
