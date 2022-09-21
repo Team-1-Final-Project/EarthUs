@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import GatherCard from './GatherCard';
+import TagList from './TagList';
 
 const GatherCardList = () => {
   return (
@@ -17,6 +18,7 @@ const GatherCardList = () => {
         <StyledDiv>
           <h1>태그 목록</h1>
         </StyledDiv>
+        <TagList />
         <GatherCard />
         <GatherCard />
         <GatherCard />
