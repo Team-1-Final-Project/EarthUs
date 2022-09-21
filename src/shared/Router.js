@@ -4,7 +4,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import MainPage from 'pages/MainPage';
 import PostList from 'components/post/PostList';
 import PostDetail from 'components/post/PostDetail';
-import KakaoAuth from 'components/Login/KakaoAuth';
+import KakaoAuth from 'components/login/KakaoAuth';
 
 const Router = () => {
   return (
