@@ -5,7 +5,7 @@ import TagList from './TagList';
 const GatherCardList = () => {
   return (
     <>
-      <StyledCardLayout>
+      <StyledCardLayout1>
         <StyledDiv>
           <h1>참여중인 모임</h1>
         </StyledDiv>
@@ -13,8 +13,8 @@ const GatherCardList = () => {
         <GatherCard />
         <GatherCard />
         <GatherCard />
-      </StyledCardLayout>
-      <StyledCardLayout>
+      </StyledCardLayout1>
+      <StyledCardLayout2>
         <StyledDiv>
           <h1>태그 목록</h1>
         </StyledDiv>
@@ -27,16 +27,24 @@ const GatherCardList = () => {
         <GatherCard />
         <GatherCard />
         <GatherCard />
-      </StyledCardLayout>
+      </StyledCardLayout2>
     </>
   );
 };
 
 export default GatherCardList;
 
-const StyledCardLayout = styled.div`
+const StyledCardLayout1 = styled.div`
   width: 100%;
-  height: 100%;
+  height: 670px;
+  padding: 6rem 7rem;
+  gap: 2rem calc(90% * 0.05 / 2);
+  display: flex;
+  flex-wrap: wrap;
+`;
+const StyledCardLayout2 = styled.div`
+  width: 100%;
+  height: 10%;
   padding: 6rem 7rem;
   gap: 2rem calc(90% * 0.05 / 2);
   display: flex;
