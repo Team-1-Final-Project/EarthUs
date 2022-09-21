@@ -9,4 +9,15 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export const apis = {};
+export const apis = {
+  // mainpage
+  getMainPage: async () => {
+    const response = await api.get('/main');
+    return response.data;
+  },
+
+  getBoard: async () => {
+    const response = await api.get('/board');
+    return response.data;
+  },
+};
