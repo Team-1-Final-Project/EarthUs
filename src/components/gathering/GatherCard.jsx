@@ -25,12 +25,11 @@ export default GatherCard;
 const StyledCard = styled.div`
   border: 0.5px solid;
   border-color: #d3c8c8;
-  margin: 12px;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 20%;
+  width: 23%;
   max-width: ${window.innerWidth / 4};
   height: 35vw;
   transition: 250ms transform;
@@ -85,13 +84,17 @@ const StyledSubDetail = styled.div`
   width: 100%;
   height: 10%;
   padding: 5%;
+  color: #333;
 `;
 const StyledH1 = styled.h1`
+  font-size: 1em;
   margin-bottom: 7%;
+  color: #333;
 `;
 const StyledH3 = styled.h3`
-  font-size: 70%;
+  font-size: 1em;
   margin: 1%;
+  color: #333;
 `;
 const StyledContentBox = styled.div`
   width: 100%;
