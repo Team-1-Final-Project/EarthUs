@@ -5,10 +5,8 @@ import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
 import KakaoAuth from 'components/login/KakaoAuth';
-
 import AddPost from 'components/post/AddPost';
-
-import GatheringRoute from './sub/GatheringRoute';
+import MeetingRoute from './sub/MeetingRoute';
 
 const Router = () => {
   return (
@@ -16,7 +14,7 @@ const Router = () => {
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_ID}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/gathering/*" element={<GatheringRoute />} />
+          <Route path="/meeting/*" element={<MeetingRoute />} />
           <Route path="/post" element={<PostListPage />} />
           <Route path="/postdetail/:id" element={<PostDetail />} />
           <Route path="/addpost" element={<AddPost />} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import GatherCard from 'components/gathering/GatherCard';
+import GatherCard from 'components/gathering/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TagList from 'components/gathering/TagList';

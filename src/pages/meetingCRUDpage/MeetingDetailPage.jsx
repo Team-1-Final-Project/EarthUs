@@ -1,19 +1,19 @@
 import React from 'react';
-import GatherDetail from 'components/gathering/detail/GatherDetail';
-import UserInfoCard from 'components/gathering/detail/UserInfoCard';
+import MeetingDetail from 'components/meeting/detail/MeetingDetail';
+import UserInfoCard from 'components/meeting/detail/UserInfoCard';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-const GatheringDetailPage = () => {
+const MeetingDetailPage = () => {
   return (
     <>
       <StyledLayout>
-        <GatherDetail />
+        <MeetingDetail />
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
-        <Link to="/gathering/detail/update">
+        <Link to="/meeting/detail/update">
           <Button>수정 하기</Button>
         </Link>
         <Button>삭제 하기</Button>
@@ -34,7 +34,7 @@ const GatheringDetailPage = () => {
   );
 };
 
-export default GatheringDetailPage;
+export default MeetingDetailPage;
 
 const StyledLayout = styled.div`
   width: 100vw;
