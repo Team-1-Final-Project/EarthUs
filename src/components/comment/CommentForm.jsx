@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const CommentForm = () => {
+const CommentForm = ({ addComment }) => {
+  const [content, setContent] = useState('');
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (content === '') return;
+    addComment(content);
+    setContent('');
+  };
+
   return (
-    <div className="border rounded-md mt-5 p-5 flex flex-col h-44">
-      <textarea name="" id="" cols="30" rows="10" className="shadow-none"></textarea>
-      <button className="self-end bg-gray-300 w-16 h-8 rounded-3xl mt-3">등록</button>
-    </div>
+    <form
+      onSubmit={onSubmitHandler}
+      className="border border-grayLineColor rounded-md mt-5 p-5 flex flex-col h-44"
+    >
+      <textarea
+        onChange={(e) => setContent(e.target.value)}
+        className="shadow-none text-blackColor h-24"
+        value={content}
+      />
+      <button className="self-end bg-blueColor text-white w-16 h-8 rounded-3xl mt-2">등록</button>
+    </form>
   );
 };
 
