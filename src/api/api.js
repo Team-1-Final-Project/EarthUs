@@ -9,6 +9,27 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// api.interceptors.request.use(
+//   config => {
+//     return config
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+
+// api.interceptors.response.use(
+//   response => {
+//     const res = response.data
+//     return res
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+
 export const apis = {
   getPosts: async () => {
     const response = await api.get('posts');
@@ -21,4 +42,9 @@ export const apis = {
     });
     return response.data;
   },
+
+  //comment
+  addComment: (content) => api.post('comment', content),
+  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`comment/${id}`),
 };

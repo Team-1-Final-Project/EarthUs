@@ -1,11 +1,7 @@
 import React from 'react';
-import KakaoLogin from 'components/Login/KakaoLogin';
-function MainPage() {
-  return (
-    <div>
-      MainPage <KakaoLogin />
-    </div>
-  );
-}
+
+const MainPage = () => {
+  return <div>MainPage</div>;
+};
 
 export default MainPage;
