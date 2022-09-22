@@ -1,6 +1,15 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const CardCreateForm = () => {
+  const navigate = useNavigate();
+  const onClickGoOut = (e) => {
+    if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
+      navigate('/gathering');
+    } else {
+      return e.preventDefault();
+    }
+  };
   return (
     <StyledLayout>
       <ImgDiv>
@@ -59,7 +68,7 @@ const CardCreateForm = () => {
           <ContentInput />
         </WideDivInForm2>
         <ButtonDiv>
-          <Button>나가기</Button>
+          <Button onClick={() => onClickGoOut()}>나가기</Button>
           <Button>제출 하기</Button>
         </ButtonDiv>
       </StyledForm>
@@ -155,7 +164,7 @@ const ContentInput = styled.input`
   padding-left: 20px;
   transition: 100ms transform;
   &:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 `;
 

@@ -9,4 +9,25 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// api.interceptors.request.use(
+//   config => {
+//     return config
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+
+// api.interceptors.response.use(
+//   response => {
+//     const res = response.data
+//     return res
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+
 export const apis = {};
