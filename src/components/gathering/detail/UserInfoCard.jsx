@@ -5,10 +5,10 @@ const UserInfoCard = () => {
     <>
       <StyledCard>
         <div>
-          <img src="../image/card/맥구.jpg"></img>
+          <img src="../image/card/차정원.jpg"></img>
         </div>
-        <StyledDetail>Mc Greger</StyledDetail>
-        <StyledDetail2>보유한 뱃지</StyledDetail2>
+        <StyledDetail>Car center</StyledDetail>
+        <StyledDetail2>보유 뱃지</StyledDetail2>
       </StyledCard>
     </>
   );
@@ -17,10 +17,12 @@ const UserInfoCard = () => {
 export default UserInfoCard;
 
 const StyledCard = styled.div`
-  margin: 10px;
+  cursor: pointer;
+  margin: 15px;
   border-radius: 20px;
   border: 0.5px solid;
   border-color: #d3c8c8;
+  background-color: #f5f5f5;
   position: relative;
   flex-direction: column;
   width: 300px;
@@ -38,19 +40,21 @@ const StyledCard = styled.div`
     position: relative;
     background-color: gray;
     overflow: hidden;
-    background-color: white;
+    background-color: #f5f5f5;
     padding: 5%;
+    display: flex;
+    justify-content: center;
     & > img {
       border-radius: 50%;
-      width: 280px;
-      height: 280px;
+      width: 250px;
+      height: 250px;
       position: relative;
       object-fit: cover;
     }
   }
   & > div:last-of-type {
     width: 100%;
-    background-color: white;
+    background-color: #f5f5f5;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,12 +65,10 @@ const StyledDetail = styled.div`
   width: 100%;
   text-align: center;
   font-size: x-large;
-  margin-top: 10px;
   margin-bottom: 30px;
 `;
 
 const StyledDetail2 = styled.div`
-  width: 100%;
   font-size: large;
-  margin-left: 10px;
+  padding-left: 20px;
 `;

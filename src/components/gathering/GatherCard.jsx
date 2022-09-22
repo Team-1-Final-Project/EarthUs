@@ -23,6 +23,7 @@ const GatherCard = () => {
 export default GatherCard;
 
 const StyledCard = styled.div`
+  cursor: pointer;
   border: 0.5px solid;
   border-color: #d3c8c8;
   position: relative;

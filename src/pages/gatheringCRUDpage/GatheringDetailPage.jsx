@@ -10,6 +10,11 @@ const GatheringDetailPage = () => {
       <StyledLayout>
         <GatherDetail />
       </StyledLayout>
+      <ButtonLayout>
+        <Button>신청 하기</Button>
+        <Button>수정 하기</Button>
+        <Button>삭제 하기</Button>
+      </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
         <UserInfoCard />
@@ -29,9 +34,9 @@ const GatheringDetailPage = () => {
 export default GatheringDetailPage;
 
 const StyledLayout = styled.div`
-  width: 100vw;
+  width: 100rem;
   height: 65vh;
-  padding: 4rem 1rem;
+  padding: 2rem;
   display: flex;
   justify-content: center;
 `;
@@ -49,4 +54,26 @@ const StyledLayout3 = styled.div`
   padding-left: 8rem;
   display: flex;
   flex-wrap: wrap;
+`;
+
+const ButtonLayout = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
+`;
+
+const Button = styled.button`
+  padding: 0px 10px;
+  height: 40px;
+  width: 120px;
+  color: white;
+  background-color: #a98fe2;
+  border-radius: 40px;
+  margin-right: 20px;
+  transition: 100ms transform;
+  &:hover {
+    transform: scale(1.05);
+  }
+  float: right;
 `;
