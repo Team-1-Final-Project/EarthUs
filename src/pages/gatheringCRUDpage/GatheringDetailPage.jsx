@@ -1,10 +1,10 @@
 import React from 'react';
-import CardCreateForm from 'components/gathering/create/CardCreateForm';
+import GatherDetail from 'components/gathering/detail/GatherDetail';
 
 const GatheringDetailPage = () => {
   return (
     <div>
-      <CardCreateForm />
+      <GatherDetail />
     </div>
   );
 };
