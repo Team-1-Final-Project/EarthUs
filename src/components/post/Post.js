@@ -1,41 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-
-// import Moment from 'react-moment';
-
 import { useNavigate } from 'react-router-dom';
-import LikeComment from './LikeComment';
-import Profile from './Profile';
+import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 
-const Post = ({ post }) => {
+const Post = ({ post, heart, setHeart }) => {
   const navigate = useNavigate();
-  //   const displayCreatedAt = (createdAt) => {
-  //     let startTime = new Date(createdAt);
-  //     let nowTime = Date.now();
-  //     if (parseInt(startTime - nowTime) > -60000) {
-  //       return <Moment format="방금 전">{startTime}</Moment>;
-  //     }
-  //     if (parseInt(startTime - nowTime) < -86400000) {
-  //       return <Moment format="MMM D일">{startTime}</Moment>;
-  //     }
-  //     if (parseInt(startTime - nowTime) > -86400000) {
-  //       return <Moment fromNow>{startTime}</Moment>;
-  //     }
-  //   };
 
   return (
     <ContainerStyled
       onClick={() => {
-        navigate(`/postdetail/${post.id}`);
+        navigate(`/postdetail/${post.boardId}`);
       }}
     >
       <div className="TopWrap">
         <TagStyled>{post && post.tag}</TagStyled>
-        <TimeStyled>5분전</TimeStyled>
+        <TimeStyled>{post && post.createdAt}</TimeStyled>
       </div>
 
       <ContentsContainerStyled>
-        <Profile post={post} />
+        <div className="profileWrap">
+          <ProfileStyled>
+            <img className="img" src={post && post.profileimage} alt="profileimg" />
+          </ProfileStyled>
+          <NameStyled>{post && post.writerName}</NameStyled>
+        </div>
 
         <div>
           <TitleStyled>{post && post.title}</TitleStyled>
@@ -45,7 +33,30 @@ const Post = ({ post }) => {
         <ImageStyled>
           <img className="img" src={post && post.image} alt="img" />
         </ImageStyled>
-        <LikeComment post={post} />
+
+        <IconContainerstyled>
+          <div
+            className="iconWrap"
+            onClick={(event) => {
+              setHeart(!heart);
+              event.stopPropagation();
+            }}
+          >
+            {heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+            <span className="count">{post && post.heartNums}</span>
+          </div>
+
+          <div
+            className="iconWrap"
+            onClick={(event) => {
+              navigate('/postdetail');
+              event.stopPropagation();
+            }}
+          >
+            <AiOutlineComment />
+            <span className="count">{post && post.commentNums}</span>
+          </div>
+        </IconContainerstyled>
       </ContentsContainerStyled>
     </ContainerStyled>
   );
@@ -102,6 +113,27 @@ const TimeStyled = styled.span`
   font-size: 14px;
 `;
 
+const ProfileStyled = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 70%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const NameStyled = styled.span`
+  margin-left: 10px;
+  color: #333;
+  font-size: 14px;
+  position: relative;
+  top: 15px;
+`;
+
 const TitleStyled = styled.h1`
   margin-bottom: 20px;
   color: #333;
@@ -118,6 +150,26 @@ const ContentStyled = styled.span`
   -webkit-box-orient: vertical;
   @media (max-width: 900px) {
     -webkit-line-clamp: 3;
+  }
+`;
+
+const IconContainerstyled = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  color: #595f63;
+  position: relative;
+  bottom: 20px;
+  .count {
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+  .iconWrap {
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    justify-content: flex-end;
   }
 `;
 

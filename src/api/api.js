@@ -30,4 +30,21 @@ export const api = axios.create({
 //   }
 // )
 
-export const apis = {};
+export const apis = {
+  getPosts: async () => {
+    const response = await api.get('posts');
+    return response.data;
+  },
+  postHeart: async (boardId, heartOn) => {
+    const response = await api.post('hearts', {
+      boardId: boardId,
+      heartOn: heartOn,
+    });
+    return response.data;
+  },
+
+  //comment
+  addComment: (content) => api.post('comment', content),
+  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`comment/${id}`),
+};
