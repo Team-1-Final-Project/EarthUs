@@ -203,13 +203,13 @@ const ButtonDiv = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 0px 10px;
-  height: 30px;
-  width: 100px;
-  color: white;
-  background-color: #a5a5a6; //서테이트로 클릭시 색깔 변경하믄 됨니데이
+  background-color: #edf3ec;
+  color: #3bc2df;
+  padding: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
   border-radius: 40px;
-  margin-right: 20px;
+  margin-left: 20px;
   transition: 100ms transform;
   &:hover {
     transform: scale(1.05);

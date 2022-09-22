@@ -34,7 +34,7 @@ const GatheringDetailPage = () => {
 export default GatheringDetailPage;
 
 const StyledLayout = styled.div`
-  width: 100rem;
+  width: 100vw;
   height: 65vh;
   padding: 2rem;
   display: flex;
@@ -43,15 +43,16 @@ const StyledLayout = styled.div`
 
 const StyledLayout2 = styled.div`
   width: 100vw;
-  padding-left: 7rem;
+  padding-left: 4rem;
   font-size: xx-large;
-  margin-bottom: 4%;
+  margin-bottom: 30px;
+  margin-top: 30px;
 `;
 
 const StyledLayout3 = styled.div`
   width: 100vw;
   height: 62vh;
-  padding-left: 8rem;
+  padding-left: 5rem;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -67,8 +68,8 @@ const Button = styled.button`
   padding: 0px 10px;
   height: 40px;
   width: 120px;
-  color: white;
-  background-color: #a98fe2;
+  background-color: #edf3ec;
+  color: #3bc2df;
   border-radius: 40px;
   margin-right: 20px;
   transition: 100ms transform;

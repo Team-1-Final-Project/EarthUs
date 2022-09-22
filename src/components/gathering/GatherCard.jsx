@@ -30,7 +30,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 23%;
+  width: 20vw;
   max-width: ${window.innerWidth / 4};
   height: 35vw;
   transition: 250ms transform;
