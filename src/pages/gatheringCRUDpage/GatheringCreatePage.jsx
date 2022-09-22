@@ -1,12 +1,12 @@
 import React from 'react';
-import CardCreateForm from 'components/gathering/create/CardCreateForm';
+import CardUpdateForm from 'components/gathering/update/CardUpdateForm';
 
-const GatheringCreatePage = () => {
+const GatheringUpdatePage = () => {
   return (
     <div>
-      <CardCreateForm />
+      <CardUpdateForm />
     </div>
   );
 };
 
-export default GatheringCreatePage;
+export default GatheringUpdatePage;

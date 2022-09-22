@@ -1,6 +1,7 @@
 import React from 'react';
 import GatherDetail from 'components/gathering/detail/GatherDetail';
 import UserInfoCard from 'components/gathering/detail/UserInfoCard';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -12,7 +13,9 @@ const GatheringDetailPage = () => {
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
-        <Button>수정 하기</Button>
+        <Link to="/gathering/detail/update">
+          <Button>수정 하기</Button>
+        </Link>
         <Button>삭제 하기</Button>
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
