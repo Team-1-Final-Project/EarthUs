@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Comment from 'components/comment/Comment';
 import CommentForm from 'components/comment/CommentForm';
-import axios from 'axios';
+import { apis } from 'api/api';
 
 const CommentList = () => {
   const [commentList, setCommentList] = useState([]);
 
-  const addComment = async (content) => {
+  const addCommentHandler = async (content) => {
     try {
-      const res = await axios.post('http://localhost:3001/comment', { content: content });
+      const res = await apis.addComment(content);
       setCommentList([...commentList, res.data]);
     } catch (err) {
       alert(err);
     }
   };
 
-  const editComment = async (payload) => {
+  const editCommentHandler = async (payload) => {
     try {
-      const res = await axios.put(`http://localhost:3001/comment/${payload.id}`, payload);
+      const res = await apis.editComment(payload);
       setCommentList(
         commentList.map((comment) => (comment.id === res.data.id ? (comment = res.data) : comment))
       );
@@ -26,9 +26,9 @@ const CommentList = () => {
     }
   };
 
-  const deleteComment = async (id) => {
+  const deleteCommentHandler = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/comment/${id}`);
+      await apis.deleteComment(id);
       setCommentList(commentList.filter((comment) => comment.id !== id));
     } catch (err) {
       alert(err);
@@ -41,11 +41,11 @@ const CommentList = () => {
         <Comment
           {...comment}
           key={comment.id}
-          editComment={editComment}
-          deleteComment={deleteComment}
+          editCommentHandler={editCommentHandler}
+          deleteCommentHandler={deleteCommentHandler}
         />
       ))}
-      <CommentForm addComment={addComment} />
+      <CommentForm addCommentHandler={addCommentHandler} />
     </div>
   );
 };

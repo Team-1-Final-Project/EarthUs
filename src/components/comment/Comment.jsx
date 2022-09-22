@@ -8,7 +8,7 @@ import {
   BsFillExclamationTriangleFill,
 } from 'react-icons/bs';
 
-const Comment = ({ content, id, editComment, deleteComment }) => {
+const Comment = ({ content, id, editCommentHandler, deleteCommentHandler }) => {
   const [editDeleteToggle, setEditDeleteToggle] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
   const [editContent, setEditContent] = useState(content);
@@ -18,15 +18,15 @@ const Comment = ({ content, id, editComment, deleteComment }) => {
     setEditContent(content);
   }, []);
 
-  const editCommentHandler = async (e) => {
+  const editHandler = async (e) => {
     e.preventDefault();
     if (editContent === '') return;
-    editComment({ id, content: editContent });
+    editCommentHandler({ id, content: editContent });
     setEditToggle(false);
   };
 
-  const deleteCommentHandler = async () => {
-    deleteComment(id);
+  const deleteHandler = async () => {
+    deleteCommentHandler(id);
     setEditDeleteToggle(false);
   };
 
@@ -48,7 +48,7 @@ const Comment = ({ content, id, editComment, deleteComment }) => {
               </button>
               <button
                 className="bg-blueColor text-white w-20 h-8 rounded mt-3"
-                onClick={deleteCommentHandler}
+                onClick={deleteHandler}
               >
                 삭제
               </button>
@@ -107,7 +107,7 @@ const Comment = ({ content, id, editComment, deleteComment }) => {
         <div>
           {editToggle ? (
             <form
-              onSubmit={editCommentHandler}
+              onSubmit={editHandler}
               className="border border-grayLineColor rounded-md mt-5 p-5 flex flex-col h-44"
             >
               <textarea

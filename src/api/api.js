@@ -30,4 +30,9 @@ export const api = axios.create({
 //   }
 // )
 
-export const apis = {};
+export const apis = {
+  //comment
+  addComment: (content) => api.post('comment', content),
+  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`comment/${id}`),
+};
