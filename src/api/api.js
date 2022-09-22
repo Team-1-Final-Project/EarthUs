@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: 'http://localhost:3001/',
   headers: {
     'content-type': 'application/json;charset=UTF-8',
@@ -8,6 +8,27 @@ const api = axios.create({
   },
   withCredentials: true,
 });
+
+// api.interceptors.request.use(
+//   config => {
+//     return config
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+
+// api.interceptors.response.use(
+//   response => {
+//     const res = response.data
+//     return res
+//   },
+//   error =>{
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
 
 export const apis = {
   // mainpage
@@ -20,4 +41,20 @@ export const apis = {
     const response = await api.get('/board');
     return response.data;
   },
+  getPosts: async () => {
+    const response = await api.get('posts');
+    return response.data;
+  },
+  postHeart: async (boardId, heartOn) => {
+    const response = await api.post('hearts', {
+      boardId: boardId,
+      heartOn: heartOn,
+    });
+    return response.data;
+  },
+
+  //comment
+  addComment: (content) => api.post('comment', content),
+  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`comment/${id}`),
 };
