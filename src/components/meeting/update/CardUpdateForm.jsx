@@ -5,7 +5,7 @@ const CardUpdateForm = () => {
   const navigate = useNavigate();
   const onClickGoOut = (e) => {
     if (window.confirm('수정된 내용이 적용되지 않습니다. 그래도 나가시겠습니까?')) {
-      navigate('/gathering/detail');
+      navigate('/meeting/detail');
     } else {
       return e.preventDefault();
     }
