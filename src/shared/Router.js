@@ -13,14 +13,9 @@ const Router = () => {
       <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_ID}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-<<<<<<< HEAD
           <Route path="/gathering/*" element={<GatheringRoute />} />
-          <Route path="/post" element={<PostList />} />
-          <Route path="/post/:id" element={<PostDetail />} />
-=======
           <Route path="/post" element={<PostListPage />} />
-          <Route path="/postdetail" element={<PostDetail />} />
->>>>>>> 1198627c742cdb5f08f92968161a396d05429251
+          <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/kauth" element={<KakaoAuth />} />
         </Routes>
       </GoogleOAuthProvider>
