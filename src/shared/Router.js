@@ -5,6 +5,8 @@ import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
 import KakaoAuth from 'components/Login/KakaoAuth';
+import AddPost from 'components/post/AddPost';
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -12,7 +14,8 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/post" element={<PostListPage />} />
-          <Route path="/postdetail" element={<PostDetail />} />
+          <Route path="/postdetail/:id" element={<PostDetail />} />
+          <Route path="/addpost" element={<AddPost />} />
           <Route path="/kauth" element={<KakaoAuth />} />
         </Routes>
       </GoogleOAuthProvider>

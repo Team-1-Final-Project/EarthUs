@@ -14,4 +14,11 @@ export const apis = {
     const response = await api.get('posts');
     return response.data;
   },
+  postHeart: async (boardId, heartOn) => {
+    const response = await api.post('hearts', {
+      boardId: boardId,
+      heartOn: heartOn,
+    });
+    return response.data;
+  },
 };

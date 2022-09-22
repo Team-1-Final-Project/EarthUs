@@ -1,27 +1,18 @@
-import { useEffect, useState } from 'react';
-import { apis } from 'api/api';
 import styled from 'styled-components';
-
 import { AiOutlinePlus } from 'react-icons/ai';
-
 import Post from './Post';
+import { useNavigate } from 'react-router-dom';
 
-const PostList = () => {
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    apis.getPosts().then((res) => {
-      setData(res);
-    });
-  }, []);
+const PostList = ({ data, heart, setHeart }) => {
+  const navigate = useNavigate();
 
   return (
     <>
       {data &&
         data.map((post) => {
-          return <Post key={post.id} post={post} />;
+          return <Post key={post.boardId} post={post} heart={heart} setHeart={setHeart} />;
         })}
-      <AddPostButtonStyled>
+      <AddPostButtonStyled onClick={() => navigate('/addpost')}>
         <AiOutlinePlus />
       </AddPostButtonStyled>
     </>
