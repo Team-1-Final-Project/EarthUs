@@ -5,6 +5,9 @@ import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
 import KakaoAuth from 'components/Login/KakaoAuth';
+
+import AddPost from 'components/post/AddPost';
+
 import GatheringRoute from './sub/GatheringRoute';
 
 const Router = () => {
@@ -15,7 +18,8 @@ const Router = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/gathering/*" element={<GatheringRoute />} />
           <Route path="/post" element={<PostListPage />} />
-          <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/postdetail/:id" element={<PostDetail />} />
+          <Route path="/addpost" element={<AddPost />} />
           <Route path="/kauth" element={<KakaoAuth />} />
         </Routes>
       </GoogleOAuthProvider>
