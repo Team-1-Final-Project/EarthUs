@@ -31,6 +31,16 @@ export const api = axios.create({
 // )
 
 export const apis = {
+  // mainpage
+  getMainPage: async () => {
+    const response = await api.get('/main');
+    return response.data;
+  },
+
+  getBoard: async () => {
+    const response = await api.get('/board');
+    return response.data;
+  },
   getPosts: async () => {
     const response = await api.get('posts');
     return response.data;
