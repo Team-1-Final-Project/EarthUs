@@ -11,6 +11,16 @@ export const api = axios.create({
 });
 
 export const apis = {
+  // mainpage
+  getMainPage: async () => {
+    const response = await api.get('/main');
+    return response.data;
+  },
+
+  getBoard: async () => {
+    const response = await api.get('/board');
+    return response.data;
+  },
   getPosts: async () => {
     const response = await api.get('posts');
     return response.data;
@@ -38,6 +48,11 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+    //shop
+  getShopList: async () => {
+    const response = await api.get('recommends');
+    return response.data;
+  },
 };
 
 // api.interceptors.request.use(
@@ -60,3 +75,4 @@ export const apis = {
 //     return Promise.reject(error)
 //   }
 // )
+
