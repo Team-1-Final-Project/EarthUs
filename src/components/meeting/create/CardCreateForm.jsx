@@ -1,8 +1,65 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { apis } from 'api/api';
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
+
+  const [title, setTitle] = useState('');
+  const [tag, setTag] = useState('');
+  const [location, setLocation] = useState('');
+  const [limitPeople, setLimitPeople] = useState(0);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [meetingDate, setMeetingDate] = useState('');
+  const [meetingEndDate, setMeetingEndDate] = useState('');
+  const [content, setContent] = useState('');
+
+  const onChangeTitleHandler = (e) => {
+    console.log('title', e.target.value);
+    setTitle(e.target.value);
+  };
+  const onChangeLocationHandler = (e) => {
+    console.log('location', e.target.value);
+    setLocation(e.target.value);
+  };
+  const onChangeLimitPeopleHandler = (e) => {
+    console.log('LimitPeople', e.target.value);
+    setLimitPeople(e.target.value);
+  };
+  const onChangeStartDateHandler = (e) => {
+    console.log('startDate', e.target.value);
+    setStartDate(e.target.value);
+  };
+  const onChangeEndDateHandler = (e) => {
+    console.log('endDate', e.target.value);
+    setEndDate(e.target.value);
+  };
+  const onChangeMeetingImageHandler = (e) => {
+    console.log('meetingImage', e.target.value);
+  };
+  const onChangeMeetingDateHandler = (e) => {
+    console.log('meetingDate', e.target.value);
+    setMeetingDate(e.target.value);
+  };
+  const onChangeMeetingEndDateHandler = (e) => {
+    console.log('meetingEndDate', e.target.value);
+    setMeetingEndDate(e.target.value);
+  };
+  const onChangeTagHandler = (e) => {
+    console.log('Tag', e.target.value);
+    setTag(e.target.value);
+  };
+  const onChangeContentHandler = (e) => {
+    console.log('Content', e.target.value);
+    setContent(e.target.value);
+  };
+
+  const onClickSubmitHandler = () => {
+    // apis.함수.
+  };
+
   const onClickGoOut = (e) => {
     if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
       navigate('/meeting');
@@ -10,6 +67,7 @@ const CardCreateForm = () => {
       return e.preventDefault();
     }
   };
+
   return (
     <StyledLayout>
       <ImgDiv>
@@ -29,15 +87,35 @@ const CardCreateForm = () => {
       <StyledForm>
         <WideDivInForm>
           <StyledH1>제목</StyledH1>
-          <WideInput />
+          <WideInput
+            onChange={(e) => {
+              onChangeTitleHandler(e);
+            }}
+          />
+        </WideDivInForm>
+        <WideDivInForm>
+          <StyledH1>태그</StyledH1>
+          <WideInput
+            onChange={(e) => {
+              onChangeTagHandler(e);
+            }}
+          />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>장소</StyledH1>
-          <WideInput />
+          <WideInput
+            onChange={(e) => {
+              onChangeLocationHandler(e);
+            }}
+          />
         </WideDivInForm>
         <DivInForm>
           <StyledH1>인원</StyledH1>
-          <StyledOption>
+          <StyledOption
+            onChange={(e) => {
+              onChangeLimitPeopleHandler(e);
+            }}
+          >
             <option value="" disabled="">
               인원 선택
             </option>
@@ -52,24 +130,50 @@ const CardCreateForm = () => {
         <DivInForm>
           <StyledH1>모집 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput
+              type="date"
+              onChange={(e) => {
+                onChangeStartDateHandler(e);
+              }}
+            />{' '}
+            ~
+            <SmallInput
+              type="date"
+              onChange={(e) => {
+                onChangeEndDateHandler(e);
+              }}
+            />
           </DivForDate>
         </DivInForm>
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput
+              type="date"
+              onChange={(e) => {
+                onChangeMeetingDateHandler(e);
+              }}
+            />{' '}
+            ~
+            <SmallInput
+              type="date"
+              onChange={(e) => {
+                onChangeMeetingEndDateHandler(e);
+              }}
+            />
           </DivForDate>
         </DivInForm>
         <WideDivInForm2>
           <StyledH1>내용</StyledH1>
-          <ContentInput />
+          <ContentInput
+            onChange={(e) => {
+              onChangeContentHandler(e);
+            }}
+          />
         </WideDivInForm2>
         <ButtonDiv>
           <Button onClick={() => onClickGoOut()}>나가기</Button>
-          <Button>제출 하기</Button>
+          <Button onClick={() => onClickSubmitHandler()}>제출 하기</Button>
         </ButtonDiv>
       </StyledForm>
     </StyledLayout>

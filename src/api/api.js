@@ -47,4 +47,15 @@ export const apis = {
   addComment: (content) => api.post('comment', content),
   editComment: (payload) => api.put(`comment/${payload.id}`, payload),
   deleteComment: (id) => api.delete(`comment/${id}`),
+
+  //meeting
+  createMeeting: (data) => api.post('meeting/create', data),
+  applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
+  cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
+  updateMeeting: (meetingID) => api.update(`meeting/${meetingID}`),
+  deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`),
+  updateMeetingImage: (meetingID) => api.update(`meeting/${meetingID}/image`),
+  deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
+  getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
+  getAllMeeting: () => api.get('meeting'),
 };
