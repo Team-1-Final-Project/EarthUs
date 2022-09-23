@@ -10,6 +10,7 @@ import AddPost from 'components/post/AddPost';
 
 import GatheringRoute from './sub/GatheringRoute';
 import MyPage from 'pages/MyPage';
+import ZeroShop from 'pages/ZeroShop';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
           <Route path="/addpost" element={<AddPost />} />
           <Route path="/kauth" element={<KakaoAuth />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/zeroshop" element={<ZeroShop />} />
         </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>

@@ -57,4 +57,10 @@ export const apis = {
   addComment: (content) => api.post('comment', content),
   editComment: (payload) => api.put(`comment/${payload.id}`, payload),
   deleteComment: (id) => api.delete(`comment/${id}`),
+
+  //shop
+  getShopList: async () => {
+    const response = await api.get('recommends');
+    return response.data;
+  },
 };

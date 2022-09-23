@@ -12,11 +12,12 @@ function Navbar() {
           <div className="text-3xl font-bold text-defaultColor">Earth,us</div>
         </div>
         <div className="flex items-center justify-between h-16">
-          {list.map((list) => (
+          {list.map((list, index) => (
             <div
               className="text-defaultText hover:cursor-pointer hover:text-defaultColor"
+              key={index}
               onClick={() => {
-                navigate(`${list}`);
+                navigate(`/${list}`);
               }}
             >
               {list}
