@@ -12,6 +12,7 @@ import GatheringRoute from './sub/GatheringRoute';
 import MyPage from 'pages/MyPage';
 import ZeroShop from 'pages/ZeroShop';
 import CommentList from 'components/comment/CommentList';
+import Test from 'pages/Test';
 
 const Router = () => {
   return (
@@ -24,7 +25,9 @@ const Router = () => {
           <Route path="/postdetail/:id" element={<PostDetail />} />
           <Route path="/addpost" element={<AddPost />} />
           <Route path="/kauth" element={<KakaoAuth />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={<MyPage />}>
+            <Route path=":id" element={<Test />} />
+          </Route>
           <Route path="/zeroshop" element={<ZeroShop />} />
           <Route path="/comment" element={<CommentList />} />
         </Routes>
