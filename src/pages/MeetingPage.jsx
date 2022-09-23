@@ -1,14 +1,14 @@
 import React from 'react';
-import GatherCard from 'components/gathering/GatherCard';
+import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import TagList from 'components/gathering/TagList';
+import TagList from 'components/meeting/TagList';
 
-const GatheringPage = () => {
+const MeetingPage = () => {
   return (
     <div>
       <StyledDiv1>
-        <Link to="/gathering/create">
+        <Link to="/meeting/create">
           <Button>모임 생성</Button>
         </Link>
       </StyledDiv1>
@@ -16,30 +16,30 @@ const GatheringPage = () => {
         <StyledDiv2>
           <h1>참여중인 모임</h1>
         </StyledDiv2>
-        <Link style={{ display: 'flex', width: '20vw' }} to="/gathering/detail">
-          <GatherCard />
+        <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
+          <MeetingCard />
         </Link>
-        <GatherCard />
-        <GatherCard />
-        <GatherCard />
+        <MeetingCard />
+        <MeetingCard />
+        <MeetingCard />
       </StyledCardLayout1>
       <StyledCardLayout2>
         <StyledDiv2>
           <h1>태그 목록</h1>
         </StyledDiv2>
         <TagList />
-        <GatherCard />
-        <GatherCard />
-        <GatherCard />
-        <GatherCard />
-        <GatherCard />
-        <GatherCard />
+        <MeetingCard />
+        <MeetingCard />
+        <MeetingCard />
+        <MeetingCard />
+        <MeetingCard />
+        <MeetingCard />
       </StyledCardLayout2>
     </div>
   );
 };
 
-export default GatheringPage;
+export default MeetingPage;
 
 const StyledDiv1 = styled.div`
   width: 100%;

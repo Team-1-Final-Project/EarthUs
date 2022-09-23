@@ -1,47 +1,46 @@
 import styled from 'styled-components';
 
-const GatherDetail = () => {
+const MeetingCard = () => {
   return (
     <>
       <StyledCard>
         <div>
-          <img src="../image/card/cardimg.jpg"></img>
+          <img src="image/card/cardimg.jpg"></img>
         </div>
         <StyledDetail>
-          <TagListLayout>
-            <Tagbutton>#아차산</Tagbutton>
-            <Tagbutton>#플로깅</Tagbutton>
-          </TagListLayout>
           <StyledH1>아차산 플로깅 주2회</StyledH1>
           <StyledH3>22.10.22~22.12.30</StyledH3>
           <StyledH3>3/10명 참여중</StyledH3>
           <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>
-          <StyledContentBox>
-            안녕하세요 서울숲길에 사는 홍길동입니다. 다름이 아니라 제가 이번엥 플로깅 행사를 열게
-            되었습니다. 플로깅하다가 보물이 나오면 가져가시면 되요. 잘 찾아보세요.
-          </StyledContentBox>
+          <StyledContentBox></StyledContentBox>
         </StyledDetail>
+        <StyledSubDetail>Written by</StyledSubDetail>
       </StyledCard>
     </>
   );
 };
 
-export default GatherDetail;
+export default MeetingCard;
 
 const StyledCard = styled.div`
-  border-radius: 20px;
+  cursor: pointer;
   border: 0.5px solid;
   border-color: #d3c8c8;
   position: relative;
   display: flex;
+  flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 80%;
-  height: 100%;
+  width: 20vw;
+  max-width: ${window.innerWidth / 4};
+  height: 35vw;
+  transition: 250ms transform;
   user-select: none;
-  padding: 20px;
+  &:hover {
+    transform: scale(1.03);
+  }
   & > div:first-of-type {
     width: 100%;
-    height: 100%;
+    height: 50%;
     position: relative;
     background-color: gray;
     overflow: hidden;
@@ -54,7 +53,7 @@ const StyledCard = styled.div`
   }
   & > div:last-of-type {
     width: 100%;
-    height: 100%;
+    height: 10%;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -79,11 +78,17 @@ const StyledCard = styled.div`
 
 const StyledDetail = styled.div`
   width: 100%;
-  height: 100%;
-  padding-left: 3%;
+  height: 50%;
+  padding: 5%;
+`;
+const StyledSubDetail = styled.div`
+  width: 100%;
+  height: 10%;
+  padding: 5%;
+  color: #333;
 `;
 const StyledH1 = styled.h1`
-  font-size: x-large;
+  font-size: 1em;
   margin-bottom: 7%;
   color: #333;
 `;
@@ -94,25 +99,7 @@ const StyledH3 = styled.h3`
 `;
 const StyledContentBox = styled.div`
   width: 100%;
+  height: 40%;
   background-color: #f4f4f4;
   margin-top: 10%;
-  padding: 20px;
-`;
-
-const TagListLayout = styled.div`
-  width: 100%;
-  height: 40px;
-`;
-
-const Tagbutton = styled.button`
-  padding: 0px 10px;
-  height: 30px;
-  color: white;
-  background-color: #059df6; //서테이트로 클릭시 색깔 변경하믄 됨니데이
-  border-radius: 40px;
-  margin: 6px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.01);
-  }
 `;

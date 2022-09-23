@@ -1,15 +1,44 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { apis } from 'api/api';
+import { useInput } from 'hooks/useInput';
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
+
+  const [title, titleChange] = useInput('');
+  const [tag, tagChange] = useInput('');
+  const [location, locationChange] = useInput('');
+  const [limitpeople, limitPeopleChange] = useInput(0);
+  const [startDate, startDateChange] = useInput('');
+  const [endDate, endDateChange] = useInput('');
+  const [meetingDate, meetingDateChange] = useInput('');
+  const [meetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, contentChange] = useInput('');
+
+  const onClickSubmitHandler = async (e) => {
+    e.preventDefault();
+    apis.createMeeting({
+      title,
+      tag,
+      location,
+      limitpeople,
+      startDate,
+      endDate,
+      meetingDate,
+      meetingEndDate,
+      content,
+    });
+  };
+
   const onClickGoOut = (e) => {
     if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
-      navigate('/gathering');
+      navigate('/meeting');
     } else {
       return e.preventDefault();
     }
   };
+
   return (
     <StyledLayout>
       <ImgDiv>
@@ -29,15 +58,19 @@ const CardCreateForm = () => {
       <StyledForm>
         <WideDivInForm>
           <StyledH1>제목</StyledH1>
-          <WideInput />
+          <WideInput value={title} onChange={titleChange} />
+        </WideDivInForm>
+        <WideDivInForm>
+          <StyledH1>태그</StyledH1>
+          <WideInput value={tag} onChange={tagChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>장소</StyledH1>
-          <WideInput />
+          <WideInput value={location} onChange={locationChange} />
         </WideDivInForm>
         <DivInForm>
           <StyledH1>인원</StyledH1>
-          <StyledOption>
+          <StyledOption value={limitpeople} onChange={limitPeopleChange}>
             <option value="" disabled="">
               인원 선택
             </option>
@@ -52,24 +85,25 @@ const CardCreateForm = () => {
         <DivInForm>
           <StyledH1>모집 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput type="date" value={startDate} onChange={startDateChange} />
+            ~
+            <SmallInput type="date" value={endDate} onChange={endDateChange} />
           </DivForDate>
         </DivInForm>
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput type="date" value={meetingDate} onChange={meetingDateChange} /> ~
+            <SmallInput type="date" value={meetingEndDate} onChange={meetingEndDateChange} />
           </DivForDate>
         </DivInForm>
         <WideDivInForm2>
           <StyledH1>내용</StyledH1>
-          <ContentInput />
+          <ContentInput value={content} onChange={contentChange} />
         </WideDivInForm2>
         <ButtonDiv>
           <Button onClick={() => onClickGoOut()}>나가기</Button>
-          <Button>제출 하기</Button>
+          <Button onClick={(e) => onClickSubmitHandler(e)}>제출 하기</Button>
         </ButtonDiv>
       </StyledForm>
     </StyledLayout>
