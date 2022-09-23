@@ -1,63 +1,23 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { apis } from 'api/api';
+import { useInput } from 'hooks/useInput';
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState('');
-  const [tag, setTag] = useState('');
-  const [location, setLocation] = useState('');
-  const [limitPeople, setLimitPeople] = useState(0);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [meetingDate, setMeetingDate] = useState('');
-  const [meetingEndDate, setMeetingEndDate] = useState('');
-  const [content, setContent] = useState('');
+  const [title, titleChange] = useInput('');
+  const [tag, tagChange] = useInput('');
+  const [location, locationChange] = useInput('');
+  const [limitpeople, limitPeopleChange] = useInput('');
+  const [startDate, startDateChange] = useInput('');
+  const [endDate, endDateChange] = useInput('');
+  const [meetingDate, meetingDateChange] = useInput('');
+  const [meetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, contentChange] = useInput('');
 
-  const onChangeTitleHandler = (e) => {
-    console.log('title', e.target.value);
-    setTitle(e.target.value);
-  };
-  const onChangeLocationHandler = (e) => {
-    console.log('location', e.target.value);
-    setLocation(e.target.value);
-  };
-  const onChangeLimitPeopleHandler = (e) => {
-    console.log('LimitPeople', e.target.value);
-    setLimitPeople(e.target.value);
-  };
-  const onChangeStartDateHandler = (e) => {
-    console.log('startDate', e.target.value);
-    setStartDate(e.target.value);
-  };
-  const onChangeEndDateHandler = (e) => {
-    console.log('endDate', e.target.value);
-    setEndDate(e.target.value);
-  };
-  const onChangeMeetingImageHandler = (e) => {
-    console.log('meetingImage', e.target.value);
-  };
-  const onChangeMeetingDateHandler = (e) => {
-    console.log('meetingDate', e.target.value);
-    setMeetingDate(e.target.value);
-  };
-  const onChangeMeetingEndDateHandler = (e) => {
-    console.log('meetingEndDate', e.target.value);
-    setMeetingEndDate(e.target.value);
-  };
-  const onChangeTagHandler = (e) => {
-    console.log('Tag', e.target.value);
-    setTag(e.target.value);
-  };
-  const onChangeContentHandler = (e) => {
-    console.log('Content', e.target.value);
-    setContent(e.target.value);
-  };
-
-  const onClickSubmitHandler = () => {
-    // apis.함수.
+  const onClickSubmitHandler = async (e) => {
+    e.preventDefault();
   };
 
   const onClickGoOut = (e) => {
@@ -87,35 +47,19 @@ const CardCreateForm = () => {
       <StyledForm>
         <WideDivInForm>
           <StyledH1>제목</StyledH1>
-          <WideInput
-            onChange={(e) => {
-              onChangeTitleHandler(e);
-            }}
-          />
+          <WideInput onChange={titleChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>태그</StyledH1>
-          <WideInput
-            onChange={(e) => {
-              onChangeTagHandler(e);
-            }}
-          />
+          <WideInput onChange={tagChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>장소</StyledH1>
-          <WideInput
-            onChange={(e) => {
-              onChangeLocationHandler(e);
-            }}
-          />
+          <WideInput onChange={locationChange} />
         </WideDivInForm>
         <DivInForm>
           <StyledH1>인원</StyledH1>
-          <StyledOption
-            onChange={(e) => {
-              onChangeLimitPeopleHandler(e);
-            }}
-          >
+          <StyledOption onChange={limitPeopleChange}>
             <option value="" disabled="">
               인원 선택
             </option>
@@ -130,50 +74,25 @@ const CardCreateForm = () => {
         <DivInForm>
           <StyledH1>모집 기간</StyledH1>
           <DivForDate>
-            <SmallInput
-              type="date"
-              onChange={(e) => {
-                onChangeStartDateHandler(e);
-              }}
-            />{' '}
+            <SmallInput type="date" onChange={startDateChange} />
             ~
-            <SmallInput
-              type="date"
-              onChange={(e) => {
-                onChangeEndDateHandler(e);
-              }}
-            />
+            <SmallInput type="date" onChange={endDateChange} />
           </DivForDate>
         </DivInForm>
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput
-              type="date"
-              onChange={(e) => {
-                onChangeMeetingDateHandler(e);
-              }}
-            />{' '}
-            ~
-            <SmallInput
-              type="date"
-              onChange={(e) => {
-                onChangeMeetingEndDateHandler(e);
-              }}
-            />
+            <SmallInput type="date" onChange={meetingDateChange} /> ~
+            <SmallInput type="date" onChange={meetingEndDateChange} />
           </DivForDate>
         </DivInForm>
         <WideDivInForm2>
           <StyledH1>내용</StyledH1>
-          <ContentInput
-            onChange={(e) => {
-              onChangeContentHandler(e);
-            }}
-          />
+          <ContentInput onChange={contentChange} />
         </WideDivInForm2>
         <ButtonDiv>
           <Button onClick={() => onClickGoOut()}>나가기</Button>
-          <Button onClick={() => onClickSubmitHandler()}>제출 하기</Button>
+          <Button onClick={(e) => onClickSubmitHandler(e)}>제출 하기</Button>
         </ButtonDiv>
       </StyledForm>
     </StyledLayout>
