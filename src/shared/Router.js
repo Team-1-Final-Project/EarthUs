@@ -6,6 +6,7 @@ import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
 import KakaoAuth from 'components/Login/KakaoAuth';
 import GatheringRoute from './sub/GatheringRoute';
+import CommentList from 'components/comment/CommentList';
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route path="/post" element={<PostListPage />} />
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/kauth" element={<KakaoAuth />} />
+          <Route path="/comment" element={<CommentList />} />
         </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
