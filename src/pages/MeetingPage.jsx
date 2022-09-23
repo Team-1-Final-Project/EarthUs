@@ -3,18 +3,18 @@ import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
+import Navbar from 'components/Navbar/ Navbar';
 
 const MeetingPage = () => {
   return (
     <div>
-      <StyledDiv1>
-        <Link to="/meeting/create">
-          <Button>모임 생성</Button>
-        </Link>
-      </StyledDiv1>
+      <Navbar />
       <StyledCardLayout1>
         <StyledDiv2>
           <h1>참여중인 모임</h1>
+          <Link to="/meeting/create">
+            <Button>모임 생성</Button>
+          </Link>
         </StyledDiv2>
         <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
           <MeetingCard />
@@ -40,12 +40,6 @@ const MeetingPage = () => {
 };
 
 export default MeetingPage;
-
-const StyledDiv1 = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-`;
 
 const Button = styled.button`
   background-color: #edf3ec;
@@ -80,7 +74,12 @@ const StyledCardLayout2 = styled.div`
 `;
 const StyledDiv2 = styled.div`
   width: 100%;
-  font-size: 1.5rem;
-  color: #333;
-  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  & > h1:first-of-type {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+    position: relative;
+  }
 `;
