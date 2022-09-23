@@ -108,7 +108,7 @@ const Tagbutton = styled.button`
   padding: 0px 10px;
   height: 30px;
   color: white;
-  background-color: #059df6; //서테이트로 클릭시 색깔 변경하믄 됨니데이
+  background-color: #3cc2df; //서테이트로 클릭시 색깔 변경하믄 됨니데이
   border-radius: 40px;
   margin: 6px;
   transition: 100ms transform;

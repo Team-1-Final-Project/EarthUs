@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
-  const list = ['zerowaste', 'community', 'zeromoim', 'zeroshop'];
+  const list = [
+    ['zerowaste', 'zerowaste'],
+    ['community', 'community'],
+    ['zeromoim', 'meeting'],
+    ['zeroshop', 'zeroshop'],
+  ];
 
   return (
     <nav className="">
@@ -17,10 +22,10 @@ function Navbar() {
               className="text-defaultText hover:cursor-pointer hover:text-defaultColor"
               key={index}
               onClick={() => {
-                navigate(`/${list}`);
+                navigate(`/${list[1]}`);
               }}
             >
-              {list}
+              {list[0]}
             </div>
           ))}
         </div>
