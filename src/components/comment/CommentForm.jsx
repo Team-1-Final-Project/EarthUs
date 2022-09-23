@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-const CommentForm = ({ addComment }) => {
+const CommentForm = ({ addCommentHandler }) => {
   const [content, setContent] = useState('');
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (content === '') return;
-    addComment(content);
+    addCommentHandler({ content: content });
     setContent('');
   };
 
