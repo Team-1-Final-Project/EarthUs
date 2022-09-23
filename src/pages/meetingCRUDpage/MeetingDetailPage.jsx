@@ -4,10 +4,12 @@ import UserInfoCard from 'components/meeting/detail/UserInfoCard';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
+import Navbar from 'components/Navbar/ Navbar';
 
 const MeetingDetailPage = () => {
   return (
     <>
+      <Navbar />
       <StyledLayout>
         <MeetingDetail />
       </StyledLayout>
@@ -71,8 +73,8 @@ const Button = styled.button`
   padding: 0px 10px;
   height: 40px;
   width: 120px;
-  background-color: #edf3ec;
-  color: #3bc2df;
+  background-color: #3cc2df;
+  color: #ffffff;
   border-radius: 40px;
   margin-right: 20px;
   transition: 100ms transform;
