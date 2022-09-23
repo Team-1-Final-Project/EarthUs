@@ -6,9 +6,10 @@ const KakaoAuth = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get('code');
 
-  useEffect(() => {
+  useEffect((e) => {
+    e.preventDefault();
     api
-      .get(`kauth?code=${code}`)
+      .get(`?code=${code}`)
       .then((res) => {
         const ACCESS_TOKEN = res.headers['access-token'];
         const kakaoToken = res.data.data.kakaoToken;
