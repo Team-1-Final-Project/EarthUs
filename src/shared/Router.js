@@ -11,6 +11,7 @@ import AddPost from 'components/post/AddPost';
 import GatheringRoute from './sub/GatheringRoute';
 import MyPage from 'pages/MyPage';
 import ZeroShop from 'pages/ZeroShop';
+import CommentList from 'components/comment/CommentList';
 
 const Router = () => {
   return (
@@ -25,6 +26,7 @@ const Router = () => {
           <Route path="/kauth" element={<KakaoAuth />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/zeroshop" element={<ZeroShop />} />
+          <Route path="/comment" element={<CommentList />} />
         </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>
