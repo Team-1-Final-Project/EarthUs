@@ -9,7 +9,7 @@ const CardCreateForm = () => {
   const [title, titleChange] = useInput('');
   const [tag, tagChange] = useInput('');
   const [location, locationChange] = useInput('');
-  const [limitpeople, limitPeopleChange] = useInput('');
+  const [limitpeople, limitPeopleChange] = useInput(0);
   const [startDate, startDateChange] = useInput('');
   const [endDate, endDateChange] = useInput('');
   const [meetingDate, meetingDateChange] = useInput('');
@@ -18,6 +18,17 @@ const CardCreateForm = () => {
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
+    apis.createMeeting({
+      title,
+      tag,
+      location,
+      limitpeople,
+      startDate,
+      endDate,
+      meetingDate,
+      meetingEndDate,
+      content,
+    });
   };
 
   const onClickGoOut = (e) => {
@@ -47,19 +58,19 @@ const CardCreateForm = () => {
       <StyledForm>
         <WideDivInForm>
           <StyledH1>제목</StyledH1>
-          <WideInput onChange={titleChange} />
+          <WideInput value={title} onChange={titleChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>태그</StyledH1>
-          <WideInput onChange={tagChange} />
+          <WideInput value={tag} onChange={tagChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>장소</StyledH1>
-          <WideInput onChange={locationChange} />
+          <WideInput value={location} onChange={locationChange} />
         </WideDivInForm>
         <DivInForm>
           <StyledH1>인원</StyledH1>
-          <StyledOption onChange={limitPeopleChange}>
+          <StyledOption value={limitpeople} onChange={limitPeopleChange}>
             <option value="" disabled="">
               인원 선택
             </option>
@@ -74,21 +85,21 @@ const CardCreateForm = () => {
         <DivInForm>
           <StyledH1>모집 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" onChange={startDateChange} />
+            <SmallInput type="date" value={startDate} onChange={startDateChange} />
             ~
-            <SmallInput type="date" onChange={endDateChange} />
+            <SmallInput type="date" value={endDate} onChange={endDateChange} />
           </DivForDate>
         </DivInForm>
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" onChange={meetingDateChange} /> ~
-            <SmallInput type="date" onChange={meetingEndDateChange} />
+            <SmallInput type="date" value={meetingDate} onChange={meetingDateChange} /> ~
+            <SmallInput type="date" value={meetingEndDate} onChange={meetingEndDateChange} />
           </DivForDate>
         </DivInForm>
         <WideDivInForm2>
           <StyledH1>내용</StyledH1>
-          <ContentInput onChange={contentChange} />
+          <ContentInput value={content} onChange={contentChange} />
         </WideDivInForm2>
         <ButtonDiv>
           <Button onClick={() => onClickGoOut()}>나가기</Button>
