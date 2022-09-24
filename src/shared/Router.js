@@ -10,6 +10,7 @@ import MeetingRoute from './sub/MeetingRoute';
 import MyPage from 'pages/MyPage';
 import ZeroShop from 'pages/ZeroShop';
 import CommentList from 'components/comment/CommentList';
+import KakaoMyInfo from 'components/login/KakaoMyInfo';
 
 const Router = () => {
   return (
@@ -25,6 +26,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/zeroshop" element={<ZeroShop />} />
           <Route path="/comment" element={<CommentList />} />
+          <Route path="/kauth/myinfo" element={<KakaoMyInfo />} />
         </Routes>
       </GoogleOAuthProvider>
     </BrowserRouter>

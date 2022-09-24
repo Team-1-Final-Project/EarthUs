@@ -1,4 +1,4 @@
-import { api } from 'api/api';
+import { api, apis } from 'api/api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,16 +10,16 @@ const KakaoAuth = () => {
     api
       .get(`kauth?code=${code}`)
       .then((res) => {
-        // const ACCESS_TOKEN = res.headers['access-token'];
-        // const kakaoToken = res.data.data.kakaoToken;
-        // const refreshToken = res.headers['refresh-token'];
-        // const email = res.data.data.email;
-        // sessionStorage.setItem('Access_token', ACCESS_TOKEN);
-        // sessionStorage.setItem('kakaoToken', kakaoToken);
-        // sessionStorage.setItem('Refresh_token', refreshToken);
-        // localStorage.setItem('email', email);
-        console.log(res);
-        // navigate('/');
+        const ACCESS_TOKEN = res.headers['authorization'];
+        sessionStorage.setItem('Access_token', ACCESS_TOKEN);
+        api.defaults.headers.common['authorization'] = ACCESS_TOKEN;
+        apis
+          .kakaoLogin()
+          .then((res) => {
+            console.log(res);
+            navigate('/');
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         console.log(err);
