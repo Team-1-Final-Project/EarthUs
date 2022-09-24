@@ -6,13 +6,15 @@ import { useInput } from 'hooks/useInput';
 const CardCreateForm = () => {
   const navigate = useNavigate();
 
+  const list = [2, 3, 4, 5, 6, 7, 8];
+
   const [title, titleChange] = useInput('');
   const [tag, tagChange] = useInput('');
   const [location, locationChange] = useInput('');
   const [limitpeople, limitPeopleChange] = useInput(0);
-  const [startDate, startDateChange] = useInput('');
-  const [endDate, endDateChange] = useInput('');
-  const [meetingDate, meetingDateChange] = useInput('');
+  const [joinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, meetingStartDateChange] = useInput('');
   const [meetingEndDate, meetingEndDateChange] = useInput('');
   const [content, contentChange] = useInput('');
 
@@ -23,9 +25,9 @@ const CardCreateForm = () => {
       tag,
       location,
       limitpeople,
-      startDate,
-      endDate,
-      meetingDate,
+      joinStartDate,
+      joinEndDate,
+      meetingStartDate,
       meetingEndDate,
       content,
     });
@@ -69,31 +71,33 @@ const CardCreateForm = () => {
           <WideInput value={location} onChange={locationChange} />
         </WideDivInForm>
         <DivInForm>
+          <StyledH1>모집 기간</StyledH1>
+          <DivForDate>
+            <SmallInput type="date" value={joinStartDate} onChange={joinStartDateChange} />
+            ~
+            <SmallInput type="date" value={joinEndDate} onChange={joinEndDateChange} />
+          </DivForDate>
+        </DivInForm>
+        <DivInForm>
           <StyledH1>인원</StyledH1>
           <StyledOption value={limitpeople} onChange={limitPeopleChange}>
             <option value="" disabled="">
               인원 선택
             </option>
-            <option value="3">3명</option>
-            <option value="4">4명</option>
-            <option value="5">5명</option>
-            <option value="6">6명</option>
-            <option value="7">7명</option>
-            <option value="8">8명</option>
+            {list.map((item) => {
+              return (
+                <option key={item} value={item}>
+                  {item}명
+                </option>
+              );
+            })}
           </StyledOption>
         </DivInForm>
-        <DivInForm>
-          <StyledH1>모집 기간</StyledH1>
-          <DivForDate>
-            <SmallInput type="date" value={startDate} onChange={startDateChange} />
-            ~
-            <SmallInput type="date" value={endDate} onChange={endDateChange} />
-          </DivForDate>
-        </DivInForm>
+
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" value={meetingDate} onChange={meetingDateChange} /> ~
+            <SmallInput type="date" value={meetingStartDate} onChange={meetingStartDateChange} /> ~
             <SmallInput type="date" value={meetingEndDate} onChange={meetingEndDateChange} />
           </DivForDate>
         </DivInForm>

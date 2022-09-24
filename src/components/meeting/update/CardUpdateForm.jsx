@@ -1,15 +1,46 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { apis } from 'api/api';
+import { useInput } from 'hooks/useInput';
 
 const CardUpdateForm = () => {
   const navigate = useNavigate();
+
+  const list = [2, 3, 4, 5, 6, 7, 8];
+
+  const [title, titleChange] = useInput('');
+  const [tag, tagChange] = useInput('');
+  const [location, locationChange] = useInput('');
+  const [limitpeople, limitPeopleChange] = useInput(0);
+  const [joinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, meetingStartDateChange] = useInput('');
+  const [meetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, contentChange] = useInput('');
+
+  const onClickSubmitHandler = async (e) => {
+    e.preventDefault();
+    apis.createMeeting({
+      title,
+      tag,
+      location,
+      limitpeople,
+      joinStartDate,
+      joinEndDate,
+      meetingStartDate,
+      meetingEndDate,
+      content,
+    });
+  };
+
   const onClickGoOut = (e) => {
-    if (window.confirm('수정된 내용이 적용되지 않습니다. 그래도 나가시겠습니까?')) {
+    if (window.confirm('수정 사항이 반영되지 않습니다. 그래도 나가시겠습니까?')) {
       navigate('/meeting/detail');
     } else {
       return e.preventDefault();
     }
   };
+
   return (
     <StyledLayout>
       <ImgDiv>
@@ -29,47 +60,54 @@ const CardUpdateForm = () => {
       <StyledForm>
         <WideDivInForm>
           <StyledH1>제목</StyledH1>
-          <WideInput />
+          <WideInput value={title} onChange={titleChange} />
+        </WideDivInForm>
+        <WideDivInForm>
+          <StyledH1>태그</StyledH1>
+          <WideInput value={tag} onChange={tagChange} />
         </WideDivInForm>
         <WideDivInForm>
           <StyledH1>장소</StyledH1>
-          <WideInput />
+          <WideInput value={location} onChange={locationChange} />
         </WideDivInForm>
-        <DivInForm>
-          <StyledH1>인원</StyledH1>
-          <StyledOption>
-            <option value="" disabled="">
-              인원 선택
-            </option>
-            <option value="3">3명</option>
-            <option value="4">4명</option>
-            <option value="5">5명</option>
-            <option value="6">6명</option>
-            <option value="7">7명</option>
-            <option value="8">8명</option>
-          </StyledOption>
-        </DivInForm>
         <DivInForm>
           <StyledH1>모집 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput type="date" value={joinStartDate} onChange={joinStartDateChange} />
+            ~
+            <SmallInput type="date" value={joinEndDate} onChange={joinEndDateChange} />
           </DivForDate>
         </DivInForm>
         <DivInForm>
+          <StyledH1>인원</StyledH1>
+          <StyledOption value={limitpeople} onChange={limitPeopleChange}>
+            <option value="" disabled="">
+              인원 선택
+            </option>
+            {list.map((item) => {
+              return (
+                <option key={item} value={item}>
+                  {item}명
+                </option>
+              );
+            })}
+          </StyledOption>
+        </DivInForm>
+
+        <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
-            <SmallInput type="date" /> ~
-            <SmallInput type="date" />
+            <SmallInput type="date" value={meetingStartDate} onChange={meetingStartDateChange} /> ~
+            <SmallInput type="date" value={meetingEndDate} onChange={meetingEndDateChange} />
           </DivForDate>
         </DivInForm>
         <WideDivInForm2>
           <StyledH1>내용</StyledH1>
-          <ContentInput />
+          <ContentInput value={content} onChange={contentChange} />
         </WideDivInForm2>
         <ButtonDiv>
           <Button onClick={() => onClickGoOut()}>나가기</Button>
-          <Button>제출 하기</Button>
+          <Button onClick={(e) => onClickSubmitHandler(e)}>제출 하기</Button>
         </ButtonDiv>
       </StyledForm>
     </StyledLayout>

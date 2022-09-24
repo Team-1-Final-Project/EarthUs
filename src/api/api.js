@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: 'http://localhost:3001/',
-  baseURL: 'http://54.180.116.99/',
+  baseURL: `http://54.180.116.99/`, // 카카오 로그인 서버
   // headers: {
   //   'content-type': 'application/json;charset=UTF-8',
   //   accept: 'application/json,',
@@ -33,6 +32,9 @@ export const apis = {
     return response.data;
   },
 
+  //kakao login
+  kakaoLogin: () => api.get(`login/member`),
+
   //comment
   addComment: (content) => api.post('comment', content),
   editComment: (payload) => api.put(`comment/${payload.id}`, payload),
@@ -48,7 +50,8 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
-    //shop
+
+  //shop
   getShopList: async () => {
     const response = await api.get('recommends');
     return response.data;
@@ -75,4 +78,3 @@ export const apis = {
 //     return Promise.reject(error)
 //   }
 // )
-
