@@ -71,6 +71,14 @@ const CardCreateForm = () => {
           <WideInput value={location} onChange={locationChange} />
         </WideDivInForm>
         <DivInForm>
+          <StyledH1>모집 기간</StyledH1>
+          <DivForDate>
+            <SmallInput type="date" value={joinStartDate} onChange={joinStartDateChange} />
+            ~
+            <SmallInput type="date" value={joinEndDate} onChange={joinEndDateChange} />
+          </DivForDate>
+        </DivInForm>
+        <DivInForm>
           <StyledH1>인원</StyledH1>
           <StyledOption value={limitpeople} onChange={limitPeopleChange}>
             <option value="" disabled="">
@@ -85,14 +93,7 @@ const CardCreateForm = () => {
             })}
           </StyledOption>
         </DivInForm>
-        <DivInForm>
-          <StyledH1>모집 기간</StyledH1>
-          <DivForDate>
-            <SmallInput type="date" value={joinStartDate} onChange={joinStartDateChange} />
-            ~
-            <SmallInput type="date" value={joinEndDate} onChange={joinEndDateChange} />
-          </DivForDate>
-        </DivInForm>
+
         <DivInForm>
           <StyledH1>활동 기간</StyledH1>
           <DivForDate>
