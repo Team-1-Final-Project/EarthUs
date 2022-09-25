@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
 import Navbar from 'components/Navbar/ Navbar';
 import KakaoLogin from 'components/login/KakaoLogin';
-import ProfileIcon from 'components/Navbar/ProfileIcon';
 
 const MeetingPage = () => {
   return (
     <div>
       <Navbar />
       <StyledCardLayout1>
+        <KakaoLogin />
         <StyledDiv2>
           <h1>참여중인 모임</h1>
           <Link to="/meeting/create">
@@ -37,8 +37,6 @@ const MeetingPage = () => {
         <MeetingCard />
         <MeetingCard />
       </StyledCardLayout2>
-      <KakaoLogin />
-      <ProfileIcon />
     </div>
   );
 };
