@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const UserInfoCard = () => {
+const UserInfoCard = ({ img, name, email }) => {
   return (
     <>
       <StyledCard>
         <div>
-          <img src="../image/card/차정원.jpg"></img>
+          <img src={img}></img>
         </div>
-        <StyledDetail>Car center</StyledDetail>
-        <StyledDetail2>보유 뱃지</StyledDetail2>
+        <StyledDetail>{name}</StyledDetail>
+        <StyledDetail2>E-mail : {email}</StyledDetail2>
       </StyledCard>
     </>
   );
@@ -50,6 +50,8 @@ const StyledCard = styled.div`
       height: 250px;
       position: relative;
       object-fit: cover;
+      border: 4px solid;
+      border-color: #dadada;
     }
   }
   & > div:last-of-type {

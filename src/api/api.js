@@ -33,6 +33,9 @@ export const apis = {
     return response.data;
   },
 
+  //kakao login
+  kakaoLogin: () => api.get(`login/member`),
+
   //comment
   addComment: (content) => api.post('comment', content),
   editComment: (payload) => api.put(`comment/${payload.id}`, payload),
@@ -48,6 +51,7 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+
   //shop
   getShopList: async () => {
     const response = await api.get('recommends');

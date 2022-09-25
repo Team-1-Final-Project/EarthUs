@@ -1,5 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import ProfileIcon from './ProfileIcon';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -9,13 +12,19 @@ function Navbar() {
     ['zeromoim', 'meeting'],
     ['zeroshop', 'zeroshop'],
   ];
+  const data = useSelector((state) => {
+    return state.login;
+  });
 
   return (
     <nav className="">
       <div className="max-w-6xl px-4 mx-auto">
         <div className="flex items-center justify-center h-20">
-          <div className="text-3xl font-bold text-defaultColor">Earth,us</div>
+          <Link to="/">
+            <div className="text-3xl font-bold text-defaultColor">Earth,us</div>
+          </Link>
         </div>
+        {data.loginState ? <ProfileIcon></ProfileIcon> : null}
         <div className="flex items-center justify-between h-16">
           {list.map((list, index) => (
             <div
