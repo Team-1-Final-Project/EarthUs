@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: 'http://localhost:3001/',
-  baseURL: 'http://54.180.116.99/',
-  // headers: {
-  //   'content-type': 'application/json;charset=UTF-8',
-  //   accept: 'application/json,',
-  // },
-  // withCredentials: true,
+  baseURL: 'http://localhost:3001/',
+  // baseURL: 'http://54.180.116.99/',
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
+  withCredentials: true,
 });
 
 export const apis = {
@@ -48,7 +48,7 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
-    //shop
+  //shop
   getShopList: async () => {
     const response = await api.get('recommends');
     return response.data;
@@ -75,4 +75,3 @@ export const apis = {
 //     return Promise.reject(error)
 //   }
 // )
-
