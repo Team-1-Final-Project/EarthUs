@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
 import Navbar from 'components/Navbar/ Navbar';
 import KakaoLogin from 'components/login/KakaoLogin';
+import ProfileIcon from 'components/Navbar/ProfileIcon';
 
 const MeetingPage = () => {
   return (
@@ -37,6 +38,7 @@ const MeetingPage = () => {
         <MeetingCard />
       </StyledCardLayout2>
       <KakaoLogin />
+      <ProfileIcon />
     </div>
   );
 };

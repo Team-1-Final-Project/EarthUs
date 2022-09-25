@@ -50,6 +50,8 @@ const StyledCard = styled.div`
       height: 250px;
       position: relative;
       object-fit: cover;
+      border: 4px solid;
+      border-color: #dadada;
     }
   }
   & > div:last-of-type {
