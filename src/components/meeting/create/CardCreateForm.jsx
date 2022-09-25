@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { apis } from 'api/api';
 import Preview from './Preview';
 
+export const orange = (str) => {
+  const a = str.split('-');
+  const b = Number(a.join(''));
+  return b;
+};
+
 export default function CardCreateForm() {
   const navigate = useNavigate();
   const [title, titleChange] = useInput('');
@@ -21,33 +27,31 @@ export default function CardCreateForm() {
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-    // apis.createMeeting({
-    //   title,
-    //   tag,
-    //   location,
-    //   limitpeople,
-    //   joinStartDate,
-    //   joinEndDate,
-    //   meetingStartDate,
-    //   meetingEndDate,
-    //   content,
-    //   image,
-    //   console
-    // });
-    console.log(
-      title,
-      tag,
-      location,
-      limitpeople,
-      joinStartDate,
-      joinEndDate,
-      meetingStartDate,
-      meetingEndDate,
-      content,
-      image,
-      console
-    );
-    navigate('/meeting');
+
+    const JSD = orange(joinStartDate);
+    const JED = orange(joinEndDate);
+    const MSD = orange(meetingStartDate);
+    const MED = orange(meetingEndDate);
+
+    if (JSD < JED && MSD < MED && JED <= MSD) {
+      // apis.createMeeting({
+      //   title,
+      //   tag,
+      //   location,
+      //   limitpeople,
+      //   joinStartDate,
+      //   joinEndDate,
+      //   meetingStartDate,
+      //   meetingEndDate,
+      //   content,
+      //   image,
+      //   console
+      // });
+      console.log('yes');
+      navigate('/meeting');
+    } else {
+      alert('날짜 형식에 어긋납니다');
+    }
   };
 
   const onClickGoOut = (e) => {

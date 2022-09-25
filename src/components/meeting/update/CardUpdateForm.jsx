@@ -2,6 +2,7 @@ import { useInput } from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
+import { orange } from '../create/CardCreateForm';
 
 const CardUpdateForm = () => {
   const navigate = useNavigate();
@@ -20,33 +21,31 @@ const CardUpdateForm = () => {
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-    // apis.createMeeting({
-    //   title,
-    //   tag,
-    //   location,
-    //   limitpeople,
-    //   joinStartDate,
-    //   joinEndDate,
-    //   meetingStartDate,
-    //   meetingEndDate,
-    //   content,
-    //   image,
-    //   console
-    // });
-    console.log(
-      title,
-      tag,
-      location,
-      limitpeople,
-      joinStartDate,
-      joinEndDate,
-      meetingStartDate,
-      meetingEndDate,
-      content,
-      image,
-      console
-    );
-    navigate('/meeting');
+
+    const JSD = orange(joinStartDate);
+    const JED = orange(joinEndDate);
+    const MSD = orange(meetingStartDate);
+    const MED = orange(meetingEndDate);
+
+    if (JSD < JED && MSD < MED && JED <= MSD) {
+      // apis.createMeeting({
+      //   title,
+      //   tag,
+      //   location,
+      //   limitpeople,
+      //   joinStartDate,
+      //   joinEndDate,
+      //   meetingStartDate,
+      //   meetingEndDate,
+      //   content,
+      //   image,
+      //   console
+      // });
+      console.log('yes');
+      navigate('/meeting');
+    } else {
+      alert('날짜 형식에 어긋납니다');
+    }
   };
 
   const onClickGoOut = (e) => {
