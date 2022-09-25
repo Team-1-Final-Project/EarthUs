@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import ProfileIcon from './ProfileIcon';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Navbar() {
             <div className="text-3xl font-bold text-defaultColor">Earth,us</div>
           </Link>
         </div>
+        <ProfileIcon></ProfileIcon>
         <div className="flex items-center justify-between h-16">
           {list.map((list, index) => (
             <div
