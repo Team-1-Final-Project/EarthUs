@@ -6,17 +6,11 @@ const ProfileIcon = () => {
     return state.login;
   });
 
-  return (
-    <Div>{data.loginState ? <Icon src={data.image}></Icon> : console.log(data.loginState)}</Div>
-  );
+  return <Icon src={data.image}></Icon>;
 };
 
 export default ProfileIcon;
 
-const Div = styled.div`
-  display: flex;
-  justify-content: end;
-`;
 const Icon = styled.img`
   object-fit: cover;
   border-radius: 50% 50%;

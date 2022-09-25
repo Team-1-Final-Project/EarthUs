@@ -1,3 +1,4 @@
+import ProfileIcon from 'components/Navbar/ProfileIcon';
 import styled from 'styled-components';
 
 const MeetingCard = () => {
@@ -14,13 +15,32 @@ const MeetingCard = () => {
           <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>
           <StyledContentBox></StyledContentBox>
         </StyledDetail>
-        <StyledSubDetail>Written by</StyledSubDetail>
+        <StyledSubDetail>
+          <div>written by </div>
+          <ProfileIcon />
+        </StyledSubDetail>
       </StyledCard>
     </>
   );
 };
 
 export default MeetingCard;
+
+const WriterImage = styled.div``;
+const StyledSubDetail = styled.div`
+  margin-top: 10px;
+  width: 100%;
+  height: 4rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  & > img {
+    width: 1.7rem;
+    height: 1.7rem;
+    margin-left: 5%;
+  }
+`;
 
 const StyledCard = styled.div`
   cursor: pointer;
@@ -32,9 +52,10 @@ const StyledCard = styled.div`
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
   width: 20vw;
   max-width: ${window.innerWidth / 4};
-  height: 35vw;
+  height: 40vw;
   transition: 250ms transform;
   user-select: none;
+  overflow: hidden;
   &:hover {
     transform: scale(1.03);
   }
@@ -51,29 +72,6 @@ const StyledCard = styled.div`
       object-fit: cover;
     }
   }
-  & > div:last-of-type {
-    width: 100%;
-    height: 10%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    & > .title {
-      font-weight: bold;
-      color: black;
-      font-size: 1.75vw;
-      margin: 1rem;
-      word-wrap: normal;
-    }
-    & > .link-to {
-      margin: 1rem;
-      font-weight: bold;
-      font-size: 0.8vw;
-    }
-    & > .link-to:hover {
-      text-decoration: underline;
-    }
-  }
 `;
 
 const StyledDetail = styled.div`
@@ -81,12 +79,7 @@ const StyledDetail = styled.div`
   height: 50%;
   padding: 5%;
 `;
-const StyledSubDetail = styled.div`
-  width: 100%;
-  height: 10%;
-  padding: 5%;
-  color: #333;
-`;
+
 const StyledH1 = styled.h1`
   font-size: 1em;
   margin-bottom: 7%;
