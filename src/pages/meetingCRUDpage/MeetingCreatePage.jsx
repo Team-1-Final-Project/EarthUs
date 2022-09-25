@@ -1,11 +1,11 @@
 import React from 'react';
 import CardCreateForm from 'components/meeting/create/CardCreateForm';
-import Navbar from 'components/Navbar/ Navbar';
+import HomeButton from 'components/Navbar/HomeButton';
 
 const MeetingCreatePage = () => {
   return (
     <div>
-      <Navbar />
+      <HomeButton />
       <CardCreateForm />
     </div>
   );

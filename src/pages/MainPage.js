@@ -4,7 +4,6 @@ import Dailymission from 'components/Main/Dailymission';
 import { apis } from 'api/api';
 import TopPost from 'components/Main/TopPost';
 import Gather from 'components/Main/Gather';
-import KakaoLogin from 'components/login/KakaoLogin';
 
 function MainPage() {
   const [mission, setMission] = useState();
