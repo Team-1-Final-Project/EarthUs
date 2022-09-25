@@ -8,7 +8,7 @@ import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
 import CommentList from 'components/comment/CommentList';
-import MyPageRoute from './sub/MypageRoute';
+import MyPageRoute from './sub/MyPageRoute';
 
 const Router = () => {
   return (
@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/postdetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/kauth" element={<KakaoAuth />} />
-        <Route path="/mypage" element={<MyPageRoute />} />
+        <Route path="/mypage/*" element={<MyPageRoute />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
         <Route path="/comment" element={<CommentList />} />
       </Routes>
