@@ -1,3 +1,7 @@
+하늘색: #3CC2DF
+회색 선: #d3c8c8
+검정글씨: #333
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
