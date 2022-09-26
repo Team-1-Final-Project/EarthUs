@@ -10,7 +10,7 @@ export const Kapi = axios.create({
 });
 
 export const api = axios.create({
-  baseURL: `http://43.201.9.187`,
+  baseURL: ` http://localhost:3001`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
@@ -25,18 +25,21 @@ export const apis = {
     return response.data;
   },
 
-  getBoard: async () => {
-    const response = await api.get('/board');
-    return response.data;
+  getPost: async () => {
+    const response = await api.get('mockboard');
+    return response;
   },
-  getPosts: async () => {
-    const response = await api.get('posts');
-    return response.data;
-  },
-  postHeart: async (boardId, heartOn) => {
-    const response = await api.post('hearts', {
-      boardId: boardId,
-      heartOn: heartOn,
+  // postHeart: async (boardId, heartOn) => {
+  //   const response = await api.post('hearts', {
+  //     boardId: boardId,
+  //     heartOn: heartOn,
+  //   });
+  addPost: async ({ title, image, content, tag }) => {
+    const response = await api.post('board', {
+      title: title,
+      image: image,
+      content: content,
+      tag: tag,
     });
     return response.data;
   },
