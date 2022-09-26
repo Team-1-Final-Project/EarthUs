@@ -1,8 +1,16 @@
 import axios from 'axios';
 
+export const Kapi = axios.create({
+  baseURL: `http://54.180.116.99/`,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
+  withCredentials: true,
+});
+
 export const api = axios.create({
-  baseURL: `http://54.180.116.99/`, // 카카오 로그인 서버
-  // baseURL: `http://43.201.9.187`,
+  baseURL: `http://43.201.9.187`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
@@ -34,7 +42,7 @@ export const apis = {
   },
 
   //kakao login
-  kakaoLogin: () => api.get(`login/member`),
+  kakaoLogin: () => Kapi.get(`login/member`),
 
   //comment
   addComment: (content) => api.post('comment', content),

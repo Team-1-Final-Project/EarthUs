@@ -2,6 +2,7 @@ import { useInput } from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
+import { apis } from 'api/api';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -27,26 +28,26 @@ const CardCreateForm = () => {
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
+    let formData = new FormData();
+    formData.append('file', image);
+
     const JSD = orange(joinStartDate);
     const JED = orange(joinEndDate);
     const MSD = orange(meetingStartDate);
     const MED = orange(meetingEndDate);
 
     if (JSD < JED && MSD < MED && JED <= MSD) {
-      // apis.createMeeting({
-      //   title,
-      //   tag,
-      //   location,
-      //   limitpeople,
-      //   joinStartDate,
-      //   joinEndDate,
-      //   meetingStartDate,
-      //   meetingEndDate,
-      //   content,
-      //   image,
-      //   console
-      // });
-      console.log('yes');
+      apis.createMeeting({
+        title,
+        content,
+        joinStartDate,
+        joinEndDate,
+        meetingStartDate,
+        meetingEndDate,
+        location,
+        limitpeople,
+        image,
+      });
       navigate('/meeting');
     } else {
       alert('날짜 형식에 어긋납니다');
