@@ -8,10 +8,12 @@ const PostList = ({ data, heart, setHeart }) => {
 
   return (
     <>
-      {data &&
-        data.map((post) => {
-          return <Post key={post.boardId} post={post} heart={heart} setHeart={setHeart} />;
-        })}
+      {data?.map((post) => {
+        console.log(post?.data);
+        return (
+          <Post key={post?.data.boardId} data={post?.data} heart={heart} setHeart={setHeart} />
+        );
+      })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>
         <AiOutlinePlus />
       </AddPostButtonStyled>
