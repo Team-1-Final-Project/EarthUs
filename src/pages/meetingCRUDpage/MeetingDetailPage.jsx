@@ -2,11 +2,14 @@ import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from 'components/Navbar/ Navbar';
 
 const MeetingDetailPage = () => {
+  const data = useSelector((state) => {
+    return state.login;
+  });
   return (
     <>
       <Navbar />
@@ -22,7 +25,7 @@ const MeetingDetailPage = () => {
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
-        <UserInfoCard />
+        <UserInfoCard img={data.image} name={data.nickname} email={data.email} />
       </StyledLayout3>
       <StyledLayout2>Member Information</StyledLayout2>
       <StyledLayout3>

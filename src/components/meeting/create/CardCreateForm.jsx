@@ -1,34 +1,53 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { apis } from 'api/api';
 import { useInput } from 'hooks/useInput';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { apis } from 'api/api';
+import Preview from './Preview';
 
-const CardCreateForm = () => {
+export default function CardCreateForm() {
   const navigate = useNavigate();
-
   const [title, titleChange] = useInput('');
   const [tag, tagChange] = useInput('');
   const [location, locationChange] = useInput('');
   const [limitpeople, limitPeopleChange] = useInput(0);
-  const [startDate, startDateChange] = useInput('');
-  const [endDate, endDateChange] = useInput('');
-  const [meetingDate, meetingDateChange] = useInput('');
+  const [joinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, meetingStartDateChange] = useInput('');
   const [meetingEndDate, meetingEndDateChange] = useInput('');
   const [content, contentChange] = useInput('');
+  const [image, setImage] = useState('');
+
+  const list = [2, 3, 4, 5, 6, 7, 8];
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-    apis.createMeeting({
+    // apis.createMeeting({
+    //   title,
+    //   tag,
+    //   location,
+    //   limitpeople,
+    //   joinStartDate,
+    //   joinEndDate,
+    //   meetingStartDate,
+    //   meetingEndDate,
+    //   content,
+    //   image,
+    //   console
+    // });
+    console.log(
       title,
       tag,
       location,
       limitpeople,
-      startDate,
-      endDate,
-      meetingDate,
+      joinStartDate,
+      joinEndDate,
+      meetingStartDate,
       meetingEndDate,
       content,
-    });
+      image,
+      console
+    );
+    navigate('/meeting');
   };
 
   const onClickGoOut = (e) => {
@@ -39,214 +58,240 @@ const CardCreateForm = () => {
     }
   };
 
+  const onChangeImageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   return (
-    <StyledLayout>
-      <ImgDiv>
-        <ImgUploader htmlFor="imgInput">
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="currentColor"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <path d="M11.952 9.778l2.397-5.994A1.778 1.778 0 0 1 16 2.667h16c.727 0 1.38.442 1.65 1.117l2.398 5.994h10.174c.982 0 1.778.796 1.778 1.778v32c0 .981-.796 1.777-1.778 1.777H1.778A1.778 1.778 0 0 1 0 43.556v-32c0-.982.796-1.778 1.778-1.778h10.174zM24 38c6.075 0 11-4.925 11-11s-4.925-11-11-11-11 4.925-11 11 4.925 11 11 11z"></path>
-          </svg>
-          <span>사진 올리기</span>
-        </ImgUploader>
-      </ImgDiv>
-      <StyledForm>
-        <WideDivInForm>
-          <StyledH1>제목</StyledH1>
-          <WideInput value={title} onChange={titleChange} />
-        </WideDivInForm>
-        <WideDivInForm>
-          <StyledH1>태그</StyledH1>
-          <WideInput value={tag} onChange={tagChange} />
-        </WideDivInForm>
-        <WideDivInForm>
-          <StyledH1>장소</StyledH1>
-          <WideInput value={location} onChange={locationChange} />
-        </WideDivInForm>
-        <DivInForm>
-          <StyledH1>인원</StyledH1>
-          <StyledOption value={limitpeople} onChange={limitPeopleChange}>
-            <option value="" disabled="">
-              인원 선택
-            </option>
-            <option value="3">3명</option>
-            <option value="4">4명</option>
-            <option value="5">5명</option>
-            <option value="6">6명</option>
-            <option value="7">7명</option>
-            <option value="8">8명</option>
-          </StyledOption>
-        </DivInForm>
-        <DivInForm>
-          <StyledH1>모집 기간</StyledH1>
-          <DivForDate>
-            <SmallInput type="date" value={startDate} onChange={startDateChange} />
-            ~
-            <SmallInput type="date" value={endDate} onChange={endDateChange} />
-          </DivForDate>
-        </DivInForm>
-        <DivInForm>
-          <StyledH1>활동 기간</StyledH1>
-          <DivForDate>
-            <SmallInput type="date" value={meetingDate} onChange={meetingDateChange} /> ~
-            <SmallInput type="date" value={meetingEndDate} onChange={meetingEndDateChange} />
-          </DivForDate>
-        </DivInForm>
-        <WideDivInForm2>
-          <StyledH1>내용</StyledH1>
-          <ContentInput value={content} onChange={contentChange} />
-        </WideDivInForm2>
-        <ButtonDiv>
-          <Button onClick={() => onClickGoOut()}>나가기</Button>
-          <Button onClick={(e) => onClickSubmitHandler(e)}>제출 하기</Button>
-        </ButtonDiv>
-      </StyledForm>
-    </StyledLayout>
+    <>
+      <div className="mt-20 flex justify-center">
+        <div className="w-5/6 md:grid md:grid-cols-3 md:gap-6 ">
+          <div className="md:col-span-1">
+            <div className="px-4 sm:px-0">
+              <h3 className="text-lg font-medium leading-6 text-gray-900">모임생성</h3>
+              <div className="h-full">
+                <label className="mt-10 block text-sm font-medium text-gray-700">사진 등록</label>
+                <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                  <div className="space-y-1 text-center">
+                    {image ? (
+                      <Preview img={image} />
+                    ) : (
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+
+                    <div className="flex text-sm text-gray-600">
+                      <label
+                        htmlFor="file-upload"
+                        className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                      >
+                        <span>Upload a file</span>
+                        <input
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          className="sr-only"
+                          onChange={(e) => {
+                            onChangeImageHandler(e);
+                          }}
+                        />
+                      </label>
+                      <p className="pl-1">or drag and drop</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-5 md:col-span-2 md:mt-0 ">
+            <form>
+              <div className="shadow sm:overflow-hidden sm:rounded-md">
+                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                  <div className="grid grid-cols-3 gap-6"></div>
+
+                  <div>
+                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                      제목
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="about"
+                        name="about"
+                        rows={1}
+                        className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="제목을 입력해 주세요"
+                        value={title}
+                        onChange={titleChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex">
+                    <div className="w-1/3">
+                      <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                        모집인원
+                      </label>
+                      <div className="mt-1">
+                        <select
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          value={limitpeople}
+                          onChange={limitPeopleChange}
+                        >
+                          <option value="" disabled="">
+                            인원 선택
+                          </option>
+                          {list.map((item) => {
+                            return (
+                              <option key={item} value={item}>
+                                {item}명
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="w-full">
+                      <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                        장소
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className=" h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder="모임 장소를 입력해 주세요"
+                          value={location}
+                          onChange={locationChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex">
+                    <div className="w-1/2">
+                      <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                        모집 기간
+                      </label>
+                      <div className="flex mt-1">
+                        <input
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder=""
+                          type="date"
+                          value={joinStartDate}
+                          onChange={joinStartDateChange}
+                        />
+                        ~
+                        <input
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder=""
+                          type="date"
+                          value={joinEndDate}
+                          onChange={joinEndDateChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="w-1/2">
+                      <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                        활동 기간
+                      </label>
+                      <div className="flex mt-1">
+                        <input
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder=""
+                          type="date"
+                          value={meetingStartDate}
+                          onChange={meetingStartDateChange}
+                        />
+                        ~
+                        <input
+                          id="about"
+                          name="about"
+                          rows={1}
+                          className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          placeholder=""
+                          type="date"
+                          value={meetingEndDate}
+                          onChange={meetingEndDateChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                      내용
+                    </label>
+                    <div className="mt-1">
+                      <textarea
+                        id="about"
+                        name="about"
+                        rows={3}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="내용을 입력해 주세요"
+                        onChange={contentChange}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                      태그
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="about"
+                        name="about"
+                        rows={1}
+                        className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="태그를 입력해 주세요"
+                        value={tag}
+                        onChange={tagChange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
+                  <button
+                    type="submit"
+                    onClick={() => onClickGoOut()}
+                    className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    나가기
+                  </button>
+                  <button
+                    onClick={(e) => onClickSubmitHandler(e)}
+                    className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    제출하기
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
-};
-
-export default CardCreateForm;
-
-const StyledLayout = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding: 5rem 7rem;
-  display: flex;
-  flex-wrap: wrap;
-  border: 40px;
-  color: #333;
-`;
-
-const ImgDiv = styled.div`
-  width: 35%;
-`;
-
-const ImgUploader = styled.div`
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  line-height: 30px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  color: rgb(130, 140, 148);
-  font-size: 15px;
-  font-weight: bold;
-  background-color: rgb(247, 248, 250);
-  border: 1px dashed rgb(218, 220, 224);
-  border-radius: 4px;
-  box-sizing: border-box;
-`;
-
-const StyledForm = styled.form`
-  width: 60%;
-  background-color: #efeded;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-`;
-
-const WideDivInForm = styled.div`
-  height: 12%;
-  width: 100%;
-  margin-left: 40px;
-`;
-const WideDivInForm2 = styled.div`
-  height: 40%;
-  width: 100%;
-  margin-left: 40px;
-  margin-top: 10px;
-`;
-const DivInForm = styled.div`
-  margin-left: 40px;
-  margin-top: 10px;
-`;
-
-const DivForDate = styled.div`
-  display: flex;
-`;
-const StyledH1 = styled.h1`
-  margin-left: 10px;
-  margin-bottom: 10px;
-`;
-const WideInput = styled.input`
-  width: 40em;
-  height: 30px;
-  background-color: white;
-  margin: 1%;
-  border-radius: 20px;
-  padding-left: 20px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const ContentInput = styled.input`
-  width: 40em;
-  height: 70%;
-  background-color: white;
-  margin: 1%;
-  border-radius: 20px;
-  padding-left: 20px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.01);
-  }
-`;
-
-const SmallInput = styled.input`
-  width: 200px;
-  height: 30px;
-  background-color: white;
-  margin: 4px;
-  border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const StyledOption = styled.select`
-  width: 200px;
-  height: 30px;
-  background-color: white;
-  margin: 4px;
-  border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.02);
-  }
-`;
-
-const ButtonDiv = styled.div`
-  width: 100%;
-  padding-right: 10px;
-  margin-bottom: 20px;
-`;
-
-const Button = styled.button`
-  background-color: #edf3ec;
-  color: #3bc2df;
-  padding: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 40px;
-  margin-left: 20px;
-  transition: 100ms transform;
-  &:hover {
-    transform: scale(1.05);
-  }
-  float: right;
-`;
+}

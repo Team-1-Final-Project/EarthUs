@@ -1,6 +1,8 @@
 import React from 'react';
 import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import ProfileIcon from './ProfileIcon';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -13,6 +15,9 @@ function Navbar() {
     ['zeromoim', 'meeting'],
     ['zeroshop', 'zeroshop'],
   ];
+  const data = useSelector((state) => {
+    return state.login;
+  });
 
   return (
     <nav className="">
@@ -35,6 +40,7 @@ function Navbar() {
             </div>
           </div>
         </div>
+        {data.loginState ? <ProfileIcon></ProfileIcon> : null}
         <div className="flex items-center justify-between h-16">
           {list.map((list, index) => (
             <div

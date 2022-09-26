@@ -11,6 +11,7 @@ const MeetingPage = () => {
     <div>
       <Navbar />
       <StyledCardLayout1>
+        <KakaoLogin />
         <StyledDiv2>
           <h1>참여중인 모임</h1>
           <Link to="/meeting/create">
@@ -36,7 +37,6 @@ const MeetingPage = () => {
         <MeetingCard />
         <MeetingCard />
       </StyledCardLayout2>
-      <KakaoLogin />
     </div>
   );
 };
@@ -60,7 +60,7 @@ const Button = styled.button`
 
 const StyledCardLayout1 = styled.div`
   width: 100%;
-  height: 670px;
+  height: 55rem;
   padding: 4rem 5rem;
   gap: 2rem calc(90% * 0.05 / 2);
   display: flex;
@@ -69,7 +69,6 @@ const StyledCardLayout1 = styled.div`
 `;
 const StyledCardLayout2 = styled.div`
   width: 100%;
-  height: 10%;
   padding: 4rem 5rem;
   gap: 2rem calc(90% * 0.05 / 2);
   display: flex;
