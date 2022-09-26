@@ -24,11 +24,10 @@ export const apis = {
     const response = await api.get('mockboard');
     return response;
   },
-  // postHeart: async (boardId, heartOn) => {
-  //   const response = await api.post('hearts', {
-  //     boardId: boardId,
-  //     heartOn: heartOn,
-  //   });
+  getDetail: async (boardId) => {
+    const response = await api.get(`mockboard/${boardId}`);
+    return response;
+  },
   addPost: async ({ title, image, content, tag }) => {
     const response = await api.post('board', {
       title: title,
@@ -36,6 +35,21 @@ export const apis = {
       content: content,
       tag: tag,
     });
+    return response.data;
+  },
+
+  deletePost: async (boardId) => {
+    const response = await api.delete(`mockboard/${boardId}`);
+    return response;
+  },
+
+  postHeart: async ({ boardId }) => {
+    console.log(boardId);
+    const response = await api.put('mockboard', {
+      boardId: boardId,
+    });
+    console.log(response.data);
+
     return response.data;
   },
 
