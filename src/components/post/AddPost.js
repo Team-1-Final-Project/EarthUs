@@ -54,7 +54,7 @@ const AddPost = () => {
         value={tag}
       />
       {tagList?.map((v, i) => {
-        return <div key={i}> {v}</div>;
+        return <div key={i}>{v}</div>;
       })}
       <LabelStyle htmlFor="img">이미지</LabelStyle>
       <InputStyled
@@ -67,29 +67,27 @@ const AddPost = () => {
       <ButtonWrapStyle>
         <ButtonStyle
           onClick={() => {
-            // if (
-            //   titleRef.current.value === '' ||
-            //   contentRef.current.value === '' ||
-            //   tagList.length === 0
-            // ) {
-            //   alert('dlqfurgo');
-            // } else {
-            //   console.log(titleRef.current.value);
-            //   console.log(contentRef.current.value);
-            //   console.log(tagList);
-            // }
-
-            apis
-              .addPost({
-                title: titleRef.current.value,
-                image: image,
-                content: contentRef.current.value,
-                tag: tagList,
-              })
-              .then((res) => {
-                console.log(res);
-              });
-            navigate('/post');
+            if (titleRef.current.value === '') {
+              alert('제목을 입력 해주세요');
+            } else if (contentRef.current.value === '') {
+              alert('내용을 입력 해주세요');
+            } else if (tagList.length === 0) {
+              alert('태그를 추가 해주세요');
+            } else if (image == null) {
+              alert('이미지를 추가 해주세요');
+            } else {
+              apis
+                .addPost({
+                  title: titleRef.current.value,
+                  image: image,
+                  content: contentRef.current.value,
+                  tag: tagList,
+                })
+                .then((res) => {
+                  console.log(res);
+                });
+              navigate('/post');
+            }
           }}
           className="button"
         >
@@ -139,7 +137,7 @@ const InputStyled = styled.input`
   border-radius: 15px;
   padding: 15px;
   margin-top: 10px;
-  height: ${(props) => props.height || '60px'}; ;
+  height: ${(props) => props.height || '60px'};
 `;
 
 const ButtonWrapStyle = styled.div`

@@ -3,16 +3,13 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Post from './Post';
 import { useNavigate } from 'react-router-dom';
 
-const PostList = ({ data, heart, setHeart }) => {
+const PostList = ({ data }) => {
   const navigate = useNavigate();
 
   return (
     <>
       {data?.map((post) => {
-        console.log(post?.data);
-        return (
-          <Post key={post?.data.boardId} data={post?.data} heart={heart} setHeart={setHeart} />
-        );
+        return <Post key={post?.data.boardId} data={post?.data} />;
       })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>
         <AiOutlinePlus />
