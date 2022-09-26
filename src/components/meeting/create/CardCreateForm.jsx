@@ -25,11 +25,21 @@ const CardCreateForm = () => {
 
   const list = [2, 3, 4, 5, 6, 7, 8];
 
+  const data = {
+    title: title,
+    content: content,
+    joinStartDate: joinStartDate,
+    joinEndDate: joinEndDate,
+    meetingStartDate: meetingStartDate,
+    meetingEndDate: meetingEndDate,
+    location: location,
+    limitpeople: limitpeople,
+  };
+
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
     let formData = new FormData();
-    formData.append('file', image);
 
     const JSD = orange(joinStartDate);
     const JED = orange(joinEndDate);
@@ -37,18 +47,10 @@ const CardCreateForm = () => {
     const MED = orange(meetingEndDate);
 
     if (JSD < JED && MSD < MED && JED <= MSD) {
-      apis.createMeeting({
-        title,
-        content,
-        joinStartDate,
-        joinEndDate,
-        meetingStartDate,
-        meetingEndDate,
-        location,
-        limitpeople,
-        image,
-      });
-      navigate('/meeting');
+      formData.append('file', image);
+      formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
+      await apis.createMeeting(formData);
+      // navigate('/meeting');
     } else {
       alert('날짜 형식에 어긋납니다');
     }
@@ -104,7 +106,7 @@ const CardCreateForm = () => {
                         <span>Upload a file</span>
                         <input
                           id="file-upload"
-                          name="file-upload"
+                          name="image"
                           type="file"
                           className="sr-only"
                           onChange={(e) => {

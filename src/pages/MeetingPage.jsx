@@ -3,10 +3,28 @@ import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
-import Navbar from 'components/Navbar/ Navbar';
-import KakaoLogin from 'components/Login/KakaoLogin';
+import Navbar from 'components/navbar/ Navbar';
+import { jsonAPI } from 'api/api';
+import { useEffect } from 'react';
+import KakaoLogin from 'components/login/KakaoLogin';
+import { useState } from 'react';
 
 const MeetingPage = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    jsonAPI
+      .get('meeting')
+      .then((res) => {
+        setData(res.data);
+        console.log(data);
+        data.map((item, idx) => {
+          console.log(`${idx}`, item);
+        });
+      })
+      .catch((err) => console.log('err', err));
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -30,12 +48,13 @@ const MeetingPage = () => {
           <h1>태그 목록</h1>
         </StyledDiv2>
         <TagList />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
+        {data.map((item) => {
+          return (
+            <>
+              <MeetingCard id={item.meetingId} data={item} />
+            </>
+          );
+        })}
       </StyledCardLayout2>
     </div>
   );
