@@ -10,6 +10,7 @@ const PostListPage = () => {
   useEffect(() => {
     apis.getPost('mockboard').then((res) => {
       setData(res.data);
+      console.log(res.data);
     });
   }, []);
   return (

@@ -10,7 +10,7 @@ export const Kapi = axios.create({
 });
 
 export const api = axios.create({
-  baseURL: `http://43.201.9.187`,
+  baseURL: ` http://localhost:3001`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',

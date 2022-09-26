@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
 import Navbar from 'components/Navbar/ Navbar';
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 
 const MeetingPage = () => {
   return (
