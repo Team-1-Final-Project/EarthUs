@@ -1,10 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import Logo from 'assets/Logo.png';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function Navbar() {
   const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+
   const list = [
-    ['zerowaste', 'zerowaste'],
+    ['zerowaste', ''],
     ['community', 'community'],
     ['zeromoim', 'meeting'],
     ['zeroshop', 'zeroshop'],
@@ -13,13 +17,31 @@ function Navbar() {
   return (
     <nav className="">
       <div className="max-w-6xl px-4 mx-auto">
-        <div className="flex items-center justify-center h-20">
-          <div className="text-3xl font-bold text-defaultColor">Earth,us</div>
+        <div className="flex items-center justify-between h-20">
+          <div className="flex items-center text-3xl font-bold text-defaultColor">
+            <img src={Logo} className="w-10 h-10 rounded-full" />
+            <span className="ml-2">Earth, us </span>
+          </div>
+          <div className="flex items-center justify-center ">
+            <div className="w-10 h-10 mr-2 bg-gray-200 rounded-full"></div>
+            <div
+              className="hover:cursor-pointer"
+              onClick={() => {
+                navigate('/mypage');
+              }}
+            >
+              홍길동
+              <span className="text-[12px] text-defaultLine ml-2">로그아웃</span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center justify-between h-16">
           {list.map((list, index) => (
             <div
-              className="text-defaultText hover:cursor-pointer hover:text-defaultColor"
+              className={
+                'text-defaultText hover:cursor-pointer hover:text-defaultColor' +
+                (true ? true : true)
+              }
               key={index}
               onClick={() => {
                 navigate(`/${list[1]}`);
