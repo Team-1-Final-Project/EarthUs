@@ -5,12 +5,12 @@ import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 function TopPost({ post }) {
   return (
     <>
-      <div className="w-9/12 pt-2 m-auto mt-8 text-defaultText">
+      <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
         <div className="text-xl font-bold text-left">주간 인기글</div>
         <Carousel>
           {post &&
             post.map((post) => (
-              <div key={post.id} className="h-40 bg-white border-2 border-defaultLine rounded-xl">
+              <div key={post.id} className="h-40 bg-white default_outline">
                 <div className="flex justify-between">
                   <div className="ml-4">
                     <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-defaultLine">
@@ -30,7 +30,7 @@ function TopPost({ post }) {
                     </div>
                   </div>
                   <div>
-                    <img src={post.image} className="w-40 h-40 " />
+                    <img src={post.image} className="w-40 h-40 rounded-lg" />
                   </div>
                 </div>
               </div>

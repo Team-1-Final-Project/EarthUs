@@ -1,4 +1,5 @@
 import ProfileIcon from 'components/Navbar/ProfileIcon';
+import { AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import styled from 'styled-components';
 
 const MeetingCard = () => {
@@ -18,6 +19,12 @@ const MeetingCard = () => {
         <StyledSubDetail>
           <div>written by </div>
           <ProfileIcon />
+          <div className="w-1/2 flex justify-end items-center">
+            <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
+            40
+            <AiOutlineComment className="m-2" />
+            50
+          </div>
         </StyledSubDetail>
       </StyledCard>
     </>

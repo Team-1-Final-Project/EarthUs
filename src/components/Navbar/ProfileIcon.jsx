@@ -14,6 +14,6 @@ export default ProfileIcon;
 const Icon = styled.img`
   object-fit: cover;
   border-radius: 50% 50%;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
 `;

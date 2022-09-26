@@ -2,8 +2,12 @@ import { useInput } from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
-import { orange } from '../create/CardCreateForm';
-import { useRef } from 'react';
+
+export const orange = (str) => {
+  const a = str.split('-');
+  const b = Number(a.join(''));
+  return b;
+};
 
 const CardUpdateForm = () => {
   const navigate = useNavigate();

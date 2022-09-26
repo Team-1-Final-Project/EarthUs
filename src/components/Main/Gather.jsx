@@ -5,14 +5,14 @@ function Gather({ gather }) {
   console.log(gather);
   return (
     <>
-      <div className="w-9/12 pt-2 m-auto mt-8 text-defaultText">
+      <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
         <div className="text-xl font-bold text-left">신규 모임</div>
         <Carousel>
           {gather &&
             gather.map((gather) => (
               <div
                 key={gather.id}
-                className="relative flex items-center w-10 h-40 bg-white border-2 border-defaultLine rounded-xl"
+                className="relative flex items-center w-10 h-40 bg-white default_outline"
               >
                 <div className="flex justify-between ">
                   <div className="mt-2 ml-4">

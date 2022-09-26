@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.default_outline {
+  @apply outline outline-1 outline-defaultLine rounded-xl;
+}
+
+.hover_button {
+  @apply hover:outline-none hover:bg-defaultColor hover:text-white;
+}
