@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/post" element={<PostListPage />} />
         <Route path="/postdetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
-        <Route path="/kauth" element={<KakaoAuth />} />
+        <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
         <Route path="/comment" element={<CommentList />} />
       </Routes>
