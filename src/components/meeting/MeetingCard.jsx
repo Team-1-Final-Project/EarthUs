@@ -1,6 +1,8 @@
 import ProfileIcon from 'components/navbar/ProfileIcon';
-import { AiFillHeart, AiOutlineComment } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
 import styled from 'styled-components';
+import { IoMdPeople } from 'react-icons/io';
+import { GrLocation } from 'react-icons/gr';
 
 const MeetingCard = (props) => {
   const data = { ...props.data };
@@ -12,13 +14,22 @@ const MeetingCard = (props) => {
         </div>
         <StyledDetail>
           <StyledH1>{data.title}</StyledH1>
-          <StyledH3>
-            {data.joinStartDate}~{data.joinEndDate}
-          </StyledH3>
-          <StyledH3>
-            {data.nowPeople}/{data.limitPeople}명 참여중
-          </StyledH3>
-          <StyledH3>{data.location}</StyledH3>
+          <div className="flex items-center">
+            <AiOutlineCalendar />
+            <StyledH3>
+              {data.joinStartDate}~{data.joinEndDate}
+            </StyledH3>
+          </div>
+          <div className="flex items-center">
+            <IoMdPeople />
+            <StyledH3>
+              {data.nowPeople}/{data.limitPeople}명 참여중
+            </StyledH3>
+          </div>
+          <div className="flex items-center">
+            <GrLocation />
+            <StyledH3>{data.location}</StyledH3>
+          </div>
           <StyledContentBox></StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
@@ -100,6 +111,7 @@ const StyledH1 = styled.h1`
 const StyledH3 = styled.h3`
   font-size: 1em;
   margin: 1%;
+  margin-left: 3%;
   color: #333;
 `;
 const StyledContentBox = styled.div`
