@@ -4,7 +4,7 @@ import UserInfoCard from 'components/meeting/detail/UserInfoCard';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Navbar from 'components/Navbar/ Navbar';
+import Navbar from 'components/navbar/ Navbar';
 
 const MeetingDetailPage = () => {
   const data = useSelector((state) => {

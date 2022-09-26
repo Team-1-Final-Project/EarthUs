@@ -1,6 +1,6 @@
 import React from 'react';
 import CardUpdateForm from 'components/meeting/update/CardUpdateForm';
-import HomeButton from 'components/Navbar/HomeButton';
+import HomeButton from 'components/navbar/HomeButton';
 
 const MeetingUpdatePage = () => {
   return (

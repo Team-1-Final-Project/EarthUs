@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const Kapi = axios.create({
-  baseURL: `http://54.180.116.99/`,
+export const api = axios.create({
+  baseURL: `http://3.37.61.61`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
@@ -9,19 +9,14 @@ export const Kapi = axios.create({
   withCredentials: true,
 });
 
-export const api = axios.create({
-  baseURL: ` http://localhost:3001`,
-  headers: {
-    'content-type': 'application/json;charset=UTF-8',
-    accept: 'application/json,',
-  },
-  withCredentials: true,
+export const jsonAPI = axios.create({
+  baseURL: `http://localhost:3001/`,
 });
 
 export const apis = {
   // mainpage
   getMainPage: async () => {
-    const response = await api.get('/main');
+    const response = await api.get('main');
     return response.data;
   },
 
@@ -59,7 +54,7 @@ export const apis = {
   },
 
   //kakao login
-  kakaoLogin: () => Kapi.get(`login/member`),
+  kakaoLogin: () => api.get(`login/member`),
 
   //comment
   addComment: (content) => api.post('comment', content),
@@ -67,7 +62,12 @@ export const apis = {
   deleteComment: (id) => api.delete(`comment/${id}`),
 
   //meeting
-  createMeeting: (data) => api.post(`meeting`, data),
+  createMeeting: (data) =>
+    api.post(`meeting`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
   applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
   cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
   updateMeeting: (meetingID) => api.update(`meeting/${meetingID}`),
