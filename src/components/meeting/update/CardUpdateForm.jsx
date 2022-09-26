@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
 import { orange } from '../create/CardCreateForm';
+import { useRef } from 'react';
 
 const CardUpdateForm = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const CardUpdateForm = () => {
     if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
       navigate('/meeting');
     } else {
-      return e.preventDefault();
+      return true;
     }
   };
 
@@ -249,6 +250,7 @@ const CardUpdateForm = () => {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="내용을 입력해 주세요"
+                        value={content}
                         onChange={contentChange}
                       />
                     </div>

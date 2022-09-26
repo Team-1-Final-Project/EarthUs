@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: `http://54.180.116.99/`, // 카카오 로그인 서버
-  // headers: {
-  //   'content-type': 'application/json;charset=UTF-8',
-  //   accept: 'application/json,',
-  // },
-  // withCredentials: true,
+  // baseURL: `http://54.180.116.99/`, // 카카오 로그인 서버
+  baseURL: `http://43.201.9.187`,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
+  withCredentials: true,
 });
 
 export const apis = {
