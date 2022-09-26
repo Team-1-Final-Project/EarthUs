@@ -20,18 +20,21 @@ export const apis = {
     return response.data;
   },
 
-  getBoard: async () => {
-    const response = await api.get('board');
-    return response.data;
+  getPost: async () => {
+    const response = await api.get('mockboard');
+    return response;
   },
-  getPosts: async () => {
-    const response = await api.get('posts');
-    return response.data;
-  },
-  postHeart: async (boardId, heartOn) => {
-    const response = await api.post('hearts', {
-      boardId: boardId,
-      heartOn: heartOn,
+  // postHeart: async (boardId, heartOn) => {
+  //   const response = await api.post('hearts', {
+  //     boardId: boardId,
+  //     heartOn: heartOn,
+  //   });
+  addPost: async ({ title, image, content, tag }) => {
+    const response = await api.post('board', {
+      title: title,
+      image: image,
+      content: content,
+      tag: tag,
     });
     return response.data;
   },

@@ -5,22 +5,17 @@ import { apis } from 'api/api';
 
 const PostListPage = () => {
   const [data, setData] = useState();
-  const [heart, setHeart] = useState();
+  const [heart, setHeart] = useState(false);
 
   useEffect(() => {
-    apis.getPosts().then(
-      (res) => {
-        setData(res);
-      },
-      apis.postHeart().then((res) => {
-        console.log(res);
-        setHeart(!heart);
-      })
-    );
+    apis.getPost('mockboard').then((res) => {
+      setData(res.data);
+      console.log(res.data);
+    });
   }, []);
   return (
     <div>
-      <Tag />
+      <Tag tag={data?.tag} />
       <PostList data={data} heart={heart} setHeart={setHeart} />
     </div>
   );
