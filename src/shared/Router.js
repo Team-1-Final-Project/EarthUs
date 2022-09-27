@@ -7,7 +7,6 @@ import KakaoAuth from 'components/login/KakaoAuth';
 import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
-import CommentList from 'components/comment/CommentList';
 import MyPageRoute from './sub/MypageRoute';
 
 const Router = () => {
@@ -22,7 +21,6 @@ const Router = () => {
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
-        <Route path="/comment" element={<CommentList />} />
       </Routes>
     </BrowserRouter>
   );

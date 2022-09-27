@@ -1,20 +1,3 @@
-// import styled from 'styled-components';
-
-// const PostDetail = () => {
-//   return <ContainerStyled>ddd</ContainerStyled>;
-// };
-
-// const ContainerStyled = styled.div`
-//   width: 80%;
-//   height: 300px;
-//   margin: auto;
-//   margin-top: 2em;
-//   padding: 20px;
-//   border: 1px solid #969696;
-//   border-radius: 15px;
-// `;
-// export default PostDetail;
-
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,49 +10,67 @@ const PostDetail = ({ post, heart, setHeart }) => {
   const [postData, setPostData] = useState();
 
   const getPosts = async () => {
-    const { data } = await apis.getPosts(`/board/${params.id}`);
-    setPostData(data);
+    const { data } = await apis.getDetail(params.id);
+    setPostData(data.data);
   };
-
+  console.log(postData);
   useEffect(() => {
     getPosts();
   }, []);
   return (
     <ContainerStyled>
       <div className="TopWrap">
-        <TagStyled>{post && post.tag}</TagStyled>
-        <TimeStyled>{post && post.createdAt}</TimeStyled>
+        <TagStyled>{postData?.tag}</TagStyled>
+        <TimeStyled>{postData?.createAt}</TimeStyled>
       </div>
 
       <ContentsContainerStyled>
-        <div className="profileWrap">
-          <ProfileStyled>
-            <img className="img" src={post && post.profileimage} alt="profileimg" />
-          </ProfileStyled>
-          <NameStyled>{post && post.writerName}</NameStyled>
-        </div>
-
-        <div>
-          <TitleStyled>{post && post.title}</TitleStyled>
-          <ContentStyled>{post && post.content}</ContentStyled>
-        </div>
-
         <ImageStyled>
-          <img className="img" src={post && post.image} alt="img" />
+          <img className="img" src={postData?.image} alt="img" />
         </ImageStyled>
 
+        <TitleWrapStyled>
+          <TitleStyled>{postData?.title}</TitleStyled>
+          <ContentStyled>{postData?.content}</ContentStyled>
+        </TitleWrapStyled>
+      </ContentsContainerStyled>
+
+      <WrapStyled>
         <IconContainerstyled>
-          <div>
+          <div className="iconWrap">
             {heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{post && post.heartNums}</span>
+            <span className="count">{postData?.heartNums}</span>
           </div>
 
-          <div>
+          <div className="iconWrap">
             <AiOutlineComment />
-            <span className="count">{post && post.commentNums}</span>
+            <span className="count">11</span>
           </div>
         </IconContainerstyled>
-      </ContentsContainerStyled>
+        <ProfileButtonWrap>
+          <div className="profileWrap">
+            <ProfileStyled>
+              <img className="img" src={postData?.profileImage} alt="profileimg" />
+            </ProfileStyled>
+            <NameStyled>{postData?.writerName}</NameStyled>
+          </div>
+          <ButtonStyled>
+            <div className="button">수정</div>
+            <div
+              className="button"
+              onClick={() =>
+                // alert('게시물을 삭제하시겠습니까?')
+                {
+                  navigate(-1);
+                  apis.deletePost(postData?.boardId);
+                }
+              }
+            >
+              삭제
+            </div>
+          </ButtonStyled>
+        </ProfileButtonWrap>
+      </WrapStyled>
     </ContainerStyled>
   );
 };
@@ -79,34 +80,24 @@ const ContainerStyled = styled.div`
   flex-direction: column;
   width: 80%;
   min-width: 400px;
-  height: 250px;
   margin: auto;
   margin-top: 2em;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   border: 1px solid #969696;
   border-radius: 15px;
   .TopWrap {
     display: flex;
     justify-content: space-between;
   }
-  @media (max-width: 900px) {
-    height: 405px;
-    width: 80%;
-  }
 `;
 
 const ContentsContainerStyled = styled.div`
-  display: grid;
-  grid-template-columns: 130px auto 170px;
-  .profileWrap {
-    display: flex;
-    align-items: top;
-    margin: 0;
-  }
-  @media (max-width: 900px) {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: row;
+`;
+
+const TitleWrapStyled = styled.div`
+  margin-left: 60px;
 `;
 
 const TagStyled = styled.span`
@@ -126,11 +117,10 @@ const TimeStyled = styled.span`
 `;
 
 const ProfileStyled = styled.div`
-  width: 50px;
+  width: 75px;
   height: 50px;
   border-radius: 70%;
   overflow: hidden;
-  margin-bottom: 10px;
   .img {
     width: 100%;
     height: 100%;
@@ -139,11 +129,8 @@ const ProfileStyled = styled.div`
 `;
 
 const NameStyled = styled.span`
-  margin-left: 10px;
   color: #333;
   font-size: 14px;
-  position: relative;
-  top: 15px;
 `;
 
 const TitleStyled = styled.h1`
@@ -160,9 +147,11 @@ const ContentStyled = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 900px) {
-    -webkit-line-clamp: 3;
-  }
+`;
+
+const WrapStyled = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const IconContainerstyled = styled.div`
@@ -170,8 +159,6 @@ const IconContainerstyled = styled.div`
   align-items: center;
   font-size: 17px;
   color: #595f63;
-  position: relative;
-  bottom: 20px;
   .count {
     margin-right: 10px;
     margin-left: 5px;
@@ -180,16 +167,32 @@ const IconContainerstyled = styled.div`
     display: flex;
     align-items: center;
   }
-  @media (max-width: 900px) {
-    justify-content: flex-end;
+`;
+
+const ProfileButtonWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  .profileWrap {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+`;
+
+const ButtonStyled = styled.div`
+  color: black;
+  .button {
+    border: 1px solid #d3c8c8;
+    /* border-radius: 10px; */
+    padding: 0 20px;
   }
 `;
 
 const ImageStyled = styled.div`
-  width: 170px;
-  height: 170px;
-  max-width: 250px;
-  max-height: 250px;
+  width: 40%;
+  height: 40%;
+  max-width: 300px;
+  max-height: 300px;
   border-radius: 10px;
   overflow: hidden;
 
@@ -197,11 +200,6 @@ const ImageStyled = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  @media (max-width: 900px) {
-    margin-top: 15px;
-    width: 240px;
-    height: 140px;
   }
 `;
 

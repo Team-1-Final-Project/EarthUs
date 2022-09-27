@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
+import { apis } from 'api/api';
 
-const Post = ({ data, heart, setHeart }) => {
+const Post = ({ data }) => {
   const navigate = useNavigate();
-  console.log(data, heart, setHeart);
 
   return (
     <ContainerStyled
@@ -39,11 +39,13 @@ const Post = ({ data, heart, setHeart }) => {
           <div
             className="iconWrap"
             onClick={(e) => {
-              setHeart(!heart);
+              apis.postHeart({
+                boardId: data?.boardId,
+              });
               e.stopPropagation();
             }}
           >
-            {heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+            {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
             <span className="count">{data?.heartNums}</span>
           </div>
           <div
