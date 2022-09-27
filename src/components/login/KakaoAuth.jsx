@@ -15,7 +15,7 @@ const KakaoAuth = () => {
       .then((res) => {
         const ACCESS_TOKEN = res.headers['authorization'];
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
-        api.defaults.headers.common['authorization'] = ACCESS_TOKEN;
+        api.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         apis
           .kakaoLogin()
           .then((res) => {
