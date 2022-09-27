@@ -9,10 +9,18 @@ import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
   const [data, setData] = useState();
-
   const [selectedTag, setSelectedTag] = useState('');
 
-  const tags = ['전체보기', '챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품'];
+  const tags = [
+    '전체보기',
+    '챌린지',
+    '플로깅',
+    '비건',
+    '재활용',
+    '이모저모(친목)',
+    '반려용품',
+    '기타',
+  ];
 
   const tagHandler = async (tag) => {
     if (selectedTag === tag) return;
@@ -20,14 +28,14 @@ const MeetingPage = () => {
     if (tag === '전체보기') {
       try {
         const res = await apis.getAllMeeting();
-        setData(res.data);
+        setData(res.data.data);
       } catch (err) {
         alert(err);
       }
     } else {
       try {
         const res = await apis.searchMeetingTag(tag);
-        setData(res.data);
+        setData(res.data.data);
       } catch (err) {
         alert(err);
       }
