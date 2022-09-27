@@ -9,6 +9,7 @@ const PostList = ({ data }) => {
   return (
     <>
       {data?.map((post) => {
+        console.log(post);
         return <Post key={post?.data.boardId} data={post?.data} />;
       })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>

@@ -11,6 +11,7 @@ const PostListPage = () => {
       setData(res.data);
     });
   }, []);
+  console.log(data);
   return (
     <div>
       <Tag tag={data?.tag} />

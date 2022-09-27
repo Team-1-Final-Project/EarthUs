@@ -4,14 +4,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { apis } from 'api/api';
 
-const PostDetail = ({ post, heart, setHeart }) => {
+const PostDetail = ({ heart }) => {
   const navigate = useNavigate();
   const params = useParams();
   const [postData, setPostData] = useState();
 
   const getPosts = async () => {
     const { data } = await apis.getDetail(params.id);
-    setPostData(data.data);
+    setPostData(data);
+    console.log(data);
   };
   console.log(postData);
   useEffect(() => {

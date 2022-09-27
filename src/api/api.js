@@ -21,15 +21,15 @@ export const apis = {
   },
 
   getPost: async () => {
-    const response = await api.get('mockboard');
+    const response = await jsonAPI.get('mockboard');
     return response;
   },
   getDetail: async (boardId) => {
-    const response = await api.get(`mockboard/${boardId}`);
+    const response = await jsonAPI.get(`mockboard/data/${boardId}`);
     return response;
   },
   addPost: async ({ title, image, content, tag }) => {
-    const response = await api.post('board', {
+    const response = await jsonAPI.post('board', {
       title: title,
       image: image,
       content: content,
