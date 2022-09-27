@@ -11,6 +11,15 @@ const Carousel = ({ children }) => {
     slidesToShow: 2,
     slidesToScroll: 2,
     arrows: true,
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (

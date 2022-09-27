@@ -1,8 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
 
 function Gather({ gather }) {
-  console.log(gather);
+  const navigate = useNavigate();
   return (
     <>
       <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
@@ -28,15 +29,20 @@ function Gather({ gather }) {
                       <div>장소 : 서울 어딘가</div>
                     </div>
                   </div>
-                  <div>
-                    <img src={gather.image} className="w-40 h-40 rounded-lg" />
+                  <div className="w-1/3">
+                    <img src={gather.image} className="w-full h-40 rounded-lg" />
                   </div>
                 </div>
               </div>
             ))}
         </Carousel>
         <div className="mt-4 text-center">
-          <button className="w-48 p-1 mt-4 text-white rounded-3xl bg-defaultColor">
+          <button
+            className="w-48 p-1 mt-4 default_button"
+            onClick={() => {
+              navigate('/meeting');
+            }}
+          >
             다른 모임 더 보러가기
           </button>
         </div>
