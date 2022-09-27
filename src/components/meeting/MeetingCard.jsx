@@ -1,6 +1,6 @@
 import ProfileIcon from 'components/navbar/ProfileIcon';
-import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
 import styled from 'styled-components';
+import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
 
