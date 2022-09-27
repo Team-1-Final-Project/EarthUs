@@ -2,8 +2,8 @@ import React from 'react';
 
 function Dailymission({ mission }) {
   return (
-    <div className="flex justify-center">
-      {mission && (
+    <>
+      <div className="flex justify-center">
         <div className="flex flex-col items-center justify-center w-8/12 h-40 mt-8 default_outline">
           <div className="text-2xl">
             오늘의 미션은&nbsp;
@@ -17,8 +17,8 @@ function Dailymission({ mission }) {
           </div>
           <button className="w-20 p-1 default_button">미션 성공</button>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 

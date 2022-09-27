@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
+import { MdPeopleOutline } from 'react-icons/md';
 
 function Gather({ gather }) {
   const navigate = useNavigate();
@@ -23,8 +24,11 @@ function Gather({ gather }) {
                     </div>
                     <div className="mt-2 text-sm">
                       <div>일시 : {gather.period}</div>
-                      <div>
-                        참여 인원 : {gather.nowPeople} / {gather.limitPeople}
+                      <div className="flex flex-row items-center">
+                        <MdPeopleOutline />
+                        <span>
+                          &nbsp;참여 인원 : {gather.nowPeople} / {gather.limitPeople}
+                        </span>
                       </div>
                       <div>장소 : 서울 어딘가</div>
                     </div>

@@ -45,6 +45,7 @@ function TopPost({ post }) {
             className="w-48 p-1 mt-4 default_button"
             onClick={() => {
               navigate('/community');
+
             }}
           >
             다른 글 더 보러가기
