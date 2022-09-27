@@ -6,6 +6,8 @@ import { GrLocation } from 'react-icons/gr';
 
 const MeetingCard = (props) => {
   const data = { ...props.data };
+  const admin = data.admin;
+  console.log(admin);
   return (
     <>
       <StyledCard>
@@ -33,8 +35,8 @@ const MeetingCard = (props) => {
           <StyledContentBox></StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
-          <div>written by </div>
-          <ProfileIcon />
+          <div>written by {admin && admin.nickname}</div>
+          <ProfileIcon image={admin && admin.profileImage} />
           <div className="w-1/2 flex justify-end items-center">
             <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
             40

@@ -15,7 +15,7 @@ const CardCreateForm = () => {
   const [title, titleChange] = useInput('');
   const [tag, tagChange] = useInput('');
   const [location, locationChange] = useInput('');
-  const [limitpeople, limitPeopleChange] = useInput(0);
+  const [limitPeople, limitPeopleChange] = useInput(0);
   const [joinStartDate, joinStartDateChange] = useInput('');
   const [joinEndDate, joinEndDateChange] = useInput('');
   const [meetingStartDate, meetingStartDateChange] = useInput('');
@@ -33,7 +33,7 @@ const CardCreateForm = () => {
     meetingStartDate: meetingStartDate,
     meetingEndDate: meetingEndDate,
     location: location,
-    limitpeople: limitpeople,
+    limitPeople: limitPeople,
   };
 
   const onClickSubmitHandler = async (e) => {
@@ -49,7 +49,10 @@ const CardCreateForm = () => {
     if (JSD < JED && MSD < MED && JED <= MSD) {
       formData.append('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
-      await apis.createMeeting(formData);
+      await apis
+        .createMeeting(formData)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
       // navigate('/meeting');
     } else {
       alert('날짜 형식에 어긋납니다');
@@ -154,7 +157,7 @@ const CardCreateForm = () => {
                           name="about"
                           rows={1}
                           className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          value={limitpeople}
+                          value={limitPeople}
                           onChange={limitPeopleChange}
                         >
                           <option value="" disabled="">
