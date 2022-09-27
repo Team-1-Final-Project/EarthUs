@@ -1,13 +1,16 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: `http://54.180.116.99/`, // 카카오 로그인 서버
-  // baseURL: `http://43.201.9.187`,
+  baseURL: `http://3.37.61.61`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
   },
   withCredentials: true,
+});
+
+export const jsonAPI = axios.create({
+  baseURL: `http://localhost:3001/`,
 });
 
 export const apis = {
@@ -37,9 +40,9 @@ export const apis = {
   kakaoLogin: () => api.get(`login/member`),
 
   //comment
-  addComment: (content) => api.post('comment', content),
-  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
-  deleteComment: (id) => api.delete(`comment/${id}`),
+  addComment: (content) => api.post('/comment', content),
+  editComment: (payload) => api.put(`/comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
   createMeeting: (data) => api.post(`meeting`, data),
@@ -51,6 +54,9 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+
+  //tag
+  searchMeetingTag: (meetingTagName) => api.get(`/meeting?tag=${meetingTagName}`),
 
   //shop
   getShopList: async () => {

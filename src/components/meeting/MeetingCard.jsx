@@ -1,4 +1,4 @@
-import ProfileIcon from 'components/Navbar/ProfileIcon';
+import ProfileIcon from 'components/navbar/ProfileIcon';
 import { AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import styled from 'styled-components';
 

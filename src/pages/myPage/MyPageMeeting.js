@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from 'components/Navbar/ Navbar';
+import Navbar from 'components/navbar/ Navbar';
 import MenuBar from 'components/mypage/MenuBar';
 import Meeting from 'components/mypage/Meeting';
 

@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import TagList from 'components/meeting/TagList';
-import Navbar from 'components/Navbar/ Navbar';
+import Tag from 'components/tag/Tag';
+import Navbar from 'components/navbar/ Navbar';
+import { jsonAPI, apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
+  const [data, setData] = useState([]);
+  const [selectedTag, setSelectedTag] = useState('');
+
+  const tags = ['전체보기', '챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품'];
+
+  const tagHandler = async (tag) => {
+    if (selectedTag === tag) return;
+    setSelectedTag(tag);
+    if (tag === '전체보기') {
+      try {
+        const res = await apis.getAllMeeting();
+        setData(res.data);
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      try {
+        const res = await apis.searchMeetingTag(tag);
+        setData(res.data);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    jsonAPI
+      .get('meeting')
+      .then((res) => {
+        setData(res.data);
+        console.log(data);
+        data.map((item, idx) => {
+          console.log(`${idx}`, item);
+        });
+      })
+      .catch((err) => console.log('err', err));
+    setSelectedTag('전체보기');
+  }, []);
+
+  console.log(data);
+
   return (
     <div>
       <Navbar />
@@ -29,13 +71,18 @@ const MeetingPage = () => {
         <StyledDiv2>
           <h1>태그 목록</h1>
         </StyledDiv2>
-        <TagList />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
+        <StyledTagList>
+          {tags.map((tag) => (
+            <Tag key={tag} selectedTag={selectedTag} tag={tag} tagHandler={tagHandler} />
+          ))}
+        </StyledTagList>
+        {data.map((item) => {
+          return (
+            <>
+              <MeetingCard id={item.meetingId} data={item} />
+            </>
+          );
+        })}
       </StyledCardLayout2>
     </div>
   );
@@ -84,4 +131,8 @@ const StyledDiv2 = styled.div`
     font-weight: 700;
     position: relative;
   }
+`;
+const StyledTagList = styled.div`
+  display: flex;
+  width: 100vw;
 `;

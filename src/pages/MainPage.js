@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from 'components/Navbar/ Navbar';
+import Navbar from 'components/navbar/ Navbar';
 import Dailymission from 'components/Main/Dailymission';
 import { apis } from 'api/api';
 import TopPost from 'components/Main/TopPost';
