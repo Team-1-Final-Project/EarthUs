@@ -9,7 +9,6 @@ import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
   const [data, setData] = useState();
-
   const [selectedTag, setSelectedTag] = useState('');
 
   const tags = [
@@ -29,7 +28,7 @@ const MeetingPage = () => {
     if (tag === '전체보기') {
       try {
         const res = await apis.getAllMeeting();
-        setData(res.data);
+        setData(res.data.data);
       } catch (err) {
         alert(err);
       }
