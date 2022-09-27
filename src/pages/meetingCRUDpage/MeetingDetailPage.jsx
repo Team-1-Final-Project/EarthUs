@@ -43,16 +43,10 @@ const MeetingDetailPage = () => {
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
-        <UserInfoCard img={data.image} name={data.nickname} email={data.email} />
+        <UserInfoCard data={detailData} />
       </StyledLayout3>
       <StyledLayout2>Member Information</StyledLayout2>
-      <StyledLayout3>
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-      </StyledLayout3>
+      <StyledLayout3></StyledLayout3>
     </div>
   );
 };
