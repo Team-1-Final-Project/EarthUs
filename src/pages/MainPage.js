@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from 'components/navbar/ Navbar';
-import Dailymission from 'components/Main/Dailymission';
+import Dailymission from 'components/main/Dailymission';
 import { apis } from 'api/api';
-import TopPost from 'components/Main/TopPost';
-import Gather from 'components/Main/Gather';
+import TopPost from 'components/main/TopPost';
+import Gather from 'components/main/Gather';
 // import LoginGoogle from 'components/login/LoginGoogle';
 import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';

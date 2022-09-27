@@ -9,6 +9,7 @@ import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
   const [data, setData] = useState([]);
+
   const [selectedTag, setSelectedTag] = useState('');
 
   const tags = ['전체보기', '챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품'];
@@ -46,8 +47,6 @@ const MeetingPage = () => {
       .catch((err) => console.log('err', err));
     setSelectedTag('전체보기');
   }, []);
-
-  console.log(data);
 
   return (
     <div>

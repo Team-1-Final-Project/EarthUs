@@ -11,7 +11,7 @@ const KakaoAuth = () => {
 
   useEffect(() => {
     api
-      .get(`kauth?code=${code}`)
+      .get(`login/kakao?code=${code}`)
       .then((res) => {
         const ACCESS_TOKEN = res.headers['authorization'];
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
@@ -19,14 +19,14 @@ const KakaoAuth = () => {
         apis
           .kakaoLogin()
           .then((res) => {
-            console.log(res);
+            console.log('res', res);
             const nickname = res.data.nickname;
             const image = res.data.profile_image;
             const email = res.data.email;
             dispatch(getprofile({ nickname, image, email }));
             navigate('/meeting');
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log('err', err));
       })
       .catch((err) => {
         console.log(err);

@@ -2,18 +2,23 @@ import ProfileIcon from 'components/navbar/ProfileIcon';
 import { AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import styled from 'styled-components';
 
-const MeetingCard = () => {
+const MeetingCard = (props) => {
+  const data = { ...props.data };
   return (
     <>
       <StyledCard>
         <div>
-          <img src="image/card/cardimg.jpg"></img>
+          <img src={data.meetingImage}></img>
         </div>
         <StyledDetail>
-          <StyledH1>아차산 플로깅 주2회</StyledH1>
-          <StyledH3>22.10.22~22.12.30</StyledH3>
-          <StyledH3>3/10명 참여중</StyledH3>
-          <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>
+          <StyledH1>{data.title}</StyledH1>
+          <StyledH3>
+            {data.joinStartDate}~{data.joinEndDate}
+          </StyledH3>
+          <StyledH3>
+            {data.nowPeople}/{data.limitPeople}명 참여중
+          </StyledH3>
+          <StyledH3>{data.location}</StyledH3>
           <StyledContentBox></StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>

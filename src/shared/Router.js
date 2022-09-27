@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
-import KakaoAuth from 'components/login/KakaoAuth';
+import KakaoAuth from 'components/Login/KakaoAuth';
 import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
@@ -19,7 +19,7 @@ const Router = () => {
         <Route path="/post" element={<PostListPage />} />
         <Route path="/postdetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
-        <Route path="/kauth" element={<KakaoAuth />} />
+        <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
       </Routes>
     </BrowserRouter>

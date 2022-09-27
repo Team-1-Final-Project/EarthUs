@@ -16,23 +16,40 @@ export const jsonAPI = axios.create({
 export const apis = {
   // mainpage
   getMainPage: async () => {
-    const response = await api.get('/main');
+    const response = await api.get('main');
     return response.data;
   },
 
-  getBoard: async () => {
-    const response = await api.get('/board');
-    return response.data;
+  getPost: async () => {
+    const response = await api.get('mockboard');
+    return response;
   },
-  getPosts: async () => {
-    const response = await api.get('posts');
-    return response.data;
+  getDetail: async (boardId) => {
+    const response = await api.get(`mockboard/${boardId}`);
+    return response;
   },
-  postHeart: async (boardId, heartOn) => {
-    const response = await api.post('hearts', {
-      boardId: boardId,
-      heartOn: heartOn,
+  addPost: async ({ title, image, content, tag }) => {
+    const response = await api.post('board', {
+      title: title,
+      image: image,
+      content: content,
+      tag: tag,
     });
+    return response.data;
+  },
+
+  deletePost: async (boardId) => {
+    const response = await api.delete(`mockboard/${boardId}`);
+    return response;
+  },
+
+  postHeart: async ({ boardId }) => {
+    console.log(boardId);
+    const response = await api.put('mockboard', {
+      boardId: boardId,
+    });
+    console.log(response.data);
+
     return response.data;
   },
 
@@ -45,7 +62,12 @@ export const apis = {
   deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
-  createMeeting: (data) => api.post(`meeting`, data),
+  createMeeting: (data) =>
+    api.post(`meeting`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
   applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
   cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
   updateMeeting: (meetingID) => api.update(`meeting/${meetingID}`),
