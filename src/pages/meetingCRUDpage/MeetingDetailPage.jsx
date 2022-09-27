@@ -8,8 +8,10 @@ import Navbar from 'components/navbar/ Navbar';
 import { useEffect } from 'react';
 import { apis } from 'api/api';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MeetingDetailPage = () => {
+  const navigate = useNavigate();
   const data = useSelector((state) => {
     return state.login;
   });
@@ -27,6 +29,17 @@ const MeetingDetailPage = () => {
       .catch((err) => console.log('err', err, params));
   }, []);
 
+  const onClickDelete = () => {
+    apis
+      .deleteMeeting(params)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.data);
+        navigate('/meeting');
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <Navbar />
@@ -38,7 +51,7 @@ const MeetingDetailPage = () => {
         <Link to={`/meeting/update/${params}`}>
           <Button>수정 하기</Button>
         </Link>
-        <Button>삭제 하기</Button>
+        <Button onClick={() => onClickDelete()}>삭제 하기</Button>
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
