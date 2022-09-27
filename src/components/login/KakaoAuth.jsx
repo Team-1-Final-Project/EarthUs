@@ -15,13 +15,13 @@ const KakaoAuth = () => {
       .then((res) => {
         const ACCESS_TOKEN = res.headers['authorization'];
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
-        api.defaults.headers.common['authorization'] = ACCESS_TOKEN;
+        api.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         apis
           .kakaoLogin()
           .then((res) => {
             console.log('res', res);
             const nickname = res.data.nickname;
-            const image = res.data.profile_image;
+            const image = res.data.profileImage;
             const email = res.data.email;
             dispatch(getprofile({ nickname, image, email }));
             navigate('/meeting');

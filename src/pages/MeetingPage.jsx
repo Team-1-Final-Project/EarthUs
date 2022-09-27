@@ -8,11 +8,19 @@ import { jsonAPI, apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState('');
 
-  const tags = ['전체보기', '챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품'];
+  const tags = [
+    '전체보기',
+    '챌린지',
+    '플로깅',
+    '비건',
+    '재활용',
+    '이모저모(친목)',
+    '반려용품',
+    '기타',
+  ];
 
   const tagHandler = async (tag) => {
     if (selectedTag === tag) return;
@@ -20,14 +28,14 @@ const MeetingPage = () => {
     if (tag === '전체보기') {
       try {
         const res = await apis.getAllMeeting();
-        setData(res.data);
+        setData(res.data.data);
       } catch (err) {
         alert(err);
       }
     } else {
       try {
         const res = await apis.searchMeetingTag(tag);
-        setData(res.data);
+        setData(res.data.data);
       } catch (err) {
         alert(err);
       }
@@ -35,14 +43,11 @@ const MeetingPage = () => {
   };
 
   useEffect(() => {
-    jsonAPI
-      .get('meeting')
+    apis
+      .getAllMeeting()
       .then((res) => {
-        setData(res.data);
+        setData(res.data.data);
         console.log(data);
-        data.map((item, idx) => {
-          console.log(`${idx}`, item);
-        });
       })
       .catch((err) => console.log('err', err));
     setSelectedTag('전체보기');
@@ -75,16 +80,17 @@ const MeetingPage = () => {
             <Tag key={tag} selectedTag={selectedTag} tag={tag} tagHandler={tagHandler} />
           ))}
         </StyledTagList>
-        {data.map((item) => {
-          return (
-            <Link
-              style={{ display: 'flex', width: '20vw' }}
-              to={`/meeting/detail/${item.meetingId}`}
-            >
-              <MeetingCard id={item.meetingId} data={item} />
-            </Link>
-          );
-        })}
+        {data &&
+          data.map((item) => {
+            return (
+              <Link
+                style={{ display: 'flex', width: '20vw' }}
+                to={`/meeting/detail/${item.meetingId}`}
+              >
+                <MeetingCard id={item.meetingId} data={item} />
+              </Link>
+            );
+          })}
       </StyledCardLayout2>
     </div>
   );

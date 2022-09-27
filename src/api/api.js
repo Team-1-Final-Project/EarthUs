@@ -79,6 +79,7 @@ export const apis = {
 
   //tag
   searchMeetingTag: (meetingTagName) => api.get(`/meeting?tag=${meetingTagName}`),
+  searchPostTag: (postTagName) => api.get(`/board?tag=${postTagName}`),
 
   //shop
   getShopList: async () => {

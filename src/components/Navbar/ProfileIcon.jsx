@@ -1,12 +1,9 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-const ProfileIcon = () => {
-  const data = useSelector((state) => {
-    return state.login;
-  });
+const ProfileIcon = (props) => {
+  const img = props.image;
 
-  return <Icon src={data.image}></Icon>;
+  return <Icon src={img}></Icon>;
 };
 
 export default ProfileIcon;
