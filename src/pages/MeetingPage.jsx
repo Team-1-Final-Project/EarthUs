@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/ Navbar';
+<<<<<<< HEAD
+import { jsonAPI, api } from 'api/api';
+import { useEffect } from 'react';
+=======
 import { jsonAPI, apis } from 'api/api';
+>>>>>>> 28cc91f7fac44a98ea16b385e481dd4943cce73c
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
@@ -77,9 +82,12 @@ const MeetingPage = () => {
         </StyledTagList>
         {data.map((item) => {
           return (
-            <>
+            <Link
+              style={{ display: 'flex', width: '20vw' }}
+              to={`/meeting/detail/${item.meetingId}`}
+            >
               <MeetingCard id={item.meetingId} data={item} />
-            </>
+            </Link>
           );
         })}
       </StyledCardLayout2>
