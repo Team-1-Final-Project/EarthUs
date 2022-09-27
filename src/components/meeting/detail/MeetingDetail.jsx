@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const MeetingDetail = () => {
+const MeetingDetail = (props) => {
+  const detail = { ...props.data };
   return (
     <>
       <StyledCard>
@@ -12,7 +13,7 @@ const MeetingDetail = () => {
             <Tagbutton>#아차산</Tagbutton>
             <Tagbutton>#플로깅</Tagbutton>
           </TagListLayout>
-          <StyledH1>아차산 플로깅 주2회</StyledH1>
+          <StyledH1>{detail.title}</StyledH1>
           <StyledH3>22.10.22~22.12.30</StyledH3>
           <StyledH3>3/10명 참여중</StyledH3>
           <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>

@@ -1,20 +1,38 @@
 import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from 'components/navbar/ Navbar';
+import { useEffect } from 'react';
+import { apis } from 'api/api';
+import { useState } from 'react';
 
 const MeetingDetailPage = () => {
   const data = useSelector((state) => {
     return state.login;
   });
+
+  let params = useParams().id;
+
+  const [detailData, setDetailData] = useState([]);
+
+  useEffect(() => {
+    apis
+      .getMeeting(params)
+      .then((res) => {
+        setDetailData(res.data.data);
+        console.log(detailData);
+      })
+      .catch((err) => console.log('err', err, params));
+  }, []);
+
   return (
-    <>
+    <div>
       <Navbar />
       <StyledLayout>
-        <MeetingDetail />
+        <MeetingDetail data={detailData} />
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
@@ -35,7 +53,7 @@ const MeetingDetailPage = () => {
         <UserInfoCard />
         <UserInfoCard />
       </StyledLayout3>
-    </>
+    </div>
   );
 };
 

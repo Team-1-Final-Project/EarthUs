@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: `http://3.37.61.61`,
+  baseURL: `http://3.37.61.61/`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 export const jsonAPI = axios.create({

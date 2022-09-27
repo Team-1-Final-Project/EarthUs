@@ -10,7 +10,7 @@ const MeetingRoute = () => {
     <Routes>
       <Route path="/" element={<MeetingPage />} />
       <Route path="/create" element={<MeetingCreatePage />} />
-      <Route path="/detail" element={<MeetingDetailPage />} />
+      <Route path="/detail/:id" element={<MeetingDetailPage />} />
       <Route path="/detail/update" element={<MeetingUpdatePage />} />
     </Routes>
   );
