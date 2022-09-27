@@ -78,7 +78,7 @@ export const apis = {
   getAllMeeting: () => api.get('meeting'),
 
   //tag
-  searchMeetingTag: (meetingTagName) => api.get(`/meeting?tag=${meetingTagName}`),
+  searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
   searchPostTag: (postTagName) => api.get(`/board?tag=${postTagName}`),
 
   //shop
