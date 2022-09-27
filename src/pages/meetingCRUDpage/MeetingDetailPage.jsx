@@ -4,7 +4,7 @@ import UserInfoCard from 'components/meeting/detail/UserInfoCard';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Navbar from 'components/navbar/ Navbar';
+import Navbar from 'components/navbar/Navbar';
 import { useEffect } from 'react';
 import { apis } from 'api/api';
 import { useState } from 'react';
