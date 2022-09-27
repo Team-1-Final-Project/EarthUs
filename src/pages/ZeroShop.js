@@ -1,4 +1,4 @@
-import Navbar from 'components/navbar/ Navbar';
+import Navbar from 'components/navbar/Navbar';
 import ShopList from 'components/shop/ShopList';
 import React, { useState, useEffect } from 'react';
 import { apis } from 'api/api';
