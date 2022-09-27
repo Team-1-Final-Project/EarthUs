@@ -36,7 +36,7 @@ const MeetingDetailPage = () => {
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
-        <Link to="/meeting/detail/update">
+        <Link to={`/meeting/update/${params}`}>
           <Button>수정 하기</Button>
         </Link>
         <Button>삭제 하기</Button>
