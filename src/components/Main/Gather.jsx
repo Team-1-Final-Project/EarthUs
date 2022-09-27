@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'utils/Carousel/Carousel';
+import { MdPeopleOutline } from 'react-icons/md';
 
 function Gather({ gather }) {
-  console.log(gather);
   return (
     <>
       <div className="w-9/12 pt-2 m-auto mt-8 text-defaultText">
@@ -22,8 +22,11 @@ function Gather({ gather }) {
                     </div>
                     <div className="mt-2 text-sm">
                       <div>일시 : {gather.period}</div>
-                      <div>
-                        참여 인원 : {gather.nowPeople} / {gather.limitPeople}
+                      <div className="flex flex-row items-center">
+                        <MdPeopleOutline />
+                        <span>
+                          &nbsp;참여 인원 : {gather.nowPeople} / {gather.limitPeople}
+                        </span>
                       </div>
                       <div>장소 : 서울 어딘가</div>
                     </div>

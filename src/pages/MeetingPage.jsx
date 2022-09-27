@@ -3,7 +3,7 @@ import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TagList from 'components/meeting/TagList';
-import Navbar from 'components/Navbar/ Navbar';
+import Navbar from 'components/Navbar/Navbar';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
