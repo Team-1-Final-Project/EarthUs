@@ -47,7 +47,7 @@ const CardCreateForm = () => {
     const MED = orange(meetingEndDate);
 
     if (JSD < JED && MSD < MED && JED <= MSD) {
-      formData.append('file', image);
+      formData.append('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis.createMeeting(formData);
       // navigate('/meeting');
