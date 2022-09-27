@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
-const UserInfoCard = ({ img, name, email }) => {
+const UserInfoCard = (props) => {
+  const adminInfo = props.data;
+
   return (
     <>
       <StyledCard>
         <div>
-          <img src={img}></img>
+          <img src={adminInfo && adminInfo.admin.profileImage} />
         </div>
-        <StyledDetail>{name}</StyledDetail>
-        <StyledDetail2>E-mail : {email}</StyledDetail2>
+        <StyledDetail>{adminInfo && adminInfo.admin.nickname}</StyledDetail>
+        <StyledDetail2>E-mail : 미정</StyledDetail2>
       </StyledCard>
     </>
   );
@@ -25,8 +27,8 @@ const StyledCard = styled.div`
   background-color: #f5f5f5;
   position: relative;
   flex-direction: column;
-  width: 300px;
-  height: 500px;
+  width: 250px;
+  height: 400px;
   max-width: ${window.innerWidth / 10};
   transition: 250ms transform;
   user-select: none;
@@ -46,8 +48,8 @@ const StyledCard = styled.div`
     justify-content: center;
     & > img {
       border-radius: 50%;
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
       position: relative;
       object-fit: cover;
       border: 4px solid;

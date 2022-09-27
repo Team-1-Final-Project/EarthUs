@@ -36,23 +36,17 @@ const MeetingDetailPage = () => {
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
-        <Link to="/meeting/detail/update">
+        <Link to={`/meeting/update/${params}`}>
           <Button>수정 하기</Button>
         </Link>
         <Button>삭제 하기</Button>
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
-        <UserInfoCard img={data.image} name={data.nickname} email={data.email} />
+        <UserInfoCard data={detailData} />
       </StyledLayout3>
       <StyledLayout2>Member Information</StyledLayout2>
-      <StyledLayout3>
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-      </StyledLayout3>
+      <StyledLayout3></StyledLayout3>
     </div>
   );
 };
