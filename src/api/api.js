@@ -57,9 +57,9 @@ export const apis = {
   kakaoLogin: () => api.get(`login/member`),
 
   //comment
-  addComment: (content) => api.post('comment', content),
-  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
-  deleteComment: (id) => api.delete(`comment/${id}`),
+  addComment: (content) => api.post('/comment', content),
+  editComment: (payload) => api.put(`/comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
   createMeeting: (data) =>
@@ -76,6 +76,9 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+
+  //tag
+  searchMeetingTag: (meetingTagName) => api.get(`/meeting?tag=${meetingTagName}`),
 
   //shop
   getShopList: async () => {
