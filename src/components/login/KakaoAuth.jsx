@@ -21,7 +21,7 @@ const KakaoAuth = () => {
           .then((res) => {
             console.log('res', res);
             const nickname = res.data.nickname;
-            const image = res.data.profile_image;
+            const image = res.data.profileImage;
             const email = res.data.email;
             dispatch(getprofile({ nickname, image, email }));
             navigate('/meeting');

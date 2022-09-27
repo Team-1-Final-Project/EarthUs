@@ -30,7 +30,7 @@ function Navbar() {
           <div className="flex items-center justify-center ">
             {data.loginState ? (
               <div className="flex items-center gap-3">
-                <ProfileIcon></ProfileIcon>
+                <ProfileIcon image={data.image}></ProfileIcon>
                 <div
                   className="hover:cursor-pointer"
                   onClick={() => {
