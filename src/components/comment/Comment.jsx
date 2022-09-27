@@ -1,5 +1,4 @@
 import Modal from 'components/modal/Modal';
-import ModalBackground from 'components/modal/ModalBackground';
 import React, { useEffect, useState } from 'react';
 import {
   BsThreeDotsVertical,
@@ -33,28 +32,25 @@ const Comment = ({ content, id, editCommentHandler, deleteCommentHandler }) => {
   return (
     <>
       {deleteModal ? (
-        <>
-          <ModalBackground />
-          <Modal>
-            <BsFillExclamationTriangleFill className="w-16 h-16 text-blueColor mb-8" />
-            <h1 className="text-4xl text-blackColor mb-3 font-semibold">삭제</h1>
-            <span className="text-2xl text-blackColor">댓글을 삭제하시겠습니까?</span>
-            <div className="mt-16">
-              <button
-                className="bg-gray-300 text-white w-20 h-8 rounded mt-3 mr-3"
-                onClick={() => setDeleteModal(false)}
-              >
-                취소
-              </button>
-              <button
-                className="bg-blueColor text-white w-20 h-8 rounded mt-3"
-                onClick={deleteHandler}
-              >
-                삭제
-              </button>
-            </div>
-          </Modal>
-        </>
+        <Modal onConfirm={() => setDeleteModal(false)} width="w-3/12" height="3/6">
+          <BsFillExclamationTriangleFill className="w-16 h-16 text-blueColor mb-8" />
+          <h1 className="text-4xl text-blackColor mb-3 font-semibold">삭제</h1>
+          <span className="text-2xl text-blackColor">댓글을 삭제하시겠습니까?</span>
+          <div className="mt-16">
+            <button
+              className="bg-gray-300 text-white w-20 h-8 rounded mt-3 mr-3"
+              onClick={() => setDeleteModal(false)}
+            >
+              취소
+            </button>
+            <button
+              className="bg-blueColor text-white w-20 h-8 rounded mt-3"
+              onClick={deleteHandler}
+            >
+              삭제
+            </button>
+          </div>
+        </Modal>
       ) : null}
       <div className="border-b border-grayLineColor p-5">
         <div className="flex justify-between mb-3">

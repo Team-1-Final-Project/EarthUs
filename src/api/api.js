@@ -1,45 +1,73 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: 'http://localhost:3001/',
-  baseURL: 'http://54.180.116.99/',
-  // headers: {
-  //   'content-type': 'application/json;charset=UTF-8',
-  //   accept: 'application/json,',
-  // },
+  baseURL: `http://3.37.61.61/`,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
   // withCredentials: true,
+});
+
+export const jsonAPI = axios.create({
+  baseURL: `http://localhost:3001/`,
 });
 
 export const apis = {
   // mainpage
   getMainPage: async () => {
-    const response = await api.get('/main');
+    const response = await api.get('main');
     return response.data;
   },
 
-  getBoard: async () => {
-    const response = await api.get('/board');
-    return response.data;
+  getPost: async () => {
+    const response = await api.get('mockboard');
+    return response;
   },
-  getPosts: async () => {
-    const response = await api.get('posts');
-    return response.data;
+  getDetail: async (boardId) => {
+    const response = await api.get(`mockboard/${boardId}`);
+    return response;
   },
-  postHeart: async (boardId, heartOn) => {
-    const response = await api.post('hearts', {
-      boardId: boardId,
-      heartOn: heartOn,
+  addPost: async ({ title, image, content, tag }) => {
+    const response = await api.post('board', {
+      title: title,
+      image: image,
+      content: content,
+      tag: tag,
     });
     return response.data;
   },
 
+  deletePost: async (boardId) => {
+    const response = await api.delete(`mockboard/${boardId}`);
+    return response;
+  },
+
+  postHeart: async ({ boardId }) => {
+    console.log(boardId);
+    const response = await api.put('mockboard', {
+      boardId: boardId,
+    });
+    console.log(response.data);
+
+    return response.data;
+  },
+
+  //kakao login
+  kakaoLogin: () => api.get(`login/member`),
+
   //comment
-  addComment: (content) => api.post('comment', content),
-  editComment: (payload) => api.put(`comment/${payload.id}`, payload),
-  deleteComment: (id) => api.delete(`comment/${id}`),
+  addComment: (content) => api.post('/comment', content),
+  editComment: (payload) => api.put(`/comment/${payload.id}`, payload),
+  deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
-  createMeeting: (data) => api.post(`meeting`, data),
+  createMeeting: (data) =>
+    api.post(`meeting`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
   applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
   cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
   updateMeeting: (meetingID) => api.update(`meeting/${meetingID}`),
@@ -48,7 +76,12 @@ export const apis = {
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
-    //shop
+
+  //tag
+  searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
+  searchPostTag: (postTagName) => api.get(`/board?tag=${postTagName}`),
+
+  //shop
   getShopList: async () => {
     const response = await api.get('recommends');
     return response.data;
@@ -75,4 +108,3 @@ export const apis = {
 //     return Promise.reject(error)
 //   }
 // )
-

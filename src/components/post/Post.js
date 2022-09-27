@@ -2,59 +2,61 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
+import { apis } from 'api/api';
 
-const Post = ({ post, heart, setHeart }) => {
+const Post = ({ data }) => {
   const navigate = useNavigate();
 
   return (
     <ContainerStyled
       onClick={() => {
-        navigate(`/postdetail/${post.boardId}`);
+        navigate(`/postdetail/${data?.boardId}`);
       }}
     >
       <div className="TopWrap">
-        <TagStyled>{post && post.tag}</TagStyled>
-        <TimeStyled>{post && post.createdAt}</TimeStyled>
+        <TagStyled>{data?.tag} </TagStyled>
+        <TimeStyled>{data?.createAt}</TimeStyled>
       </div>
 
       <ContentsContainerStyled>
         <div className="profileWrap">
           <ProfileStyled>
-            <img className="img" src={post && post.profileimage} alt="profileimg" />
+            <img className="img" src={data?.profileImage} alt="profileimg" />
           </ProfileStyled>
-          <NameStyled>{post && post.writerName}</NameStyled>
+          <NameStyled>{data?.writerName}</NameStyled>
         </div>
 
         <div>
-          <TitleStyled>{post && post.title}</TitleStyled>
-          <ContentStyled>{post && post.content}</ContentStyled>
+          <TitleStyled>{data?.title}</TitleStyled>
+          <ContentStyled>{data?.content}</ContentStyled>
         </div>
 
         <ImageStyled>
-          <img className="img" src={post && post.image} alt="img" />
+          <img className="img" src={data?.image} alt="img" />
         </ImageStyled>
 
         <IconContainerstyled>
           <div
             className="iconWrap"
-            onClick={(event) => {
-              setHeart(!heart);
-              event.stopPropagation();
+            onClick={(e) => {
+              apis.postHeart({
+                boardId: data?.boardId,
+              });
+              e.stopPropagation();
             }}
           >
-            {heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{post && post.heartNums}</span>
+            {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+            <span className="count">{data?.heartNums}</span>
           </div>
-
           <div
             className="iconWrap"
-            onClick={(event) => {
-              navigate('/postdetail');
-              event.stopPropagation();
+            onClick={(e) => {
+              navigate(`/postdetail/${data?.boardId}`);
+              e.stopPropagation();
             }}
           >
             <AiOutlineComment />
-            <span className="count">{post && post.commentNums}</span>
+            <span className="count">11</span>
           </div>
         </IconContainerstyled>
       </ContentsContainerStyled>

@@ -1,38 +1,69 @@
 import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
-import { Link } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import Navbar from 'components/Navbar/Navbar';
+=======
+import Navbar from 'components/navbar/Navbar';
+import { useEffect } from 'react';
+import { apis } from 'api/api';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> develop_0.1
 
 const MeetingDetailPage = () => {
+  const navigate = useNavigate();
+  const data = useSelector((state) => {
+    return state.login;
+  });
+
+  let params = useParams().id;
+
+  const [detailData, setDetailData] = useState();
+
+  useEffect(() => {
+    apis
+      .getMeeting(params)
+      .then((res) => {
+        setDetailData(res.data.data);
+      })
+      .catch((err) => console.log('err', err, params));
+  }, []);
+
+  const onClickDelete = () => {
+    apis
+      .deleteMeeting(params)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.data);
+        navigate('/meeting');
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <>
+    <div>
       <Navbar />
       <StyledLayout>
-        <MeetingDetail />
+        <MeetingDetail data={detailData} />
       </StyledLayout>
       <ButtonLayout>
         <Button>신청 하기</Button>
-        <Link to="/meeting/detail/update">
+        <Link to={`/meeting/update/${params}`}>
           <Button>수정 하기</Button>
         </Link>
-        <Button>삭제 하기</Button>
+        <Button onClick={() => onClickDelete()}>삭제 하기</Button>
       </ButtonLayout>
       <StyledLayout2>Leader Information</StyledLayout2>
       <StyledLayout3>
-        <UserInfoCard />
+        <UserInfoCard data={detailData} />
       </StyledLayout3>
       <StyledLayout2>Member Information</StyledLayout2>
-      <StyledLayout3>
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-        <UserInfoCard />
-      </StyledLayout3>
-    </>
+      <StyledLayout3></StyledLayout3>
+    </div>
   );
 };
 

@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
 import Navbar from 'components/Navbar/Navbar';
+=======
+import Navbar from 'components/navbar/Navbar';
+>>>>>>> develop_0.1
 import MenuBar from 'components/mypage/MenuBar';
 import Post from 'components/mypage/Post';
 

@@ -1,25 +1,45 @@
 import styled from 'styled-components';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { IoMdPeople } from 'react-icons/io';
+import { GrLocation } from 'react-icons/gr';
 
-const MeetingDetail = () => {
+const MeetingDetail = (props) => {
+  const detail = { ...props.data };
   return (
     <>
       <StyledCard>
         <div>
-          <img src="../image/card/cardimg.jpg"></img>
+          <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
             <Tagbutton>#아차산</Tagbutton>
             <Tagbutton>#플로깅</Tagbutton>
           </TagListLayout>
-          <StyledH1>아차산 플로깅 주2회</StyledH1>
-          <StyledH3>22.10.22~22.12.30</StyledH3>
-          <StyledH3>3/10명 참여중</StyledH3>
-          <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>
-          <StyledContentBox>
-            안녕하세요 서울숲길에 사는 홍길동입니다. 다름이 아니라 제가 이번엥 플로깅 행사를 열게
-            되었습니다. 플로깅하다가 보물이 나오면 가져가시면 되요. 잘 찾아보세요.
-          </StyledContentBox>
+          <StyledH1>{detail.title}</StyledH1>
+          <div className="flex items-center">
+            <AiOutlineCalendar />
+            <StyledH3>
+              모집기간 : {detail.joinStartDate}~{detail.joinEndDate}
+            </StyledH3>
+          </div>
+          <div className="flex items-center">
+            <AiOutlineCalendar />
+            <StyledH3>
+              활동기간 : {detail.meetingStartDate}~{detail.meetingEndDate}
+            </StyledH3>
+          </div>
+          <div className="flex items-center">
+            <IoMdPeople />
+            <StyledH3>
+              {detail.nowPeople}/{detail.limitPeople}명 참여중
+            </StyledH3>
+          </div>
+          <div className="flex items-center">
+            <GrLocation />
+            <StyledH3>모임 장소 : {detail.location}</StyledH3>
+          </div>
+          <StyledContentBox>{detail.content}</StyledContentBox>
         </StyledDetail>
       </StyledCard>
     </>
@@ -39,6 +59,7 @@ const StyledCard = styled.div`
   height: 100%;
   user-select: none;
   padding: 20px;
+  overflow: hidden;
   & > div:first-of-type {
     width: 100%;
     height: 100%;
@@ -89,7 +110,7 @@ const StyledH1 = styled.h1`
 `;
 const StyledH3 = styled.h3`
   font-size: 1em;
-  margin: 1%;
+  margin-left: 2%;
   color: #333;
 `;
 const StyledContentBox = styled.div`
