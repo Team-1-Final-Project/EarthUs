@@ -7,7 +7,6 @@ import { GrLocation } from 'react-icons/gr';
 const MeetingCard = (props) => {
   const data = { ...props.data };
   const admin = data.admin;
-  console.log(admin);
   return (
     <>
       <StyledCard>
