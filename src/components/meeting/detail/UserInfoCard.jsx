@@ -25,8 +25,8 @@ const StyledCard = styled.div`
   background-color: #f5f5f5;
   position: relative;
   flex-direction: column;
-  width: 300px;
-  height: 500px;
+  width: 250px;
+  height: 400px;
   max-width: ${window.innerWidth / 10};
   transition: 250ms transform;
   user-select: none;
