@@ -23,7 +23,6 @@ const MeetingDetailPage = () => {
       .getMeeting(params)
       .then((res) => {
         setDetailData(res.data.data);
-        console.log(detailData);
       })
       .catch((err) => console.log('err', err, params));
   }, []);

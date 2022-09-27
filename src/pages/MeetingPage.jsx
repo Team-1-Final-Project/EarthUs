@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/ Navbar';
-import { jsonAPI, apis } from 'api/api';
+import { apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
@@ -74,11 +74,8 @@ const MeetingPage = () => {
         {data &&
           data.map((item) => {
             return (
-              <Link
-                style={{ display: 'flex', width: '20vw' }}
-                to={`/meeting/detail/${item.meetingId}`}
-              >
-                <MeetingCard id={item.meetingId} data={item} />
+              <Link style={{ display: 'flex', width: '20vw' }} to={`/meeting/detail/${item.id}`}>
+                <MeetingCard id={item.id} data={item} />
               </Link>
             );
           })}
