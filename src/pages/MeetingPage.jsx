@@ -8,7 +8,7 @@ import { jsonAPI, apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   const [selectedTag, setSelectedTag] = useState('');
 
@@ -35,14 +35,11 @@ const MeetingPage = () => {
   };
 
   useEffect(() => {
-    jsonAPI
-      .get('meeting')
+    apis
+      .getAllMeeting()
       .then((res) => {
-        setData(res.data);
+        setData(res.data.data);
         console.log(data);
-        data.map((item, idx) => {
-          console.log(`${idx}`, item);
-        });
       })
       .catch((err) => console.log('err', err));
     setSelectedTag('전체보기');
@@ -75,16 +72,17 @@ const MeetingPage = () => {
             <Tag key={tag} selectedTag={selectedTag} tag={tag} tagHandler={tagHandler} />
           ))}
         </StyledTagList>
-        {data.map((item) => {
-          return (
-            <Link
-              style={{ display: 'flex', width: '20vw' }}
-              to={`/meeting/detail/${item.meetingId}`}
-            >
-              <MeetingCard id={item.meetingId} data={item} />
-            </Link>
-          );
-        })}
+        {data &&
+          data.map((item) => {
+            return (
+              <Link
+                style={{ display: 'flex', width: '20vw' }}
+                to={`/meeting/detail/${item.meetingId}`}
+              >
+                <MeetingCard id={item.meetingId} data={item} />
+              </Link>
+            );
+          })}
       </StyledCardLayout2>
     </div>
   );

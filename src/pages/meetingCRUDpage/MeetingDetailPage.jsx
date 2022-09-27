@@ -16,7 +16,7 @@ const MeetingDetailPage = () => {
 
   let params = useParams().id;
 
-  const [detailData, setDetailData] = useState([]);
+  const [detailData, setDetailData] = useState();
 
   useEffect(() => {
     apis
