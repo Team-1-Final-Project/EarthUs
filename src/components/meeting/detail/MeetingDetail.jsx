@@ -9,7 +9,7 @@ const MeetingDetail = (props) => {
     <>
       <StyledCard>
         <div>
-          <img src={detail.meetinImage}></img>
+          <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>

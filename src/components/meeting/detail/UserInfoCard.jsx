@@ -10,7 +10,7 @@ const UserInfoCard = (props) => {
           <img src={adminInfo && adminInfo.admin.profileImage} />
         </div>
         <StyledDetail>{adminInfo && adminInfo.admin.nickname}</StyledDetail>
-        <StyledDetail2>E-mail : 미정</StyledDetail2>
+        <StyledDetail2>content : 미정</StyledDetail2>
       </StyledCard>
     </>
   );
