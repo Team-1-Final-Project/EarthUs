@@ -43,7 +43,6 @@ const MeetingPage = () => {
     <Layout>
       <Container>
         <Navbar />
-        <KakaoLogin />
         <div className="pt-20 px-20">
           <div className="flex justify-between py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
