@@ -3,38 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
 import { MdPeopleOutline } from 'react-icons/md';
 
-function Gather({ gather }) {
+function Meeting({ meeting }) {
   const navigate = useNavigate();
   return (
     <>
       <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
         <div className="text-xl font-bold text-left">신규 모임</div>
         <Carousel>
-          {gather &&
-            gather.map((gather) => (
+          {meeting &&
+            meeting.map((meeting) => (
               <div
-                key={gather.id}
+                key={meeting.id}
                 className="relative flex items-center w-10 h-40 bg-white default_outline"
               >
                 <div className="flex justify-between ">
                   <div className="mt-2 ml-4">
                     <div className="">
                       <span className="font-bold text-defaultColor">모집 중 </span>
-                      <span className="font-bold">{gather.title}</span>
+                      <span className="font-bold">{meeting.title}</span>
                     </div>
                     <div className="mt-2 text-sm">
-                      <div>일시 : {gather.period}</div>
+                      <div>일시 : {meeting.meetingStartDate}</div>
                       <div className="flex flex-row items-center">
                         <MdPeopleOutline />
                         <span>
-                          &nbsp;참여 인원 : {gather.nowPeople} / {gather.limitPeople}
+                          &nbsp;참여 인원 : {meeting.nowPeople} / {meeting.limitPeople}
                         </span>
                       </div>
                       <div>장소 : 서울 어딘가</div>
                     </div>
                   </div>
                   <div className="w-1/3">
-                    <img src={gather.image} className="w-full h-40 rounded-lg" />
+                    <img src={meeting.meetingImage} className="w-full h-40 rounded-lg" />
                   </div>
                 </div>
               </div>
@@ -55,4 +55,4 @@ function Gather({ gather }) {
   );
 }
 
-export default Gather;
+export default Meeting;
