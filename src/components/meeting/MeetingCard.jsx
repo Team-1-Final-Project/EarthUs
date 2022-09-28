@@ -50,20 +50,22 @@ const MeetingCard = (props) => {
             <GrLocation />
             <StyledH3>{data.location}</StyledH3>
           </div>
-          <StyledContentBox></StyledContentBox>
+          <StyledContentBox>{data.content}</StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
-          <div>written by</div>
           <ProfileIcon image={admin && admin.profileImage} />
-          <div className="w-1/2 flex justify-end items-center">
-            {liked ? (
-              <BsHeartFill className="m-2 text-red-600" />
-            ) : (
-              <BsHeart className="m-2 text-red-600" />
-            )}
-            40
-            <AiOutlineComment className="m-2" />
-            50
+          <div className="w-3/4 flex justify-between items-center">
+            <div>by {admin && admin.nickname}</div>
+            <div className="w-1/2 flex justify-end items-center">
+              {liked ? (
+                <BsHeartFill className="m-2 text-red-600" />
+              ) : (
+                <BsHeart className="m-2 text-red-600" />
+              )}
+              40
+              <AiOutlineComment className="m-2" />
+              50
+            </div>
           </div>
         </StyledSubDetail>
       </StyledCard>
@@ -73,7 +75,6 @@ const MeetingCard = (props) => {
 
 export default MeetingCard;
 
-const WriterImage = styled.div``;
 const StyledSubDetail = styled.div`
   margin-top: 10px;
   width: 100%;
@@ -85,7 +86,7 @@ const StyledSubDetail = styled.div`
   & > img {
     width: 1.7rem;
     height: 1.7rem;
-    margin-left: 5%;
+    margin-right: 5%;
   }
 `;
 
@@ -97,9 +98,9 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 20vw;
-  max-width: ${window.innerWidth / 4};
-  height: 40vw;
+  width: 310px;
+  height: 520px;
+  max-width: 19rem;
   transition: 250ms transform;
   user-select: none;
   overflow: hidden;
@@ -140,7 +141,8 @@ const StyledH3 = styled.h3`
 `;
 const StyledContentBox = styled.div`
   width: 100%;
-  height: 40%;
+  height: 43%;
   background-color: #f4f4f4;
-  margin-top: 10%;
+  margin-top: 3%;
+  padding: 3%;
 `;

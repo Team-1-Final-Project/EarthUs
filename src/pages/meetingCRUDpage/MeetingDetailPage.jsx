@@ -9,10 +9,12 @@ import { useEffect } from 'react';
 import { apis } from 'api/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
-  const data = useSelector((state) => {
+
+  const loginData = useSelector((state) => {
     return state.login;
   });
 
@@ -41,53 +43,59 @@ const MeetingDetailPage = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <StyledLayout>
-        <MeetingDetail data={detailData} />
-      </StyledLayout>
-      <ButtonLayout>
-        <Button>신청 하기</Button>
-        <Link to={`/meeting/update/${params}`}>
-          <Button>수정 하기</Button>
-        </Link>
-        <Button onClick={() => onClickDelete()}>삭제 하기</Button>
-      </ButtonLayout>
-      <StyledLayout2>Leader Information</StyledLayout2>
-      <StyledLayout3>
-        <UserInfoCard data={detailData} />
-      </StyledLayout3>
-      <StyledLayout2>Member Information</StyledLayout2>
-      <StyledLayout3></StyledLayout3>
-    </div>
+    <Layout>
+      <Container>
+        <Navbar />
+        <div className="flex justify-center py-10">
+          <MeetingDetail data={detailData} />
+        </div>
+        <ButtonLayout>
+          <Button>신청 하기</Button>
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? navigate(`/meeting/update/${params}`)
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            수정 하기
+          </Button>
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? navigate(`/meeting/update/${params}`)
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            삭제 하기
+          </Button>
+        </ButtonLayout>
+        <div>
+          <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
+          <div className="px-20">
+            <UserInfoCard data={detailData} />
+          </div>
+        </div>
+        <div>
+          <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
+          <div className="px-20 flex flex-wrap">
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+            <UserInfoCard />
+          </div>
+        </div>
+      </Container>
+    </Layout>
   );
 };
 
 export default MeetingDetailPage;
-
-const StyledLayout = styled.div`
-  width: 100vw;
-  height: 65vh;
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledLayout2 = styled.div`
-  width: 100vw;
-  padding-left: 4rem;
-  font-size: xx-large;
-  margin-bottom: 30px;
-  margin-top: 30px;
-`;
-
-const StyledLayout3 = styled.div`
-  width: 100vw;
-  height: 62vh;
-  padding-left: 5rem;
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 const ButtonLayout = styled.div`
   width: 100%;

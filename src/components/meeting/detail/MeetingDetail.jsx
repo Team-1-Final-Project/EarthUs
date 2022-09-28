@@ -73,27 +73,29 @@ const MeetingDetail = (props) => {
           <StyledH1>{detail.title}</StyledH1>
           <div className="flex items-center">
             <AiOutlineCalendar />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               모집기간 : {detail.joinStartDate}~{detail.joinEndDate}
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <AiOutlineCalendar />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               활동기간 : {detail.meetingStartDate}~{detail.meetingEndDate}
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <IoMdPeople />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               {detail.nowPeople}/{detail.limitPeople}명 참여중
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <GrLocation />
-            <StyledH3>모임 장소 : {detail.location}</StyledH3>
+            <h1 className="px-2 py-1">모임 장소 : {detail.location}</h1>
           </div>
-          <StyledContentBox>{detail.content}</StyledContentBox>
+          <div className="py-1 h-full text-gray-500 mt-2 ">
+            <h3>내용 : {detail.content}</h3>
+          </div>
         </StyledDetail>
       </StyledCard>
     </>
@@ -156,22 +158,6 @@ const StyledDetail = styled.div`
   width: 100%;
   height: 100%;
   padding-left: 3%;
-`;
-const StyledH1 = styled.h1`
-  font-size: x-large;
-  margin-bottom: 7%;
-  color: #333;
-`;
-const StyledH3 = styled.h3`
-  font-size: 1em;
-  margin-left: 2%;
-  color: #333;
-`;
-const StyledContentBox = styled.div`
-  width: 100%;
-  background-color: #f4f4f4;
-  margin-top: 10%;
-  padding: 20px;
 `;
 
 const TagListLayout = styled.div`

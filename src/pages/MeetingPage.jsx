@@ -6,8 +6,18 @@ import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
+import { Layout, Container } from 'utils/styles/GlobalStyles';
+import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
+import loginSlice from 'redux/modules/loginSlice';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const MeetingPage = () => {
+  const navigate = useNavigate();
+  const loginData = useSelector((state) => {
+    return state.login;
+  });
+
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
 
@@ -38,49 +48,67 @@ const MeetingPage = () => {
   }, [selectedTag]);
 
   return (
-    <div>
-      <Navbar />
-      <StyledCardLayout1>
-        <KakaoLogin />
-        <StyledDiv2>
-          <h1>참여중인 모임</h1>
-          <Link to="/meeting/create">
-            <Button>모임 생성</Button>
-          </Link>
-        </StyledDiv2>
-        <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
-          <MeetingCard />
-        </Link>
-        <MeetingCard />
-        <MeetingCard />
-        <MeetingCard />
-      </StyledCardLayout1>
-      <StyledCardLayout2>
-        <StyledDiv2>
-          <h1>태그 목록</h1>
-        </StyledDiv2>
-        <StyledTagList>
-          {tags.map((tag, index) => (
-            <Tag
-              key={tag}
-              tag={tag}
-              id={index + 1}
-              tagHandler={tagHandler}
-              selectedTag={selectedTag}
-              setSelectedTag={setSelectedTag}
-            />
-          ))}
-        </StyledTagList>
-        {data &&
-          data.map((item) => {
-            return (
-              <Link style={{ display: 'flex', width: '20vw' }} to={`/meeting/detail/${item.id}`}>
-                <MeetingCard id={item.id} data={item} />
-              </Link>
-            );
-          })}
-      </StyledCardLayout2>
-    </div>
+    <Layout>
+      <Container>
+        <Navbar />
+        <div className="pt-20 px-20">
+          <div className="flex justify-between py-3">
+            <h1 className="text-2xl">참여중인 모임</h1>
+            <Button
+              onClick={() => {
+                loginData.loginState
+                  ? navigate('/meeting/create')
+                  : alert('로그인하셔야 이용가능합니다');
+              }}
+            >
+              모임 생성
+            </Button>
+          </div>
+          <MeetingCarousel>
+            <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
+              <MeetingCard />
+            </Link>
+            <MeetingCard />
+            <MeetingCard />
+            <MeetingCard />
+            <MeetingCard />
+            <MeetingCard />
+          </MeetingCarousel>
+        </div>
+        <div className="pt-10 px-20">
+          <div>
+            <h1 className="text-2xl">태그 목록</h1>
+          </div>
+          <div className="py-10">
+            <StyledTagList>
+              {tags.map((tag, index) => (
+                <Tag
+                  key={tag}
+                  tag={tag}
+                  id={index + 1}
+                  tagHandler={tagHandler}
+                  selectedTag={selectedTag}
+                  setSelectedTag={setSelectedTag}
+                />
+              ))}
+            </StyledTagList>
+          </div>
+          <div className="flex flex-wrap">
+            {data &&
+              data.map((item) => {
+                return (
+                  <Link
+                    style={{ display: 'flex', width: '320px', height: '550px' }}
+                    to={`/meeting/detail/${item.id}`}
+                  >
+                    <MeetingCard id={item.id} data={item} />
+                  </Link>
+                );
+              })}
+          </div>
+        </div>
+      </Container>
+    </Layout>
   );
 };
 
@@ -98,34 +126,6 @@ const Button = styled.button`
   transition: 250ms transform;
   &:hover {
     transform: scale(1.03);
-  }
-`;
-
-const StyledCardLayout1 = styled.div`
-  width: 100%;
-  height: 55rem;
-  padding: 4rem 5rem;
-  gap: 2rem calc(90% * 0.05 / 2);
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 6vh;
-`;
-const StyledCardLayout2 = styled.div`
-  width: 100%;
-  padding: 4rem 5rem;
-  gap: 2rem calc(90% * 0.05 / 2);
-  display: flex;
-  flex-wrap: wrap;
-`;
-const StyledDiv2 = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  & > h1:first-of-type {
-    font-size: 1.7rem;
-    color: #333;
-    font-weight: 700;
-    position: relative;
   }
 `;
 const StyledTagList = styled.div`

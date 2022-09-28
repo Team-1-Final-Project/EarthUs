@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
 import { apis } from 'api/api';
+import Footer from 'components/footer/Footer';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -40,13 +41,12 @@ const CardCreateForm = () => {
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
-    let formData = new FormData();
-
     const JSD = orange(joinStartDate);
     const JED = orange(joinEndDate);
     const MSD = orange(meetingStartDate);
     const MED = orange(meetingEndDate);
 
+    let formData = new FormData();
     if (JSD < JED && MSD < MED && JED <= MSD) {
       formData.append('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
@@ -303,6 +303,7 @@ const CardCreateForm = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
