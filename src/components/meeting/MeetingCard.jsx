@@ -34,13 +34,16 @@ const MeetingCard = (props) => {
           <StyledContentBox></StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
-          <div>written by</div>
           <ProfileIcon image={admin && admin.profileImage} />
-          <div className="w-1/2 flex justify-end items-center">
-            <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
-            40
-            <AiOutlineComment className="m-2" />
-            50
+
+          <div className="w-3/4 flex justify-between items-center">
+            <div>by</div>
+            <div className="flex items-center">
+              <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
+              40
+              <AiOutlineComment className="m-2" />
+              50
+            </div>
           </div>
         </StyledSubDetail>
       </StyledCard>
@@ -62,7 +65,7 @@ const StyledSubDetail = styled.div`
   & > img {
     width: 1.7rem;
     height: 1.7rem;
-    margin-left: 5%;
+    margin-right: 5%;
   }
 `;
 
@@ -74,9 +77,9 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 20vw;
-  max-width: ${window.innerWidth / 4};
-  height: 40vw;
+  width: 310px;
+  height: 520px;
+  max-width: 19rem;
   transition: 250ms transform;
   user-select: none;
   overflow: hidden;
@@ -117,7 +120,7 @@ const StyledH3 = styled.h3`
 `;
 const StyledContentBox = styled.div`
   width: 100%;
-  height: 40%;
+  height: 43%;
   background-color: #f4f4f4;
-  margin-top: 10%;
+  margin-top: 3%;
 `;
