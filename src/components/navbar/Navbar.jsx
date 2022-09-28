@@ -25,24 +25,6 @@ function Navbar() {
 
   return (
     <nav className="">
-      {modalState && (
-        <Modal
-          onConfirm={modalState}
-          children={
-            <div className="flex items-center flex-col">
-              <KakaoLogin />
-              <button
-                className="absolute inset-x-0 bottom-0 m-10 p-2 bg-cyan-400 hover:bg-cyan-500 rounded-md text-white"
-                onClick={() => setModalState(0)}
-              >
-                닫기
-              </button>
-            </div>
-          }
-          width={300}
-          height={300}
-        />
-      )}
       <div className="max-w-6xl px-4 mx-auto">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center text-3xl font-bold text-defaultColor">
@@ -71,6 +53,24 @@ function Navbar() {
               >
                 로그인
               </button>
+            )}
+            {modalState && (
+              <Modal
+                onConfirm={modalState}
+                children={
+                  <div className="flex items-center flex-col">
+                    <KakaoLogin />
+                    <button
+                      className="absolute inset-x-0 bottom-0 m-10 p-2 bg-cyan-400 hover:bg-cyan-500 rounded-md text-white"
+                      onClick={() => setModalState(false)}
+                    >
+                      닫기
+                    </button>
+                  </div>
+                }
+                width={300}
+                height={300}
+              />
             )}
           </div>
         </div>
