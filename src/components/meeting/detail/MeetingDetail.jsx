@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
+import { useState } from 'react';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 const MeetingDetail = (props) => {
+  const [liked, setLiked] = useState(false);
   const detail = { ...props.data };
   return (
     <>
@@ -13,8 +16,18 @@ const MeetingDetail = (props) => {
         </div>
         <StyledDetail>
           <TagListLayout>
-            <Tagbutton>#아차산</Tagbutton>
-            <Tagbutton>#플로깅</Tagbutton>
+            {detail.tagMeetings &&
+              Array.from(detail.tagMeetings).map((tag) => (
+                <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
+              ))}
+            <div>
+              {liked ? (
+                <BsHeartFill className="m-2 text-red-600 w-16 h-16 cursor-pointer" />
+              ) : (
+                <BsHeart className="m-2 text-red-600 w-6 h-6 cursor-pointer" />
+              )}
+              <span>{detail.heartNum}</span>
+            </div>
           </TagListLayout>
           <StyledH1>{detail.title}</StyledH1>
           <div className="flex items-center">
@@ -123,6 +136,8 @@ const StyledContentBox = styled.div`
 const TagListLayout = styled.div`
   width: 100%;
   height: 40px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Tagbutton = styled.button`

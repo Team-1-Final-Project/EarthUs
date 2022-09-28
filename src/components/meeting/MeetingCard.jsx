@@ -1,10 +1,13 @@
 import ProfileIcon from 'components/navbar/ProfileIcon';
 import styled from 'styled-components';
-import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
+import { AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
+import { useState } from 'react';
 
 const MeetingCard = (props) => {
+  const [liked, setLiked] = useState(false);
   const data = { ...props.data };
   const admin = data.admin;
   return (
@@ -37,7 +40,11 @@ const MeetingCard = (props) => {
           <div>written by</div>
           <ProfileIcon image={admin && admin.profileImage} />
           <div className="w-1/2 flex justify-end items-center">
-            <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
+            {liked ? (
+              <BsHeartFill className="m-2 text-red-600" />
+            ) : (
+              <BsHeart className="m-2 text-red-600" />
+            )}
             40
             <AiOutlineComment className="m-2" />
             50
