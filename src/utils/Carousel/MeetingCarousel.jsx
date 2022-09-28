@@ -7,8 +7,8 @@ const Carousel = ({ children }) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 2,
+    speed: 1000,
+    slidesToShow: 4,
     slidesToScroll: 2,
     arrows: true,
     responsive: [
