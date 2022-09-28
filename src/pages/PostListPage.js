@@ -5,10 +5,9 @@ import { apis } from 'api/api';
 
 const PostListPage = () => {
   const [data, setData] = useState();
-  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedTag, setSelectedTag] = useState([]);
 
   const tags = [
-    '전체보기',
     '플로깅',
     '비건',
     '재활용',
@@ -23,37 +22,38 @@ const PostListPage = () => {
     '기타',
   ];
 
-  const tagHandler = async (tag) => {
-    if (selectedTag === tag) return;
-    setSelectedTag(tag);
-    if (tag === '전체보기') {
-      try {
-        const res = await apis.getPost();
-        setData(res.data.data);
-      } catch (err) {
-        alert(err);
-      }
+  const tagHandler = (id) => {
+    if (Array.from(selectedTag).indexOf(id) === -1) {
+      setSelectedTag([...selectedTag, id]);
     } else {
-      try {
-        const res = await apis.searchPostTag(tag);
-        setData(res.data.data);
-      } catch (err) {
-        alert(err);
-      }
+      setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
 
   useEffect(() => {
-    apis.getPost('mockboard').then((res) => {
-      setData(res.data);
-    });
-    setSelectedTag('전체보기');
-  }, []);
+    if (Array.from(selectedTag).length === 0) {
+      apis.getPost('mockboard').then((res) => {
+        setData(res.data);
+      });
+    } else {
+      apis
+        .searchPostTag({ tagIds: selectedTag })
+        .then((res) => setData(res.data.data))
+        .catch((err) => alert(err));
+    }
+  }, [selectedTag]);
+
   return (
     <div>
       <div className="flex justify-center">
-        {tags.map((tag) => (
-          <Tag key={tag} selectedTag={selectedTag} tag={tag} tagHandler={tagHandler} />
+        {tags.map((tag, index) => (
+          <Tag
+            key={tag}
+            selectedTag={selectedTag}
+            tag={tag}
+            tagHandler={tagHandler}
+            id={index + 1}
+          />
         ))}
       </div>
       <PostList data={data} />

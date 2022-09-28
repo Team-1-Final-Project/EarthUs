@@ -21,9 +21,7 @@ function Dailymission({ mission }) {
                 </span>
                 명 입니다.
               </div>
-              <button className="p-2 default_outline hover:bg-defaultColor hover:text-white hover:outline-none">
-                미션 성공
-              </button>
+              <button className="w-20 p-1 default_button">미션 성공</button>
             </>
           )}
         </div>

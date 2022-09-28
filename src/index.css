@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 .default_outline {
-  @apply outline outline-1 outline-defaultLine rounded-xl;
+  @apply outline outline-1 outline-[#EAECEE] rounded-xl;
 }
 
 .hover_button {
   @apply hover:outline-none hover:bg-defaultColor hover:text-white;
+}
+
+.default_button {
+  @apply duration-300 ease-in-out bg-white hover:text-white text-defaultColor outline outline-defaultColor rounded-3xl outline-1 hover:bg-defaultColor;
 }
