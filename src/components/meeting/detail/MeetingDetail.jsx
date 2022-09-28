@@ -4,27 +4,68 @@ import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
 import { useState } from 'react';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { apis } from 'api/api';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MeetingDetail = (props) => {
-  const [liked, setLiked] = useState(false);
   const detail = { ...props.data };
+
+  const [liked, setLiked] = useState(false);
+  const loginState = useSelector((state) => state.login.loginState);
+
+  const likeHandler = async () => {
+    if (loginState) {
+      try {
+        const res = await apis.updateMeetingLike(detail.id);
+        setLiked(res.data.data);
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      toast.error('로그인이 필요합니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (loginState) {
+      apis
+        .getMeetingLike(detail.id)
+        .then((res) => {
+          setLiked(res.data.data);
+        })
+        .catch((err) => alert(err));
+    }
+  }, [loginState]);
+
   return (
     <>
       <StyledCard>
+        <ToastContainer />
         <div>
           <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
-            {detail.tagMeetings &&
-              Array.from(detail.tagMeetings).map((tag) => (
-                <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
-              ))}
+            <div>
+              {detail.tagMeetings &&
+                Array.from(detail.tagMeetings).map((tag) => (
+                  <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
+                ))}
+            </div>
             <div>
               {liked ? (
-                <BsHeartFill className="m-2 text-red-600 w-16 h-16 cursor-pointer" />
+                <BsHeartFill
+                  className="m-2 text-red-600 w-16 h-16 cursor-pointer"
+                  onClick={likeHandler}
+                />
               ) : (
-                <BsHeart className="m-2 text-red-600 w-6 h-6 cursor-pointer" />
+                <BsHeart
+                  className="m-2 text-red-600 w-6 h-6 cursor-pointer"
+                  onClick={likeHandler}
+                />
               )}
               <span>{detail.heartNum}</span>
             </div>
