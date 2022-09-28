@@ -34,15 +34,17 @@ function Navbar() {
           <div className="flex items-center justify-center ">
             {data.loginState ? (
               <div className="flex items-center gap-3">
-                <ProfileIcon image={data.image}></ProfileIcon>
                 <div
                   className="hover:cursor-pointer"
                   onClick={() => {
                     navigate('/mypage');
                   }}
                 >
-                  <span className=" text-[12px] text-defaultLine ml-2">로그아웃</span>
+                  <ProfileIcon image={data.image}></ProfileIcon>
                 </div>
+                <span className=" text-[12px] text-defaultLine ml-2">
+                  <button>로그아웃</button>
+                </span>
               </div>
             ) : (
               <button
