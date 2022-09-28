@@ -37,7 +37,7 @@ const MeetingCard = (props) => {
           <ProfileIcon image={admin && admin.profileImage} />
 
           <div className="w-3/4 flex justify-between items-center">
-            <div>by</div>
+            <div>by {admin && admin.nickname}</div>
             <div className="flex items-center">
               <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
               40
@@ -53,7 +53,6 @@ const MeetingCard = (props) => {
 
 export default MeetingCard;
 
-const WriterImage = styled.div``;
 const StyledSubDetail = styled.div`
   margin-top: 10px;
   width: 100%;
