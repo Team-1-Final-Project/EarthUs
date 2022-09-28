@@ -31,7 +31,7 @@ const MeetingCard = (props) => {
             <GrLocation />
             <StyledH3>{data.location}</StyledH3>
           </div>
-          <StyledContentBox></StyledContentBox>
+          <StyledContentBox>{data.content}</StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
           <ProfileIcon image={admin && admin.profileImage} />
@@ -122,4 +122,5 @@ const StyledContentBox = styled.div`
   height: 43%;
   background-color: #f4f4f4;
   margin-top: 3%;
+  padding: 3%;
 `;
