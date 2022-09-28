@@ -2,14 +2,9 @@ import React, { useState, useEffect } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-import TagList from 'components/meeting/TagList';
-import Navbar from 'components/Navbar/Navbar';
-=======
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
->>>>>>> develop_0.1
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {

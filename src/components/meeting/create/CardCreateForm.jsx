@@ -64,7 +64,7 @@ const CardCreateForm = () => {
     if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
       navigate('/meeting');
     } else {
-      return true;
+      return false;
     }
   };
 

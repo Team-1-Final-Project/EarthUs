@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import Navbar from 'components/Navbar/Navbar';
-=======
 import Navbar from 'components/navbar/Navbar';
->>>>>>> develop_0.1
 import ShopList from 'components/shop/ShopList';
 import React, { useState, useEffect } from 'react';
 import { apis } from 'api/api';
