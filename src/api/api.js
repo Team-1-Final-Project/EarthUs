@@ -77,6 +77,10 @@ export const apis = {
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
 
+  //meeting like
+  getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
+  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`, { meetingID: meetingID }),
+
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
   searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
