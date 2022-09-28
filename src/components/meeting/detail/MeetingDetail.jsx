@@ -9,7 +9,7 @@ const MeetingDetail = (props) => {
     <>
       <StyledCard>
         <div>
-          <img src="../image/card/cardimg.jpg"></img>
+          <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
@@ -59,6 +59,7 @@ const StyledCard = styled.div`
   height: 100%;
   user-select: none;
   padding: 20px;
+  overflow: hidden;
   & > div:first-of-type {
     width: 100%;
     height: 100%;
@@ -109,7 +110,7 @@ const StyledH1 = styled.h1`
 `;
 const StyledH3 = styled.h3`
   font-size: 1em;
-  margin: 4%;
+  margin-left: 2%;
   color: #333;
 `;
 const StyledContentBox = styled.div`

@@ -78,8 +78,8 @@ export const apis = {
   getAllMeeting: () => api.get('meeting'),
 
   //tag
-  searchMeetingTag: (meetingTagName) => api.get(`/meeting?tag=${meetingTagName}`),
-  searchPostTag: (postTagName) => api.get(`/board?tag=${postTagName}`),
+  searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
+  searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
 
   //shop
   getShopList: async () => {

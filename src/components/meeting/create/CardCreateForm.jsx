@@ -34,6 +34,7 @@ const CardCreateForm = () => {
     meetingEndDate: meetingEndDate,
     location: location,
     limitPeople: limitPeople,
+    tagMeetingIds: [6, 7],
   };
 
   const onClickSubmitHandler = async (e) => {
@@ -53,7 +54,7 @@ const CardCreateForm = () => {
         .createMeeting(formData)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
-      // navigate('/meeting');
+      navigate('/meeting');
     } else {
       alert('날짜 형식에 어긋납니다');
     }

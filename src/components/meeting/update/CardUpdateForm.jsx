@@ -2,6 +2,9 @@ import { useInput } from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { apis } from 'api/api';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -10,11 +13,25 @@ export const orange = (str) => {
 };
 
 const CardUpdateForm = () => {
+  const [detailData, setDetailData] = useState('');
+  let params = useParams().id;
+
+  useEffect(() => {
+    apis
+      .getMeeting(params)
+      .then((res) => {
+        setDetailData(res.data.data);
+        console.log('success', detailData);
+      })
+      .catch((err) => console.log('err', err));
+  }, []);
+
   const navigate = useNavigate();
+
   const [title, titleChange] = useInput('');
   const [tag, tagChange] = useInput('');
   const [location, locationChange] = useInput('');
-  const [limitpeople, limitPeopleChange] = useInput(0);
+  const [limitPeople, limitPeopleChange] = useInput(0);
   const [joinStartDate, joinStartDateChange] = useInput('');
   const [joinEndDate, joinEndDateChange] = useInput('');
   const [meetingStartDate, meetingStartDateChange] = useInput('');
@@ -33,21 +50,7 @@ const CardUpdateForm = () => {
     const MED = orange(meetingEndDate);
 
     if (JSD < JED && MSD < MED && JED <= MSD) {
-      // apis.createMeeting({
-      //   title,
-      //   tag,
-      //   location,
-      //   limitpeople,
-      //   joinStartDate,
-      //   joinEndDate,
-      //   meetingStartDate,
-      //   meetingEndDate,
-      //   content,
-      //   image,
-      //   console
-      // });
-      console.log('yes');
-      navigate('/meeting');
+      // navigate('/meeting');
     } else {
       alert('날짜 형식에 어긋납니다');
     }
@@ -77,7 +80,7 @@ const CardUpdateForm = () => {
                 <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                   <div className="space-y-1 text-center">
                     {image ? (
-                      <Preview img={image} />
+                      <Preview img={detailData.meetingImage} />
                     ) : (
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"
@@ -135,7 +138,7 @@ const CardUpdateForm = () => {
                         rows={1}
                         className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="제목을 입력해 주세요"
-                        value={title}
+                        defaultValue={detailData.title}
                         onChange={titleChange}
                       />
                     </div>
@@ -151,7 +154,8 @@ const CardUpdateForm = () => {
                           name="about"
                           rows={1}
                           className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          value={limitpeople}
+                          defaultValue={detailData.limitPeople}
+                          key={detailData.limitPeople}
                           onChange={limitPeopleChange}
                         >
                           <option value="" disabled="">
@@ -178,7 +182,7 @@ const CardUpdateForm = () => {
                           rows={1}
                           className=" h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="모임 장소를 입력해 주세요"
-                          value={location}
+                          defaultValue={detailData.location}
                           onChange={locationChange}
                         />
                       </div>
@@ -197,7 +201,7 @@ const CardUpdateForm = () => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          value={joinStartDate}
+                          defaultValue={detailData.joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
@@ -208,7 +212,7 @@ const CardUpdateForm = () => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          value={joinEndDate}
+                          defaultValue={detailData.joinEndDate}
                           onChange={joinEndDateChange}
                         />
                       </div>
@@ -225,7 +229,7 @@ const CardUpdateForm = () => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          value={meetingStartDate}
+                          defaultValue={detailData.meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
@@ -236,7 +240,7 @@ const CardUpdateForm = () => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          value={meetingEndDate}
+                          defaultValue={detailData.meetingEndDate}
                           onChange={meetingEndDateChange}
                         />
                       </div>
@@ -254,7 +258,7 @@ const CardUpdateForm = () => {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="내용을 입력해 주세요"
-                        value={content}
+                        defaultValue={detailData.content}
                         onChange={contentChange}
                       />
                     </div>

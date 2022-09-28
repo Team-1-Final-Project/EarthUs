@@ -3,55 +3,39 @@ import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
-import Navbar from 'components/navbar/ Navbar';
-import { jsonAPI, apis } from 'api/api';
+import Navbar from 'components/navbar/Navbar';
+import { apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 
 const MeetingPage = () => {
   const [data, setData] = useState();
-  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedTag, setSelectedTag] = useState([]);
 
-  const tags = [
-    '전체보기',
-    '챌린지',
-    '플로깅',
-    '비건',
-    '재활용',
-    '이모저모(친목)',
-    '반려용품',
-    '기타',
-  ];
+  const tags = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
 
-  const tagHandler = async (tag) => {
-    if (selectedTag === tag) return;
-    setSelectedTag(tag);
-    if (tag === '전체보기') {
-      try {
-        const res = await apis.getAllMeeting();
-        setData(res.data.data);
-      } catch (err) {
-        alert(err);
-      }
+  const tagHandler = (id) => {
+    if (Array.from(selectedTag).indexOf(id) === -1) {
+      setSelectedTag([...selectedTag, id]);
     } else {
-      try {
-        const res = await apis.searchMeetingTag(tag);
-        setData(res.data.data);
-      } catch (err) {
-        alert(err);
-      }
+      setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
 
   useEffect(() => {
-    apis
-      .getAllMeeting()
-      .then((res) => {
-        setData(res.data.data);
-        console.log(data);
-      })
-      .catch((err) => console.log('err', err));
-    setSelectedTag('전체보기');
-  }, []);
+    if (Array.from(selectedTag).length === 0) {
+      apis
+        .getAllMeeting()
+        .then((res) => {
+          setData(res.data.data);
+        })
+        .catch((err) => console.log('err', err));
+    } else {
+      apis
+        .searchMeetingTag({ tagIds: selectedTag })
+        .then((res) => setData(res.data.data))
+        .catch((err) => alert(err));
+    }
+  }, [selectedTag]);
 
   return (
     <div>
@@ -76,18 +60,22 @@ const MeetingPage = () => {
           <h1>태그 목록</h1>
         </StyledDiv2>
         <StyledTagList>
-          {tags.map((tag) => (
-            <Tag key={tag} selectedTag={selectedTag} tag={tag} tagHandler={tagHandler} />
+          {tags.map((tag, index) => (
+            <Tag
+              key={tag}
+              tag={tag}
+              id={index + 1}
+              tagHandler={tagHandler}
+              selectedTag={selectedTag}
+              setSelectedTag={setSelectedTag}
+            />
           ))}
         </StyledTagList>
         {data &&
           data.map((item) => {
             return (
-              <Link
-                style={{ display: 'flex', width: '20vw' }}
-                to={`/meeting/detail/${item.meetingId}`}
-              >
-                <MeetingCard id={item.meetingId} data={item} />
+              <Link style={{ display: 'flex', width: '20vw' }} to={`/meeting/detail/${item.id}`}>
+                <MeetingCard id={item.id} data={item} />
               </Link>
             );
           })}

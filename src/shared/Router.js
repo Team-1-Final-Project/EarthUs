@@ -16,8 +16,8 @@ const Router = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
-        <Route path="/post" element={<PostListPage />} />
-        <Route path="/postdetail/:id" element={<PostDetail />} />
+        <Route path="/community" element={<PostListPage />} />
+        <Route path="/communitydetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
