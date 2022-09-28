@@ -79,7 +79,7 @@ export const apis = {
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
-  searchPostTag: (postTagName) => api.get(`/board?tag=${postTagName}`),
+  searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
 
   //shop
   getShopList: async () => {
