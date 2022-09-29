@@ -2,44 +2,100 @@ import styled from 'styled-components';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
+import { useState } from 'react';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { apis } from 'api/api';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MeetingDetail = (props) => {
   const detail = { ...props.data };
+
+  const [liked, setLiked] = useState(false);
+  const loginState = useSelector((state) => state.login.loginState);
+
+  const likeHandler = async () => {
+    if (loginState) {
+      try {
+        const res = await apis.updateMeetingLike(detail.id);
+        setLiked(res.data.data);
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      toast.error('로그인이 필요합니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (loginState) {
+      apis
+        .getMeetingLike(detail.id)
+        .then((res) => {
+          setLiked(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loginState]);
+
   return (
     <>
       <StyledCard>
+        <ToastContainer />
         <div>
           <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
-            <Tagbutton>#아차산</Tagbutton>
-            <Tagbutton>#플로깅</Tagbutton>
+            <div>
+              {detail.tagMeetings &&
+                Array.from(detail.tagMeetings).map((tag) => (
+                  <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
+                ))}
+            </div>
+            <div>
+              {liked ? (
+                <BsHeartFill
+                  className="m-2 text-red-600 w-16 h-16 cursor-pointer"
+                  onClick={likeHandler}
+                />
+              ) : (
+                <BsHeart
+                  className="m-2 text-red-600 w-6 h-6 cursor-pointer"
+                  onClick={likeHandler}
+                />
+              )}
+              <span>{detail.heartNum}</span>
+            </div>
           </TagListLayout>
           <StyledH1>{detail.title}</StyledH1>
           <div className="flex items-center">
             <AiOutlineCalendar />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               모집기간 : {detail.joinStartDate}~{detail.joinEndDate}
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <AiOutlineCalendar />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               활동기간 : {detail.meetingStartDate}~{detail.meetingEndDate}
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <IoMdPeople />
-            <StyledH3>
+            <h1 className="px-2 py-1">
               {detail.nowPeople}/{detail.limitPeople}명 참여중
-            </StyledH3>
+            </h1>
           </div>
           <div className="flex items-center">
             <GrLocation />
-            <StyledH3>모임 장소 : {detail.location}</StyledH3>
+            <h1 className="px-2 py-1">모임 장소 : {detail.location}</h1>
           </div>
-          <StyledContentBox>{detail.content}</StyledContentBox>
+          <div className="py-1 h-full text-gray-500 mt-2 ">
+            <h3>내용 : {detail.content}</h3>
+          </div>
         </StyledDetail>
       </StyledCard>
     </>
@@ -103,26 +159,12 @@ const StyledDetail = styled.div`
   height: 100%;
   padding-left: 3%;
 `;
-const StyledH1 = styled.h1`
-  font-size: x-large;
-  margin-bottom: 7%;
-  color: #333;
-`;
-const StyledH3 = styled.h3`
-  font-size: 1em;
-  margin-left: 2%;
-  color: #333;
-`;
-const StyledContentBox = styled.div`
-  width: 100%;
-  background-color: #f4f4f4;
-  margin-top: 10%;
-  padding: 20px;
-`;
 
 const TagListLayout = styled.div`
   width: 100%;
   height: 40px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Tagbutton = styled.button`

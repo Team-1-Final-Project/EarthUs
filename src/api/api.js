@@ -70,12 +70,16 @@ export const apis = {
     }),
   applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
   cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
-  updateMeeting: (meetingID) => api.update(`meeting/${meetingID}`),
+  updateMeeting: (meetingID, data) => api.put(`meeting/${meetingID}`, data),
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`),
-  updateMeetingImage: (meetingID) => api.update(`meeting/${meetingID}/image`),
+  updateMeetingImage: (meetingID) => api.put(`meeting/${meetingID}/image`),
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+
+  //meeting like
+  getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
+  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`, { meetingID: meetingID }),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),

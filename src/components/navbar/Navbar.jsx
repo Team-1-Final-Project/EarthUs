@@ -3,11 +3,15 @@ import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
 import { useSelector } from 'react-redux';
+import Modal from 'components/modal/Modal';
+import { useState } from 'react';
+import KakaoLogin from 'components/login/KakaoLogin';
 
 function Navbar() {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
+  const [modalState, setModalState] = useState(false);
 
   const list = [
     ['zerowaste', ''],
@@ -30,17 +34,46 @@ function Navbar() {
           <div className="flex items-center justify-center ">
             {data.loginState ? (
               <div className="flex items-center gap-3">
-                <ProfileIcon image={data.image}></ProfileIcon>
                 <div
                   className="hover:cursor-pointer"
                   onClick={() => {
                     navigate('/mypage');
                   }}
                 >
-                  <span className=" text-[12px] text-defaultLine ml-2">로그아웃</span>
+                  <ProfileIcon image={data.image}></ProfileIcon>
                 </div>
+                <span className=" text-[12px] text-defaultLine ml-2">
+                  <button>로그아웃</button>
+                </span>
               </div>
-            ) : null}
+            ) : (
+              <button
+                className="p-2 text-white rounded-lg bg-cyan-400 hover:bg-cyan-500"
+                onClick={() => {
+                  setModalState(true);
+                }}
+              >
+                로그인
+              </button>
+            )}
+            {modalState && (
+              <Modal
+                onConfirm={modalState}
+                children={
+                  <div className="flex items-center flex-col">
+                    <KakaoLogin />
+                    <button
+                      className="absolute inset-x-0 bottom-0 m-10 p-2 bg-cyan-400 hover:bg-cyan-500 rounded-md text-white"
+                      onClick={() => setModalState(false)}
+                    >
+                      닫기
+                    </button>
+                  </div>
+                }
+                width={300}
+                height={300}
+              />
+            )}
           </div>
         </div>
         <div className="flex items-center justify-between h-16">
