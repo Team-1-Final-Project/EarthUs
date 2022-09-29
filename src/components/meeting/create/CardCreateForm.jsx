@@ -82,7 +82,7 @@ const CardCreateForm = () => {
               <div className="h-full">
                 <label className="mt-10 block text-sm font-medium text-gray-700">사진 등록</label>
                 <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                  <div className="space-y-1 text-center">
+                  <div className="space-y-1 text-center flex flex-col items-center justify-center">
                     {image ? (
                       <Preview img={image} />
                     ) : (

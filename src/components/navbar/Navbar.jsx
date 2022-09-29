@@ -2,15 +2,17 @@ import React from 'react';
 import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/login/KakaoLogin';
+import loginSlice, { loginLocation } from 'redux/modules/loginSlice';
 
 function Navbar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const state = useLocation();
   const params = useParams();
-  const location = useLocation();
   const [modalState, setModalState] = useState(false);
 
   const list = [
@@ -48,9 +50,12 @@ function Navbar() {
               </div>
             ) : (
               <button
-                className="p-2 text-white rounded-lg bg-cyan-400 hover:bg-cyan-500"
+                className="p-2 text-slate-300"
                 onClick={() => {
+                  const location = state.pathname;
                   setModalState(true);
+                  dispatch(loginSlice.actions.loginLocation(location));
+                  console.log('여기', location);
                 }}
               >
                 로그인
@@ -63,7 +68,7 @@ function Navbar() {
                   <div className="flex items-center flex-col">
                     <KakaoLogin />
                     <button
-                      className="absolute inset-x-0 bottom-0 m-10 p-2 bg-cyan-400 hover:bg-cyan-500 rounded-md text-white"
+                      className="absolute inset-x-0 bottom-0 m-10 p-2 text-slate-300 rounded-md text-white"
                       onClick={() => setModalState(false)}
                     >
                       닫기
