@@ -3,11 +3,14 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getprofile } from 'redux/modules/loginSlice';
+import { useSelector } from 'react-redux';
 
 const KakaoAuth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let code = new URL(window.location.href).searchParams.get('code');
+
+  const data = useSelector((state) => state.login);
 
   useEffect(() => {
     api
@@ -24,7 +27,6 @@ const KakaoAuth = () => {
             const image = res.data.profileImage;
             const email = res.data.email;
             dispatch(getprofile({ nickname, image, email }));
-            navigate('/meeting');
           })
           .catch((err) => console.log('err', err));
       })
