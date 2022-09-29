@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 const UserInfoCard = (props) => {
-  const adminInfo = props.data;
+  const userInfo = props.data;
 
   return (
     <>
       <StyledCard>
         <div>
-          <img src={adminInfo && adminInfo.admin.profileImage} />
+          <img src={userInfo && userInfo.profileImage} />
         </div>
-        <StyledDetail>{adminInfo && adminInfo.admin.nickname}</StyledDetail>
-        <StyledDetail2>content : 미정</StyledDetail2>
+        <StyledDetail>{userInfo && userInfo.nickname}</StyledDetail>
+        <StyledDetail2>Email : {userInfo && userInfo.email}</StyledDetail2>
       </StyledCard>
     </>
   );
