@@ -1,3 +1,4 @@
+//redirct uri페이지
 import { api, apis } from 'api/api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +28,7 @@ const KakaoAuth = () => {
             const image = res.data.profileImage;
             const email = res.data.email;
             dispatch(getprofile({ nickname, image, email }));
+            navigate(data.location);
           })
           .catch((err) => console.log('err', err));
       })
