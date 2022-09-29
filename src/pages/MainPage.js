@@ -6,6 +6,8 @@ import TopPost from 'components/main/TopPost';
 import Meeting from 'components/main/Meeting';
 import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -17,18 +19,22 @@ function MainPage() {
     apis.getMainMission().then((res) => setMission(res.data));
     apis.getMainMeeting().then((res) => {
       setMeeting(res.data);
-      console.log(res);
+      console.log(res.data);
     });
     apis.getMainHitBoard().then((res) => console.log(res));
   }, []);
 
   const checkDailyMission = () => {
-    apis.postDailiyMissionCheck().then((res) => console.log(res));
+    apis.postDailiyMissionCheck().then((res) => {
+      console.log(res.error.message);
+    });
   };
 
   return (
     <div className="flex flex-col justify-center w-full">
       <Navbar />
+      <ToastContainer />
+
       <Banner />
       <Dailymission mission={mission} checkDailyMission={checkDailyMission} />
       <TopPost hitBoard={hitBoard} />

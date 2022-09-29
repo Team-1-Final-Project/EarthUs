@@ -13,7 +13,8 @@ import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
-  const data = useSelector((state) => {
+
+  const loginData = useSelector((state) => {
     return state.login;
   });
 
@@ -50,10 +51,24 @@ const MeetingDetailPage = () => {
         </div>
         <ButtonLayout>
           <Button>신청 하기</Button>
-          <Link to={`/meeting/update/${params}`}>
-            <Button>수정 하기</Button>
-          </Link>
-          <Button onClick={() => onClickDelete()}>삭제 하기</Button>
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? navigate(`/meeting/update/${params}`)
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            수정 하기
+          </Button>
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? navigate(`/meeting/update/${params}`)
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            삭제 하기
+          </Button>
         </ButtonLayout>
         <div>
           <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>

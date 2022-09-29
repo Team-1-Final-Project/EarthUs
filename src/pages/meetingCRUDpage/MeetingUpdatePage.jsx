@@ -1,13 +1,16 @@
 import React from 'react';
 import CardUpdateForm from 'components/meeting/update/CardUpdateForm';
 import HomeButton from 'components/navbar/HomeButton';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const MeetingUpdatePage = () => {
   return (
-    <div>
-      <HomeButton />
-      <CardUpdateForm />
-    </div>
+    <Layout>
+      <Container>
+        <HomeButton />
+        <CardUpdateForm />
+      </Container>
+    </Layout>
   );
 };
 

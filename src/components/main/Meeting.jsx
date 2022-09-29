@@ -15,6 +15,10 @@ function Meeting({ meeting }) {
               <div
                 key={meeting.id}
                 className="relative flex items-center w-10 h-40 bg-white default_outline"
+                onClick={() => {
+                  console.log('hi');
+                  navigate(`meeting/detail/${meeting.id}`);
+                }}
               >
                 <div className="flex justify-between ">
                   <div className="mt-2 ml-4">
@@ -30,12 +34,18 @@ function Meeting({ meeting }) {
                           &nbsp;참여 인원 : {meeting.nowPeople} / {meeting.limitPeople}
                         </span>
                       </div>
-                      <div>장소 : 서울 어딘가</div>
+                      <div>장소 : {meeting.location} </div>
                     </div>
                   </div>
-                  <div className="w-1/3">
-                    <img src={meeting.meetingImage} className="w-full h-40 rounded-lg" />
-                  </div>
+                  {meeting.meetingImage && (
+                    <div className="w-1/3">
+                      <img
+                        src={meeting.meetingImage}
+                        className="w-full h-40 rounded-lg"
+                        alt="이미지"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -8,8 +8,16 @@ import { apis } from 'api/api';
 import KakaoLogin from 'components/login/KakaoLogin';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
+import loginSlice from 'redux/modules/loginSlice';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const MeetingPage = () => {
+  const navigate = useNavigate();
+  const loginData = useSelector((state) => {
+    return state.login;
+  });
+
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
 
@@ -43,13 +51,18 @@ const MeetingPage = () => {
     <Layout>
       <Container>
         <Navbar />
-        <KakaoLogin />
         <div className="pt-20 px-20">
           <div className="flex justify-between py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
-            <Link to="/meeting/create">
-              <Button>모임 생성</Button>
-            </Link>
+            <Button
+              onClick={() => {
+                loginData.loginState
+                  ? navigate('/meeting/create')
+                  : alert('로그인하셔야 이용가능합니다');
+              }}
+            >
+              모임 생성
+            </Button>
           </div>
           <MeetingCarousel>
             <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
