@@ -21,15 +21,15 @@ export const apis = {
   },
 
   getPost: async () => {
-    const response = await jsonAPI.get('mockboard');
+    const response = await api.get('board');
     return response;
   },
   getDetail: async (boardId) => {
-    const response = await jsonAPI.get(`mockboard/data/${boardId}`);
+    const response = await api.get(`mockboard/data/${boardId}`);
     return response;
   },
   addPost: async ({ title, image, content, tag }) => {
-    const response = await jsonAPI.post('board', {
+    const response = await api.post('board', {
       title: title,
       image: image,
       content: content,
@@ -39,13 +39,13 @@ export const apis = {
   },
 
   deletePost: async (boardId) => {
-    const response = await api.delete(`mockboard/${boardId}`);
+    const response = await api.delete(`api/${boardId}`);
     return response;
   },
 
   postHeart: async ({ boardId }) => {
     console.log(boardId);
-    const response = await api.put('mockboard', {
+    const response = await api.put('api', {
       boardId: boardId,
     });
     console.log(response.data);

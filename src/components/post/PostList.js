@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const PostList = ({ data }) => {
   const navigate = useNavigate();
 
+  console.log(data);
   return (
     <>
       {data?.map((post) => {
         console.log(post);
-        return <Post key={post?.data.boardId} data={post?.data} />;
+        return <Post key={post?.boardId} data={post} />;
       })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>
         <AiOutlinePlus />

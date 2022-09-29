@@ -6,6 +6,7 @@ import { apis } from 'api/api';
 
 const Post = ({ data }) => {
   const navigate = useNavigate();
+  console.log(data);
 
   return (
     <ContainerStyled

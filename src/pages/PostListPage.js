@@ -32,7 +32,7 @@ const PostListPage = () => {
 
   useEffect(() => {
     if (Array.from(selectedTag).length === 0) {
-      apis.getPost('mockboard').then((res) => {
+      apis.getPost('board').then((res) => {
         setData(res.data);
       });
     } else {
