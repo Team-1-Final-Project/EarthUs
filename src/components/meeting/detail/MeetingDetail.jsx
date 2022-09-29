@@ -70,7 +70,7 @@ const MeetingDetail = (props) => {
               <span>{detail.heartNum}</span>
             </div>
           </TagListLayout>
-          <StyledH1>{detail.title}</StyledH1>
+          <h1 className="pb-2 mb-5 text-3xl">{detail.title}</h1>
           <div className="flex items-center">
             <AiOutlineCalendar />
             <h1 className="px-2 py-1">
