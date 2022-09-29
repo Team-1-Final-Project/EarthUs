@@ -48,7 +48,7 @@ function Navbar() {
               </div>
             ) : (
               <button
-                className="p-2 text-white rounded-lg bg-cyan-400 hover:bg-cyan-500"
+                className="p-2 text-slate-300"
                 onClick={() => {
                   setModalState(true);
                 }}

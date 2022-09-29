@@ -27,6 +27,7 @@ const MeetingDetailPage = () => {
       .getMeeting(params)
       .then((res) => {
         setDetailData(res.data.data);
+        console.log('detaildata', detailData);
       })
       .catch((err) => console.log('err', err, params));
   }, []);
@@ -63,7 +64,7 @@ const MeetingDetailPage = () => {
           <Button
             onClick={() => {
               loginData.email === detailData.admin.email
-                ? navigate(`/meeting/update/${params}`)
+                ? onClickDelete()
                 : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
             }}
           >
@@ -73,7 +74,7 @@ const MeetingDetailPage = () => {
         <div>
           <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
           <div className="px-20">
-            <UserInfoCard data={detailData} />
+            <UserInfoCard data={detailData ? detailData.admin : null} />
           </div>
         </div>
         <div>

@@ -25,7 +25,7 @@ export default Preview;
 
 const PreviewImage = styled.img`
   margin-top: 20px;
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 `;
