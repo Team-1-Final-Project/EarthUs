@@ -25,7 +25,7 @@ const MeetingUpdatePage = () => {
     <Layout>
       <Container>
         <HomeButton />
-        <CardUpdateForm detailData={detailData ? detailData : null} params={params} />
+        <CardUpdateForm detailData={detailData && detailData} params={params} />
       </Container>
     </Layout>
   );

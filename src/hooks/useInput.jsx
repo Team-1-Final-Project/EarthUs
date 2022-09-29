@@ -9,5 +9,5 @@ export const useInput = (initialValue) => {
     setInputValue(e.target.value);
   };
 
-  return [inputValue, handleChange];
+  return [inputValue, setInputValue, handleChange];
 };
