@@ -21,17 +21,22 @@ import { apis } from 'api/api';
 // });
 
 const loginSlice = createSlice({
-  name: 'loginSlice',
-  initialState: { loginState: false, nickname: '', image: '', email: '' },
+  name: 'login',
+  initialState: { loginState: false, nickname: '', image: '', email: '', location: '/' },
   reducers: {
     getprofile: (state, action) => {
       state.loginState = true;
       state.nickname = action.payload.nickname;
       state.image = action.payload.image;
       state.email = action.payload.email;
+      console.log(state.nickname, state.location);
+    },
+    loginLocation: (state, action) => {
+      state.location = action.payload;
+      console.log(state.location);
     },
   },
 });
 
 export default loginSlice;
-export const { getprofile } = loginSlice.actions;
+export const { getprofile, loginLocation } = loginSlice.actions;

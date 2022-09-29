@@ -2,58 +2,64 @@ import { useInput } from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Preview from '../create/Preview';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { apis } from 'api/api';
-
+import { useEffect } from 'react';
 export const orange = (str) => {
   const a = str.split('-');
   const b = Number(a.join(''));
   return b;
 };
 
-const CardUpdateForm = () => {
-  const [detailData, setDetailData] = useState('');
-  let params = useParams().id;
-
-  useEffect(() => {
-    apis
-      .getMeeting(params)
-      .then((res) => {
-        setDetailData(res.data.data);
-        console.log('success', detailData);
-      })
-      .catch((err) => console.log('err', err));
-  }, []);
-
+const CardUpdateForm = (props) => {
   const navigate = useNavigate();
 
-  const [title, titleChange] = useInput('');
-  const [tag, tagChange] = useInput('');
-  const [location, locationChange] = useInput('');
-  const [limitPeople, limitPeopleChange] = useInput(0);
-  const [joinStartDate, joinStartDateChange] = useInput('');
-  const [joinEndDate, joinEndDateChange] = useInput('');
-  const [meetingStartDate, meetingStartDateChange] = useInput('');
-  const [meetingEndDate, meetingEndDateChange] = useInput('');
-  const [content, contentChange] = useInput('');
+  const [title, setTitle, titleChange] = useInput('');
+  const [tag, setTag, tagChange] = useInput('');
+  const [location, setLocation, locationChange] = useInput('');
+  const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
+  const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, setJoinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
+  const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, setContent, contentChange] = useInput('');
   const [image, setImage] = useState('');
 
+  useEffect(() => {
+    console.log('here', props);
+    props.detailData && setTitle(props.detailData.title);
+    props.detailData && setLocation(props.detailData.location);
+    props.detailData && setLimitPeople(props.detailData.limitPeople);
+    props.detailData && setJoinStartDate(props.detailData.joinStartDate);
+    props.detailData && setJoinEndDate(props.detailData.joinEndDate);
+    props.detailData && setMeetingStartDate(props.detailData.meetingStartDate);
+    props.detailData && setMeetingEndDate(props.detailData.meetingEndDate);
+    props.detailData && setContent(props.detailData.content);
+    console.log('data', data);
+  }, [props.detailData]);
+
+  const data = {
+    title: title,
+    content: content,
+    joinStartDate: joinStartDate,
+    joinEndDate: joinEndDate,
+    meetingStartDate: meetingStartDate,
+    meetingEndDate: meetingEndDate,
+    location: location,
+    limitPeople: limitPeople,
+    tagMeetingIds: [6, 7],
+  };
   const list = [2, 3, 4, 5, 6, 7, 8];
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const JSD = orange(joinStartDate);
-    const JED = orange(joinEndDate);
-    const MSD = orange(meetingStartDate);
-    const MED = orange(meetingEndDate);
-
-    if (JSD < JED && MSD < MED && JED <= MSD) {
-      // navigate('/meeting');
-    } else {
-      alert('날짜 형식에 어긋납니다');
-    }
+    await apis
+      .updateMeeting(props.params, data)
+      .then((res) => {
+        console.log(res, data);
+        navigate('/meeting');
+      })
+      .catch((err) => console.log(err));
   };
 
   const onClickGoOut = (e) => {
@@ -78,24 +84,14 @@ const CardUpdateForm = () => {
               <div className="h-full">
                 <label className="mt-10 block text-sm font-medium text-gray-700">사진 등록</label>
                 <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                  <div className="space-y-1 text-center">
+                  <div className="space-y-1 text-center flex flex-col items-center justify-center">
                     {image ? (
-                      <Preview img={detailData.meetingImage} />
+                      <Preview img={image} />
                     ) : (
-                      <svg
-                        className="mx-auto h-12 w-12 text-gray-400"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                      <img
+                        className="h-full w-full"
+                        src={props.detailData ? props.detailData.meetingImage : null}
+                      />
                     )}
 
                     <div className="flex text-sm text-gray-600">
@@ -112,6 +108,7 @@ const CardUpdateForm = () => {
                           onChange={(e) => {
                             onChangeImageHandler(e);
                           }}
+                          required
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>
@@ -138,8 +135,10 @@ const CardUpdateForm = () => {
                         rows={1}
                         className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="제목을 입력해 주세요"
-                        defaultValue={detailData.title}
+                        defaultValue={title}
                         onChange={titleChange}
+                        type="text"
+                        required
                       />
                     </div>
                   </div>
@@ -154,8 +153,7 @@ const CardUpdateForm = () => {
                           name="about"
                           rows={1}
                           className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          defaultValue={detailData.limitPeople}
-                          key={detailData.limitPeople}
+                          defaultValue={props.detailData && props.detailData.limitPeople}
                           onChange={limitPeopleChange}
                         >
                           <option value="" disabled="">
@@ -182,7 +180,7 @@ const CardUpdateForm = () => {
                           rows={1}
                           className=" h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="모임 장소를 입력해 주세요"
-                          defaultValue={detailData.location}
+                          defaultValue={location}
                           onChange={locationChange}
                         />
                       </div>
@@ -201,7 +199,7 @@ const CardUpdateForm = () => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={detailData.joinStartDate}
+                          defaultValue={joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
@@ -212,7 +210,7 @@ const CardUpdateForm = () => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={detailData.joinEndDate}
+                          defaultValue={joinEndDate}
                           onChange={joinEndDateChange}
                         />
                       </div>
@@ -229,7 +227,7 @@ const CardUpdateForm = () => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={detailData.meetingStartDate}
+                          defaultValue={meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
@@ -240,7 +238,7 @@ const CardUpdateForm = () => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={detailData.meetingEndDate}
+                          defaultValue={meetingEndDate}
                           onChange={meetingEndDateChange}
                         />
                       </div>
@@ -258,7 +256,7 @@ const CardUpdateForm = () => {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="내용을 입력해 주세요"
-                        defaultValue={detailData.content}
+                        defaultValue={content}
                         onChange={contentChange}
                       />
                     </div>
