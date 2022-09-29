@@ -63,7 +63,7 @@ function Navbar() {
                   <div className="flex items-center flex-col">
                     <KakaoLogin />
                     <button
-                      className="absolute inset-x-0 bottom-0 m-10 p-2 bg-cyan-400 hover:bg-cyan-500 rounded-md text-white"
+                      className="absolute inset-x-0 bottom-0 m-10 p-2 text-slate-300 rounded-md text-white"
                       onClick={() => setModalState(false)}
                     >
                       닫기
