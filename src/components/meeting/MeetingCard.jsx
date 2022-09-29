@@ -22,7 +22,7 @@ const MeetingCard = (props) => {
         .then((res) => {
           setLiked(res.data.data);
         })
-        .catch((err) => alert(err));
+        .catch((err) => console.log(err));
     }
   }, [loginState]);
 
