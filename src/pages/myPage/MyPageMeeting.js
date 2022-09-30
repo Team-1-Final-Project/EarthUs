@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'components/navbar/Navbar';
 import MenuBar from 'components/mypage/MenuBar';
 import Meeting from 'components/mypage/Meeting';
+import Footer from 'components/footer/Footer';
 
 function MyPageMeeting() {
   return (
@@ -13,6 +14,7 @@ function MyPageMeeting() {
           <Meeting />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

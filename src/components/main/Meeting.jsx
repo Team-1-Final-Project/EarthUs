@@ -16,7 +16,6 @@ function Meeting({ meeting }) {
                 key={meeting.id}
                 className="relative flex items-center w-10 h-40 bg-white default_outline"
                 onClick={() => {
-                  console.log('hi');
                   navigate(`meeting/detail/${meeting.id}`);
                 }}
               >
