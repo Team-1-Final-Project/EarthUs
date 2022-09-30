@@ -102,7 +102,7 @@ export const apis = {
 
   //meeting like
   getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
-  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`, { meetingID: meetingID }),
+  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),

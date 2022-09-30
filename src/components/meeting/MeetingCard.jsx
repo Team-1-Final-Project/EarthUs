@@ -16,15 +16,15 @@ const MeetingCard = (props) => {
   const loginState = useSelector((state) => state.login.loginState);
 
   useEffect(() => {
-    if (loginState) {
+    if (loginState && data.id) {
       apis
         .getMeetingLike(data.id)
         .then((res) => {
-          setLiked(res.data.data);
+          setLiked(res.data.data.meetingLike);
         })
         .catch((err) => console.log(err));
     }
-  }, [loginState]);
+  }, [loginState, data.id]);
 
   return (
     <>
