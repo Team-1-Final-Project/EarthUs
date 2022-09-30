@@ -20,6 +20,26 @@ export const apis = {
     return response.data;
   },
 
+  getMainMission: async () => {
+    const response = await api.get('main/daily');
+    return response.data;
+  },
+
+  getMainHitBoard: async () => {
+    const response = await api.get('main/hitboard');
+    return response.data;
+  },
+
+  getMainMeeting: async () => {
+    const response = await api.get('main/newmeeting');
+    return response.data;
+  },
+
+  postDailiyMissionCheck: async () => {
+    const response = await api.post('main/daily');
+    return response.data;
+  },
+
   getPost: async () => {
     const response = await api.get('board');
     return response;

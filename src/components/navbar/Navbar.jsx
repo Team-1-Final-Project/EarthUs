@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/login/KakaoLogin';
+import HomeButton from './HomeButton';
 import loginSlice, { loginLocation } from 'redux/modules/loginSlice';
 
 function Navbar() {
@@ -29,10 +30,7 @@ function Navbar() {
     <nav className="">
       <div className="max-w-6xl px-4 mx-auto">
         <div className="flex items-center justify-between h-20">
-          <div className="flex items-center text-3xl font-bold text-defaultColor">
-            <img src={Logo} className="w-10 h-10 rounded-full" />
-            <span className="ml-2">Earth, us </span>
-          </div>
+          <HomeButton />
           <div className="flex items-center justify-center ">
             {data.loginState ? (
               <div className="flex items-center gap-3">
@@ -65,7 +63,7 @@ function Navbar() {
               <Modal
                 onConfirm={modalState}
                 children={
-                  <div className="flex items-center flex-col">
+                  <div className="flex flex-col items-center">
                     <KakaoLogin />
                     <button
                       className="absolute inset-x-0 bottom-0 m-10 p-2 text-slate-300 rounded-md text-white"
@@ -84,10 +82,7 @@ function Navbar() {
         <div className="flex items-center justify-between h-16">
           {list.map((list, index) => (
             <div
-              className={
-                'text-defaultText hover:cursor-pointer hover:text-defaultColor' +
-                (true ? true : true)
-              }
+              className={'text-defaultText hover:cursor-pointer hover:text-defaultColor'}
               key={index}
               onClick={() => {
                 navigate(`/${list[1]}`);

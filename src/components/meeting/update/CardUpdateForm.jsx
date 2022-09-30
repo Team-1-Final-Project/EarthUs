@@ -11,37 +11,31 @@ export const orange = (str) => {
 };
 
 const CardUpdateForm = (props) => {
-  const [prop, setProp] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (
-      title &&
-      tag &&
-      location &&
-      limitPeople &&
-      joinStartDate &&
-      joinEndDate &&
-      meetingStartDate &&
-      meetingEndDate &&
-      content
-    ) {
-      return;
-    } else {
-      return setProp(props.detailData);
-    }
-  });
-
-  const [title, titleChange] = useInput('');
-  const [tag, tagChange] = useInput('');
-  const [location, locationChange] = useInput('');
-  const [limitPeople, limitPeopleChange] = useInput(0);
-  const [joinStartDate, joinStartDateChange] = useInput('');
-  const [joinEndDate, joinEndDateChange] = useInput('');
-  const [meetingStartDate, meetingStartDateChange] = useInput('');
-  const [meetingEndDate, meetingEndDateChange] = useInput('');
-  const [content, contentChange] = useInput('');
+  const [title, setTitle, titleChange] = useInput('');
+  const [tag, setTag, tagChange] = useInput('');
+  const [location, setLocation, locationChange] = useInput('');
+  const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
+  const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, setJoinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
+  const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, setContent, contentChange] = useInput('');
   const [image, setImage] = useState('');
+
+  useEffect(() => {
+    console.log('here', props);
+    props.detailData && setTitle(props.detailData.title);
+    props.detailData && setLocation(props.detailData.location);
+    props.detailData && setLimitPeople(props.detailData.limitPeople);
+    props.detailData && setJoinStartDate(props.detailData.joinStartDate);
+    props.detailData && setJoinEndDate(props.detailData.joinEndDate);
+    props.detailData && setMeetingStartDate(props.detailData.meetingStartDate);
+    props.detailData && setMeetingEndDate(props.detailData.meetingEndDate);
+    props.detailData && setContent(props.detailData.content);
+    console.log('data', data);
+  }, [props.detailData]);
 
   const data = {
     title: title,
@@ -54,16 +48,10 @@ const CardUpdateForm = (props) => {
     limitPeople: limitPeople,
     tagMeetingIds: [6, 7],
   };
-
   const list = [2, 3, 4, 5, 6, 7, 8];
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-
-    const JSD = orange(joinStartDate);
-    const JED = orange(joinEndDate);
-    const MSD = orange(meetingStartDate);
-    const MED = orange(meetingEndDate);
 
     await apis
       .updateMeeting(props.params, data)
@@ -100,7 +88,10 @@ const CardUpdateForm = (props) => {
                     {image ? (
                       <Preview img={image} />
                     ) : (
-                      <img className="h-full w-full" src={prop ? prop.meetingImage : null} />
+                      <img
+                        className="h-full w-full"
+                        src={props.detailData ? props.detailData.meetingImage : null}
+                      />
                     )}
 
                     <div className="flex text-sm text-gray-600">
@@ -144,7 +135,7 @@ const CardUpdateForm = (props) => {
                         rows={1}
                         className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="제목을 입력해 주세요"
-                        defaultValue={prop ? prop.title : null}
+                        defaultValue={title}
                         onChange={titleChange}
                         type="text"
                         required
@@ -162,7 +153,7 @@ const CardUpdateForm = (props) => {
                           name="about"
                           rows={1}
                           className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          defaultValue={prop ? prop.limitPeople : null}
+                          defaultValue={props.detailData && props.detailData.limitPeople}
                           onChange={limitPeopleChange}
                         >
                           <option value="" disabled="">
@@ -189,7 +180,7 @@ const CardUpdateForm = (props) => {
                           rows={1}
                           className=" h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="모임 장소를 입력해 주세요"
-                          defaultValue={prop ? prop.location : null}
+                          defaultValue={location}
                           onChange={locationChange}
                         />
                       </div>
@@ -208,7 +199,7 @@ const CardUpdateForm = (props) => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={prop ? prop.joinStartDate : null}
+                          defaultValue={joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
@@ -219,7 +210,7 @@ const CardUpdateForm = (props) => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={prop ? prop.joinEndDate : null}
+                          defaultValue={joinEndDate}
                           onChange={joinEndDateChange}
                         />
                       </div>
@@ -236,7 +227,7 @@ const CardUpdateForm = (props) => {
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={prop ? prop.meetingStartDate : null}
+                          defaultValue={meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
@@ -247,7 +238,7 @@ const CardUpdateForm = (props) => {
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder=""
                           type="date"
-                          defaultValue={prop ? prop.meetingEndDate : null}
+                          defaultValue={meetingEndDate}
                           onChange={meetingEndDateChange}
                         />
                       </div>
@@ -265,7 +256,7 @@ const CardUpdateForm = (props) => {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="내용을 입력해 주세요"
-                        defaultValue={prop ? prop.content : null}
+                        defaultValue={content}
                         onChange={contentChange}
                       />
                     </div>

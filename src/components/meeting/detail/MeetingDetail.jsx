@@ -58,19 +58,19 @@ const MeetingDetail = (props) => {
             <div>
               {liked ? (
                 <BsHeartFill
-                  className="m-2 text-red-600 w-16 h-16 cursor-pointer"
+                  className="w-16 h-16 m-2 text-red-600 cursor-pointer"
                   onClick={likeHandler}
                 />
               ) : (
                 <BsHeart
-                  className="m-2 text-red-600 w-6 h-6 cursor-pointer"
+                  className="w-6 h-6 m-2 text-red-600 cursor-pointer"
                   onClick={likeHandler}
                 />
               )}
               <span>{detail.heartNum}</span>
             </div>
           </TagListLayout>
-          <StyledH1>{detail.title}</StyledH1>
+          <h1 className="pb-2 mb-5 text-3xl">{detail.title}</h1>
           <div className="flex items-center">
             <AiOutlineCalendar />
             <h1 className="px-2 py-1">
@@ -93,7 +93,7 @@ const MeetingDetail = (props) => {
             <GrLocation />
             <h1 className="px-2 py-1">모임 장소 : {detail.location}</h1>
           </div>
-          <div className="py-1 h-full text-gray-500 mt-2 ">
+          <div className="h-full py-1 mt-2 text-gray-500 ">
             <h3>내용 : {detail.content}</h3>
           </div>
         </StyledDetail>
