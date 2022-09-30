@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import loginSlice from 'redux/modules/loginSlice';
 
 function MenuBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const pathName = useLocation().pathname.split('/')[1];
+  //pathName으로 메뉴바 체크하기.
 
   const user = useSelector((state) => {
     return state.login;
@@ -25,7 +27,7 @@ function MenuBar() {
         <img
           src={user.image}
           className="w-12 h-12 bg-gray-300 rounded-full hover:cursor-pointer"
-          alt="프로필 이미지"
+          alt=""
           onClick={() => {
             navigate('/mypage');
           }}
