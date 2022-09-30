@@ -22,8 +22,20 @@ const MeetingDetailPage = () => {
 
     loginData.loginState
       ? applyState
-        ? apis.cancelMeeting(params) && setApplyState(false)
-        : apis.applyMeeting(params) && setApplyState(true)
+        ? apis
+            .cancelMeeting(params)
+            .then((res) => {
+              console.log('apply cancel success', res);
+              setApplyState(false);
+            })
+            .catch((err) => console.log(err))
+        : apis
+            .applyMeeting(params)
+            .then((res) => {
+              console.log('apply success', res);
+              setApplyState(true);
+            })
+            .catch((err) => console.log(err))
       : alert('로그인 먼저하세요');
     return console.log('applystate', applyState);
   };

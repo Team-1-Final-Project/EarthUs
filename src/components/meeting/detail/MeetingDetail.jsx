@@ -2,20 +2,74 @@ import styled from 'styled-components';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
+import { useState } from 'react';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { apis } from 'api/api';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MeetingDetail = (props) => {
   const detail = { ...props.data };
+
+  const [liked, setLiked] = useState(false);
+  const loginState = useSelector((state) => state.login.loginState);
+
+  const likeHandler = async () => {
+    if (loginState) {
+      try {
+        const res = await apis.updateMeetingLike(detail.id);
+        setLiked(res.data.data);
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      toast.error('로그인이 필요합니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (loginState) {
+      apis
+        .getMeetingLike(detail.id)
+        .then((res) => {
+          setLiked(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loginState]);
+
   return (
     <>
       <StyledCard>
+        <ToastContainer />
         <div>
           <img src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
-          <div>
-            <Tagbutton>#아차산</Tagbutton>
-            <Tagbutton>#플로깅</Tagbutton>
-          </div>
+          <TagListLayout>
+            <div>
+              {detail.tagMeetings &&
+                Array.from(detail.tagMeetings).map((tag) => (
+                  <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
+                ))}
+            </div>
+            <div>
+              {liked ? (
+                <BsHeartFill
+                  className="w-16 h-16 m-2 text-red-600 cursor-pointer"
+                  onClick={likeHandler}
+                />
+              ) : (
+                <BsHeart
+                  className="w-6 h-6 m-2 text-red-600 cursor-pointer"
+                  onClick={likeHandler}
+                />
+              )}
+              <span>{detail.heartNum}</span>
+            </div>
+          </TagListLayout>
           <h1 className="pb-2 mb-5 text-3xl">{detail.title}</h1>
           <div className="flex items-center">
             <AiOutlineCalendar />
@@ -39,7 +93,7 @@ const MeetingDetail = (props) => {
             <GrLocation />
             <h1 className="px-2 py-1">모임 장소 : {detail.location}</h1>
           </div>
-          <div className="py-1 h-full text-gray-500 mt-2 ">
+          <div className="h-full py-1 mt-2 text-gray-500 ">
             <h3>내용 : {detail.content}</h3>
           </div>
         </StyledDetail>
@@ -109,6 +163,8 @@ const StyledDetail = styled.div`
 const TagListLayout = styled.div`
   width: 100%;
   height: 40px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Tagbutton = styled.button`

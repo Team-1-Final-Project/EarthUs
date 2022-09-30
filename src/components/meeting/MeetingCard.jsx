@@ -1,12 +1,31 @@
 import CardProfileIcon from './CardProfileIcon';
 import styled from 'styled-components';
-import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
+import { AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { apis } from 'api/api';
 
 const MeetingCard = (props) => {
   const data = { ...props.data };
   const admin = data.admin;
+
+  const [liked, setLiked] = useState(false);
+  const loginState = useSelector((state) => state.login.loginState);
+
+  useEffect(() => {
+    if (loginState) {
+      apis
+        .getMeetingLike(data.id)
+        .then((res) => {
+          setLiked(res.data.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loginState]);
+
   return (
     <>
       <StyledCard>
@@ -38,8 +57,12 @@ const MeetingCard = (props) => {
 
           <div className="w-3/4 flex justify-between items-center">
             <div>by {admin && admin.nickname}</div>
-            <div className="flex items-center">
-              <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
+            <div className="w-1/2 flex justify-end items-center">
+              {liked ? (
+                <BsHeartFill className="m-2 text-red-600" />
+              ) : (
+                <BsHeart className="m-2 text-red-600" />
+              )}
               40
               <AiOutlineComment className="m-2" />
               50

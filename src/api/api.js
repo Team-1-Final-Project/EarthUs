@@ -20,6 +20,26 @@ export const apis = {
     return response.data;
   },
 
+  getMainMission: async () => {
+    const response = await api.get('main/daily');
+    return response.data;
+  },
+
+  getMainHitBoard: async () => {
+    const response = await api.get('main/hitboard');
+    return response.data;
+  },
+
+  getMainMeeting: async () => {
+    const response = await api.get('main/newmeeting');
+    return response.data;
+  },
+
+  postDailiyMissionCheck: async () => {
+    const response = await api.post('main/daily');
+    return response.data;
+  },
+
   getPost: async () => {
     const response = await api.get('mockboard');
     return response;
@@ -79,6 +99,10 @@ export const apis = {
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
   getMeetingUser: (meetingId) => api.get(`meeting/crew/${meetingId}`),
+
+  //meeting like
+  getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
+  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`, { meetingID: meetingID }),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
