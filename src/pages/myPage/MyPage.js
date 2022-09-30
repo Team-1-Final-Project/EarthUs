@@ -5,6 +5,7 @@ import Meeting from 'components/mypage/Meeting';
 import Post from 'components/mypage/Post';
 import Badge from 'components/mypage/Badge';
 import Mission from 'components/mypage/Mission';
+import Footer from 'components/footer/Footer';
 
 function MyPage() {
   return (
@@ -19,6 +20,7 @@ function MyPage() {
           <Mission />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
