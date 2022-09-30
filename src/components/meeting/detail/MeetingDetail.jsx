@@ -42,10 +42,10 @@ const MeetingDetail = (props) => {
 
   return (
     <>
+      <ToastContainer />
       <StyledCard>
-        <ToastContainer />
         <div>
-          <img src={detail.meetingImage}></img>
+          <img className="max-h-96 max-w-xl bg-white" src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
