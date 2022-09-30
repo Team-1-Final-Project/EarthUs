@@ -16,7 +16,10 @@ const MeetingDetailPage = () => {
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
-
+  useEffect(() => {
+    let finder = applyerData.find((item) => item.email === loginData.email);
+    finder ? setApplyState(true) : setApplyState(false);
+  });
   const onClickApplyHandler = () => {
     console.log(loginData.loginState);
 
@@ -82,7 +85,8 @@ const MeetingDetailPage = () => {
         console.log('유저정보', res.data.data);
       })
       .catch((err) => console.log('err', err));
-  }, []);
+  }, [applyState]);
+
   return (
     <Layout>
       <Container>
