@@ -7,6 +7,7 @@ import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/login/KakaoLogin';
 import loginSlice, { loginLocation } from 'redux/modules/loginSlice';
+import HomeButton from './HomeButton';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -58,6 +59,9 @@ function Navbar() {
                 onConfirm={modalState}
                 children={
                   <div className="flex items-center flex-col">
+                    <div className="flex mb-20">
+                      <HomeButton />
+                    </div>
                     <KakaoLogin />
                     <button
                       className="absolute inset-x-0 bottom-0 m-10 p-2 text-slate-300 rounded-md text-white"

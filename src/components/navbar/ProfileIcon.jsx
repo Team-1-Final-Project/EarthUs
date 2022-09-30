@@ -10,8 +10,8 @@ const user = {
 };
 
 const userNavigation = [
-  { name: 'Your Profile', href: '/mypage' },
-  { name: 'Sign out', href: '#' },
+  { name: '내 프로필', href: '/mypage' },
+  { name: '로그아웃', href: '#' },
 ];
 
 function classNames(...classes) {
@@ -27,7 +27,7 @@ const ProfileIcon = (props) => {
       <div>
         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={img} alt="" />
+          <img className="h-10 w-10 rounded-full" src={img} alt="" />
         </Menu.Button>
       </div>
       <Transition
