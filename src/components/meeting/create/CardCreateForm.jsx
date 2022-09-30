@@ -13,15 +13,15 @@ export const orange = (str) => {
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
-  const [title, titleChange] = useInput('');
-  const [tag, tagChange] = useInput('');
-  const [location, locationChange] = useInput('');
-  const [limitPeople, limitPeopleChange] = useInput(0);
-  const [joinStartDate, joinStartDateChange] = useInput('');
-  const [joinEndDate, joinEndDateChange] = useInput('');
-  const [meetingStartDate, meetingStartDateChange] = useInput('');
-  const [meetingEndDate, meetingEndDateChange] = useInput('');
-  const [content, contentChange] = useInput('');
+  const [title, setTitle, titleChange] = useInput('');
+  const [tag, setTag, tagChange] = useInput('');
+  const [location, setLocation, locationChange] = useInput('');
+  const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
+  const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
+  const [joinEndDate, setJoinEndDate, joinEndDateChange] = useInput('');
+  const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
+  const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
+  const [content, setContent, contentChange] = useInput('');
   const [image, setImage] = useState('');
 
   const list = [2, 3, 4, 5, 6, 7, 8];
