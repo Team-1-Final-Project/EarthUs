@@ -16,13 +16,16 @@ const MeetingDetailPage = () => {
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
+
   const onClickApplyHandler = () => {
     console.log(loginData.loginState);
+
     loginData.loginState
       ? applyState
         ? apis.cancelMeeting(params) && setApplyState(false)
         : apis.applyMeeting(params) && setApplyState(true)
       : alert('로그인 먼저하세요');
+    return console.log('applystate', applyState);
   };
 
   //여기부터 수정하기 파트입니다
@@ -39,7 +42,7 @@ const MeetingDetailPage = () => {
       .getMeeting(params)
       .then((res) => {
         setDetailData(res.data.data);
-        console.log('detaildata', detailData);
+        console.log('detaildata', res);
       })
       .catch((err) => console.log('err', err, params));
   }, []);
@@ -58,7 +61,7 @@ const MeetingDetailPage = () => {
   };
 
   //여기부터 모임 참여 유저 조회 파트입니다.
-  const [applyerData, setApplyerData] = useState();
+  const [applyerData, setApplyerData] = useState([]);
   useEffect(() => {
     apis
       .getMeetingUser(params)
@@ -93,6 +96,7 @@ const MeetingDetailPage = () => {
               참여 하기
             </Button>
           )}
+
           <Button
             onClick={() => {
               loginData.email === detailData.admin.email
@@ -116,23 +120,25 @@ const MeetingDetailPage = () => {
           <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
           <div className="px-20">
             <UserInfoCard
-              nickname={detailData.admin.nickname}
-              email={detailData.admin.email}
-              profileImage={detailData.admin.profileImage}
+              nickname={detailData && detailData.admin.nickname}
+              email={detailData && detailData.admin.email}
+              profileImage={detailData && detailData.admin.profileImage}
             />
           </div>
         </div>
         <div>
           <h1 className="py-10 ml-20 text-3xl">Member Info</h1>
           <div className="px-20 flex flex-wrap">
-            {applyerData.map((item) => {
-              return (
-                <UserInfoCard
-                  nickname={item.nickname}
-                  email={item.email} /**profileImage={applyerData.profileImage}**/
-                />
-              );
-            })}
+            {applyerData &&
+              applyerData.map((item) => {
+                return (
+                  <UserInfoCard
+                    nickname={item.nickname}
+                    email={item.email}
+                    profileImage={item.profileImage}
+                  />
+                );
+              })}
           </div>
         </div>
       </Container>
