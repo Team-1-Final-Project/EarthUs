@@ -1,4 +1,4 @@
-import ProfileIcon from 'components/navbar/ProfileIcon';
+import CardProfileIcon from './CardProfileIcon';
 import styled from 'styled-components';
 import { AiFillHeart, AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
 import { IoMdPeople } from 'react-icons/io';
@@ -34,7 +34,7 @@ const MeetingCard = (props) => {
           <StyledContentBox>{data.content}</StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
-          <ProfileIcon image={admin && admin.profileImage} />
+          <CardProfileIcon image={admin && admin.profileImage} />
 
           <div className="w-3/4 flex justify-between items-center">
             <div>by {admin && admin.nickname}</div>
