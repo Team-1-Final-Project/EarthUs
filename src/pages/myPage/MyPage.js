@@ -7,7 +7,8 @@ import Badge from 'components/mypage/Badge';
 import Mission from 'components/mypage/Mission';
 import Footer from 'components/footer/Footer';
 
-function MyPage() {
+function MyPage({ meeting }) {
+  const sliceMeeting = meeting?.slice(0, 2);
   return (
     <div className="w-full">
       <Navbar />
@@ -15,7 +16,7 @@ function MyPage() {
         <MenuBar />
         <div className="w-3/6">
           <Post />
-          <Meeting />
+          <Meeting meeting={sliceMeeting} />
           <Badge />
           <Mission />
         </div>

@@ -116,6 +116,20 @@ export const apis = {
     const response = await api.get('recommends');
     return response.data;
   },
+
+  //mypage
+  getMyMeeting: async () => {
+    const response = await api.get('mypage/meeting');
+    return response.data;
+  },
+  getMyLikePpst: async () => {
+    const response = await api.get('mypage/hitboard');
+    return response.data;
+  },
+  getMyWritePost: async () => {
+    const response = await api.get('mypage/board');
+    return response.data;
+  },
 };
 
 // api.interceptors.request.use(
