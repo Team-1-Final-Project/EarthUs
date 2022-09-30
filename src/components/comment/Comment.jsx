@@ -7,7 +7,15 @@ import {
   BsFillExclamationTriangleFill,
 } from 'react-icons/bs';
 
-const Comment = ({ content, id, editCommentHandler, deleteCommentHandler }) => {
+const Comment = ({
+  content,
+  commentId,
+  commentWriter,
+  createdAt,
+  profileImage,
+  editCommentHandler,
+  deleteCommentHandler,
+}) => {
   const [editDeleteToggle, setEditDeleteToggle] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
   const [editContent, setEditContent] = useState(content);
@@ -17,16 +25,16 @@ const Comment = ({ content, id, editCommentHandler, deleteCommentHandler }) => {
     setEditContent(content);
   }, []);
 
-  const editHandler = async (e) => {
+  const editHandler = (e) => {
     e.preventDefault();
     if (editContent === '') return;
-    editCommentHandler({ id, content: editContent });
+    editCommentHandler({ commentId, content: editContent });
     setEditToggle(false);
   };
 
-  const deleteHandler = async () => {
-    deleteCommentHandler(id);
-    setEditDeleteToggle(false);
+  const deleteHandler = () => {
+    deleteCommentHandler(commentId);
+    setDeleteModal(false);
   };
 
   return (
@@ -55,14 +63,10 @@ const Comment = ({ content, id, editCommentHandler, deleteCommentHandler }) => {
       <div className="border-b border-grayLineColor p-5">
         <div className="flex justify-between mb-3">
           <div className="flex justify-center items-center pb-3">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png"
-              alt="profile"
-              className="w-12 h-12 rounded-full"
-            />
+            <img src={profileImage} alt="profile" className="w-12 h-12 rounded-full" />
             <div className="flex flex-col ml-3">
-              <span className="font-bold text-lg text-blueColor">닉네임</span>
-              <span className="text-sm text-grayColor">2022-09-20</span>
+              <span className="font-bold text-lg text-blueColor">{commentWriter}</span>
+              <span className="text-sm text-grayColor">{createdAt.split('T')[0]}</span>
             </div>
           </div>
           <div className="relative">
