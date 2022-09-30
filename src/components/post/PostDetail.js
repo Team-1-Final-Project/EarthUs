@@ -9,14 +9,13 @@ const PostDetail = ({ heart }) => {
   const params = useParams();
   const [postData, setPostData] = useState();
 
-  const getPosts = async () => {
+  const getDetailPost = async () => {
     const { data } = await apis.getDetail(params.id);
-    setPostData(data);
-    console.log(data);
+    setPostData(data.data);
   };
-  console.log(postData);
+
   useEffect(() => {
-    getPosts();
+    getDetailPost();
   }, []);
   return (
     <ContainerStyled>
@@ -59,13 +58,11 @@ const PostDetail = ({ heart }) => {
             <div className="button">수정</div>
             <div
               className="button"
-              onClick={() =>
-                // alert('게시물을 삭제하시겠습니까?')
-                {
-                  navigate(-1);
-                  apis.deletePost(postData?.boardId);
-                }
-              }
+              onClick={() => {
+                alert('게시물을 삭제하시겠습니까?');
+                apis.deletePost(params.id);
+                navigate(-1);
+              }}
             >
               삭제
             </div>

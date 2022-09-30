@@ -33,7 +33,7 @@ const PostListPage = () => {
   useEffect(() => {
     if (Array.from(selectedTag).length === 0) {
       apis.getPost('board').then((res) => {
-        setData(res.data);
+        setData(res.data.data);
       });
     } else {
       apis

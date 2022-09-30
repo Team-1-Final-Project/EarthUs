@@ -6,11 +6,9 @@ import { useNavigate } from 'react-router-dom';
 const PostList = ({ data }) => {
   const navigate = useNavigate();
 
-  console.log(data);
   return (
     <>
       {data?.map((post) => {
-        console.log(post);
         return <Post key={post?.boardId} data={post} />;
       })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>
@@ -19,6 +17,7 @@ const PostList = ({ data }) => {
     </>
   );
 };
+
 const AddPostButtonStyled = styled.div`
   font-size: 40px;
   color: white;

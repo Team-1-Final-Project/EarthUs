@@ -6,17 +6,16 @@ import { apis } from 'api/api';
 
 const Post = ({ data }) => {
   const navigate = useNavigate();
-  console.log(data);
 
   return (
     <ContainerStyled
       onClick={() => {
-        navigate(`/postdetail/${data?.boardId}`);
+        navigate(`/communitydetail/${data?.boardId}`, {});
       }}
     >
       <div className="TopWrap">
-        <TagStyled>{data?.tag} </TagStyled>
-        <TimeStyled>{data?.createAt}</TimeStyled>
+        <TagStyled>{data?.tagName} </TagStyled>
+        <TimeStyled>{data?.createdAt}</TimeStyled>
       </div>
 
       <ContentsContainerStyled>
@@ -33,7 +32,7 @@ const Post = ({ data }) => {
         </div>
 
         <ImageStyled>
-          <img className="img" src={data?.image} alt="img" />
+          <img className="img" src={data?.boardImage} alt="img" />
         </ImageStyled>
 
         <IconContainerstyled>
@@ -47,12 +46,12 @@ const Post = ({ data }) => {
             }}
           >
             {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{data?.heartNums}</span>
+            <span className="count">{data?.heartBoardNums}</span>
           </div>
           <div
             className="iconWrap"
             onClick={(e) => {
-              navigate(`/postdetail/${data?.boardId}`);
+              navigate(`/communitydetail/${data?.boardId}`);
               e.stopPropagation();
             }}
           >

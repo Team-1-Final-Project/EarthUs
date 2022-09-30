@@ -45,21 +45,28 @@ export const apis = {
     return response;
   },
   getDetail: async (boardId) => {
-    const response = await api.get(`mockboard/data/${boardId}`);
+    const response = await api.get(`board/${boardId}`);
     return response;
   },
-  addPost: async ({ title, image, content, tag }) => {
-    const response = await api.post('board', {
-      title: title,
-      image: image,
-      content: content,
-      tag: tag,
+  addPost: async (data) => {
+    console.log(data);
+    const response = await api.post('board', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        // Authorization:
+        //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5c2VvbjExMTEiLCJhdXRoIjoiUk9MRV9NRU1CRVIiLCJleHAiOjE2NjMyMTIzNjl9.djCSyVV8cTQdlxPU0Jwa4Cdf9aoSvtD0SB-TUwZ5Mbo',
+      },
     });
-    return response.data;
+    return response;
   },
 
   deletePost: async (boardId) => {
-    const response = await api.delete(`api/${boardId}`);
+    const response = await api.delete(`board/${boardId}`, {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyODA5eXVuQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjQ1NDE4NTd9.6jT4B61WCBnEXP_IDWNLXvKgFvSMUHg07msOSekcqLY',
+      },
+    });
     return response;
   },
 
