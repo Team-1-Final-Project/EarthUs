@@ -9,17 +9,19 @@ const CommentList = () => {
   const addCommentHandler = async (content) => {
     try {
       const res = await apis.addComment(content);
-      setCommentList([...commentList, res.data]);
+      setCommentList([...commentList, res.data.data]);
     } catch (err) {
       alert(err);
     }
   };
 
-  const editCommentHandler = async (payload) => {
+  const editCommentHandler = async (data) => {
     try {
-      const res = await apis.editComment(payload);
+      const res = await apis.editComment(data);
       setCommentList(
-        commentList.map((comment) => (comment.id === res.data.id ? (comment = res.data) : comment))
+        commentList.map((comment) =>
+          comment.commentId === res.data.data.commentId ? (comment = res.data.data) : comment
+        )
       );
     } catch (err) {
       alert(err);
@@ -29,7 +31,7 @@ const CommentList = () => {
   const deleteCommentHandler = async (id) => {
     try {
       await apis.deleteComment(id);
-      setCommentList(commentList.filter((comment) => comment.id !== id));
+      setCommentList(commentList.filter((comment) => comment.commentId !== id));
     } catch (err) {
       alert(err);
     }
@@ -40,7 +42,7 @@ const CommentList = () => {
       {commentList?.map((comment) => (
         <Comment
           {...comment}
-          key={comment.id}
+          key={comment.commentId}
           editCommentHandler={editCommentHandler}
           deleteCommentHandler={deleteCommentHandler}
         />

@@ -34,17 +34,9 @@ function Navbar() {
           <div className="flex items-center justify-center ">
             {data.loginState ? (
               <div className="flex items-center gap-3">
-                <div
-                  className="hover:cursor-pointer"
-                  onClick={() => {
-                    navigate('/mypage');
-                  }}
-                >
+                <div className="hover:cursor-pointer">
                   <ProfileIcon image={data.image}></ProfileIcon>
                 </div>
-                <span className=" text-[12px] text-defaultLine ml-2">
-                  <button>로그아웃</button>
-                </span>
               </div>
             ) : (
               <button
@@ -63,7 +55,10 @@ function Navbar() {
               <Modal
                 onConfirm={modalState}
                 children={
-                  <div className="flex flex-col items-center">
+                  <div className="flex items-center flex-col">
+                    <div className="flex mb-20">
+                      <HomeButton />
+                    </div>
                     <KakaoLogin />
                     <button
                       className="absolute inset-x-0 bottom-0 m-10 p-2 text-slate-300 rounded-md text-white"

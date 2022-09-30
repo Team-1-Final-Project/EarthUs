@@ -1,16 +1,14 @@
 import styled from 'styled-components';
 
 const UserInfoCard = (props) => {
-  const userInfo = props.data;
-
   return (
     <>
       <StyledCard>
         <div>
-          <img src={userInfo && userInfo.profileImage} />
+          <img src={props.profileImage && props.profileImage} />
         </div>
-        <StyledDetail>{userInfo && userInfo.nickname}</StyledDetail>
-        <StyledDetail2>Email : {userInfo && userInfo.email}</StyledDetail2>
+        <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
+        <StyledDetail2>Email : {props.email && props.email}</StyledDetail2>
       </StyledCard>
     </>
   );

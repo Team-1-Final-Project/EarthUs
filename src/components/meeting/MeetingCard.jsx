@@ -1,4 +1,4 @@
-import ProfileIcon from 'components/navbar/ProfileIcon';
+import CardProfileIcon from './CardProfileIcon';
 import styled from 'styled-components';
 import { AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
@@ -16,15 +16,15 @@ const MeetingCard = (props) => {
   const loginState = useSelector((state) => state.login.loginState);
 
   useEffect(() => {
-    if (loginState) {
+    if (loginState && data.id) {
       apis
         .getMeetingLike(data.id)
         .then((res) => {
-          setLiked(res.data.data);
+          setLiked(res.data.data.meetingLike);
         })
         .catch((err) => console.log(err));
     }
-  }, [loginState]);
+  }, [loginState, data.id]);
 
   return (
     <>
@@ -53,7 +53,8 @@ const MeetingCard = (props) => {
           <StyledContentBox>{data.content}</StyledContentBox>
         </StyledDetail>
         <StyledSubDetail>
-          <ProfileIcon image={admin && admin.profileImage} />
+          <CardProfileIcon image={admin && admin.profileImage} />
+
           <div className="w-3/4 flex justify-between items-center">
             <div>by {admin && admin.nickname}</div>
             <div className="w-1/2 flex justify-end items-center">

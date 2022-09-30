@@ -84,29 +84,32 @@ export const apis = {
   kakaoLogin: () => api.get(`login/member`),
 
   //comment
-  addComment: (content) => api.post('/comment', content),
-  editComment: (payload) => api.put(`/comment/${payload.id}`, payload),
+  addComment: (data) => api.post('/comment', data),
+  editComment: (data) => api.put(`/comment/${data.commentId}`, data),
   deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
-  createMeeting: (data) =>
+  createMeeting: (
+    data //모임생성
+  ) =>
     api.post(`meeting`, data, {
       headers: {
         'Content-Type': `multipart/form-data`,
       },
     }),
-  applyMeeting: (meetingID) => api.post(`meeting/${meetingID}`),
-  cancelMeeting: (meetingID) => api.put(`meeting/${meetingID}`),
-  updateMeeting: (meetingID, data) => api.put(`meeting/${meetingID}`, data),
-  deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`),
+  updateMeeting: (meetingID, data) => api.put(`meeting/${meetingID}`, data), //모임수정
+  deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
+  applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
+  cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
   updateMeetingImage: (meetingID) => api.put(`meeting/${meetingID}/image`),
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
+  getMeetingUser: (meetingId) => api.get(`meeting/crew/${meetingId}`),
 
   //meeting like
   getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
-  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`, { meetingID: meetingID }),
+  updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
