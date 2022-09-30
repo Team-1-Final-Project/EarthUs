@@ -77,8 +77,8 @@ export const apis = {
   kakaoLogin: () => api.get(`login/member`),
 
   //comment
-  addComment: (content) => api.post('/comment', content),
-  editComment: (payload) => api.put(`/comment/${payload.id}`, payload),
+  addComment: (data) => api.post('/comment', data),
+  editComment: (data) => api.put(`/comment/${data.commentId}`, data),
   deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
