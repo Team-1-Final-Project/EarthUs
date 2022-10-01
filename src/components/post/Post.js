@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
@@ -7,120 +7,123 @@ import { apis } from 'api/api';
 const Post = ({ data }) => {
   const navigate = useNavigate();
 
+  console.log(data.boardId);
   return (
-    <ContainerStyled
+    <ContainerStyle
       onClick={() => {
-        navigate(`/communitydetail/${data?.boardId}`, {});
+        navigate(`/communitydetail/${data?.boardId}`);
       }}
     >
-      <div className="TopWrap">
-        <TagStyled>{data?.tagName} </TagStyled>
-        <TimeStyled>{data?.createdAt}</TimeStyled>
-      </div>
+      <TopWrapStyle>
+        {/* <span className="tag">{data?.tagName} </span> */}
+        <span className="tag"># 태그11 </span>
+        <span className="date">{data?.createdAt.substr(0, 10)}</span>
+      </TopWrapStyle>
 
-      <ContentsContainerStyled>
-        <div className="profileWrap">
-          <ProfileStyled>
-            <img className="img" src={data?.profileImage} alt="profileimg" />
-          </ProfileStyled>
-          <NameStyled>{data?.writerName}</NameStyled>
+      <ContentsWrapStyle>
+        <div className="profileIconWrap">
+          <div className="profileWrap">
+            <ProfileStyle>
+              <img className="img" src={data?.profileImage} alt="img" />
+            </ProfileStyle>
+            <NameStyle>{data?.writerName}</NameStyle>
+          </div>
+
+          <IconContainerstyle>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                apis.postHeart(data?.boardId).then((res) => {
+                  console.log(res);
+                });
+                e.stopPropagation();
+              }}
+            >
+              {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+              <span className="count">{data?.heartNums}</span>
+            </div>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                navigate(`/communitydetail/${data?.boardId}`);
+                e.stopPropagation();
+              }}
+            >
+              <AiOutlineComment />
+              <span className="count">11</span>
+            </div>
+          </IconContainerstyle>
         </div>
 
-        <div>
-          <TitleStyled>{data?.title}</TitleStyled>
-          <ContentStyled>{data?.content}</ContentStyled>
-        </div>
-
-        <ImageStyled>
-          <img className="img" src={data?.boardImage} alt="img" />
-        </ImageStyled>
-
-        <IconContainerstyled>
-          <div
-            className="iconWrap"
-            onClick={(e) => {
-              apis.postHeart({
-                boardId: data?.boardId,
-              });
-              e.stopPropagation();
-            }}
-          >
-            {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{data?.heartBoardNums}</span>
+        <ContentWrapStyle>
+          <div className="titleContentWrap">
+            <TitleStyle>{data?.title}</TitleStyle>
+            <ContentStyle>{data?.content}</ContentStyle>
           </div>
-          <div
-            className="iconWrap"
-            onClick={(e) => {
-              navigate(`/communitydetail/${data?.boardId}`);
-              e.stopPropagation();
-            }}
-          >
-            <AiOutlineComment />
-            <span className="count">11</span>
-          </div>
-        </IconContainerstyled>
-      </ContentsContainerStyled>
-    </ContainerStyled>
+
+          <ImageStyled>
+            <img className="boardImg" src={data?.boardImage} alt="img" />
+          </ImageStyled>
+        </ContentWrapStyle>
+      </ContentsWrapStyle>
+    </ContainerStyle>
   );
 };
 
-const ContainerStyled = styled.div`
+const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  min-width: 400px;
-  height: 250px;
   margin: auto;
   margin-top: 2em;
-  padding: 20px;
+  padding: 10px 20px;
   border: 1px solid #969696;
-  border-radius: 15px;
-  .TopWrap {
-    display: flex;
-    justify-content: space-between;
+  border-radius: 10px;
+`;
+
+const TopWrapStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  .tag {
+    width: max-content;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    font-size: 14px;
+    color: #3cc2df;
+    background-color: #f3f4f5;
+    border: 1px solid #f3f4f5;
+    border-radius: 5px;
   }
-  @media (max-width: 900px) {
-    height: 405px;
-    width: 80%;
+  .date {
+    color: #595f63;
+    font-size: 14px;
   }
 `;
 
-const ContentsContainerStyled = styled.div`
-  display: grid;
-  grid-template-columns: 130px auto 170px;
+const ContentsWrapStyle = styled.div`
+  display: flex;
+  .profileIconWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
   .profileWrap {
     display: flex;
     align-items: top;
-    margin: 0;
   }
   @media (max-width: 900px) {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
   }
 `;
 
-const TagStyled = styled.span`
-  width: max-content;
-  margin-bottom: 10px;
-  padding: 0px 10px;
-  font-size: 14px;
-  color: #3cc2df;
-  background-color: #f3f4f5;
-  border: 1px solid #f3f4f5;
-  border-radius: 5px;
-`;
-
-const TimeStyled = styled.span`
-  color: #595f63;
-  font-size: 14px;
-`;
-
-const ProfileStyled = styled.div`
+const ProfileStyle = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 70%;
   overflow: hidden;
-  margin-bottom: 10px;
   .img {
     width: 100%;
     height: 100%;
@@ -128,23 +131,52 @@ const ProfileStyled = styled.div`
   }
 `;
 
-const NameStyled = styled.span`
+const NameStyle = styled.span`
   margin-left: 10px;
   color: #333;
-  font-size: 14px;
+  font-size: 12px;
   position: relative;
   top: 15px;
 `;
 
-const TitleStyled = styled.h1`
-  margin-bottom: 20px;
+const IconContainerstyle = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  color: #595f63;
+  .iconWrap {
+    display: flex;
+    align-items: center;
+  }
+  .count {
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+  @media (max-width: 900px) {
+    justify-content: flex-end;
+  }
+`;
+
+const ContentWrapStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  .titleContentWrap {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+`;
+
+const TitleStyle = styled.h1`
+  margin-bottom: 10px;
   color: #333;
   font-size: 18px;
   font-weight: bold;
 `;
-const ContentStyled = styled.span`
+const ContentStyle = styled.div`
   margin-right: 20px;
-  font-size: 15px;
+  max-width: 40%;
+  font-size: 14px;
   color: #595f63;
   overflow: hidden;
   display: -webkit-box;
@@ -155,43 +187,21 @@ const ContentStyled = styled.span`
   }
 `;
 
-const IconContainerstyled = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 17px;
-  color: #595f63;
-  position: relative;
-  bottom: 20px;
-  .count {
-    margin-right: 10px;
-    margin-left: 5px;
-  }
-  .iconWrap {
-    display: flex;
-    align-items: center;
-  }
-  @media (max-width: 900px) {
-    justify-content: flex-end;
-  }
-`;
-
 const ImageStyled = styled.div`
-  width: 170px;
-  height: 170px;
-  max-width: 250px;
-  max-height: 250px;
   border-radius: 10px;
   overflow: hidden;
+  margin-right: 20px;
+  max-width: 250px;
 
-  .img {
+  .boardImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   @media (max-width: 900px) {
-    margin-top: 15px;
+    /* margin-top: 15px;
     width: 240px;
-    height: 140px;
+    height: 140px; */
   }
 `;
 

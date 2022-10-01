@@ -34,7 +34,7 @@ const PostListPage = () => {
     if (Array.from(selectedTag).length === 0) {
       apis.getPost('board').then((res) => {
         setData(res.data.data);
-      });
+      }, []);
     } else {
       apis
         .searchPostTag({ tagIds: selectedTag })
