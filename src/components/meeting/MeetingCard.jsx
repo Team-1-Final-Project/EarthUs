@@ -55,7 +55,7 @@ const MeetingCard = (props) => {
         <StyledSubDetail>
           <CardProfileIcon image={admin && admin.profileImage} />
 
-          <div className="w-3/4 flex justify-between items-center">
+          <div className="w-full flex justify-between items-center">
             <div>by {admin && admin.nickname}</div>
             <div className="w-1/2 flex justify-end items-center">
               {liked ? (
@@ -63,9 +63,7 @@ const MeetingCard = (props) => {
               ) : (
                 <BsHeart className="m-2 text-red-600" />
               )}
-              40
-              <AiOutlineComment className="m-2" />
-              50
+              {data.heartNums ? data.heartNums : 0}
             </div>
           </div>
         </StyledSubDetail>
@@ -83,7 +81,7 @@ const StyledSubDetail = styled.div`
   color: #333;
   display: flex;
   align-items: center;
-  padding-left: 5%;
+  padding: 0 5%;
   & > img {
     width: 1.7rem;
     height: 1.7rem;
