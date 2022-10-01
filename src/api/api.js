@@ -41,34 +41,41 @@ export const apis = {
   },
 
   getPost: async () => {
-    const response = await api.get('mockboard');
+    const response = await api.get('board');
     return response;
   },
+
   getDetail: async (boardId) => {
-    const response = await api.get(`mockboard/${boardId}`);
-    return response;
-  },
-  addPost: async ({ title, image, content, tag }) => {
-    const response = await api.post('board', {
-      title: title,
-      image: image,
-      content: content,
-      tag: tag,
-    });
+    const response = await api.get(`board/${boardId}`, {});
     return response.data;
   },
 
-  deletePost: async (boardId) => {
-    const response = await api.delete(`mockboard/${boardId}`);
+  addPost: async (data) => {
+    console.log(data);
+    const response = await api.post('board', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: sessionStorage.getItem('Access_token'),
+      },
+    });
     return response;
   },
 
-  postHeart: async ({ boardId }) => {
-    console.log(boardId);
-    const response = await api.put('mockboard', {
-      boardId: boardId,
+  deletePost: async (boardId) => {
+    const response = await api.delete(`board/${boardId}`, {
+      headers: {
+        Authorization: sessionStorage.getItem('Access_token'),
+      },
     });
-    console.log(response.data);
+    return response;
+  },
+
+  postHeart: async (boardId) => {
+    const response = await api.put(`board/heart/${boardId}`, {
+      headers: {
+        Authorization: sessionStorage.getItem('Access_token'),
+      },
+    });
 
     return response.data;
   },
