@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function MainPage() {
   const [mission, setMission] = useState();
-  const [hitBoard, sethitBoard] = useState();
+  const [hitBoard, setHitBoard] = useState();
   const [meeting, setMeeting] = useState();
 
   useEffect(() => {
@@ -19,9 +19,11 @@ function MainPage() {
     apis.getMainMission().then((res) => setMission(res.data));
     apis.getMainMeeting().then((res) => {
       setMeeting(res.data);
-      console.log(res.data);
     });
-    apis.getMainHitBoard().then((res) => console.log(res));
+    apis.getMainHitBoard().then((res) => {
+      setHitBoard(res.data);
+      console.log(res);
+    });
   }, []);
 
   const checkDailyMission = () => {
