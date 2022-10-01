@@ -9,7 +9,7 @@ const PostList = ({ data }) => {
   return (
     <>
       {data?.map((post) => {
-        return <Post key={post?.data.boardId} data={post?.data} />;
+        return <Post key={post?.boardId} data={post} />;
       })}
       <AddPostButtonStyled onClick={() => navigate('/addpost')}>
         <AiOutlinePlus />
@@ -17,6 +17,7 @@ const PostList = ({ data }) => {
     </>
   );
 };
+
 const AddPostButtonStyled = styled.div`
   font-size: 40px;
   color: white;

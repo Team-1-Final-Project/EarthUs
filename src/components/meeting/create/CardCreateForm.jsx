@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
+import TagButton from '../TagButton';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -14,7 +15,7 @@ export const orange = (str) => {
 const CardCreateForm = () => {
   const navigate = useNavigate();
   const [title, setTitle, titleChange] = useInput('');
-  const [tag, setTag, tagChange] = useInput('');
+  const [tag, setTag, tagChange] = useInput([]);
   const [location, setLocation, locationChange] = useInput('');
   const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
   const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
@@ -35,7 +36,7 @@ const CardCreateForm = () => {
     meetingEndDate: meetingEndDate,
     location: location,
     limitPeople: limitPeople,
-    tagMeetingIds: [6, 7],
+    tagMeetingIds: tag,
   };
 
   const onClickSubmitHandler = async (e) => {
@@ -73,7 +74,20 @@ const CardCreateForm = () => {
   };
 
   //태그를 다루는 파트입니다.
+
   const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+
+  const onClickTagHandler = (e, index) => {
+    e.preventDefault();
+    let tagClone = tag;
+    tag.length > 3
+      ? alert('태그는 3개까지만 가능합니다')
+      : tag.includes(index + 1)
+      ? tagClone.splice(tag.indexOf(index + 1), 1)
+      : tagClone.push(index + 1); //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
+    setTag(tagClone);
+    console.log('태그', tag);
+  };
   return (
     <>
       <div className="mt-20 flex justify-center">
@@ -272,9 +286,16 @@ const CardCreateForm = () => {
                     <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                       태그
                     </label>
-
-                    {tagList.map((item) => {
-                      return <button className="p-2 bg-cyan-300 m-2 rounded">{item}</button>;
+                    {tagList.map((item, index) => {
+                      return (
+                        <button
+                          onClick={(e) => {
+                            onClickTagHandler(e, index);
+                          }}
+                        >
+                          <TagButton tagName={item} />
+                        </button>
+                      );
                     })}
                   </div>
                 </div>

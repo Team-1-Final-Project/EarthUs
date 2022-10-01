@@ -20,7 +20,7 @@ const MeetingDetail = (props) => {
     if (loginState) {
       try {
         const res = await apis.updateMeetingLike(detail.id);
-        setLiked(res.data.data);
+        setLiked((prev) => !prev);
       } catch (err) {
         alert(err);
       }
@@ -34,11 +34,11 @@ const MeetingDetail = (props) => {
       apis
         .getMeetingLike(detail.id)
         .then((res) => {
-          setLiked(res.data.data);
+          setLiked(res.data.data.meetingLike);
         })
         .catch((err) => console.log(err));
     }
-  }, [loginState]);
+  }, [loginState, detail.id]);
 
   return (
     <>
@@ -58,7 +58,7 @@ const MeetingDetail = (props) => {
             <div>
               {liked ? (
                 <BsHeartFill
-                  className="w-16 h-16 m-2 text-red-600 cursor-pointer"
+                  className="w-6 h-6 m-2 text-red-600 cursor-pointer"
                   onClick={likeHandler}
                 />
               ) : (

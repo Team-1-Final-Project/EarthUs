@@ -11,6 +11,7 @@ module.exports = {
         blackColor: '#333',
         grayColor: '#656565',
         modalBackground: 'rgba(11, 19, 30, 0.37)',
+        disabledColor: '#e7e8ec',
       },
       translate: {
         modal: '-50%',
