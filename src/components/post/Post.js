@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
@@ -7,7 +7,6 @@ import { apis } from 'api/api';
 const Post = ({ data }) => {
   const navigate = useNavigate();
 
-  console.log(data.boardId);
   return (
     <ContainerStyle
       onClick={() => {
@@ -24,7 +23,14 @@ const Post = ({ data }) => {
         <div className="profileIconWrap">
           <div className="profileWrap">
             <ProfileStyle>
-              <img className="img" src={data?.profileImage} alt="img" />
+              <img
+                className="img"
+                onError={(e) => {
+                  e.target.onError = null;
+                }}
+                src={data?.profileImage}
+                alt="img"
+              />
             </ProfileStyle>
             <NameStyle>{data?.writerName}</NameStyle>
           </div>
@@ -103,19 +109,26 @@ const TopWrapStyle = styled.div`
 
 const ContentsWrapStyle = styled.div`
   display: flex;
+
   .profileIconWrap {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
-    margin-right: 20px;
+    margin-right: 30px;
+    @media (max-width: 700px) {
+      margin-bottom: 20px;
+      align-items: center;
+      margin-right: 0px;
+    }
   }
   .profileWrap {
     display: flex;
     align-items: top;
+    width: 15vw;
   }
-  @media (max-width: 900px) {
-    /* display: flex;
-    flex-direction: column; */
+  @media (max-width: 700px) {
+    flex-direction: column;
   }
 `;
 
@@ -133,8 +146,9 @@ const ProfileStyle = styled.div`
 
 const NameStyle = styled.span`
   margin-left: 10px;
+
   color: #333;
-  font-size: 12px;
+  font-size: 15px;
   position: relative;
   top: 15px;
 `;
@@ -142,7 +156,7 @@ const NameStyle = styled.span`
 const IconContainerstyle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 17px;
+  font-size: 16px;
   color: #595f63;
   .iconWrap {
     display: flex;
@@ -151,18 +165,23 @@ const IconContainerstyle = styled.div`
   .count {
     margin-right: 10px;
     margin-left: 5px;
+    @media (max-width: 700px) {
+      margin-right: 0px;
+    }
   }
-  @media (max-width: 900px) {
-    justify-content: flex-end;
+  @media (max-width: 700px) {
+    /* justify-content: flex-end; */
   }
 `;
 
 const ContentWrapStyle = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
   .titleContentWrap {
     display: flex;
     flex-direction: column;
+    width: 60%;
     margin-right: 20px;
   }
 `;
@@ -172,17 +191,20 @@ const TitleStyle = styled.h1`
   color: #333;
   font-size: 18px;
   font-weight: bold;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 const ContentStyle = styled.div`
   margin-right: 20px;
-  max-width: 40%;
   font-size: 14px;
   color: #595f63;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     -webkit-line-clamp: 3;
   }
 `;
