@@ -93,7 +93,7 @@ const MeetingPage = () => {
               ))}
             </StyledTagList>
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap ">
             {data &&
               data.map((item) => {
                 return (

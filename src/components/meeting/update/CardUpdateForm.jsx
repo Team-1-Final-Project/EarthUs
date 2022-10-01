@@ -52,20 +52,28 @@ const CardUpdateForm = (props) => {
   //수정완료 버튼 클릭시
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
+    const JSD = orange(joinStartDate);
+    const JED = orange(joinEndDate);
+    const MSD = orange(meetingStartDate);
+    const MED = orange(meetingEndDate);
 
-    await apis
-      .updateMeeting(props.params, data)
-      .then((res) => {
-        console.log(res, data);
-        navigate('/meeting');
-      })
-      .catch((err) => console.log(err));
-    await apis
-      .updateMeetingImage(props.params, formData)
-      .then((res) => console.log('이미지변경완료', res))
-      .catch((err) => {
-        console.log(err);
-      });
+    if (JSD <= JED && MSD <= MED && JED <= MSD) {
+      await apis
+        .updateMeeting(props.params, data)
+        .then((res) => {
+          console.log(res, data);
+          navigate('/meeting');
+        })
+        .catch((err) => console.log(err));
+      await apis
+        .updateMeetingImage(props.params, formData)
+        .then((res) => console.log('이미지변경완료', res))
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert('날짜형식에 어긋납니다');
+    }
   };
 
   //나가기버튼 클릭시

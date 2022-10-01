@@ -47,7 +47,7 @@ const CardCreateForm = () => {
     const MED = orange(meetingEndDate);
 
     let formData = new FormData();
-    if (JSD < JED && MSD < MED && JED <= MSD) {
+    if (JSD <= JED && MSD <= MED && JED <= MSD) {
       formData.append('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
@@ -72,6 +72,8 @@ const CardCreateForm = () => {
     setImage(e.target.files[0]);
   };
 
+  //태그를 다루는 파트입니다.
+  const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
   return (
     <>
       <div className="mt-20 flex justify-center">
@@ -270,17 +272,10 @@ const CardCreateForm = () => {
                     <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                       태그
                     </label>
-                    <div className="mt-1">
-                      <input
-                        id="about"
-                        name="about"
-                        rows={1}
-                        className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="태그를 입력해 주세요"
-                        value={tag}
-                        onChange={tagChange}
-                      />
-                    </div>
+
+                    {tagList.map((item) => {
+                      return <button className="p-2 bg-cyan-300 m-2 rounded">{item}</button>;
+                    })}
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
