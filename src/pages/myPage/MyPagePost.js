@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from 'components/navbar/Navbar';
 import MenuBar from 'components/mypage/MenuBar';
 import Post from 'components/mypage/Post';
-import Footer from 'components/footer/Footer';
 
 function MyPagePost() {
   return (
@@ -14,7 +13,6 @@ function MyPagePost() {
           <Post />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

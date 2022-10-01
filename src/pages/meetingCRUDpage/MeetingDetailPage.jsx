@@ -1,7 +1,7 @@
 import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from 'components/navbar/Navbar';
@@ -16,26 +16,23 @@ const MeetingDetailPage = () => {
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
-  useEffect(() => {
-    let finder = applyerData.find((item) => item.email === loginData.email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
-    finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
-  });
+
   const onClickApplyHandler = () => {
     console.log(loginData.loginState);
 
     loginData.loginState
       ? applyState
         ? apis
-            .cancelMeeting(params) //참여하기를 취소하고 버튼을 참여하기 버튼으로 변경해줍니다
+            .cancelMeeting(params)
             .then((res) => {
-              // console.log('apply cancel success', res);
+              console.log('apply cancel success', res);
               setApplyState(false);
             })
             .catch((err) => console.log(err))
         : apis
-            .applyMeeting(params) //참여하기를 실행하고 버튼을 참여취소 버튼으로 변경해줍니다
+            .applyMeeting(params)
             .then((res) => {
-              // console.log('apply success', res);
+              console.log('apply success', res);
               setApplyState(true);
             })
             .catch((err) => console.log(err))
@@ -61,6 +58,7 @@ const MeetingDetailPage = () => {
       })
       .catch((err) => console.log('err', err, params));
   }, []);
+  //여기까지 수정하기 파트입니다
 
   //여기부터 삭제하기 파트입니다
   const onClickDelete = () => {
@@ -84,8 +82,7 @@ const MeetingDetailPage = () => {
         console.log('유저정보', res.data.data);
       })
       .catch((err) => console.log('err', err));
-  }, [applyState]);
-
+  }, []);
   return (
     <Layout>
       <Container>
@@ -94,7 +91,7 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
-          {detailData && detailData.admin.email === loginData.email ? null : applyState ? (
+          {applyState ? (
             <Button
               onClick={() => {
                 onClickApplyHandler();
@@ -111,28 +108,25 @@ const MeetingDetailPage = () => {
               참여 하기
             </Button>
           )}
-          {detailData && detailData.admin.email === loginData.email ? (
-            <>
-              <Button
-                onClick={() => {
-                  loginData.email === detailData.admin.email
-                    ? navigate(`/meeting/update/${params}`)
-                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
-                }}
-              >
-                수정 하기
-              </Button>
-              <Button
-                onClick={() => {
-                  loginData.email === detailData.admin.email
-                    ? onClickDelete()
-                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
-                }}
-              >
-                삭제 하기
-              </Button>
-            </>
-          ) : null}
+
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? navigate(`/meeting/update/${params}`)
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            수정 하기
+          </Button>
+          <Button
+            onClick={() => {
+              loginData.email === detailData.admin.email
+                ? onClickDelete()
+                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+            }}
+          >
+            삭제 하기
+          </Button>
         </ButtonLayout>
         <div>
           <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>

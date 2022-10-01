@@ -22,6 +22,7 @@ const CardUpdateForm = (props) => {
   const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
   const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
   const [content, setContent, contentChange] = useInput('');
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     console.log('here', props);
@@ -49,7 +50,6 @@ const CardUpdateForm = (props) => {
   };
   const list = [2, 3, 4, 5, 6, 7, 8];
 
-  //수정완료 버튼 클릭시
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -60,15 +60,8 @@ const CardUpdateForm = (props) => {
         navigate('/meeting');
       })
       .catch((err) => console.log(err));
-    await apis
-      .updateMeetingImage(props.params, formData)
-      .then((res) => console.log('이미지변경완료', res))
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
-  //나가기버튼 클릭시
   const onClickGoOut = (e) => {
     if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
       navigate('/meeting');
@@ -77,12 +70,8 @@ const CardUpdateForm = (props) => {
     }
   };
 
-  //여기서 부터 이미지 수정 파트입니다.
-  const [image, setImage] = useState('');
-  let formData = new FormData();
   const onChangeImageHandler = (e) => {
     setImage(e.target.files[0]);
-    formData.append('image', image);
   };
 
   return (

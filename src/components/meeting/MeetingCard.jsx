@@ -99,7 +99,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 290px;
+  width: 310px;
   height: 520px;
   max-width: 19rem;
   transition: 250ms transform;
@@ -133,10 +133,6 @@ const StyledH1 = styled.h1`
   font-size: 1em;
   margin-bottom: 7%;
   color: #333;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 10%;
 `;
 const StyledH3 = styled.h3`
   font-size: 1em;
@@ -146,12 +142,8 @@ const StyledH3 = styled.h3`
 `;
 const StyledContentBox = styled.div`
   width: 100%;
-  height: 38%;
+  height: 43%;
   background-color: #f4f4f4;
   margin-top: 3%;
   padding: 3%;
-  overflow: hidden;
-  word-break: break-all;
-  white-space: normal;
-  line-height: 1.5;
 `;

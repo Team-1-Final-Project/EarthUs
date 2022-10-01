@@ -32,9 +32,9 @@ const PostListPage = () => {
 
   useEffect(() => {
     if (Array.from(selectedTag).length === 0) {
-      apis.getPost('mockboard').then((res) => {
-        setData(res.data);
-      });
+      apis.getPost('board').then((res) => {
+        setData(res.data.data);
+      }, []);
     } else {
       apis
         .searchPostTag({ tagIds: selectedTag })

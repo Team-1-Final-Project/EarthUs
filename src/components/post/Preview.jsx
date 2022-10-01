@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 const Preview = ({ img }) => {
   const reader = new FileReader();
   const file = img;
 
-  const [imgSrc, setImgSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState('');
 
   useEffect(() => {
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setImgSrc(reader.result);
+        setImageSrc(reader.result);
       };
     }
   });
 
-  return <PreviewImage src={imgSrc} />;
+  return <PreviewImage src={imageSrc} />;
 };
 
 const PreviewImage = styled.img`
