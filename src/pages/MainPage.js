@@ -26,7 +26,7 @@ function MainPage() {
 
   const checkDailyMission = () => {
     apis.postDailiyMissionCheck().then((res) => {
-      console.log(res.error.message);
+      console.log(res.error);
     });
   };
 

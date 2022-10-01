@@ -89,19 +89,22 @@ export const apis = {
   deleteComment: (id) => api.delete(`/comment/${id}`),
 
   //meeting
-  createMeeting: (
-    data //모임생성
-  ) =>
+  createMeeting: (data) =>
     api.post(`meeting`, data, {
       headers: {
         'Content-Type': `multipart/form-data`,
       },
-    }),
+    }), //모임생성
   updateMeeting: (meetingID, data) => api.put(`meeting/${meetingID}`, data), //모임수정
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
   cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
-  updateMeetingImage: (meetingID) => api.put(`meeting/${meetingID}/image`),
+  updateMeetingImage: (meetingID, data) =>
+    api.put(`meeting/${meetingID}/image`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }), //모임이미지수정
   deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
@@ -118,6 +121,20 @@ export const apis = {
   //shop
   getShopList: async () => {
     const response = await api.get('recommends');
+    return response.data;
+  },
+
+  //mypage
+  getMyMeeting: async () => {
+    const response = await api.get('mypage/meeting');
+    return response.data;
+  },
+  getMyLikePpst: async () => {
+    const response = await api.get('mypage/hitboard');
+    return response.data;
+  },
+  getMyWritePost: async () => {
+    const response = await api.get('mypage/board');
     return response.data;
   },
 };
