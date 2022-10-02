@@ -47,6 +47,19 @@ const MeetingPage = () => {
     }
   }, [selectedTag]);
 
+  const [myMeeting, setMyMeeting] = useState([]);
+  useEffect(() => {
+    apis
+      .getMyMeeting()
+      .then((res) => {
+        console.log('mymeetings', res);
+        setMyMeeting(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Layout>
       <Container>
@@ -65,14 +78,13 @@ const MeetingPage = () => {
             </Button>
           </div>
           <MeetingCarousel>
-            <Link style={{ display: 'flex', width: '20vw' }} to="/meeting/detail">
-              <MeetingCard />
-            </Link>
-            <MeetingCard />
-            <MeetingCard />
-            <MeetingCard />
-            <MeetingCard />
-            <MeetingCard />
+            {myMeeting.map((item) => {
+              return (
+                <Link style={{ display: 'flex', width: '20vw' }} to={`/meeting/detail/${item.id}`}>
+                  <MeetingCard data={item} />
+                </Link>
+              );
+            })}
           </MeetingCarousel>
         </div>
         <div className="pt-10 px-20">
