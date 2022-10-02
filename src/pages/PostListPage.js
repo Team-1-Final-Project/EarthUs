@@ -2,6 +2,7 @@ import PostList from 'components/post/PostList';
 import Tag from 'components/tag/Tag';
 import { useEffect, useState } from 'react';
 import { apis } from 'api/api';
+import Navbar from 'components/navbar/Navbar';
 
 const PostListPage = () => {
   const [data, setData] = useState();
@@ -32,9 +33,12 @@ const PostListPage = () => {
 
   useEffect(() => {
     if (Array.from(selectedTag).length === 0) {
-      apis.getPost('board').then((res) => {
-        setData(res.data.data);
-      }, []);
+      apis.getPost('board').then(
+        (res) => {
+          setData(res.data.data);
+        },
+        [data]
+      );
     } else {
       apis
         .searchPostTag({ tagIds: selectedTag })
@@ -45,6 +49,7 @@ const PostListPage = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="flex justify-center">
         {tags.map((tag, index) => (
           <Tag

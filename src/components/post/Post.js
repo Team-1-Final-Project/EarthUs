@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-import { apis } from 'api/api';
+import { api, apis } from 'api/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Post = ({ data }) => {
   const navigate = useNavigate();
+  const [like, setLike] = useState('');
 
-  console.log(data.boardId);
   return (
     <ContainerStyle
       onClick={() => {
@@ -24,7 +26,14 @@ const Post = ({ data }) => {
         <div className="profileIconWrap">
           <div className="profileWrap">
             <ProfileStyle>
-              <img className="img" src={data?.profileImage} alt="img" />
+              <img
+                className="img"
+                onError={(e) => {
+                  e.currentTarget.style = 'null';
+                }}
+                src={data?.profileImage}
+                alt="img"
+              />
             </ProfileStyle>
             <NameStyle>{data?.writerName}</NameStyle>
           </div>
@@ -34,13 +43,18 @@ const Post = ({ data }) => {
               className="iconWrap"
               onClick={(e) => {
                 apis.postHeart(data?.boardId).then((res) => {
-                  console.log(res);
+                  setLike(res?.data.message);
+                  console.log(like);
                 });
                 e.stopPropagation();
               }}
             >
-              {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-              <span className="count">{data?.heartNums}</span>
+              {like === '게시글 좋아요 성공!' ? (
+                <AiFillHeart style={{ color: '#3cc2df' }} />
+              ) : (
+                <AiOutlineHeart />
+              )}
+              <span className="count">{data?.heartBoardNums}</span>
             </div>
             <div
               className="iconWrap"
@@ -79,6 +93,9 @@ const ContainerStyle = styled.div`
   padding: 10px 20px;
   border: 1px solid #969696;
   border-radius: 10px;
+  @media (max-width: 500px) {
+    min-width: 300px;
+  }
 `;
 
 const TopWrapStyle = styled.div`
@@ -103,19 +120,26 @@ const TopWrapStyle = styled.div`
 
 const ContentsWrapStyle = styled.div`
   display: flex;
+
   .profileIconWrap {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
-    margin-right: 20px;
+    margin-right: 30px;
+    @media (max-width: 500px) {
+      flex-direction: row;
+      margin-bottom: 20px;
+      align-items: center;
+      margin-right: 0px;
+    }
   }
   .profileWrap {
     display: flex;
     align-items: top;
   }
-  @media (max-width: 900px) {
-    /* display: flex;
-    flex-direction: column; */
+  @media (max-width: 500px) {
+    flex-direction: column;
   }
 `;
 
@@ -133,8 +157,9 @@ const ProfileStyle = styled.div`
 
 const NameStyle = styled.span`
   margin-left: 10px;
+  width: 70px;
   color: #333;
-  font-size: 12px;
+  font-size: 15px;
   position: relative;
   top: 15px;
 `;
@@ -142,7 +167,7 @@ const NameStyle = styled.span`
 const IconContainerstyle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 17px;
+  font-size: 16px;
   color: #595f63;
   .iconWrap {
     display: flex;
@@ -151,19 +176,33 @@ const IconContainerstyle = styled.div`
   .count {
     margin-right: 10px;
     margin-left: 5px;
+    @media (max-width: 500px) {
+      margin-right: 0px;
+    }
   }
-  @media (max-width: 900px) {
-    justify-content: flex-end;
+  @media (max-width: 500px) {
+    /* justify-content: flex-end; */
   }
 `;
 
 const ContentWrapStyle = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
   .titleContentWrap {
     display: flex;
     flex-direction: column;
+    width: 60%;
     margin-right: 20px;
+    @media (max-width: 500px) {
+      width: 100%;
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
+  }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -172,18 +211,22 @@ const TitleStyle = styled.h1`
   color: #333;
   font-size: 18px;
   font-weight: bold;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 const ContentStyle = styled.div`
   margin-right: 20px;
-  max-width: 40%;
   font-size: 14px;
   color: #595f63;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 900px) {
+  @media (max-width: 500px) {
     -webkit-line-clamp: 3;
+    margin-right: 0px;
   }
 `;
 
@@ -196,12 +239,8 @@ const ImageStyled = styled.div`
   .boardImg {
     width: 100%;
     height: 100%;
+    max-height: 200px;
     object-fit: cover;
-  }
-  @media (max-width: 900px) {
-    /* margin-top: 15px;
-    width: 240px;
-    height: 140px; */
   }
 `;
 

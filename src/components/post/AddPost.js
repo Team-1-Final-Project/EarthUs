@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Preview from './Preview';
 import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
+import HomeButton from 'components/navbar/HomeButton';
 
 const AddPost = () => {
   const navigate = useNavigate();
@@ -28,149 +29,152 @@ const AddPost = () => {
   };
 
   return (
-    <ContainerStyled>
-      <div className="main">
-        <AddImgFormStyle>
-          <TitleStyle>게시글 작성</TitleStyle>
-          <LabelStyle htmlFor="img">사진등록</LabelStyle>
+    <>
+      <HomeButton />
+      <ContainerStyled>
+        <div className="main">
+          <AddImgFormStyle>
+            <TitleStyle>게시글 작성</TitleStyle>
+            <LabelStyle htmlFor="img">사진등록</LabelStyle>
 
-          <ImageDivStyle>
-            <div className="space-y-1 text-center flex flex-col items-center justify-center">
-              {image ? (
-                <Preview img={image} />
-              ) : (
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              )}
+            <ImageDivStyle>
+              <div className="space-y-1 text-center flex flex-col items-center justify-center">
+                {image ? (
+                  <Preview img={image} />
+                ) : (
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
 
-              <div className="flex text-sm text-gray-600">
-                <label
-                  htmlFor="file-upload"
-                  className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
-                >
-                  <span>Upload a file</span>
-                  <input
-                    onChange={(e) => {
-                      onChange(e);
-                    }}
-                    id="file-upload"
-                    name="image"
-                    type="file"
-                    className="sr-only"
-                  />
-                </label>
+                <div className="flex text-sm text-gray-600">
+                  <label
+                    htmlFor="file-upload"
+                    className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                  >
+                    <span>Upload a file</span>
+                    <input
+                      onChange={(e) => {
+                        onChange(e);
+                      }}
+                      id="file-upload"
+                      name="image"
+                      type="file"
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
               </div>
-            </div>
-          </ImageDivStyle>
-        </AddImgFormStyle>
-        <AddPostFormWrapStyle>
-          <AddPostFormStyle>
-            <LabelStyle htmlFor="title">제목</LabelStyle>
-            <InputStyled
-              ref={titleRef}
-              placeholder="제목을 입력해 주세요"
-              name="title"
-              type="text"
-            />
-            <LabelStyle htmlFor="content">내용</LabelStyle>
-            <InputStyled
-              ref={contentRef}
-              placeholder="내용을 입력해 주세요"
-              height="4rem"
-              name="content"
-              type="text"
-            />
+            </ImageDivStyle>
+          </AddImgFormStyle>
+          <AddPostFormWrapStyle>
+            <AddPostFormStyle>
+              <LabelStyle htmlFor="title">제목</LabelStyle>
+              <InputStyled
+                ref={titleRef}
+                placeholder="제목을 입력해 주세요"
+                name="title"
+                type="text"
+              />
+              <LabelStyle htmlFor="content">내용</LabelStyle>
+              <InputStyled
+                ref={contentRef}
+                placeholder="내용을 입력해 주세요"
+                height="4rem"
+                name="content"
+                type="text"
+              />
 
-            <TagListStyle>
-              <LabelStyle className="tagLabel" htmlFor="tag">
-                태그
-              </LabelStyle>
-              {tagList?.map((v, i) => {
-                return (
-                  <span className="tag" key={i}>
-                    {v}
-                  </span>
-                );
-              })}
-            </TagListStyle>
-
-            <InputStyled
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  addTag();
-                }
-              }}
-              onBlur={addTag}
-              onChange={(e) => {
-                setTag(e.target.value);
-              }}
-              placeholder="태그를 입력 해주세요"
-              name="tag"
-              type="text"
-              value={tag}
-            />
-          </AddPostFormStyle>
-          <ButtonWrapStyle>
-            <ButtonStyle
-              onClick={() => {
-                if (titleRef.current.value === '') {
-                  alert('제목을 입력 해주세요');
-                } else if (contentRef.current.value === '') {
-                  alert('내용을 입력 해주세요');
-                } else if (tagList.length === 0) {
-                  alert('태그를 입력 해주세요');
-                } else if (image == null) {
-                  alert('이미지를 추가 해주세요');
-                } else {
-                  const formData = new FormData();
-                  const blob = new Blob(
-                    [
-                      JSON.stringify({
-                        title: titleRef.current.value,
-                        content: contentRef.current.value,
-                        // tagName: tagList,
-                      }),
-                    ],
-                    { type: 'application/json' }
+              <TagListStyle>
+                <LabelStyle className="tagLabel" htmlFor="tag">
+                  태그
+                </LabelStyle>
+                {tagList?.map((v, i) => {
+                  return (
+                    <span className="tag" key={i}>
+                      {v}
+                    </span>
                   );
-                  formData.append('data', blob);
-                  formData.append('boardImage', image);
-                  apis.addPost(formData).then((res) => {
-                    console.log(res);
-                  });
+                })}
+              </TagListStyle>
 
-                  navigate('/community');
-                }
-              }}
-              className="button"
-            >
-              작성완료
-            </ButtonStyle>
-            <ButtonStyle
-              onClick={() => {
-                navigate(-1);
-              }}
-              className="button"
-            >
-              뒤로가기
-            </ButtonStyle>
-          </ButtonWrapStyle>
-        </AddPostFormWrapStyle>
-      </div>
+              <InputStyled
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    addTag();
+                  }
+                }}
+                onBlur={addTag}
+                onChange={(e) => {
+                  setTag(e.target.value);
+                }}
+                placeholder="태그를 입력 해주세요"
+                name="tag"
+                type="text"
+                value={tag}
+              />
+            </AddPostFormStyle>
+            <ButtonWrapStyle>
+              <ButtonStyle
+                onClick={() => {
+                  if (titleRef.current.value === '') {
+                    alert('제목을 입력 해주세요');
+                  } else if (contentRef.current.value === '') {
+                    alert('내용을 입력 해주세요');
+                  } else if (tagList.length === 0) {
+                    alert('태그를 입력 해주세요');
+                  } else if (image == null) {
+                    alert('이미지를 추가 해주세요');
+                  } else {
+                    const formData = new FormData();
+                    const blob = new Blob(
+                      [
+                        JSON.stringify({
+                          title: titleRef.current.value,
+                          content: contentRef.current.value,
+                          // tagName: tagList,
+                        }),
+                      ],
+                      { type: 'application/json' }
+                    );
+                    formData.append('data', blob);
+                    formData.append('boardImage', image);
+                    apis.addPost(formData).then((res) => {
+                      console.log(res);
+                    });
+
+                    navigate('/community');
+                  }
+                }}
+                className="button"
+              >
+                작성완료
+              </ButtonStyle>
+              <ButtonStyle
+                onClick={() => {
+                  navigate(-1);
+                }}
+                className="button"
+              >
+                뒤로가기
+              </ButtonStyle>
+            </ButtonWrapStyle>
+          </AddPostFormWrapStyle>
+        </div>
+      </ContainerStyled>
       <Footer />
-    </ContainerStyled>
+    </>
   );
 };
 const ContainerStyled = styled.div`
