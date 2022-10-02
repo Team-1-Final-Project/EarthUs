@@ -95,13 +95,15 @@ const MeetingDetailPage = () => {
         </div>
         <ButtonLayout>
           {applyState ? (
-            <Button
-              onClick={() => {
-                onClickApplyHandler();
-              }}
-            >
-              참여 취소
-            </Button>
+            detailData && detailData.admin.email === loginData.email ? null : (
+              <Button
+                onClick={() => {
+                  onClickApplyHandler();
+                }}
+              >
+                참여 취소
+              </Button>
+            )
           ) : (
             <Button
               onClick={() => {
