@@ -16,6 +16,14 @@ module.exports = {
       translate: {
         modal: '-50%',
       },
+      gridTemplateColumns: {
+        post: 'repeat(13, auto)',
+        meeting: 'repeat(8, auto)',
+      },
+      screens: {
+        post: '1330px',
+        meeting: '820px',
+      },
     },
   },
   plugins: [],
