@@ -6,6 +6,7 @@ import { apis } from 'api/api';
 const PostListPage = () => {
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
+  const [showAll, setShowAll] = useState(true);
 
   const tags = [
     '플로깅',
@@ -23,7 +24,7 @@ const PostListPage = () => {
   ];
 
   const tagHandler = (id) => {
-    if (Array.from(selectedTag).indexOf(id) === -1) {
+    if (selectedTag.indexOf(id) === -1) {
       setSelectedTag([...selectedTag, id]);
     } else {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
@@ -31,11 +32,13 @@ const PostListPage = () => {
   };
 
   useEffect(() => {
-    if (Array.from(selectedTag).length === 0) {
+    if (selectedTag.length === 0) {
+      setShowAll(true);
       apis.getPost('board').then((res) => {
         setData(res.data.data);
-      }, []);
+      });
     } else {
+      setShowAll(false);
       apis
         .searchPostTag({ tagIds: selectedTag })
         .then((res) => setData(res.data.data))
@@ -45,14 +48,26 @@ const PostListPage = () => {
 
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="w-4/5 pb-2 m-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden  post:overflow-x-hidden post:justify-center">
+        <button
+          type="button"
+          className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
+            showAll ? `bg-blueColor text-white` : `bg-gray-100`
+          }`}
+          onClick={() => {
+            setShowAll(true);
+            setSelectedTag([]);
+          }}
+        >
+          # 전체보기
+        </button>
         {tags.map((tag, index) => (
           <Tag
             key={tag}
-            selectedTag={selectedTag}
             tag={tag}
-            tagHandler={tagHandler}
             id={index + 1}
+            tagHandler={tagHandler}
+            selectedTag={selectedTag}
           />
         ))}
       </div>
