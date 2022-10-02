@@ -8,7 +8,7 @@ export const Layout = styled.div`
 `;
 
 export const Container = styled.div`
-  width: 99%;
+  width: 100%;
   height: 100%;
   max-width: 1760px;
   max-height: 824px;

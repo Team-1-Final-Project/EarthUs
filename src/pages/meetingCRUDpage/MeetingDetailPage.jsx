@@ -1,7 +1,7 @@
 import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from 'components/navbar/Navbar';
@@ -26,16 +26,16 @@ const MeetingDetailPage = () => {
     loginData.loginState
       ? applyState
         ? apis
-            .cancelMeeting(params) //참여하기를 취소하고 버튼을 참여하기 버튼으로 변경해줍니다
+            .cancelMeeting(params)
             .then((res) => {
-              // console.log('apply cancel success', res);
+              console.log('apply cancel success', res);
               setApplyState(false);
             })
             .catch((err) => console.log(err))
         : apis
-            .applyMeeting(params) //참여하기를 실행하고 버튼을 참여취소 버튼으로 변경해줍니다
+            .applyMeeting(params)
             .then((res) => {
-              // console.log('apply success', res);
+              console.log('apply success', res);
               setApplyState(true);
             })
             .catch((err) => console.log(err))
@@ -61,6 +61,7 @@ const MeetingDetailPage = () => {
       })
       .catch((err) => console.log('err', err, params));
   }, []);
+  //여기까지 수정하기 파트입니다
 
   //여기부터 삭제하기 파트입니다
   const onClickDelete = () => {
@@ -85,7 +86,6 @@ const MeetingDetailPage = () => {
       })
       .catch((err) => console.log('err', err));
   }, [applyState]);
-
   return (
     <Layout>
       <Container>
@@ -94,14 +94,16 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
-          {detailData && detailData.admin.email === loginData.email ? null : applyState ? (
-            <Button
-              onClick={() => {
-                onClickApplyHandler();
-              }}
-            >
-              참여 취소
-            </Button>
+          {applyState ? (
+            detailData && detailData.admin.email === loginData.email ? null : (
+              <Button
+                onClick={() => {
+                  onClickApplyHandler();
+                }}
+              >
+                참여 취소
+              </Button>
+            )
           ) : (
             <Button
               onClick={() => {

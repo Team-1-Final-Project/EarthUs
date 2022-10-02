@@ -2,6 +2,7 @@ import PostList from 'components/post/PostList';
 import Tag from 'components/tag/Tag';
 import { useEffect, useState } from 'react';
 import { apis } from 'api/api';
+import Navbar from 'components/navbar/Navbar';
 
 const PostListPage = () => {
   const [data, setData] = useState();
@@ -36,7 +37,6 @@ const PostListPage = () => {
       setShowAll(true);
       apis.getPost('board').then((res) => {
         setData(res.data.data);
-      });
     } else {
       setShowAll(false);
       apis
@@ -48,6 +48,7 @@ const PostListPage = () => {
 
   return (
     <div>
+    <Navbar />
       <div className="w-4/5 pb-2 m-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden  post:overflow-x-hidden post:justify-center">
         <button
           type="button"

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Post from './Post';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { apis } from 'api/api';
 
 const PostList = ({ data }) => {
   const navigate = useNavigate();
