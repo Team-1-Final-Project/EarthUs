@@ -5,6 +5,7 @@ import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
 import TagButton from '../TagButton';
+import { useEffect } from 'react';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -76,18 +77,17 @@ const CardCreateForm = () => {
   //태그를 다루는 파트입니다.
 
   const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+  const tagStateList = [false, false, false, false, false, false, false];
 
   const onClickTagHandler = (e, index) => {
     e.preventDefault();
     let tagClone = tag;
-    tag.length > 3
-      ? alert('태그는 3개까지만 가능합니다')
-      : tag.includes(index + 1)
-      ? tagClone.splice(tag.indexOf(index + 1), 1)
-      : tagClone.push(index + 1); //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
+    tag.includes(index + 1) ? tagClone.splice(tag.indexOf(index + 1), 1) : tagClone.push(index + 1);
+    //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
     setTag(tagClone);
     console.log('태그', tag);
   };
+
   return (
     <>
       <div className="mt-20 flex justify-center">
@@ -293,7 +293,7 @@ const CardCreateForm = () => {
                             onClickTagHandler(e, index);
                           }}
                         >
-                          <TagButton tagName={item} />
+                          <TagButton tagName={item} initialTagState={tagStateList[index]} />
                         </button>
                       );
                     })}

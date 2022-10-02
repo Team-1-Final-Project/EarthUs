@@ -12,7 +12,7 @@ const TagButton = ({ tagName, initialTagState }) => {
       className={tagState ? 'bg-cyan-400 p-2 m-1 rounded' : 'bg-white p-2 m-1 rounded'}
       onClick={(e) => {
         e.preventDefault();
-        setTagState(initialTagState);
+        setTagState(!tagState);
       }}
     >
       {tagName}
