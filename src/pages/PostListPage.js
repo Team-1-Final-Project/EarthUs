@@ -37,6 +37,7 @@ const PostListPage = () => {
       setShowAll(true);
       apis.getPost('board').then((res) => {
         setData(res.data.data);
+      });
     } else {
       setShowAll(false);
       apis
@@ -48,8 +49,8 @@ const PostListPage = () => {
 
   return (
     <div>
-    <Navbar />
-      <div className="w-4/5 pb-2 m-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden  post:overflow-x-hidden post:justify-center">
+      <Navbar />
+      <div className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
         <button
           type="button"
           className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
