@@ -24,6 +24,7 @@ const CardUpdateForm = (props) => {
   const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
   const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
   const [content, setContent, contentChange] = useInput('');
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     console.log('here', props);
@@ -47,11 +48,14 @@ const CardUpdateForm = (props) => {
     meetingEndDate: meetingEndDate,
     location: location,
     limitPeople: limitPeople,
-    tagMeetingIds: tag,
+    tagMeetingIds: [6, 7],
   };
   const list = [2, 3, 4, 5, 6, 7, 8];
 
   //수정완료 버튼 클릭시
+  const onChangeImageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
     const JSD = orange(joinStartDate);
@@ -59,20 +63,18 @@ const CardUpdateForm = (props) => {
     const MSD = orange(meetingStartDate);
     const MED = orange(meetingEndDate);
 
+    let formData = new FormData();
     if (JSD <= JED && MSD <= MED && JED <= MSD) {
+      formData.append('image', image);
+      formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
-        .updateMeeting(props.params, data)
+        .updateMeeting(props.params, formData)
         .then((res) => {
-          console.log(res, data);
+          console.log(res);
+          alert(res.data.data);
           navigate('/meeting');
         })
         .catch((err) => console.log(err));
-      await apis
-        .updateMeetingImage(props.params, formData)
-        .then((res) => console.log('이미지변경완료', res))
-        .catch((err) => {
-          console.log(err);
-        });
     } else {
       alert('날짜형식에 어긋납니다');
     }
@@ -85,14 +87,6 @@ const CardUpdateForm = (props) => {
     } else {
       return true;
     }
-  };
-
-  //여기서 부터 이미지 수정 파트입니다.
-  const [image, setImage] = useState('');
-  let formData = new FormData();
-  const onChangeImageHandler = (e) => {
-    setImage(e.target.files[0]);
-    formData.append('image', image);
   };
 
   //여기서 부터 태그관련 작업파트입니다.

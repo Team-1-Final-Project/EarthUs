@@ -97,12 +97,15 @@ export const apis = {
         'Content-Type': `multipart/form-data`,
       },
     }),
-  updateMeeting: (meetingID, data) => api.put(`meeting/${meetingID}`, data), //모임수정
+  updateMeeting: (meetingID, data) =>
+    api.put(`meeting/${meetingID}`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }), //모임수정
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
   cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
-  updateMeetingImage: (meetingID) => api.put(`meeting/${meetingID}/image`),
-  deleteMeetingImage: (meetingID) => api.delete(`meeting/${meetingID}/image`),
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
   getAllMeeting: () => api.get('meeting'),
   getMeetingUser: (meetingId) => api.get(`meeting/crew/${meetingId}`),
