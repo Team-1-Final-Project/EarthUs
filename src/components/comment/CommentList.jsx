@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import Comment from 'components/comment/Comment';
 import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
+import { useEffect } from 'react';
 
-const CommentList = () => {
+const CommentList = ({ commentListData }) => {
   const [commentList, setCommentList] = useState([]);
+
+  useEffect(() => {
+    commentListData && setCommentList(commentListData);
+  }, [commentListData]);
 
   const addCommentHandler = async (content) => {
     try {
@@ -38,7 +43,7 @@ const CommentList = () => {
   };
 
   return (
-    <div className="max-w-5xl m-auto p-5 border border-grayLineColor rounded-lg">
+    <div className="w-screen m-auto mt-5 px-5 py-6 border border-grayLineColor rounded-lg comment:w-4/5">
       {commentList?.map((comment) => (
         <Comment
           {...comment}

@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Tag = ({ tag, id, tagHandler }) => {
-  const [isSelected, setIsSelected] = useState(false);
+const Tag = ({ tag, id, tagHandler, selectedTag }) => {
   return (
-    <a
-      className={`block  max-w-max h-8 px-5 flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
-        isSelected ? `bg-blueColor text-white` : `bg-gray-100`
+    <button
+      type="button"
+      className={`block  min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
+        selectedTag.indexOf(id) === -1 ? `bg-gray-100` : `bg-blueColor text-white`
       }`}
-      onClick={() => {
-        setIsSelected(!isSelected);
-        tagHandler(id);
-      }}
+      onClick={() => tagHandler(id)}
     >
-      {tag}
-    </a>
+      # {tag}
+    </button>
   );
 };
 

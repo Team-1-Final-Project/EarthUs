@@ -19,11 +19,12 @@ const MeetingPage = () => {
 
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
+  const [showAll, setShowAll] = useState(true);
 
   const tags = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
 
   const tagHandler = (id) => {
-    if (Array.from(selectedTag).indexOf(id) === -1) {
+    if (selectedTag.indexOf(id) === -1) {
       setSelectedTag([...selectedTag, id]);
     } else {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
@@ -31,7 +32,8 @@ const MeetingPage = () => {
   };
 
   useEffect(() => {
-    if (Array.from(selectedTag).length === 0) {
+    if (selectedTag.length === 0) {
+      setShowAll(true);
       apis
         .getAllMeeting()
         .then((res) => {
@@ -39,6 +41,7 @@ const MeetingPage = () => {
         })
         .catch((err) => console.log('err', err));
     } else {
+      setShowAll(false);
       apis
         .searchMeetingTag({ tagIds: selectedTag })
         .then((res) => setData(res.data.data))
@@ -100,7 +103,19 @@ const MeetingPage = () => {
             <h1 className="text-2xl">태그 목록</h1>
           </div>
           <div className="py-10">
-            <StyledTagList>
+            <div className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">
+              <button
+                type="button"
+                className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
+                  showAll ? `bg-blueColor text-white` : `bg-gray-100`
+                }`}
+                onClick={() => {
+                  setShowAll(true);
+                  setSelectedTag([]);
+                }}
+              >
+                # 전체보기
+              </button>
               {tags.map((tag, index) => (
                 <Tag
                   key={tag}
@@ -108,10 +123,9 @@ const MeetingPage = () => {
                   id={index + 1}
                   tagHandler={tagHandler}
                   selectedTag={selectedTag}
-                  setSelectedTag={setSelectedTag}
                 />
               ))}
-            </StyledTagList>
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {data &&
@@ -125,6 +139,11 @@ const MeetingPage = () => {
                   </Link>
                 );
               })}
+            {data && data.length === 0 && (
+              <div className="w-full h-96 m-20 text-4xl text-center text-gray-300">
+                해당 태그의 모임이 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </Container>
@@ -147,8 +166,4 @@ const Button = styled.button`
   &:hover {
     transform: scale(1.03);
   }
-`;
-const StyledTagList = styled.div`
-  display: flex;
-  width: 100vw;
 `;
