@@ -1,15 +1,6 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { MdPeopleOutline } from 'react-icons/md';
-import { AiOutlineCalendar } from 'react-icons/ai';
-import { GrLocation } from 'react-icons/gr';
 
-export default function Meeting({ meeting }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const pathName = useLocation().pathname.split('/').at(-1);
-  console.log(pathName);
-
+export default function Meeting() {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between">
