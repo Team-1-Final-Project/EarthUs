@@ -103,7 +103,7 @@ export const apis = {
         'Content-Type': `multipart/form-data`,
       },
     }), //모임수정
-  getMyMeeting: () => api.get(`mypage/meeting`),
+  // getMyMeeting: () => api.get(`mypage/meeting`),
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
   cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
@@ -122,6 +122,19 @@ export const apis = {
   //shop
   getShopList: async () => {
     const response = await api.get('recommends');
+    return response.data;
+  },
+  //mypage
+  getMyMeeting: async () => {
+    const response = await api.get('mypage/meeting');
+    return response.data;
+  },
+  getMyLikePpst: async () => {
+    const response = await api.get('mypage/hitboard');
+    return response.data;
+  },
+  getMyWritePost: async () => {
+    const response = await api.get('mypage/board');
     return response.data;
   },
 };

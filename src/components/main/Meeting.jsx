@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
 import { MdPeopleOutline } from 'react-icons/md';
+import { GrLocation } from 'react-icons/gr';
 
 function Meeting({ meeting }) {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ function Meeting({ meeting }) {
               <div
                 key={meeting.id}
                 className="h-40 bg-white shadow-lg default_outline"
-
                 onClick={() => {
                   console.log('hi');
                   navigate(`meeting/detail/${meeting.id}`);
