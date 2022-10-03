@@ -6,7 +6,9 @@ import { apis } from 'api/api';
 function ZeroShop() {
   const [shop, setShop] = useState();
   useEffect(() => {
-    apis.getShopList().then((res) => setShop(res));
+    apis.getShopList().then((res) => {
+      console.log(res);
+    });
   }, []);
 
   return (
