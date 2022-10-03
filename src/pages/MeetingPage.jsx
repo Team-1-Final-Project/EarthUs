@@ -11,6 +11,7 @@ import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import loginSlice from 'redux/modules/loginSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -77,15 +78,23 @@ const MeetingPage = () => {
               모임 생성
             </Button>
           </div>
-          <MeetingCarousel>
-            {myMeeting.map((item) => {
-              return (
-                <Link style={{ display: 'flex', width: '20vw' }} to={`/meeting/detail/${item.id}`}>
-                  <MeetingCard data={item} />
-                </Link>
-              );
-            })}
-          </MeetingCarousel>
+
+          {loginData.loginState ? (
+            <MeetingCarousel>
+              {myMeeting.map((item) => {
+                return (
+                  <Link
+                    style={{ display: 'flex', width: '20vw' }}
+                    to={`/meeting/detail/${item.id}`}
+                  >
+                    <MeetingCard data={item} />
+                  </Link>
+                );
+              })}
+            </MeetingCarousel>
+          ) : (
+            <div className="w-full flex justify-center">로그인이 필요합니다</div>
+          )}
         </div>
         <div className="pt-10 px-20">
           <div>
@@ -120,6 +129,11 @@ const MeetingPage = () => {
           </div>
         </div>
       </Container>
+      <Map center={{ lat: 33.5563, lng: 126.79581 }} style={{ width: '100%', height: '360px' }}>
+        <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
+          <div style={{ color: '#000' }}>Hello World!</div>
+        </MapMarker>
+      </Map>
     </Layout>
   );
 };
