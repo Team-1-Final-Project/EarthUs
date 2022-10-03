@@ -60,7 +60,7 @@ const Comment = ({
           </div>
         </Modal>
       ) : null}
-      <div className="border-b border-grayLineColor p-5">
+      <div className="border-b border-grayLineColor p-5 mb-4">
         <div className="flex justify-between mb-3">
           <div className="flex justify-center items-center pb-3">
             <img src={profileImage} alt="profile" className="w-12 h-12 rounded-full" />

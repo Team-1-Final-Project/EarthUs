@@ -7,11 +7,10 @@ module.exports = {
         defaultLine: '#d3c8c8',
         defaultText: '#333',
         blueColor: '#3CC2DF',
-        grayLineColor: '#d3c8c8',
+        grayLineColor: '#969696',
         blackColor: '#333',
         grayColor: '#656565',
         modalBackground: 'rgba(11, 19, 30, 0.37)',
-        disabledColor: '#e7e8ec',
       },
       translate: {
         modal: '-50%',
@@ -23,6 +22,7 @@ module.exports = {
       screens: {
         post: '1330px',
         meeting: '820px',
+        comment: '501px',
       },
     },
   },
