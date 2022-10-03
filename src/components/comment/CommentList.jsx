@@ -38,7 +38,7 @@ const CommentList = () => {
   };
 
   return (
-    <div className="max-w-5xl m-auto p-5 border border-grayLineColor rounded-lg">
+    <div className="w-screen m-auto mt-5 px-5 py-6 border border-grayLineColor rounded-lg comment:w-4/5">
       {commentList?.map((comment) => (
         <Comment
           {...comment}
