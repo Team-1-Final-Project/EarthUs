@@ -104,7 +104,7 @@ const Comment = ({
             ) : null}
           </div>
         </div>
-        <div>
+        <div className="whitespace-normal break-all">
           {editToggle ? (
             <form
               onSubmit={editHandler}

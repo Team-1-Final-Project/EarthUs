@@ -35,7 +35,7 @@ const CommentForm = ({ addCommentHandler }) => {
       )}
       {!loginState && (
         <>
-          <div className="w-full h-full text-gray-300">로그인이 필요합니다.</div>
+          <div className="w-full h-24 text-gray-300">로그인이 필요합니다.</div>
           <button className="self-end bg-gray-300 text-gray-100 w-16 h-8 rounded-3xl mt-2" disabled>
             등록
           </button>
