@@ -6,16 +6,6 @@ import MyPageMeeting from 'pages/myPage/MyPageMeeting';
 import MyPageSetting from 'pages/myPage/MyPageSetting';
 
 function MyPageRoute() {
-  const [meeting, setMeeting] = useState();
-  const [writePost, setWritePost] = useState();
-  const [likePost, setLikePost] = useState();
-
-  useEffect(() => {
-    apis.getMyMeeting().then((res) => setMeeting(res.data));
-    apis.getMyWritePost().then((res) => console.log(res));
-    apis.getMyLikePpst().then((res) => console.log(res));
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<MyPage />} />
