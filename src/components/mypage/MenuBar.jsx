@@ -4,6 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 function MenuBar() {
   const navigate = useNavigate();
   const params = useParams();
+  const pathName = useLocation().pathname.split('/')[1];
+  //pathName으로 메뉴바 체크하기
+
+  const user = useSelector((state) => {
+    return state.login;
+  });
 
   const menuList = [
     { menu: '마이 페이지', link: '/mypage' },

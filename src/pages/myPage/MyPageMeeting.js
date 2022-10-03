@@ -3,17 +3,19 @@ import Navbar from 'components/navbar/Navbar';
 import MenuBar from 'components/mypage/MenuBar';
 import Meeting from 'components/mypage/Meeting';
 
-function MyPageMeeting() {
+function MyPageMeeting({ meeting }) {
   return (
-    <div className="w-full">
-      <Navbar />
-      <div className="flex justify-center mt-20">
-        <MenuBar />
-        <div className="w-3/6">
-          <Meeting />
-        </div>
+    <>
+      <div className="w-full">
+        <Navbar />
+        <div className="flex justify-center mt-20">
+          <MenuBar />
+          <div className="w-3/6">
+            <Meeting meeting={meeting} />
+          </div>
+        <Footer />
       </div>
-    </div>
+    </>
   );
 }
 
