@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import loginSlice from 'redux/modules/loginSlice';
