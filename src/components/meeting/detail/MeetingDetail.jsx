@@ -14,13 +14,15 @@ const MeetingDetail = (props) => {
   const detail = { ...props.data };
 
   const [liked, setLiked] = useState(false);
+  const [likeNums, setLikeNums] = useState(0);
   const loginState = useSelector((state) => state.login.loginState);
 
   const likeHandler = async () => {
     if (loginState) {
       try {
         const res = await apis.updateMeetingLike(detail.id);
-        setLiked((prev) => !prev);
+        setLiked(res.data.data.meetingLike);
+        res.data.data.meetingLike ? setLikeNums(likeNums + 1) : setLikeNums(likeNums - 1);
       } catch (err) {
         alert(err);
       }
@@ -30,7 +32,8 @@ const MeetingDetail = (props) => {
   };
 
   useEffect(() => {
-    if (loginState) {
+    detail.heartNums && setLikeNums(detail.heartNums);
+    if (loginState && detail.id) {
       apis
         .getMeetingLike(detail.id)
         .then((res) => {
@@ -38,24 +41,24 @@ const MeetingDetail = (props) => {
         })
         .catch((err) => console.log(err));
     }
-  }, [loginState, detail.id]);
+  }, [loginState, detail.heartNums]);
 
   return (
     <>
       <ToastContainer />
       <StyledCard>
         <div>
-          <img className="max-h-96 max-w-xl bg-white" src={detail.meetingImage}></img>
+          <img className="max-h-96 max-w-2xl bg-white" src={detail.meetingImage}></img>
         </div>
         <StyledDetail>
           <TagListLayout>
             <div>
               {detail.tagMeetings &&
                 Array.from(detail.tagMeetings).map((tag) => (
-                  <Tagbutton key={tag.id}>#{tag.name}</Tagbutton>
+                  <Tagbutton key={tag.id}># {tag.name}</Tagbutton>
                 ))}
             </div>
-            <div>
+            <div className="flex justify-center items-center">
               {liked ? (
                 <BsHeartFill
                   className="w-6 h-6 m-2 text-red-600 cursor-pointer"
@@ -67,7 +70,7 @@ const MeetingDetail = (props) => {
                   onClick={likeHandler}
                 />
               )}
-              <span>{detail.heartNum}</span>
+              <span className="text-xl text-defaultText">{likeNums}</span>
             </div>
           </TagListLayout>
           <h1 className="pb-2 mb-5 text-3xl">{detail.title}</h1>

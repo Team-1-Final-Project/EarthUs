@@ -17,8 +17,8 @@ const MeetingDetailPage = () => {
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
   useEffect(() => {
-    let finder = applyerData.find((item) => item.email === loginData.email);
-    finder ? setApplyState(true) : setApplyState(false);
+    let finder = applyerData.find((item) => item.email === loginData.email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
+    finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
   });
   const onClickApplyHandler = () => {
     console.log(loginData.loginState);
@@ -86,7 +86,6 @@ const MeetingDetailPage = () => {
       })
       .catch((err) => console.log('err', err));
   }, [applyState]);
-
   return (
     <Layout>
       <Container>
@@ -96,13 +95,15 @@ const MeetingDetailPage = () => {
         </div>
         <ButtonLayout>
           {applyState ? (
-            <Button
-              onClick={() => {
-                onClickApplyHandler();
-              }}
-            >
-              참여 취소
-            </Button>
+            detailData && detailData.admin.email === loginData.email ? null : (
+              <Button
+                onClick={() => {
+                  onClickApplyHandler();
+                }}
+              >
+                참여 취소
+              </Button>
+            )
           ) : (
             <Button
               onClick={() => {
@@ -112,25 +113,28 @@ const MeetingDetailPage = () => {
               참여 하기
             </Button>
           )}
-
-          <Button
-            onClick={() => {
-              loginData.email === detailData.admin.email
-                ? navigate(`/meeting/update/${params}`)
-                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
-            }}
-          >
-            수정 하기
-          </Button>
-          <Button
-            onClick={() => {
-              loginData.email === detailData.admin.email
-                ? onClickDelete()
-                : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
-            }}
-          >
-            삭제 하기
-          </Button>
+          {detailData && detailData.admin.email === loginData.email ? (
+            <>
+              <Button
+                onClick={() => {
+                  loginData.email === detailData.admin.email
+                    ? navigate(`/meeting/update/${params}`)
+                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+                }}
+              >
+                수정 하기
+              </Button>
+              <Button
+                onClick={() => {
+                  loginData.email === detailData.admin.email
+                    ? onClickDelete()
+                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+                }}
+              >
+                삭제 하기
+              </Button>
+            </>
+          ) : null}
         </ButtonLayout>
         <div>
           <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>

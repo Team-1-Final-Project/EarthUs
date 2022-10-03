@@ -1,7 +1,6 @@
 import MyPage from 'pages/myPage/MyPage';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { apis } from 'api/api';
 import MyPagePost from 'pages/myPage/MyPagePost';
 import MyPageMeeting from 'pages/myPage/MyPageMeeting';
 import MyPageSetting from 'pages/myPage/MyPageSetting';
@@ -19,9 +18,9 @@ function MyPageRoute() {
 
   return (
     <Routes>
-      <Route path="/" element={<MyPage meeting={meeting} />} />
+      <Route path="/" element={<MyPage />} />
       <Route path="/post" element={<MyPagePost />} />
-      <Route path="/meet" element={<MyPageMeeting meeting={meeting} />} />
+      <Route path="/meet" element={<MyPageMeeting />} />
       <Route path="/setting" element={<MyPageSetting />} />
     </Routes>
   );

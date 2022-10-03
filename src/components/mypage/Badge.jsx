@@ -2,6 +2,7 @@ import React from 'react';
 
 function Badge() {
   const badge = Array.from({ length: 10 }, () => null);
+  console.log(badge);
   return (
     <div>
       <div className="m-4 mt-10 text-xl font-bold">내가 획득한 뱃지</div>

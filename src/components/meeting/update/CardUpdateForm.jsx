@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
+import TagButton from '../TagButton';
+
 export const orange = (str) => {
   const a = str.split('-');
   const b = Number(a.join(''));
@@ -14,7 +16,7 @@ const CardUpdateForm = (props) => {
   const navigate = useNavigate();
 
   const [title, setTitle, titleChange] = useInput('');
-  const [tag, setTag, tagChange] = useInput('');
+  const [tag, setTag, tagChange] = useInput([]);
   const [location, setLocation, locationChange] = useInput('');
   const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
   const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
@@ -22,6 +24,7 @@ const CardUpdateForm = (props) => {
   const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
   const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
   const [content, setContent, contentChange] = useInput('');
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     console.log('here', props);
@@ -50,22 +53,31 @@ const CardUpdateForm = (props) => {
   const list = [2, 3, 4, 5, 6, 7, 8];
 
   //수정완료 버튼 클릭시
+  const onChangeImageHandler = (e) => {
+    setImage(e.target.files[0]);
+  };
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
+    const JSD = orange(joinStartDate);
+    const JED = orange(joinEndDate);
+    const MSD = orange(meetingStartDate);
+    const MED = orange(meetingEndDate);
 
-    await apis
-      .updateMeeting(props.params, data)
-      .then((res) => {
-        console.log(res, data);
-        navigate('/meeting');
-      })
-      .catch((err) => console.log(err));
-    await apis
-      .updateMeetingImage(props.params, formData)
-      .then((res) => console.log('이미지변경완료', res))
-      .catch((err) => {
-        console.log(err);
-      });
+    let formData = new FormData();
+    if (JSD <= JED && MSD <= MED && JED <= MSD) {
+      formData.append('image', image);
+      formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
+      await apis
+        .updateMeeting(props.params, formData)
+        .then((res) => {
+          console.log(res);
+          alert(res.data.data);
+          navigate('/meeting');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert('날짜형식에 어긋납니다');
+    }
   };
 
   //나가기버튼 클릭시
@@ -77,12 +89,18 @@ const CardUpdateForm = (props) => {
     }
   };
 
-  //여기서 부터 이미지 수정 파트입니다.
-  const [image, setImage] = useState('');
-  let formData = new FormData();
-  const onChangeImageHandler = (e) => {
-    setImage(e.target.files[0]);
-    formData.append('image', image);
+  //여기서 부터 태그관련 작업파트입니다.
+  const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+  const onClickTagHandler = (e, index) => {
+    e.preventDefault();
+    let tagClone = tag;
+    tag.length > 3
+      ? alert('태그는 3개까지만 가능합니다')
+      : tag.includes(index + 1)
+      ? tagClone.splice(tag.indexOf(index + 1), 1)
+      : tagClone.push(index + 1); //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
+    setTag(tagClone);
+    console.log('태그', tag);
   };
 
   return (
@@ -276,17 +294,24 @@ const CardUpdateForm = (props) => {
                     <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                       태그
                     </label>
-                    <div className="mt-1">
-                      <input
-                        id="about"
-                        name="about"
-                        rows={1}
-                        className="h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="태그를 입력해 주세요"
-                        value={tag}
-                        onChange={tagChange}
-                      />
-                    </div>
+                    {tagList.map((item, index) => {
+                      return (
+                        <button
+                          onClick={(e) => {
+                            onClickTagHandler(e, index);
+                          }}
+                        >
+                          <TagButton
+                            tagName={item}
+                            // initialTagState={
+                            //   props.detailData && props.detailData.tagMeetingIds.includes(index + 1)
+                            //     ? true
+                            //     : false
+                            // }
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">

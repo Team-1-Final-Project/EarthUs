@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { apis } from 'api/api';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsTrash, BsPencil } from 'react-icons/bs';
+import Navbar from 'components/navbar/Navbar';
+import CommentList from 'components/comment/CommentList';
 
-const PostDetail = ({ heart }) => {
+const PostDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [data, setData] = useState('');
+  const [like, setLike] = useState('');
+
+  // const location = useLocation();
+  // const like = location.state.like;
+  // const setLike = location.state.setLike;
+
   useEffect(() => {
     apis.getDetail(params.id).then((res) => {
       setData(res.data);
@@ -16,73 +24,83 @@ const PostDetail = ({ heart }) => {
   }, []);
 
   return (
-    <ContainerStyle>
-      <TopWrapStyle>
-        {/* <span className="tag">{data?.tagBoard} </span> */}
-        <span className="tag"># 태그1 </span>
-        {/* <span className="date">{data?.createdAt.substr(0, 10)}</span> */}
-      </TopWrapStyle>
+    <>
+      <Navbar />
+      <ContainerStyle>
+        <TopWrapStyle>
+          {/* <span className="tag">{data?.tagBoard} </span> */}
+          <span className="tag"># 태그1 </span>
+          <span className="date">{data.createdAt?.substr(0, 10)}</span>
+        </TopWrapStyle>
 
-      <ContentWrapStyle>
-        <ImageStyled>
-          <img className="boardImg" src={data?.boardImage} alt="img" />
-        </ImageStyled>
+        <ContentWrapStyle>
+          <ImageStyled>
+            <img className="boardImg" src={data?.boardImage} alt="img" />
+          </ImageStyled>
 
-        <div className="titleContentWrap">
-          <TitleStyle>{data?.title}</TitleStyle>
-          <ContentStyle>{data?.content}</ContentStyle>
-        </div>
-      </ContentWrapStyle>
-      <IconButtonWrapStyle>
-        <IconContainerstyle>
-          <div
-            className="iconWrap"
-            onClick={(e) => {
-              apis.postHeart({
-                boardId: data?.boardId,
-              });
-              e.stopPropagation();
-            }}
-          >
-            {data?.heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{data?.heartBoardNums}</span>
+          <div className="titleContentWrap">
+            <TitleStyle>{data?.title}</TitleStyle>
+            <ContentStyle>{data?.content}</ContentStyle>
           </div>
-          <div
-            className="iconWrap"
-            onClick={(e) => {
-              navigate(`/communitydetail/${data?.boardId}`);
-              e.stopPropagation();
-            }}
-          >
-            <AiOutlineComment />
-            <span className="count">11</span>
-          </div>
-        </IconContainerstyle>
-        <ProfileButtonWrapStyle>
-          <ContentsWrapStyle>
-            <div className="profileIconWrap">
-              <div className="profileWrap">
-                <ProfileStyle>
-                  <img className="img" src={data?.profileImage} alt="img" />
-                </ProfileStyle>
-                <NameStyle>{data?.writerName}</NameStyle>
-              </div>
-            </div>
-          </ContentsWrapStyle>
+        </ContentWrapStyle>
 
-          <ButtonStyled>
-            <BsPencil className="button" />
-            <BsTrash
-              className="button"
-              onClick={() => {
-                apis.deletePost(params.id);
-                navigate(-1);
+        <IconButtonWrapStyle>
+          <IconContainerstyle>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                apis.postHeart(data?.boardId).then((res) => {
+                  setLike(res?.data.message);
+                  console.log(like);
+                });
+                e.stopPropagation();
               }}
-            />
-          </ButtonStyled>
-        </ProfileButtonWrapStyle>
-      </IconButtonWrapStyle>
-    </ContainerStyle>
+            >
+              {like === '게시글 좋아요 취소!' ? (
+                <AiFillHeart style={{ color: '#3cc2df' }} />
+              ) : (
+                <AiOutlineHeart />
+              )}
+              <span className="count">{data?.heartBoardNums}</span>
+            </div>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                navigate(`/communitydetail/${data?.boardId}`);
+                e.stopPropagation();
+              }}
+            >
+              <AiOutlineComment />
+              <span className="count">11</span>
+            </div>
+          </IconContainerstyle>
+          <ProfileButtonWrapStyle>
+            <ContentsWrapStyle>
+              <div className="profileIconWrap">
+                <div className="profileWrap">
+                  <ProfileStyle>
+                    <img className="img" src={data?.profileImage} alt="img" />
+                  </ProfileStyle>
+                  <NameStyle>{data?.writerName}</NameStyle>
+                </div>
+              </div>
+            </ContentsWrapStyle>
+
+            <ButtonStyled>
+              <BsPencil className="button" />
+              <BsTrash
+                className="button"
+                onClick={() => {
+                  apis.deletePost(params.id);
+                  navigate(-1);
+                }}
+              />
+            </ButtonStyled>
+          </ProfileButtonWrapStyle>
+        </IconButtonWrapStyle>
+      </ContainerStyle>
+      <CommentList commentListData={data.commentResponseDtoList} />
+    </>
   );
 };
 
@@ -96,9 +114,9 @@ const ContainerStyle = styled.div`
   border: 1px solid #969696;
   border-radius: 10px;
 
-  @media (max-width: 900px) {
-    /* height: 405px;
-    width: 80%; */
+  @media (max-width: 500px) {
+    width: 100%;
+    min-width: 300px;
   }
 `;
 
@@ -106,17 +124,16 @@ const ImageStyled = styled.div`
   border-radius: 10px;
   overflow: hidden;
   margin-right: 20px;
-  max-width: 300px;
+  max-width: 200px;
 
   .boardImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  @media (max-width: 900px) {
-    /* margin-top: 15px;
-    width: 240px;
-    height: 140px; */
+  @media (max-width: 500px) {
+    margin: auto;
+    margin-bottom: 10px;
   }
 `;
 
@@ -146,6 +163,9 @@ const ContentWrapStyle = styled.div`
     display: flex;
     flex-direction: column;
   }
+  @media (max-width: 500px) {
+    display: block;
+  }
 `;
 
 const IconButtonWrapStyle = styled.div`
@@ -166,9 +186,6 @@ const IconContainerstyle = styled.div`
   .count {
     margin-right: 10px;
     margin-left: 5px;
-  }
-  @media (max-width: 900px) {
-    /* justify-content: flex-end; */
   }
 `;
 
@@ -203,10 +220,6 @@ const ContentsWrapStyle = styled.div`
   .profileWrap {
     display: flex;
     align-items: top;
-  }
-  @media (max-width: 900px) {
-    /* display: flex;
-    flex-direction: column; */
   }
 `;
 
@@ -244,7 +257,7 @@ const ContentStyle = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 900px) {
+  @media (max-width: 500px) {
     -webkit-line-clamp: 3;
   }
 `;

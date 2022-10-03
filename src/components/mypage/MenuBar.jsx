@@ -1,10 +1,7 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import loginSlice from 'redux/modules/loginSlice';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function MenuBar() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const pathName = useLocation().pathname.split('/')[1];
@@ -24,17 +21,10 @@ function MenuBar() {
   return (
     <div className="flex flex-col w-56 bg-white">
       <div className="flex h-40">
-        <img
-          src={user.image}
-          className="w-12 h-12 bg-gray-300 rounded-full hover:cursor-pointer"
-          alt=""
-          onClick={() => {
-            navigate('/mypage');
-          }}
-        ></img>
+        <div className="w-12 h-12 bg-gray-300 rounded-full" />
         <div className="ml-2 text-left">
-          <div className="text-xl font-bold">{user.nickname}</div>
-          <div className="text-sm ">{user.email}</div>
+          <div className="text-xl font-bold">홍길동</div>
+          <div className="text-sm ">test@test.com</div>
         </div>
       </div>
       <div className="text-left">
@@ -43,7 +33,7 @@ function MenuBar() {
             {
               <div
                 className={`${
-                  menu.link.includes(`${Object.values(params)[0]}` || ' ')
+                  menu.link.includes(`${Object.values(params)[0]}`)
                     ? 'font-bold h-20 hover:font-bold hover:cursor-pointer'
                     : `h-20 hover:font-bold hover:cursor-pointer`
                 }`}
