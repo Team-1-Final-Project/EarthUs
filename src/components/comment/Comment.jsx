@@ -40,19 +40,19 @@ const Comment = ({
   return (
     <>
       {deleteModal ? (
-        <Modal onConfirm={() => setDeleteModal(false)} width="w-3/12" height="3/6">
-          <BsFillExclamationTriangleFill className="w-16 h-16 text-blueColor mb-8" />
-          <h1 className="text-4xl text-blackColor mb-3 font-semibold">삭제</h1>
-          <span className="text-2xl text-blackColor">댓글을 삭제하시겠습니까?</span>
-          <div className="mt-16">
+        <Modal onConfirm={() => setDeleteModal(false)} width="w-3/12" height="h-3/6">
+          <BsFillExclamationTriangleFill className="xl:w-1/6 xl:h-1/6  w-8 h-8 text-blueColor mb-8" />
+          <h1 className="xl:text-4xl text-lg text-blackColor mb-3 font-semibold">삭제</h1>
+          <span className="xl:text-2xl text-base text-blackColor">댓글을 삭제하시겠습니까?</span>
+          <div className="mt-8 xl:mt-16 flex">
             <button
-              className="bg-gray-300 text-white w-20 h-8 rounded mt-3 mr-3"
+              className="bg-gray-300 text-white w-14 h-6 text-sm xl:w-20 xl:h-8 xl:text-base rounded mt-3 mr-3"
               onClick={() => setDeleteModal(false)}
             >
               취소
             </button>
             <button
-              className="bg-blueColor text-white w-20 h-8 rounded mt-3"
+              className="bg-blueColor text-white w-14 h-6 text-sm xl:w-20 xl:h-8 xl:text-base rounded mt-3"
               onClick={deleteHandler}
             >
               삭제
