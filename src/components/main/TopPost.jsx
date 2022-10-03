@@ -13,7 +13,13 @@ function TopPost({ hitBoard }) {
         <Carousel>
           {hitBoard &&
             hitBoard.map((board) => (
-              <div key={board.boardId} className="h-40 bg-white default_outline">
+              <div
+                key={board.boardId}
+                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
+                onClick={() => {
+                  navigate(`/communitydetail/${board.boardId}`);
+                }}
+              >
                 <div className="flex justify-between">
                   <div className="w-1/2 ml-4">
                     <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-[#EAECEE]">

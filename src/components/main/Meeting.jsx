@@ -16,7 +16,7 @@ function Meeting({ meeting }) {
             meeting.map((meeting) => (
               <div
                 key={meeting.id}
-                className="h-40 bg-white default_outline"
+                className="h-40 bg-white shadow-lg default_outline"
                 onClick={() => {
                   navigate(`meeting/detail/${meeting.id}`);
                 }}
@@ -43,7 +43,9 @@ function Meeting({ meeting }) {
                         <span>&nbsp;장소 : {meeting.location}</span>
                       </div>
                     </div>
-                    <div className="flex items-center w-full h-10 p-2 mt-2 text-sm truncate bg-gray-100 rounded-2xl">
+                    <div
+                      className={`flex items-center w-full h-10 p-2 mt-2 text-sm truncate bg-gray-100 rounded-2xl`}
+                    >
                       {meeting.content}
                     </div>
                   </div>

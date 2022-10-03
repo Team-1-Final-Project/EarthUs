@@ -22,7 +22,7 @@ export default function Meeting({ meeting }) {
             meeting.map((meeting) => (
               <div
                 key={meeting.id}
-                className="relative h-40 bg-white default_outline hover:cursor-pointer"
+                className="relative h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
                 onClick={() => {
                   navigate(`/meeting/detail/${meeting.id}`);
                 }}
