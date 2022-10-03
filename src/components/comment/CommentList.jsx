@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import Comment from 'components/comment/Comment';
 import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
+import { useEffect } from 'react';
 
-const CommentList = () => {
+const CommentList = ({ commentListData }) => {
   const [commentList, setCommentList] = useState([]);
+
+  useEffect(() => {
+    commentListData && setCommentList(commentListData);
+  }, [commentListData]);
 
   const addCommentHandler = async (content) => {
     try {

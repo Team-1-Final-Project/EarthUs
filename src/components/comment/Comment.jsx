@@ -6,6 +6,7 @@ import {
   BsTrash,
   BsFillExclamationTriangleFill,
 } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 
 const Comment = ({
   content,
@@ -20,6 +21,8 @@ const Comment = ({
   const [editToggle, setEditToggle] = useState(false);
   const [editContent, setEditContent] = useState(content);
   const [deleteModal, setDeleteModal] = useState(false);
+
+  const login = useSelector((state) => state.login);
 
   useEffect(() => {
     setEditContent(content);
@@ -70,10 +73,12 @@ const Comment = ({
             </div>
           </div>
           <div className="relative">
-            <BsThreeDotsVertical
-              onClick={() => setEditDeleteToggle(!editDeleteToggle)}
-              className="cursor-pointer text-grayColor mb-2"
-            />
+            {login.nickname === commentWriter && !editToggle ? (
+              <BsThreeDotsVertical
+                onClick={() => setEditDeleteToggle(!editDeleteToggle)}
+                className="cursor-pointer text-grayColor mb-2"
+              />
+            ) : null}
             {editDeleteToggle ? (
               <div className="absolute right-2 bg-white border border-grayLineColor w-20 h-20">
                 <div className="flex justify-center items-center border-b border-grayLineColor w-full h-1/2">

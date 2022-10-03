@@ -99,7 +99,7 @@ const PostDetail = () => {
           </ProfileButtonWrapStyle>
         </IconButtonWrapStyle>
       </ContainerStyle>
-      <CommentList />
+      <CommentList commentListData={data.commentResponseDtoList} />
     </>
   );
 };
