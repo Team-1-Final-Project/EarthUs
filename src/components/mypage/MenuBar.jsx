@@ -8,7 +8,7 @@ function MenuBar() {
   const navigate = useNavigate();
   const params = useParams();
   const pathName = useLocation().pathname.split('/')[1];
-  //pathName으로 메뉴바 체크하기.
+  //pathName으로 메뉴바 체크하기
 
   const user = useSelector((state) => {
     return state.login;

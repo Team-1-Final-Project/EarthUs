@@ -6,16 +6,18 @@ import Footer from 'components/footer/Footer';
 
 function MyPagePost() {
   return (
-    <div className="w-full">
-      <Navbar />
-      <div className="flex justify-center mt-20">
-        <MenuBar />
-        <div className="w-3/6">
-          <Post />
+    <>
+      <div className="w-full">
+        <Navbar />
+        <div className="flex justify-center mt-20">
+          <MenuBar />
+          <div className="w-3/6">
+            <Post />
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }
 
