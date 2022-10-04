@@ -1,4 +1,5 @@
 import React from 'react';
+import Kakao from 'assets/KakaoLoginImage.png';
 
 const KakaoLogin = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
@@ -6,7 +7,7 @@ const KakaoLogin = () => {
   return (
     <div>
       <a href={KAKAO_AUTH_URL}>
-        <img src="image/kakaologin/kakao_login_large_wide.png"></img>
+        <img src={Kakao}></img>
       </a>
     </div>
   );
