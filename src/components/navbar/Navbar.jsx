@@ -2,18 +2,15 @@ import React from 'react';
 import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/login/KakaoLogin';
 import HomeButton from './HomeButton';
-import loginSlice, { loginLocation } from 'redux/modules/loginSlice';
 
 function Navbar() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useLocation();
-  const params = useParams();
   const [modalState, setModalState] = useState(false);
 
   const list = [
@@ -42,10 +39,10 @@ function Navbar() {
               <button
                 className="p-2 text-slate-300"
                 onClick={() => {
-                  const location = state.pathname;
+                  const LOCATION = state.pathname;
                   setModalState(true);
-                  dispatch(loginSlice.actions.loginLocation(location));
-                  console.log('여기', location);
+                  sessionStorage.setItem('Location', LOCATION);
+                  console.log('여기', LOCATION);
                 }}
               >
                 로그인
