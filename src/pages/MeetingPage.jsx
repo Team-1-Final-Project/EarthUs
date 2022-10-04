@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
-import KakaoLogin from 'components/Login/KakaoLogin';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
-import loginSlice from 'redux/modules/loginSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import Map from 'components/shop/Map';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -66,6 +64,7 @@ const MeetingPage = () => {
 
   return (
     <Layout>
+      <Map></Map>
       <Container>
         <Navbar />
         <div className="pt-20 px-20">
@@ -148,11 +147,6 @@ const MeetingPage = () => {
           </div>
         </div>
       </Container>
-      <Map center={{ lat: 33.5563, lng: 126.79581 }} style={{ width: '100%', height: '360px' }}>
-        <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
-          <div style={{ color: '#000' }}>Hello World!</div>
-        </MapMarker>
-      </Map>
     </Layout>
   );
 };
