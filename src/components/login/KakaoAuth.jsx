@@ -27,6 +27,7 @@ const KakaoAuth = () => {
             const nickname = res.data.nickname;
             const image = res.data.profileImage;
             const email = res.data.email;
+            localStorage.setItem('email', email);
             dispatch(getprofile({ nickname, image, email }));
             navigate(data.location);
           })

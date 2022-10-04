@@ -13,6 +13,11 @@ export const jsonAPI = axios.create({
   baseURL: `http://localhost:3001/`,
 });
 
+export const token = axios.create({
+  baseURL: `http://3.37.61.61/`,
+  headers: { Access_token: sessionStorage.getItem('Access_token') },
+});
+
 export const apis = {
   // mainpage
   getMainPage: async () => {
