@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { apis } from 'api/api';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import Navbar from 'components/navbar/Navbar';
 import CommentList from 'components/comment/CommentList';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePost, getDetailPost } from 'redux/modules/postSlice';
+import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [data, setData] = useState('');
-  const [like, setLike] = useState('');
-
-  // const location = useLocation();
-  // const like = location.state.like;
-  // const setLike = location.state.setLike;
+  const dispatch = useDispatch();
+  const [like, setLike] = useState();
 
   useEffect(() => {
-    apis.getDetail(params.id).then((res) => {
-      setData(res.data);
-    });
+    dispatch(getDetailPost(params.id));
   }, []);
+
+  const data = useSelector((state) => state.post.post.data);
 
   return (
     <>
@@ -29,8 +27,16 @@ const PostDetail = () => {
       <ContainerStyle>
         <TopWrapStyle>
           {/* <span className="tag">{data?.tagBoard} </span> */}
-          <span className="tag"># 태그1 </span>
-          <span className="date">{data.createdAt?.substr(0, 10)}</span>
+          {/* 
+          {data?.tagBoards.map((tag) => {
+            return (
+              <span className="tag" key={tag.id}>
+                {tag.name}
+              </span>
+            );
+          })} */}
+
+          {/* <span className="date">{data?.createdAt.substr(0, 10)}</span> */}
         </TopWrapStyle>
 
         <ContentWrapStyle>
@@ -71,7 +77,7 @@ const PostDetail = () => {
               }}
             >
               <AiOutlineComment />
-              <span className="count">11</span>
+              <span className="count">{data?.commentNums}</span>
             </div>
           </IconContainerstyle>
           <ProfileButtonWrapStyle>
@@ -91,7 +97,9 @@ const PostDetail = () => {
               <BsTrash
                 className="button"
                 onClick={() => {
-                  apis.deletePost(params.id);
+                  dispatch(deletePost(params.id));
+
+                  dispatch(getDetailPost(params.id));
                   navigate(-1);
                 }}
               />

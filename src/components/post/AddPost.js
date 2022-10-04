@@ -1,30 +1,37 @@
-import { apis } from 'api/api';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Preview from './Preview';
 import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
+import { useDispatch } from 'react-redux';
+import { addPost } from 'redux/modules/postSlice';
 
 const AddPost = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [tag, setTag] = useState('');
-  const [tagList, setTagList] = useState([]);
+  const [chooseTag, setChooseTag] = useState([]);
+  const [showTag, setShowTag] = useState([]);
   const [image, setImage] = useState('');
   const titleRef = useRef(null);
   const contentRef = useRef(null);
+  const tagList = [
+    { id: 1, name: '#플로깅' },
+    { id: 2, name: '#비건' },
+    { id: 3, name: '#재활용' },
+    { id: 4, name: '#제로웨이스트샵' },
+    { id: 5, name: '#제로웨이스트 팁' },
+    { id: 6, name: '#후기' },
+    { id: 7, name: '#용기내' },
+    { id: 8, name: '#리필스테이션' },
+    { id: 9, name: '#천연' },
+    { id: 10, name: '#다회용' },
+    { id: 11, name: '#실리콘' },
+    { id: 12, name: '#기타' },
+  ];
 
-  const addTag = () => {
-    if (tag.length >= 1 && tagList.length < 5) {
-      setTagList((prev) => [...prev, '#' + tag]);
-      setTag('');
-    } else {
-      alert('태그는 5개 까지 가능 합니다.');
-      setTag('');
-    }
-  };
-  const onChange = (e) => {
+  const onChangeImage = (e) => {
     setImage(e.target.files[0]);
   };
 
@@ -66,7 +73,7 @@ const AddPost = () => {
                     <span>Upload a file</span>
                     <input
                       onChange={(e) => {
-                        onChange(e);
+                        onChangeImage(e);
                       }}
                       id="file-upload"
                       name="image"
@@ -99,31 +106,40 @@ const AddPost = () => {
               <TagListStyle>
                 <LabelStyle className="tagLabel" htmlFor="tag">
                   태그
+                  {showTag?.length === 0 ? (
+                    <span className="tagInfo">최대5개까지 선택</span>
+                  ) : (
+                    showTag?.map((tag) => {
+                      return (
+                        <span className="tagname" key={tag.id}>
+                          {tag.name}
+                        </span>
+                      );
+                    })
+                  )}
                 </LabelStyle>
-                {tagList?.map((v, i) => {
-                  return (
-                    <span className="tag" key={i}>
-                      {v}
-                    </span>
-                  );
-                })}
+                <div>
+                  {tagList?.map((tag, i) => {
+                    return (
+                      <span
+                        className="tag"
+                        key={i}
+                        onClick={() => {
+                          if (showTag.length >= 5) {
+                            alert('태그는 5개까지 선택 가능합니다.');
+                          } else {
+                            setChooseTag([...chooseTag, tag.id]);
+                            setShowTag([...showTag, tag]);
+                          }
+                          console.log(showTag, chooseTag);
+                        }}
+                      >
+                        {tag.name}
+                      </span>
+                    );
+                  })}
+                </div>
               </TagListStyle>
-
-              <InputStyled
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    addTag();
-                  }
-                }}
-                onBlur={addTag}
-                onChange={(e) => {
-                  setTag(e.target.value);
-                }}
-                placeholder="태그를 입력 해주세요"
-                name="tag"
-                type="text"
-                value={tag}
-              />
             </AddPostFormStyle>
             <ButtonWrapStyle>
               <ButtonStyle
@@ -138,23 +154,21 @@ const AddPost = () => {
                     alert('이미지를 추가 해주세요');
                   } else {
                     const formData = new FormData();
-                    const blob = new Blob(
+                    const data = new Blob(
                       [
                         JSON.stringify({
                           title: titleRef.current.value,
                           content: contentRef.current.value,
-                          // tagName: tagList,
+                          tagBoardIds: chooseTag,
                         }),
                       ],
                       { type: 'application/json' }
                     );
-                    formData.append('data', blob);
+                    formData.append('data', data);
                     formData.append('boardImage', image);
-                    apis.addPost(formData).then((res) => {
-                      console.log(res);
-                    });
-
+                    dispatch(addPost(formData));
                     navigate('/community');
+                    // console.log(data, image, formData);
                   }
                 }}
                 className="button"
@@ -227,6 +241,11 @@ const LabelStyle = styled.label`
   font-size: 14px;
   color: #333;
   margin-top: 15px;
+
+  .select-info {
+    color: #ccc;
+    font-size: 14px;
+  }
 `;
 const InputStyled = styled.input`
   box-shadow: 0 1px 3px -1px #e5e7eb;
@@ -246,13 +265,28 @@ const ImageDivStyle = styled.div`
 
 const TagListStyle = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  .tagInfo {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #ccc;
+  }
+
   .tagLabel {
-    margin-right: 10px;
+    margin-bottom: 5px;
   }
   .tag {
-    color: #3cc2df;
     margin: 15px 5px 5px 0;
+    font-size: 14px;
+  }
+  .tagname {
+    margin-left: 10px;
+    font-size: 12px;
+    background-color: #ccc;
+    color: white;
+    padding: 0 3px;
+    border-radius: 20px;
   }
 `;
 

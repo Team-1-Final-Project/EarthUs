@@ -73,7 +73,7 @@ const PostListPage = () => {
           />
         ))}
       </div>
-      <PostList data={data} />
+      <PostList />
     </div>
   );
 };
