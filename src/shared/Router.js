@@ -8,10 +8,12 @@ import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
 import MyPageRoute from './sub/MypageRoute';
+import ScrollToTop from 'components/ScrollTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
