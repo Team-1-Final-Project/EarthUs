@@ -3,15 +3,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
-import KakaoAuth from 'components/Login/KakaoAuth';
+import KakaoAuth from 'components/login/KakaoAuth';
 import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
 import MyPageRoute from './sub/MypageRoute';
+import ScrollToTop from 'components/ScrollTop';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />

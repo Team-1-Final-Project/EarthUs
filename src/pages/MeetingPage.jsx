@@ -64,7 +64,7 @@ const MeetingPage = () => {
 
   return (
     <Layout>
-      <Map></Map>
+      {/* <Map></Map> */}
       <Container>
         <Navbar />
         <div className="pt-20 px-20">
@@ -82,18 +82,20 @@ const MeetingPage = () => {
           </div>
 
           {loginData.loginState ? (
-            <MeetingCarousel>
-              {myMeeting.map((item) => {
-                return (
-                  <Link
-                    style={{ display: 'flex', width: '20vw' }}
-                    to={`/meeting/detail/${item.id}`}
-                  >
-                    <MeetingCard data={item} />
-                  </Link>
-                );
-              })}
-            </MeetingCarousel>
+            myMeeting ? (
+              <MeetingCarousel>
+                {myMeeting.map((item) => {
+                  return (
+                    <Link
+                      style={{ display: 'flex', width: '20vw' }}
+                      to={`/meeting/detail/${item.id}`}
+                    >
+                      <MeetingCard data={item} />
+                    </Link>
+                  );
+                })}
+              </MeetingCarousel>
+            ) : null
           ) : (
             <div className="w-full flex justify-center">로그인이 필요합니다</div>
           )}

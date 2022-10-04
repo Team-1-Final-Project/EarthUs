@@ -5,7 +5,7 @@ import ProfileIcon from './ProfileIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
-import KakaoLogin from 'components/Login/KakaoLogin';
+import KakaoLogin from 'components/login/KakaoLogin';
 import HomeButton from './HomeButton';
 import loginSlice, { loginLocation } from 'redux/modules/loginSlice';
 
