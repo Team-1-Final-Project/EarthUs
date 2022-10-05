@@ -37,6 +37,7 @@ const MeetingDetailPage = () => {
             .then((res) => {
               console.log('apply success', res);
               setApplyState(true);
+              res.data.error && swal(res.data.error.message);
             })
             .catch((err) => console.log(err))
       : swal('로그인 먼저하세요');

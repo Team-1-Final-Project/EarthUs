@@ -65,7 +65,7 @@ const CardUpdateForm = (props) => {
     const MED = orange(meetingEndDate);
 
     let formData = new FormData();
-    if (JSD <= JED && MSD <= MED && JED <= MSD) {
+    if (JSD < JED && JED < MSD && MSD <= MED) {
       image ? formData.append('image', image) : formData.append('image', null);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
@@ -75,9 +75,16 @@ const CardUpdateForm = (props) => {
           swal(res.data.data);
           navigate('/meeting');
         })
-        .catch((err) => console.log(err));
-    } else {
-      swal('날짜형식에 어긋납니다');
+        .catch((err) => {
+          console.log(err);
+          swal('작성 포맷이 올바르지 않습니다.');
+        });
+    } else if (!(JSD < JED)) {
+      swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
+    } else if (!(JED < MSD)) {
+      swal('활동시작일은 모집마감일보다 이후이어야 합니다.');
+    } else if (!(MSD <= MED)) {
+      swal('활동시작일은 활동마감일보다 이후일 수 없습니다.');
     }
   };
 
@@ -234,22 +241,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinEndDate}
                           onChange={joinEndDateChange}
@@ -262,22 +261,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingEndDate}
                           onChange={meetingEndDateChange}
