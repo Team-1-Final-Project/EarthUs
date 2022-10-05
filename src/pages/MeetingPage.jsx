@@ -70,7 +70,7 @@ const MeetingPage = () => {
             <div className="flex justify-end">
               <Button
                 onClick={() => {
-                  loginState ? navigate('/meeting/create') : alert('로그인하셔야 이용가능합니다');
+                  loginState ? navigate('/meeting/create') : swal('로그인하셔야 이용가능합니다');
                 }}
               >
                 모임 생성

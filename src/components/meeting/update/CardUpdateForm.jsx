@@ -234,22 +234,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinEndDate}
                           onChange={joinEndDateChange}
@@ -262,22 +254,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingEndDate}
                           onChange={meetingEndDateChange}
