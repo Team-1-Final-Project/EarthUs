@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
 import { useDispatch } from 'react-redux';
-import { addPost } from 'redux/modules/postSlice';
+import { addPost, getPostList } from 'redux/modules/postSlice';
 
 const AddPost = () => {
   const navigate = useNavigate();
@@ -125,13 +125,12 @@ const AddPost = () => {
                         className="tag"
                         key={i}
                         onClick={() => {
-                          if (showTag.length >= 5) {
+                          if (chooseTag.length >= 5) {
                             alert('태그는 5개까지 선택 가능합니다.');
                           } else {
                             setChooseTag([...chooseTag, tag.id]);
                             setShowTag([...showTag, tag]);
                           }
-                          console.log(showTag, chooseTag);
                         }}
                       >
                         {tag.name}
@@ -148,9 +147,9 @@ const AddPost = () => {
                     alert('제목을 입력 해주세요');
                   } else if (contentRef.current.value === '') {
                     alert('내용을 입력 해주세요');
-                  } else if (tagList.length === 0) {
-                    alert('태그를 입력 해주세요');
-                  } else if (image == null) {
+                  } else if (chooseTag.length === 0) {
+                    alert('태그를 선택 해주세요');
+                  } else if (image == '') {
                     alert('이미지를 추가 해주세요');
                   } else {
                     const formData = new FormData();
@@ -166,9 +165,8 @@ const AddPost = () => {
                     );
                     formData.append('data', data);
                     formData.append('boardImage', image);
-                    dispatch(addPost(formData));
+                    dispatch(addPost(formData)).then(() => dispatch(getPostList()));
                     navigate('/community');
-                    // console.log(data, image, formData);
                   }
                 }}
                 className="button"
