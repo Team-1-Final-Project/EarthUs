@@ -50,7 +50,7 @@ const MeetingPage = () => {
       .getMyMeeting()
       .then((res) => {
         console.log('mymeetings', res);
-        setMyMeeting(res.data.data);
+        setMyMeeting(res.data);
       })
       .catch((err) => {
         console.log(err);
