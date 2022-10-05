@@ -5,7 +5,6 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { apis } from 'api/api';
 
 const MeetingCard = (props) => {
@@ -13,7 +12,7 @@ const MeetingCard = (props) => {
   const admin = data.admin;
 
   const [liked, setLiked] = useState(false);
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
 
   useEffect(() => {
     if (loginState && data.id) {
@@ -55,7 +54,7 @@ const MeetingCard = (props) => {
         <StyledSubDetail>
           <CardProfileIcon image={admin && admin.profileImage} />
 
-          <div className="w-full flex justify-between items-center">
+          <div className="w-full flex justify-between items-center text-xs">
             <div>by {admin && admin.nickname}</div>
             <div className="w-1/2 flex justify-end items-center">
               {liked ? (
@@ -83,9 +82,9 @@ const StyledSubDetail = styled.div`
   align-items: center;
   padding: 0 5%;
   & > img {
-    width: 1.7rem;
-    height: 1.7rem;
-    margin-right: 5%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 2%;
   }
 `;
 
@@ -97,8 +96,8 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 310px;
-  height: 520px;
+  width: 220px;
+  height: 400px;
   max-width: 19rem;
   transition: 250ms transform;
   user-select: none;
@@ -119,6 +118,10 @@ const StyledCard = styled.div`
       object-fit: cover;
     }
   }
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 380px;
+  }
 `;
 
 const StyledDetail = styled.div`
@@ -133,12 +136,13 @@ const StyledH1 = styled.h1`
   color: #333;
 `;
 const StyledH3 = styled.h3`
-  font-size: 1em;
+  font-size: 0.8em;
   margin: 1%;
   margin-left: 3%;
   color: #333;
 `;
 const StyledContentBox = styled.div`
+  font-size: 0.8em;
   width: 100%;
   height: 43%;
   background-color: #f4f4f4;

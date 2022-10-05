@@ -9,8 +9,5 @@ const CardProfileIcon = (props) => {
 export default CardProfileIcon;
 
 const Icon = styled.img`
-  object-fit: cover;
   border-radius: 50% 50%;
-  width: 40px;
-  height: 40px;
 `;

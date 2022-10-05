@@ -2,7 +2,6 @@ import React from 'react';
 import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-import { useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/Login/KakaoLogin';
@@ -12,6 +11,8 @@ function Navbar() {
   const navigate = useNavigate();
   const state = useLocation();
   const [modalState, setModalState] = useState(false);
+  const loginState = sessionStorage.getItem('Access_token');
+  const image = sessionStorage.getItem('profileImage');
 
   const list = [
     ['zerowaste', ''],
@@ -19,9 +20,6 @@ function Navbar() {
     ['zeromoim', 'meeting'],
     ['zeroshop', 'zeroshop'],
   ];
-  const data = useSelector((state) => {
-    return state.login;
-  });
 
   return (
     <nav className="">
@@ -29,10 +27,10 @@ function Navbar() {
         <div className="flex items-center justify-between h-20">
           <HomeButton />
           <div className="flex items-center justify-center ">
-            {data.loginState ? (
+            {loginState ? (
               <div className="flex items-center gap-3">
                 <div className="hover:cursor-pointer">
-                  <ProfileIcon image={data.image}></ProfileIcon>
+                  <ProfileIcon image={image}></ProfileIcon>
                 </div>
               </div>
             ) : (

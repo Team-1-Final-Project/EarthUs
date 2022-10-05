@@ -13,21 +13,21 @@ const Carousel = ({ children }) => {
     arrows: true,
     responsive: [
       {
-        breakpoint: 1500,
+        breakpoint: 1100,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 1100,
+        breakpoint: 850,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 810,
+        breakpoint: 633,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

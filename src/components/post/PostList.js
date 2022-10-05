@@ -12,7 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const PostList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
+  const [like, setLike] = useState('');
 
   useEffect(() => {
     dispatch(getPostList());
