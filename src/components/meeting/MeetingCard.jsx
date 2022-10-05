@@ -90,8 +90,9 @@ const StyledSubDetail = styled.div`
 
 const StyledCard = styled.div`
   cursor: pointer;
-  border: 0.5px solid;
-  border-color: #d3c8c8;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #eaecee;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -102,6 +103,7 @@ const StyledCard = styled.div`
   transition: 250ms transform;
   user-select: none;
   overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   &:hover {
     transform: scale(1.03);
   }
@@ -109,12 +111,10 @@ const StyledCard = styled.div`
     width: 100%;
     height: 50%;
     position: relative;
-    background-color: gray;
     overflow: hidden;
     & > img {
       width: 100%;
       height: 100%;
-      position: relative;
       object-fit: cover;
     }
   }
@@ -144,8 +144,11 @@ const StyledH3 = styled.h3`
 const StyledContentBox = styled.div`
   font-size: 0.8em;
   width: 100%;
-  height: 43%;
+  height: 36%;
   background-color: #f4f4f4;
   margin-top: 3%;
   padding: 3%;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
 `;
