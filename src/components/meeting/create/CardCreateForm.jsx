@@ -69,11 +69,11 @@ const CardCreateForm = () => {
     swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
       buttons: {
         cancel: '아니요. 계속 작성할래요',
-        yes: true,
+        '네,나갈래요': true,
       },
     }).then((value) => {
       switch (value) {
-        case 'yes':
+        case '네,나갈래요':
           navigate('/meeting');
           break;
 
