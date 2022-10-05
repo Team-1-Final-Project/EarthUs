@@ -8,6 +8,7 @@ import { apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const MeetingPage = () => {
       apis
         .searchMeetingTag({ tagIds: selectedTag })
         .then((res) => setData(res.data.data))
-        .catch((err) => alert(err));
+        .catch((err) => swal(err));
     }
   }, [selectedTag]);
 

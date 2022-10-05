@@ -5,6 +5,7 @@ import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
 import TagButton from '../TagButton';
+import swal from 'sweetalert';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -71,22 +72,33 @@ const CardUpdateForm = (props) => {
         .updateMeeting(props.params, formData)
         .then((res) => {
           console.log('image', image && image);
-          alert(res.data.data);
+          swal(res.data.data);
           navigate('/meeting');
         })
         .catch((err) => console.log(err));
     } else {
-      alert('날짜형식에 어긋납니다');
+      swal('날짜형식에 어긋납니다');
     }
   };
 
   //나가기버튼 클릭시
   const onClickGoOut = (e) => {
-    if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
-      navigate('/meeting');
-    } else {
-      return true;
-    }
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        yes: true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case 'yes':
+          navigate('/meeting');
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   //여기서 부터 태그관련 작업파트입니다.
@@ -95,7 +107,7 @@ const CardUpdateForm = (props) => {
     e.preventDefault();
     let tagClone = tag;
     tag.length > 3
-      ? alert('태그는 3개까지만 가능합니다')
+      ? swal('태그는 3개까지만 가능합니다')
       : tag.includes(index + 1)
       ? tagClone.splice(tag.indexOf(index + 1), 1)
       : tagClone.push(index + 1); //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
@@ -317,7 +329,7 @@ const CardUpdateForm = (props) => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    onClick={() => onClickGoOut()}
+                    onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기

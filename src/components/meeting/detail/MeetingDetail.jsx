@@ -9,6 +9,7 @@ import { apis } from 'api/api';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 
 const MeetingDetail = (props) => {
   const detail = { ...props.data };
@@ -24,7 +25,7 @@ const MeetingDetail = (props) => {
         setLiked(res.data.data.meetingLike);
         res.data.data.meetingLike ? setLikeNums(likeNums + 1) : setLikeNums(likeNums - 1);
       } catch (err) {
-        alert(err);
+        swal(err);
       }
     } else {
       toast.error('로그인이 필요합니다.');
