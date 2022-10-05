@@ -51,6 +51,7 @@ const CardCreateForm = () => {
     let formData = new FormData();
     if (JSD <= JED && MSD <= MED && JED <= MSD) {
       formData.append('image', image);
+      console.log('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
         .createMeeting(formData)

@@ -48,7 +48,7 @@ const CardUpdateForm = (props) => {
     meetingEndDate: meetingEndDate,
     location: location,
     limitPeople: limitPeople,
-    tagMeetingIds: [6, 7],
+    tagMeetingIds: tag,
   };
   const list = [2, 3, 4, 5, 6, 7, 8];
 
@@ -65,12 +65,12 @@ const CardUpdateForm = (props) => {
 
     let formData = new FormData();
     if (JSD <= JED && MSD <= MED && JED <= MSD) {
-      formData.append('image', image);
+      image ? formData.append('image', image) : formData.append('image', null);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
         .updateMeeting(props.params, formData)
         .then((res) => {
-          console.log(res);
+          console.log('image', image && image);
           alert(res.data.data);
           navigate('/meeting');
         })
