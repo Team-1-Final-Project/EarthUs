@@ -2,7 +2,6 @@ import React from 'react';
 import Logo from 'assets/Logo.png';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
-import { useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import KakaoLogin from 'components/login/KakaoLogin';
@@ -21,9 +20,6 @@ function Navbar() {
     ['zeromoim', 'meeting'],
     ['zeroshop', 'zeroshop'],
   ];
-  const data = useSelector((state) => {
-    return state.login;
-  });
 
   return (
     <nav className="">

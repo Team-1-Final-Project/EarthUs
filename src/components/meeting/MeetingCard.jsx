@@ -5,7 +5,6 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { IoMdPeople } from 'react-icons/io';
 import { GrLocation } from 'react-icons/gr';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { apis } from 'api/api';
 
 const MeetingCard = (props) => {

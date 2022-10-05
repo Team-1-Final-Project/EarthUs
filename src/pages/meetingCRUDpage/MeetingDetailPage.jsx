@@ -18,7 +18,7 @@ const MeetingDetailPage = () => {
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
   useEffect(() => {
-    let finder = applyerData.find((item) => item.email === loginData.email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
+    let finder = applyerData.find((item) => item.email === email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
     finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
   });
   const onClickApplyHandler = () => {
@@ -43,9 +43,9 @@ const MeetingDetailPage = () => {
   };
 
   //여기부터 수정하기 파트입니다
-  const loginData = useSelector((state) => {
-    return state.login;
-  });
+  const image = sessionStorage.getItem('profileImage');
+  const email = sessionStorage.getItem('email');
+  const nickname = sessionStorage.getItem('nickname');
 
   let params = useParams().id; // URL로 부터 params를 따옵니다.
 
@@ -94,7 +94,7 @@ const MeetingDetailPage = () => {
         </div>
         <ButtonLayout>
           {applyState ? (
-            detailData && detailData.admin.email === loginData.email ? null : (
+            detailData && detailData.admin.email === email ? null : (
               <Button
                 onClick={() => {
                   onClickApplyHandler();
@@ -112,11 +112,11 @@ const MeetingDetailPage = () => {
               참여 하기
             </Button>
           )}
-          {detailData && detailData.admin.email === loginData.email ? (
+          {detailData && detailData.admin.email === email ? (
             <>
               <Button
                 onClick={() => {
-                  loginData.email === detailData.admin.email
+                  email === detailData.admin.email
                     ? navigate(`/meeting/update/${params}`)
                     : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
                 }}
@@ -125,9 +125,7 @@ const MeetingDetailPage = () => {
               </Button>
               <Button
                 onClick={() => {
-                  loginData.email === detailData.admin.email
-                    ? onClickDelete()
-                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+                  email === detailData.admin.email ? onClickDelete() : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
                 }}
               >
                 삭제 하기

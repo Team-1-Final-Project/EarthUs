@@ -8,7 +8,7 @@ import Navbar from 'components/navbar/Navbar';
 import CommentList from 'components/comment/CommentList';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, getDetailPost } from 'redux/modules/postSlice';
-import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsPencilSquare } from 'react-icons/bs';
 const PostDetail = () => {
   const navigate = useNavigate();
   const params = useParams();

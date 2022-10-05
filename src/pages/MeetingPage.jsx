@@ -55,7 +55,7 @@ const MeetingPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [myMeeting]);
 
   return (
     <Layout>
