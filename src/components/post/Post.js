@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.login.loginState);
-  console.log(loginState);
+  // const loginState = useSelector((state) => state.login.loginState);
+  // console.log(loginState);
 
   //지어줄이름,비동기api요청,query 옵션
   // const { data } = useQuery('getHeartState', () => token.get(`/board/heart/${post?.boardId}`));
