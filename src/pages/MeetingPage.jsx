@@ -99,7 +99,7 @@ const MeetingPage = () => {
         </div>
         <div className="pt-10 px-20">
           <div>
-            <h1 className="text-2xl">태그 목록</h1>
+            <h1 className="text-2xl">전체 모임</h1>
           </div>
           <div className="py-10">
             <TagListStyle className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">

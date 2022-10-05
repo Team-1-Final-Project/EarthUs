@@ -40,7 +40,6 @@ function Navbar() {
                   const LOCATION = state.pathname;
                   setModalState(true);
                   sessionStorage.setItem('Location', LOCATION);
-                  console.log('여기', LOCATION);
                 }}
               >
                 로그인
