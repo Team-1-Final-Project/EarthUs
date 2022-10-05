@@ -132,27 +132,11 @@ const StyledCard = styled.div`
       object-fit: cover;
     }
   }
-  & > div:last-of-type {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    display: flex;
+  @media (max-width: 800px) {
     flex-direction: column;
-    justify-content: space-between;
-    & > .title {
-      font-weight: bold;
-      color: black;
-      font-size: 1.75vw;
-      margin: 1rem;
-      word-wrap: normal;
-    }
-    & > .link-to {
-      margin: 1rem;
-      font-weight: bold;
-      font-size: 0.8vw;
-    }
-    & > .link-to:hover {
-      text-decoration: underline;
+    font-size: small;
+    & > {
+      font-size: medium;
     }
   }
 `;
