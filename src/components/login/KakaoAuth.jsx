@@ -10,7 +10,6 @@ const KakaoAuth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let code = new URL(window.location.href).searchParams.get('code');
-
   const data = useSelector((state) => state.login);
 
   useEffect(() => {
@@ -27,9 +26,12 @@ const KakaoAuth = () => {
             const nickname = res.data.nickname;
             const image = res.data.profileImage;
             const email = res.data.email;
+            sessionStorage.setItem('profileImage', image);
+            sessionStorage.setItem('nickname', nickname);
+            sessionStorage.setItem('email', email);
+
             dispatch(getprofile({ nickname, image, email }));
             navigate(sessionStorage.getItem('Location') ? sessionStorage.getItem('Location') : '/');
-            console.log(sessionStorage.getItem('Location'));
           })
           .catch((err) => console.log('err', err));
       })

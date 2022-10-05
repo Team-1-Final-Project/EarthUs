@@ -12,6 +12,8 @@ function Navbar() {
   const navigate = useNavigate();
   const state = useLocation();
   const [modalState, setModalState] = useState(false);
+  const loginState = sessionStorage.getItem('Access_token');
+  const image = sessionStorage.getItem('profileImage');
 
   const list = [
     ['zerowaste', ''],
@@ -29,10 +31,10 @@ function Navbar() {
         <div className="flex items-center justify-between h-20">
           <HomeButton />
           <div className="flex items-center justify-center ">
-            {data.loginState ? (
+            {loginState ? (
               <div className="flex items-center gap-3">
                 <div className="hover:cursor-pointer">
-                  <ProfileIcon image={data.image}></ProfileIcon>
+                  <ProfileIcon image={image}></ProfileIcon>
                 </div>
               </div>
             ) : (

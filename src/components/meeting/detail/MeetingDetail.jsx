@@ -15,7 +15,7 @@ const MeetingDetail = (props) => {
 
   const [liked, setLiked] = useState(false);
   const [likeNums, setLikeNums] = useState(0);
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
 
   const likeHandler = async () => {
     if (loginState) {
