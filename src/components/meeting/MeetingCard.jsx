@@ -118,6 +118,10 @@ const StyledCard = styled.div`
       object-fit: cover;
     }
   }
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 380px;
+  }
 `;
 
 const StyledDetail = styled.div`

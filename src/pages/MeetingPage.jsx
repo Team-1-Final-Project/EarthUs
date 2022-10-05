@@ -64,15 +64,17 @@ const MeetingPage = () => {
       <Container>
         <Navbar />
         <div className="pt-20 px-20">
-          <div className="flex justify-between py-3">
+          <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
-            <Button
-              onClick={() => {
-                loginState ? navigate('/meeting/create') : alert('로그인하셔야 이용가능합니다');
-              }}
-            >
-              모임 생성
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                onClick={() => {
+                  loginState ? navigate('/meeting/create') : alert('로그인하셔야 이용가능합니다');
+                }}
+              >
+                모임 생성
+              </Button>
+            </div>
           </div>
 
           {loginState ? (
@@ -159,6 +161,11 @@ const Button = styled.button`
   margin-top: 7vh;
   margin-right: 3vw;
   transition: 250ms transform;
+  @media (max-width: 500px) {
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: small;
+  }
   &:hover {
     transform: scale(1.03);
   }
