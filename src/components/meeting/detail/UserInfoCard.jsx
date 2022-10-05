@@ -8,7 +8,7 @@ const UserInfoCard = (props) => {
           <img src={props.profileImage && props.profileImage} />
         </div>
         <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
-        <StyledDetail2>Email : {props.email && props.email}</StyledDetail2>
+        <StyledDetail2>{props.email && props.email}</StyledDetail2>
       </StyledCard>
     </>
   );
@@ -25,8 +25,8 @@ const StyledCard = styled.div`
   background-color: #f5f5f5;
   position: relative;
   flex-direction: column;
-  width: 250px;
-  height: 400px;
+  width: 200px;
+  height: 300px;
   max-width: ${window.innerWidth / 10};
   transition: 250ms transform;
   user-select: none;
@@ -46,8 +46,8 @@ const StyledCard = styled.div`
     justify-content: center;
     & > img {
       border-radius: 50%;
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       position: relative;
       object-fit: cover;
       border: 4px solid;
@@ -66,11 +66,13 @@ const StyledCard = styled.div`
 const StyledDetail = styled.div`
   width: 100%;
   text-align: center;
-  font-size: x-large;
+  font-size: large;
+  font-weight: bold;
   margin-bottom: 30px;
 `;
 
 const StyledDetail2 = styled.div`
-  font-size: large;
-  padding-left: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: small;
 `;
