@@ -7,37 +7,39 @@ import { BsTrash, BsPencil } from 'react-icons/bs';
 import Navbar from 'components/navbar/Navbar';
 import CommentList from 'components/comment/CommentList';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, getDetailPost } from 'redux/modules/postSlice';
-import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { deletePost, getDetailPost, getPostList } from 'redux/modules/postSlice';
+import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
+
+// import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const [like, setLike] = useState();
 
   useEffect(() => {
     dispatch(getDetailPost(params.id));
-  }, []);
+    dispatch(getHeart(params.id));
+  }, [dispatch, params.id]);
 
-  const data = useSelector((state) => state.post.post.data);
+  const data = useSelector((state) => state.post.detailPost.data);
+
+  const heartData = useSelector((state) => state.heart.heart);
+
+  console.log(heartData);
 
   return (
     <>
       <Navbar />
-      <ContainerStyle>
-        <TopWrapStyle>
-          {/* <span className="tag">{data?.tagBoard} </span> */}
-          {/* 
-          {data?.tagBoards.map((tag) => {
-            return (
-              <span className="tag" key={tag.id}>
-                {tag.name}
-              </span>
-            );
-          })} */}
 
-          {/* <span className="date">{data?.createdAt.substr(0, 10)}</span> */}
-        </TopWrapStyle>
+      <ContainerStyle>
+        {/* <TopWrapStyle>
+          <div className="tagList">
+            {data?.tagBoards.map((tag) => {
+              return <span key={tag.id} className="tag">{`#${tag.tagName}`} </span>;
+            })}
+          </div>
+          <span className="date">{data?.createdAt.substr(0, 10)}</span>
+        </TopWrapStyle> */}
 
         <ContentWrapStyle>
           <ImageStyled>
@@ -55,18 +57,14 @@ const PostDetail = () => {
             <div
               className="iconWrap"
               onClick={(e) => {
-                apis.postHeart(data?.boardId).then((res) => {
-                  setLike(res?.data.message);
-                  console.log(like);
+                dispatch(putChangeHeart(data?.boardId)).then(() => {
+                  dispatch(getDetailPost(data?.boardId));
                 });
+
                 e.stopPropagation();
               }}
             >
-              {like === '게시글 좋아요 취소!' ? (
-                <AiFillHeart style={{ color: '#3cc2df' }} />
-              ) : (
-                <AiOutlineHeart />
-              )}
+              {heartData ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
               <span className="count">{data?.heartBoardNums}</span>
             </div>
             <div
@@ -97,17 +95,15 @@ const PostDetail = () => {
               <BsTrash
                 className="button"
                 onClick={() => {
-                  dispatch(deletePost(params.id));
-
-                  dispatch(getDetailPost(params.id));
-                  navigate(-1);
+                  dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
+                  navigate('/community');
                 }}
               />
             </ButtonStyled>
           </ProfileButtonWrapStyle>
         </IconButtonWrapStyle>
       </ContainerStyle>
-      <CommentList commentListData={data.commentResponseDtoList} />
+      <CommentList commentListData={data?.commentResponseDtoList} />
     </>
   );
 };
@@ -149,7 +145,27 @@ const TopWrapStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  .tagList {
+    width: 70%;
+  }
   .tag {
+    /* width: max-content; */
+    margin-bottom: 10px;
+    padding: 0px 5px;
+    font-size: 12px;
+    color: #3cc2df;
+    background-color: #f3f4f5;
+    border: 1px solid #f3f4f5;
+    border-radius: 20px;
+    margin-right: 5px;
+    word-break: keep-all;
+    white-space: normal;
+  }
+  .date {
+    color: #595f63;
+    font-size: 14px;
+  }
+  /* .tag {
     width: max-content;
     margin-bottom: 10px;
     padding: 0px 10px;
@@ -162,7 +178,7 @@ const TopWrapStyle = styled.div`
   .date {
     color: #595f63;
     font-size: 14px;
-  }
+  } */
 `;
 
 const ContentWrapStyle = styled.div`

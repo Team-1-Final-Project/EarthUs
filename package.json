@@ -24,6 +24,7 @@
     "react-kakao-maps-sdk": "^1.1.4",
     "react-load-script": "^0.0.6",
     "react-loader-spinner": "^5.3.4",
+    "react-query": "^3.39.2",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",

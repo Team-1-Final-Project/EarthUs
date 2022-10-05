@@ -1,26 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { token } from 'api/api';
 
-export const getHeartList = createAsyncThunk('GET_HEART_LIST', async (id) => {
+export const getHeart = createAsyncThunk('GET_HEART_LIST', async (id) => {
   const { data } = await token.get(`/board/heart/${id}`);
-  return data;
+  console.log(data.data.boardLike);
+  return data.data.boardLike;
 });
 export const putChangeHeart = createAsyncThunk('PUT_CHANGE_HEART', async (id) => {
   const { data } = await token.put(`/board/heart/${id}`);
-  console.log(data);
-  return data;
+  console.log(data.data, id);
+  return data.data;
 });
 
 const heartSlice = createSlice({
-  name: 'post',
-  initialState: { post: [] },
+  name: 'heart',
+  initialState: { heart: [] },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getHeartList.fulfilled, (state, action) => {
-      state.post = action.payload;
+    builder.addCase(getHeart.fulfilled, (state, action) => {
+      state.heart = action.payload;
     });
     builder.addCase(putChangeHeart.fulfilled, (state, action) => {
-      state.post = action.payload;
+      state.heart = action.payload;
     });
   },
 });

@@ -5,7 +5,7 @@ import ProfileIcon from './ProfileIcon';
 import { useSelector } from 'react-redux';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 import HomeButton from './HomeButton';
 
 function Navbar() {
