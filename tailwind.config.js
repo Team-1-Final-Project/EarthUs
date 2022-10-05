@@ -10,6 +10,7 @@ module.exports = {
         grayLineColor: '#969696',
         blackColor: '#333',
         grayColor: '#656565',
+        yellowColor: '#EDF3EC',
         modalBackground: 'rgba(11, 19, 30, 0.37)',
       },
       translate: {

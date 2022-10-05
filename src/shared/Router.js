@@ -9,6 +9,7 @@ import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
 import MyPageRoute from './sub/MypageRoute';
 import ScrollToTop from 'components/ScrollTop';
+import ReviewRoute from './sub/ReviewRoute';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/addpost" element={<AddPost />} />
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
+        <Route path="/review/*" element={<ReviewRoute />} />
       </Routes>
     </BrowserRouter>
   );

@@ -120,6 +120,16 @@ export const apis = {
   getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
   updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
+  //meeting review
+  getMeetingReviewList: () => api.get('/review'),
+  getMeetingReview: (reviewID) => api.get(`/review/${reviewID}`),
+  addMeetingReview: (meetingID, data) =>
+    api.post(`/review/${meetingID}`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
   searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
@@ -144,15 +154,16 @@ export const apis = {
   },
 };
 
-// api.interceptors.request.use(
-//   config => {
-//     return config
-//   },
-//   error =>{
-//     console.log(error)
-//     return Promise.reject(error)
-//   }
-// )
+api.interceptors.request.use(
+  (config) => {
+    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 
 // api.interceptors.response.use(
 //   response => {
