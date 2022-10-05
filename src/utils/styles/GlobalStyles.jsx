@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Layout = styled.div`
   max-width: 100vw;
   max-height: 100vh;
+  min-width: 375px;
   display: flex;
   justify-content: center;
 `;
