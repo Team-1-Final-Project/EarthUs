@@ -15,14 +15,13 @@ function Meeting({ meeting }) {
             meeting.map((meeting) => (
               <div
                 key={meeting.id}
-                className="h-40 bg-white shadow-lg default_outline"
+                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
                 onClick={() => {
-                  console.log('hi');
                   navigate(`meeting/detail/${meeting.id}`);
                 }}
               >
                 <div className="flex justify-between ">
-                  <div className="mt-2 ml-4">
+                  <div className="w-2/3 mt-2 ml-4">
                     <div className="">
                       <span className="font-bold text-defaultColor">모집 중 </span>
                       <span className="font-bold">{meeting.title}</span>
@@ -47,7 +46,7 @@ function Meeting({ meeting }) {
                     </div>
                   </div>
                   {meeting.meetingImage && (
-                    <div className="w-1/3">
+                    <div className="w-1/3 ml-2">
                       <img
                         src={meeting.meetingImage}
                         className="w-full h-40 rounded-lg"
