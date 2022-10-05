@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
 import { MdPeopleOutline } from 'react-icons/md';
+import { GrLocation } from 'react-icons/gr';
 
 function Meeting({ meeting }) {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Meeting({ meeting }) {
             meeting.map((meeting) => (
               <div
                 key={meeting.id}
-                className="relative flex items-center w-10 h-40 bg-white default_outline"
+                className="h-40 bg-white shadow-lg default_outline"
                 onClick={() => {
                   console.log('hi');
                   navigate(`meeting/detail/${meeting.id}`);
@@ -34,7 +35,15 @@ function Meeting({ meeting }) {
                           &nbsp;참여 인원 : {meeting.nowPeople} / {meeting.limitPeople}
                         </span>
                       </div>
-                      <div>장소 : {meeting.location} </div>
+                      <div className="flex flex-row items-center text-sm">
+                        <GrLocation />
+                        <span>&nbsp;장소 : {meeting.location}</span>
+                      </div>
+                    </div>
+                    <div
+                      className={`flex items-center w-full h-10 p-2 mt-2 text-sm truncate bg-gray-100 rounded-2xl`}
+                    >
+                      {meeting.content}
                     </div>
                   </div>
                   {meeting.meetingImage && (

@@ -2,18 +2,47 @@ import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Post from './Post';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { getPostList } from 'redux/modules/postSlice';
 import { apis } from 'api/api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { putChangeHeart } from 'redux/modules/heartSlice';
 
-const PostList = ({ data }) => {
+const PostList = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loginState = useSelector((state) => state.login.loginState);
+  const [like, setLike] = useState('');
+
+  useEffect(() => {
+    dispatch(getPostList());
+  }, []);
+
+  const postList = useSelector((state) => state.post.post.data);
+  const onClickHeart = (boardId, e) => {
+    dispatch(putChangeHeart(boardId));
+
+    dispatch(getPostList());
+    e.stopPropagation();
+  };
 
   return (
     <>
-      {data?.map((post) => {
-        return <Post key={post?.boardId} data={post} />;
+      <ToastContainer />
+      {postList?.map((post) => {
+        return <Post key={post?.boardId} data={post} onClickHeart={onClickHeart} like={like} />;
       })}
-      <AddPostButtonStyled onClick={() => navigate('/addpost')}>
+      <AddPostButtonStyled
+        onClick={() => {
+          if (loginState) {
+            navigate('/addpost');
+          } else {
+            toast.error('로그인이 필요합니다.');
+          }
+        }}
+      >
         <AiOutlinePlus />
       </AddPostButtonStyled>
     </>

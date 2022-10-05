@@ -29,7 +29,6 @@ const KakaoAuth = () => {
             sessionStorage.setItem('profileImage', image);
             sessionStorage.setItem('nickname', nickname);
             sessionStorage.setItem('email', email);
-
             dispatch(getprofile({ nickname, image, email }));
             navigate(sessionStorage.getItem('Location') ? sessionStorage.getItem('Location') : '/');
           })

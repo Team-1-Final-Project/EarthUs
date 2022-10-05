@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-import { api, apis } from 'api/api';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { apis } from 'api/api';
 
-const Post = ({ data }) => {
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostList } from 'redux/modules/postSlice';
+
+const Post = ({ data, onClickHeart, like }) => {
   const navigate = useNavigate();
-  const [like, setLike] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPostList());
+  }, []);
 
   return (
     <ContainerStyle
@@ -18,7 +24,7 @@ const Post = ({ data }) => {
     >
       <TopWrapStyle>
         {/* <span className="tag">{data?.tagName} </span> */}
-        <span className="tag"># 태그11 </span>
+        <span className="tag">{data?.tagBoards.tagName} </span>
         <span className="date">{data?.createdAt.substr(0, 10)}</span>
       </TopWrapStyle>
 
@@ -42,10 +48,7 @@ const Post = ({ data }) => {
             <div
               className="iconWrap"
               onClick={(e) => {
-                apis.postHeart(data?.boardId).then((res) => {
-                  setLike(res?.data.message);
-                  console.log(like);
-                });
+                onClickHeart(data?.boardId);
                 e.stopPropagation();
               }}
             >
@@ -60,11 +63,10 @@ const Post = ({ data }) => {
               className="iconWrap"
               onClick={(e) => {
                 navigate(`/communitydetail/${data?.boardId}`);
-                e.stopPropagation();
               }}
             >
               <AiOutlineComment />
-              <span className="count">11</span>
+              <span className="count">{data?.commentNums}</span>
             </div>
           </IconContainerstyle>
         </div>

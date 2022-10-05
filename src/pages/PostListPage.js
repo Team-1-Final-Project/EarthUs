@@ -3,6 +3,7 @@ import Tag from 'components/tag/Tag';
 import { useEffect, useState } from 'react';
 import { apis } from 'api/api';
 import Navbar from 'components/navbar/Navbar';
+import styled from 'styled-components';
 
 const PostListPage = () => {
   const [data, setData] = useState();
@@ -50,7 +51,7 @@ const PostListPage = () => {
   return (
     <div>
       <Navbar />
-      <div className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
+      <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
         <button
           type="button"
           className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
@@ -72,10 +73,27 @@ const PostListPage = () => {
             selectedTag={selectedTag}
           />
         ))}
-      </div>
-      <PostList data={data} />
+      </TagListStyle>
+      <PostList />
     </div>
   );
 };
 
 export default PostListPage;
+
+const TagListStyle = styled.div`
+  &::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e7e8ec;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: inset 0px 0px 3px white;
+  }
+`;

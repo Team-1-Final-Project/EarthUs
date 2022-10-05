@@ -98,7 +98,7 @@ const MeetingPage = () => {
             <h1 className="text-2xl">태그 목록</h1>
           </div>
           <div className="py-10">
-            <div className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">
+            <TagListStyle className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">
               <button
                 type="button"
                 className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
@@ -120,7 +120,7 @@ const MeetingPage = () => {
                   selectedTag={selectedTag}
                 />
               ))}
-            </div>
+            </TagListStyle>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {data &&
@@ -160,5 +160,22 @@ const Button = styled.button`
   transition: 250ms transform;
   &:hover {
     transform: scale(1.03);
+  }
+`;
+
+const TagListStyle = styled.div`
+  &::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e7e8ec;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    box-shadow: inset 0px 0px 3px white;
   }
 `;

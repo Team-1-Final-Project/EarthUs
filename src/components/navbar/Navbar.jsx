@@ -54,13 +54,13 @@ function Navbar() {
               <Modal
                 onConfirm={() => setModalState(false)}
                 children={
-                  <div className="flex items-center flex-col">
+                  <div className="flex flex-col items-center">
                     <div className="flex mb-10 xl:mb-20">
                       <HomeButton />
                     </div>
                     <KakaoLogin />
                     <button
-                      className="inset-x-0 bottom-0 mt-10 p-2 text-slate-300 rounded-md text-white"
+                      className="inset-x-0 bottom-0 p-2 mt-10 text-white rounded-md text-slate-300"
                       onClick={() => setModalState(false)}
                     >
                       닫기
