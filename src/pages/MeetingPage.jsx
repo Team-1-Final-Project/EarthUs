@@ -33,6 +33,7 @@ const MeetingPage = () => {
         .getAllMeeting()
         .then((res) => {
           setData(res.data.data);
+          console.log('getall', res);
         })
         .catch((err) => console.log('err', err));
     } else {
