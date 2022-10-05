@@ -56,7 +56,7 @@ const MeetingPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <Layout>
@@ -128,7 +128,7 @@ const MeetingPage = () => {
               data.map((item) => {
                 return (
                   <Link
-                    style={{ display: 'flex', width: '320px', height: '550px' }}
+                    style={{ display: 'flex', width: '280px', height: '450px' }}
                     to={`/meeting/detail/${item.id}`}
                   >
                     <MeetingCard id={item.id} data={item} />
@@ -152,9 +152,9 @@ export default MeetingPage;
 const Button = styled.button`
   background-color: #3cc2df;
   color: #ffffff;
-  padding: 0.7vw;
-  padding-left: 3vw;
-  padding-right: 3vw;
+  padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 40px;
   margin-top: 7vh;
   margin-right: 3vw;
