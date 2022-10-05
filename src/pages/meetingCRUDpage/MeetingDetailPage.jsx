@@ -10,6 +10,7 @@ import { apis } from 'api/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import swal from 'sweetalert';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const MeetingDetailPage = () => {
               setApplyState(true);
             })
             .catch((err) => console.log(err))
-      : alert('로그인 먼저하세요');
+      : swal('로그인 먼저하세요');
     return console.log('applystate', applyState);
   };
 
@@ -68,7 +69,7 @@ const MeetingDetailPage = () => {
       .deleteMeeting(params)
       .then((res) => {
         console.log(res);
-        alert(res.data.data);
+        swal(res.data.data);
         navigate('/meeting');
       })
       .catch((err) => console.log(err));
@@ -117,15 +118,17 @@ const MeetingDetailPage = () => {
               <Button
                 onClick={() => {
                   email === detailData.admin.email
-                    ? navigate(`/meeting/update/${params}`)
-                    : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+                    ? applyerData.length > 1
+                      ? swal('참여인원이 2명 이상일 경우 수정불가능합니다.')
+                      : navigate(`/meeting/update/${params}`)
+                    : swal('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
                 }}
               >
                 수정 하기
               </Button>
               <Button
                 onClick={() => {
-                  email === detailData.admin.email ? onClickDelete() : alert('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
+                  email === detailData.admin.email ? onClickDelete() : swal('접근권한이 없습니다'); //작성자가 아닐경우에는 입장못하게 해야함.
                 }}
               >
                 삭제 하기

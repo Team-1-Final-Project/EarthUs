@@ -6,6 +6,7 @@ import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
 import TagButton from '../TagButton';
 import { useEffect } from 'react';
+import swal from 'sweetalert';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -59,16 +60,27 @@ const CardCreateForm = () => {
         .catch((err) => console.log(err));
       navigate('/meeting');
     } else {
-      alert('날짜 형식에 어긋납니다');
+      swal('날짜 형식에 어긋납니다');
     }
   };
 
   const onClickGoOut = (e) => {
-    if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
-      navigate('/meeting');
-    } else {
-      return true;
-    }
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        yes: true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case 'yes':
+          navigate('/meeting');
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   const onChangeImageHandler = (e) => {
@@ -303,7 +315,7 @@ const CardCreateForm = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    onClick={() => onClickGoOut()}
+                    onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기
