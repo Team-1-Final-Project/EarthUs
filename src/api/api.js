@@ -144,15 +144,16 @@ export const apis = {
   },
 };
 
-// api.interceptors.request.use(
-//   config => {
-//     return config
-//   },
-//   error =>{
-//     console.log(error)
-//     return Promise.reject(error)
-//   }
-// )
+api.interceptors.request.use(
+  (config) => {
+    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 
 // api.interceptors.response.use(
 //   response => {

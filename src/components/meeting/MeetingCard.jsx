@@ -13,7 +13,7 @@ const MeetingCard = (props) => {
   const admin = data.admin;
 
   const [liked, setLiked] = useState(false);
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
 
   useEffect(() => {
     if (loginState && data.id) {

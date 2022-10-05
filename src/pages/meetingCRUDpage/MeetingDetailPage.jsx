@@ -13,6 +13,7 @@ import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
+  const loginState = sessionStorage.getItem('Access_token');
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
@@ -21,9 +22,7 @@ const MeetingDetailPage = () => {
     finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
   });
   const onClickApplyHandler = () => {
-    console.log(loginData.loginState);
-
-    loginData.loginState
+    loginState
       ? applyState
         ? apis
             .cancelMeeting(params)

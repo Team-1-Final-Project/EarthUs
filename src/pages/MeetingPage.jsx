@@ -7,16 +7,11 @@ import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Map from 'components/shop/Map';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
-  const loginData = useSelector((state) => {
-    return state.login;
-  });
-
+  const loginState = sessionStorage.getItem('Access_token');
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
   const [showAll, setShowAll] = useState(true);
@@ -60,7 +55,7 @@ const MeetingPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  });
 
   return (
     <Layout>
@@ -72,16 +67,14 @@ const MeetingPage = () => {
             <h1 className="text-2xl">참여중인 모임</h1>
             <Button
               onClick={() => {
-                loginData.loginState
-                  ? navigate('/meeting/create')
-                  : alert('로그인하셔야 이용가능합니다');
+                loginState ? navigate('/meeting/create') : alert('로그인하셔야 이용가능합니다');
               }}
             >
               모임 생성
             </Button>
           </div>
 
-          {loginData.loginState ? (
+          {loginState ? (
             myMeeting ? (
               <MeetingCarousel>
                 {myMeeting.map((item) => {
