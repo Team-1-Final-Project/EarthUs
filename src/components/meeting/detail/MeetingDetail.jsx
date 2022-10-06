@@ -47,8 +47,28 @@ const MeetingDetail = (props) => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full h-full p-5 flex flex-col outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
-        <div className="flex w-full">
+
+      <div className="w-full h-full px-5 py-2 flex flex-col outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
+        <TagListLayout>
+          <div>
+            {detail.tagMeetings &&
+              Array.from(detail.tagMeetings).map((tag) => (
+                <Tagbutton key={tag.id}># {tag.name}</Tagbutton>
+              ))}
+          </div>
+          <div className="flex justify-center items-center">
+            {liked ? (
+              <BsHeartFill
+                className="w-6 h-6 m-2 text-red-600 cursor-pointer"
+                onClick={likeHandler}
+              />
+            ) : (
+              <BsHeart className="w-6 h-6 m-2 text-red-600 cursor-pointer" onClick={likeHandler} />
+            )}
+            <span className="text-xl text-defaultText">{likeNums}</span>
+          </div>
+        </TagListLayout>
+        <StyledDiv className="flex w-full 3xl:flex-col py-2">
           <div className="w-1/2">
             <img
               className="w-full max-h-96 rounded-xl object-cover"
@@ -56,28 +76,6 @@ const MeetingDetail = (props) => {
             ></img>
           </div>
           <div className="w-1/2 px-5">
-            <TagListLayout>
-              <div>
-                {detail.tagMeetings &&
-                  Array.from(detail.tagMeetings).map((tag) => (
-                    <Tagbutton key={tag.id}># {tag.name}</Tagbutton>
-                  ))}
-              </div>
-              <div className="flex justify-center items-center">
-                {liked ? (
-                  <BsHeartFill
-                    className="w-6 h-6 m-2 text-red-600 cursor-pointer"
-                    onClick={likeHandler}
-                  />
-                ) : (
-                  <BsHeart
-                    className="w-6 h-6 m-2 text-red-600 cursor-pointer"
-                    onClick={likeHandler}
-                  />
-                )}
-                <span className="text-xl text-defaultText">{likeNums}</span>
-              </div>
-            </TagListLayout>
             <h1 className="pb-2 mb-5 text-3xl mt-3">{detail.title}</h1>
             <div className="flex items-center">
               <AiOutlineCalendar />
@@ -102,7 +100,7 @@ const MeetingDetail = (props) => {
               <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
             </div>
           </div>
-        </div>
+        </StyledDiv>
         <div className="h-full px-10 mt-2 text-gray-500 ">
           <h1 className="text-2xl py-4">설명</h1>{' '}
           <h1 className="text-lg px-3 mb-5">{detail.content}</h1>
@@ -114,7 +112,31 @@ const MeetingDetail = (props) => {
 
 export default MeetingDetail;
 
-// const StyledCard = styled.div`
+const StyledDiv = styled.div`
+  @media (max-width: 800px) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: small;
+    & > div {
+      width: 100%;
+      font-size: medium;
+      & > div {
+        & > h1 {
+          width: 100%;
+          font-size: medium;
+        }
+      }
+      & > h1 {
+        width: 100%;
+        font-size: x-large;
+      }
+    }
+  }
+`;
+
+// const StyledCard = styled.div`;
 //   position: relative;
 //   display: flex;
 //   width: 80%;
@@ -135,14 +157,6 @@ export default MeetingDetail;
 //       object-fit: cover;
 //     }
 //   }
-//   @media (max-width: 800px) {
-//     flex-direction: column;
-//     font-size: small;
-//     & > {
-//       font-size: medium;
-//     }
-//   }
-// `;
 
 // const StyledDetail = styled.div`
 //   width: 100%;
