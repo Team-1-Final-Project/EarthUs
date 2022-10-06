@@ -5,6 +5,8 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import 'react-toastify/dist/ReactToastify.css';
 import { apis } from 'api/api';
 import { useDispatch, useSelector } from 'react-redux';
+import PostList from './PostList';
+import { getPostList } from 'redux/modules/postSlice';
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const Post = ({ post }) => {
       setHeartState(res.data.boardLike);
       console.log(heartState);
     });
-  }, [dispatch, post?.boardId]);
+  }, [dispatch, post?.boardId, heartState]);
 
   return (
     <ContainerStyle
@@ -96,6 +98,10 @@ const Post = ({ post }) => {
                 // mutate(post?.boardId);
 
                 apis.postHeart(post?.boardId).then((res) => {
+                  apis.getHeart(post?.boardId).then((res) => {
+                    dispatch(getPostList());
+                    setHeartState(res.data.boardLike);
+                  });
                   console.log(res);
                 });
                 console.log(post?.boardId);
@@ -104,7 +110,7 @@ const Post = ({ post }) => {
               }}
             >
               {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-              <span className="count">{post?.heartBoardNums}</span>
+              <span className="count ">{post?.heartBoardNums}</span>
             </div>
             <div
               className="iconWrap"
@@ -114,7 +120,7 @@ const Post = ({ post }) => {
               }}
             >
               <AiOutlineComment />
-              <span className="count">{post?.commentNums}</span>
+              <span className="count count1">{post?.commentNums}</span>
             </div>
           </IconContainerstyle>
         </div>
@@ -141,10 +147,12 @@ const ContainerStyle = styled.div`
   margin: auto;
   margin-top: 2em;
   padding: 10px 20px;
-  border: 1px solid #969696;
   border-radius: 10px;
-  @media (max-width: 500px) {
-    min-width: 300px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  outline-color: #eaecee;
+
+  @media (max-width: 750px) {
+    min-width: 400px;
   }
 `;
 
@@ -183,7 +191,7 @@ const ContentsWrapStyle = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     margin-right: 30px;
-    @media (max-width: 500px) {
+    @media (max-width: 750px) {
       flex-direction: row;
       margin-bottom: 20px;
       align-items: center;
@@ -194,7 +202,7 @@ const ContentsWrapStyle = styled.div`
     display: flex;
     align-items: top;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     flex-direction: column;
   }
 `;
@@ -223,21 +231,24 @@ const NameStyle = styled.span`
 const IconContainerstyle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 17px;
   color: #595f63;
+  cursor: pointer;
   .iconWrap {
     display: flex;
     align-items: center;
+    color: #3cc2df;
   }
   .count {
     margin-right: 10px;
     margin-left: 5px;
-    @media (max-width: 500px) {
-      margin-right: 0px;
-    }
+    color: #595f63;
   }
-  @media (max-width: 500px) {
-    /* justify-content: flex-end; */
+  .count1 {
+    @media (max-width: 750px) {
+      margin: 0;
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -250,13 +261,13 @@ const ContentWrapStyle = styled.div`
     flex-direction: column;
     width: 60%;
     margin-right: 20px;
-    @media (max-width: 500px) {
+    @media (max-width: 750px) {
       width: 100%;
       margin-right: 0px;
       margin-bottom: 10px;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     flex-direction: column;
     align-items: center;
   }
@@ -280,7 +291,7 @@ const ContentStyle = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 500px) {
+  @media (max-width: 750px) {
     -webkit-line-clamp: 3;
     margin-right: 0px;
   }
@@ -289,14 +300,19 @@ const ContentStyle = styled.div`
 const ImageStyled = styled.div`
   border-radius: 10px;
   overflow: hidden;
-  margin-right: 20px;
   max-width: 250px;
+  width: 250px;
+  height: 150px;
 
   .boardImg {
     width: 100%;
     height: 100%;
-    max-height: 200px;
+    /* max-height: 200px; */
+    overflow: hidden;
     object-fit: cover;
+  }
+  @media (max-width: 750px) {
+    margin: 0;
   }
 `;
 

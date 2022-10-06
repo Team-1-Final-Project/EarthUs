@@ -9,6 +9,7 @@ import CommentList from 'components/comment/CommentList';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, getDetailPost, getPostList } from 'redux/modules/postSlice';
 import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 // import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
@@ -25,86 +26,97 @@ const PostDetail = () => {
 
   const heartData = useSelector((state) => state.heart.heart);
 
-  console.log(heartData);
+  const name = sessionStorage.getItem('nickname');
+  console.log(name);
+  console.log(data?.writerName);
 
   return (
-    <>
-      <Navbar />
+    <Layout>
+      <Container>
+        <Navbar />
 
-      <ContainerStyle>
-        {/* <TopWrapStyle>
-          <div className="tagList">
-            {data?.tagBoards.map((tag) => {
-              return <span key={tag.id} className="tag">{`#${tag.tagName}`} </span>;
-            })}
-          </div>
-          <span className="date">{data?.createdAt.substr(0, 10)}</span>
-        </TopWrapStyle> */}
-
-        <ContentWrapStyle>
-          <ImageStyled>
-            <img className="boardImg" src={data?.boardImage} alt="img" />
-          </ImageStyled>
-
-          <div className="titleContentWrap">
-            <TitleStyle>{data?.title}</TitleStyle>
-            <ContentStyle>{data?.content}</ContentStyle>
-          </div>
-        </ContentWrapStyle>
-
-        <IconButtonWrapStyle>
-          <IconContainerstyle>
-            <div
-              className="iconWrap"
-              onClick={(e) => {
-                dispatch(putChangeHeart(data?.boardId)).then(() => {
-                  dispatch(getDetailPost(data?.boardId));
-                });
-
-                e.stopPropagation();
-              }}
-            >
-              {heartData ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-              <span className="count">{data?.heartBoardNums}</span>
+        <ContainerStyle>
+          <TopWrapStyle>
+            <div className="tagList">
+              {data?.tagBoards.map((tag) => {
+                return (
+                  <span key={tag.id} className="tag">
+                    {`#${tag.tagName}`}{' '}
+                  </span>
+                );
+              })}
             </div>
-            <div
-              className="iconWrap"
-              onClick={(e) => {
-                navigate(`/communitydetail/${data?.boardId}`);
-                e.stopPropagation();
-              }}
-            >
-              <AiOutlineComment />
-              <span className="count">{data?.commentNums}</span>
-            </div>
-          </IconContainerstyle>
-          <ProfileButtonWrapStyle>
-            <ContentsWrapStyle>
-              <div className="profileIconWrap">
-                <div className="profileWrap">
-                  <ProfileStyle>
-                    <img className="img" src={data?.profileImage} alt="img" />
-                  </ProfileStyle>
-                  <NameStyle>{data?.writerName}</NameStyle>
-                </div>
-              </div>
-            </ContentsWrapStyle>
+            <span className="date">{data?.createdAt.substr(0, 10)}</span>
+          </TopWrapStyle>
 
-            <ButtonStyled>
-              <BsPencil className="button" />
-              <BsTrash
-                className="button"
-                onClick={() => {
-                  dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
-                  navigate('/community');
+          <ContentWrapStyle>
+            <ImageStyled>
+              <img className="boardImg" src={data?.boardImage} alt="img" />
+            </ImageStyled>
+
+            <div className="titleContentWrap">
+              <TitleStyle>{data?.title}</TitleStyle>
+              <ContentStyle>{data?.content}</ContentStyle>
+            </div>
+          </ContentWrapStyle>
+
+          <IconButtonWrapStyle>
+            <IconContainerstyle>
+              <div
+                className="iconWrap"
+                onClick={(e) => {
+                  dispatch(putChangeHeart(data?.boardId)).then(() => {
+                    dispatch(getHeart(params.id));
+                    dispatch(getDetailPost(data?.boardId));
+                  });
+
+                  e.stopPropagation();
                 }}
-              />
-            </ButtonStyled>
-          </ProfileButtonWrapStyle>
-        </IconButtonWrapStyle>
-      </ContainerStyle>
-      <CommentList commentListData={data?.commentResponseDtoList} />
-    </>
+              >
+                {heartData ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+                <span className="count">{data?.heartBoardNums}</span>
+              </div>
+              <div
+                className="iconWrap"
+                onClick={(e) => {
+                  navigate(`/communitydetail/${data?.boardId}`);
+                  e.stopPropagation();
+                }}
+              >
+                <AiOutlineComment />
+                <span className="count">{data?.commentNums}</span>
+              </div>
+            </IconContainerstyle>
+            <ProfileButtonWrapStyle>
+              <ContentsWrapStyle>
+                <div className="profileIconWrap">
+                  <div className="profileWrap">
+                    <ProfileStyle>
+                      <img className="img" src={data?.profileImage} alt="img" />
+                    </ProfileStyle>
+                    <NameStyle>{data?.writerName}</NameStyle>
+                  </div>
+                </div>
+              </ContentsWrapStyle>
+
+              {data?.writerName === name ? (
+                <ButtonStyled>
+                  <BsPencil className="button" />
+                  <BsTrash
+                    className="button"
+                    onClick={() => {
+                      dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
+                      navigate('/community');
+                    }}
+                  />
+                </ButtonStyled>
+              ) : null}
+            </ProfileButtonWrapStyle>
+          </IconButtonWrapStyle>
+        </ContainerStyle>
+        <CommentList commentListData={data?.commentResponseDtoList} />
+      </Container>
+    </Layout>
   );
 };
 
@@ -115,27 +127,30 @@ const ContainerStyle = styled.div`
   margin: auto;
   margin-top: 2em;
   padding: 10px 20px;
-  border: 1px solid #969696;
   border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  outline-color: #eaecee;
 
-  @media (max-width: 500px) {
-    width: 100%;
-    min-width: 300px;
+  @media (max-width: 650px) {
+    min-width: 400px;
   }
 `;
 
 const ImageStyled = styled.div`
   border-radius: 10px;
   overflow: hidden;
-  margin-right: 20px;
-  max-width: 200px;
+  max-width: 250px;
+  width: 250px;
+  height: 150px;
 
   .boardImg {
     width: 100%;
     height: 100%;
+    /* max-height: 200px; */
+    overflow: hidden;
     object-fit: cover;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     margin: auto;
     margin-bottom: 10px;
   }
@@ -183,11 +198,12 @@ const TopWrapStyle = styled.div`
 
 const ContentWrapStyle = styled.div`
   display: flex;
+
   .titleContentWrap {
     display: flex;
     flex-direction: column;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     display: block;
   }
 `;
@@ -203,13 +219,16 @@ const IconContainerstyle = styled.div`
   align-items: center;
   font-size: 17px;
   color: #595f63;
+  cursor: pointer;
   .iconWrap {
     display: flex;
     align-items: center;
+    color: #3cc2df;
   }
   .count {
     margin-right: 10px;
     margin-left: 5px;
+    color: #595f63;
   }
 `;
 
@@ -281,7 +300,7 @@ const ContentStyle = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     -webkit-line-clamp: 3;
   }
 `;

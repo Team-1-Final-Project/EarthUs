@@ -22,7 +22,7 @@ const Comment = ({
   const [editContent, setEditContent] = useState(content);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const login = useSelector((state) => state.login);
+  const login = sessionStorage.getItem('nickname');
 
   useEffect(() => {
     setEditContent(content);

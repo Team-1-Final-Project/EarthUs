@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { apis } from 'api/api';
 import Navbar from 'components/navbar/Navbar';
 import styled from 'styled-components';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const PostListPage = () => {
   const [data, setData] = useState();
@@ -49,33 +50,35 @@ const PostListPage = () => {
   }, [selectedTag]);
 
   return (
-    <div>
-      <Navbar />
-      <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
-        <button
-          type="button"
-          className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
-            showAll ? `bg-blueColor text-white` : `bg-gray-100`
-          }`}
-          onClick={() => {
-            setShowAll(true);
-            setSelectedTag([]);
-          }}
-        >
-          # 전체보기
-        </button>
-        {tags.map((tag, index) => (
-          <Tag
-            key={tag}
-            tag={tag}
-            id={index + 1}
-            tagHandler={tagHandler}
-            selectedTag={selectedTag}
-          />
-        ))}
-      </TagListStyle>
-      <PostList />
-    </div>
+    <Layout>
+      <Container>
+        <Navbar />
+        <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
+          <button
+            type="button"
+            className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
+              showAll ? `bg-blueColor text-white` : `bg-gray-100`
+            }`}
+            onClick={() => {
+              setShowAll(true);
+              setSelectedTag([]);
+            }}
+          >
+            # 전체보기
+          </button>
+          {tags.map((tag, index) => (
+            <Tag
+              key={tag}
+              tag={tag}
+              id={index + 1}
+              tagHandler={tagHandler}
+              selectedTag={selectedTag}
+            />
+          ))}
+        </TagListStyle>
+        <PostList />
+      </Container>
+    </Layout>
   );
 };
 
