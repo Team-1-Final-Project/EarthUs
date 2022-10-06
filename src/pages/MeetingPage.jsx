@@ -9,6 +9,7 @@ import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import { api } from 'api/api';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -46,8 +47,9 @@ const MeetingPage = () => {
     }
   }, [selectedTag]);
 
-  const [myMeeting, setMyMeeting] = useState([]);
+  const [myMeeting, setMyMeeting] = useState();
   useEffect(() => {
+    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
     apis
       .getMyMeeting()
       .then((res) => {
@@ -55,7 +57,7 @@ const MeetingPage = () => {
         setMyMeeting(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('err', err);
       });
   }, []);
 
@@ -79,7 +81,7 @@ const MeetingPage = () => {
           </div>
 
           {loginState ? (
-            myMeeting ? (
+            myMeeting && (
               <MeetingCarousel>
                 {myMeeting.map((item) => {
                   return (
@@ -92,7 +94,7 @@ const MeetingPage = () => {
                   );
                 })}
               </MeetingCarousel>
-            ) : null
+            )
           ) : (
             <div className="w-full flex justify-center items-center h-32">
               로그인이 필요한 기능입니다.
