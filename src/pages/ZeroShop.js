@@ -2,7 +2,8 @@ import Navbar from 'components/navbar/Navbar';
 import ShopList from 'components/shop/ShopList';
 import React, { useState, useEffect } from 'react';
 import { apis } from 'api/api';
-import Map from 'components/shop/Map';
+import KakaoMap from 'components/map/Map';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 function ZeroShop() {
   const [shop, setShop] = useState();
@@ -13,11 +14,15 @@ function ZeroShop() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
-      <Navbar />
-      <Map />
-      <ShopList shop={shop} />
-    </div>
+    <Layout>
+      <Container>
+        <Navbar />
+        <ShopList shop={shop} />
+        <div className="flex justify-center mt-20">
+          <KakaoMap />
+        </div>
+      </Container>
+    </Layout>
   );
 }
 
