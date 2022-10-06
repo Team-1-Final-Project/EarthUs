@@ -15,7 +15,14 @@ export const jsonAPI = axios.create({
 
 export const token = axios.create({
   baseURL: `http://3.37.61.61/`,
-  headers: { Access_token: sessionStorage.getItem('Access_token') },
+  headers: { Authorization: sessionStorage.getItem('Access_token') },
+});
+export const multi = axios.create({
+  baseURL: `http://3.37.61.61/`,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    Authorization: sessionStorage.getItem('Access_token'),
+  },
 });
 
 export const apis = {
@@ -50,37 +57,38 @@ export const apis = {
     return response;
   },
 
-  getDetail: async (boardId) => {
-    const response = await api.get(`board/${boardId}`, {});
+  // getDetail: async (boardId) => {
+  //   const response = await api.get(`board/${boardId}`, {});
+  //   return response.data;
+  // },
+
+  // addPost: async (data) => {
+  //   console.log(data);
+  //   const response = await api.post('board', data, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data',
+  //       Authorization: sessionStorage.getItem('Access_token'),
+  //     },
+  //   });
+  //   return response;
+  // },
+
+  // deletePost: async (boardId) => {
+  //   const response = await api.delete(`board/${boardId}`, {
+  //     headers: {
+  //       Authorization: sessionStorage.getItem('Access_token'),
+  //     },
+  //   });
+  //   return response;
+  // },
+
+  getHeart: async (boardId) => {
+    const response = await token.get(`board/heart/${boardId}`, {});
+
     return response.data;
   },
-
-  addPost: async (data) => {
-    console.log(data);
-    const response = await api.post('board', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: sessionStorage.getItem('Access_token'),
-      },
-    });
-    return response;
-  },
-
-  deletePost: async (boardId) => {
-    const response = await api.delete(`board/${boardId}`, {
-      headers: {
-        Authorization: sessionStorage.getItem('Access_token'),
-      },
-    });
-    return response;
-  },
-
   postHeart: async (boardId) => {
-    const response = await api.put(`board/heart/${boardId}`, {
-      headers: {
-        Authorization: sessionStorage.getItem('Access_token'),
-      },
-    });
+    const response = await token.put(`board/heart/${boardId}`, {});
 
     return response.data;
   },

@@ -1,31 +1,73 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-import { apis } from 'api/api';
-
 import 'react-toastify/dist/ReactToastify.css';
+import { apis } from 'api/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostList } from 'redux/modules/postSlice';
-
-const Post = ({ data, onClickHeart, like }) => {
+const Post = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loginState = useSelector((state) => state.login.loginState);
+  console.log(loginState);
 
+  //지어줄이름,비동기api요청,query 옵션
+  // const { data } = useQuery('getHeartState', () => token.get(`/board/heart/${post?.boardId}`));
+  // const heartState = data?.data.data.boardLike;
+  // console.log(heartState, post);
+
+  // const toggleHeart = async (id) => {
+  //   return await token.put(`/board/heart/${id}`);
+  // };
+
+  // const queryClient = useQueryClient();
+
+  // const { mutate } = useMutation(toggleHeart, {
+  //   onSuccess: (data) => {
+  //     queryClient.invalidateQueries('getHeartState');
+  // console.log(data.data.data.boardLike);
+  //   },
+  // });
+
+  const [heartState, setHeartState] = useState(false);
   useEffect(() => {
-    dispatch(getPostList());
-  }, []);
+    // dispatch(getHeart(post?.boardId)).then((res) => {
+    //   console.log(res.payload, res.meta.arg);
+    //   console.log(heartState);
+
+    //   setHeartState(...heartState);
+    //   setHeartState([
+    //     heartState.push({
+    //       state: res.payload,
+    //       boardId: res.meta.arg,
+    //     }),
+    //   ]);
+    // console.log(heartState);
+    // });
+
+    apis.getHeart(post?.boardId).then((res) => {
+      setHeartState(res.data.boardLike);
+      console.log(heartState);
+    });
+  }, [dispatch, post?.boardId]);
 
   return (
     <ContainerStyle
       onClick={() => {
-        navigate(`/communitydetail/${data?.boardId}`);
+        navigate(`/communitydetail/${post?.boardId}`);
       }}
     >
       <TopWrapStyle>
-        {/* <span className="tag">{data?.tagName} </span> */}
-        <span className="tag">{data?.tagBoards.tagName} </span>
-        <span className="date">{data?.createdAt.substr(0, 10)}</span>
+        <div className="tagList">
+          {post?.tagBoards.map((tag) => {
+            return (
+              <span key={tag.id} className="tag">
+                {`#${tag.tagName}`}{' '}
+              </span>
+            );
+          })}
+        </div>
+        <span className="date">{post?.createdAt.substr(0, 10)}</span>
       </TopWrapStyle>
 
       <ContentsWrapStyle>
@@ -37,48 +79,54 @@ const Post = ({ data, onClickHeart, like }) => {
                 onError={(e) => {
                   e.currentTarget.style = 'null';
                 }}
-                src={data?.profileImage}
+                src={post?.profileImage}
                 alt="img"
               />
             </ProfileStyle>
-            <NameStyle>{data?.writerName}</NameStyle>
+            <NameStyle>{post?.writerName}</NameStyle>
           </div>
 
           <IconContainerstyle>
             <div
               className="iconWrap"
               onClick={(e) => {
-                onClickHeart(data?.boardId);
+                // dispatch(putChangeHeart(post?.boardId)).then((res) => {
+                //   console.log(res.payload);
+                // });
+                // mutate(post?.boardId);
+
+                apis.postHeart(post?.boardId).then((res) => {
+                  console.log(res);
+                });
+                console.log(post?.boardId);
+                console.log(heartState);
                 e.stopPropagation();
               }}
             >
-              {like === '게시글 좋아요 성공!' ? (
-                <AiFillHeart style={{ color: '#3cc2df' }} />
-              ) : (
-                <AiOutlineHeart />
-              )}
-              <span className="count">{data?.heartBoardNums}</span>
+              {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+              <span className="count">{post?.heartBoardNums}</span>
             </div>
             <div
               className="iconWrap"
               onClick={(e) => {
-                navigate(`/communitydetail/${data?.boardId}`);
+                // dispatch(getDetailPost(data?.boardId));
+                navigate(`/communitydetail/${post?.boardId}`);
               }}
             >
               <AiOutlineComment />
-              <span className="count">{data?.commentNums}</span>
+              <span className="count">{post?.commentNums}</span>
             </div>
           </IconContainerstyle>
         </div>
 
         <ContentWrapStyle>
           <div className="titleContentWrap">
-            <TitleStyle>{data?.title}</TitleStyle>
-            <ContentStyle>{data?.content}</ContentStyle>
+            <TitleStyle>{post?.title}</TitleStyle>
+            <ContentStyle>{post?.content}</ContentStyle>
           </div>
 
           <ImageStyled>
-            <img className="boardImg" src={data?.boardImage} alt="img" />
+            <img className="boardImg" src={post?.boardImage} alt="img" />
           </ImageStyled>
         </ContentWrapStyle>
       </ContentsWrapStyle>
@@ -104,15 +152,21 @@ const TopWrapStyle = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  .tagList {
+    width: 70%;
+  }
   .tag {
-    width: max-content;
+    /* width: max-content; */
     margin-bottom: 10px;
-    padding: 0px 10px;
-    font-size: 14px;
+    padding: 0px 5px;
+    font-size: 12px;
     color: #3cc2df;
     background-color: #f3f4f5;
     border: 1px solid #f3f4f5;
-    border-radius: 5px;
+    border-radius: 20px;
+    margin-right: 5px;
+    word-break: keep-all;
+    white-space: normal;
   }
   .date {
     color: #595f63;

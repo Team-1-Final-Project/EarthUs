@@ -5,6 +5,7 @@ import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
 import TagButton from '../TagButton';
+import swal from 'sweetalert';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -48,7 +49,7 @@ const CardUpdateForm = (props) => {
     meetingEndDate: meetingEndDate,
     location: location,
     limitPeople: limitPeople,
-    tagMeetingIds: [6, 7],
+    tagMeetingIds: tag,
   };
   const list = [2, 3, 4, 5, 6, 7, 8];
 
@@ -64,29 +65,47 @@ const CardUpdateForm = (props) => {
     const MED = orange(meetingEndDate);
 
     let formData = new FormData();
-    if (JSD <= JED && MSD <= MED && JED <= MSD) {
-      formData.append('image', image);
+    if (JSD < JED && JED < MSD && MSD <= MED) {
+      image ? formData.append('image', image) : formData.append('image', null);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
         .updateMeeting(props.params, formData)
         .then((res) => {
-          console.log(res);
-          alert(res.data.data);
+          console.log('image', image && image);
+          swal(res.data.data);
           navigate('/meeting');
         })
-        .catch((err) => console.log(err));
-    } else {
-      alert('날짜형식에 어긋납니다');
+        .catch((err) => {
+          console.log(err);
+          swal('작성 포맷이 올바르지 않습니다.');
+        });
+    } else if (!(JSD < JED)) {
+      swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
+    } else if (!(JED < MSD)) {
+      swal('활동시작일은 모집마감일보다 이후이어야 합니다.');
+    } else if (!(MSD <= MED)) {
+      swal('활동시작일은 활동마감일보다 이후일 수 없습니다.');
     }
   };
 
   //나가기버튼 클릭시
   const onClickGoOut = (e) => {
-    if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
-      navigate('/meeting');
-    } else {
-      return true;
-    }
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        '네,나갈래요': true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '네,나갈래요':
+          navigate('/meeting');
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   //여기서 부터 태그관련 작업파트입니다.
@@ -95,7 +114,7 @@ const CardUpdateForm = (props) => {
     e.preventDefault();
     let tagClone = tag;
     tag.length > 3
-      ? alert('태그는 3개까지만 가능합니다')
+      ? swal('태그는 3개까지만 가능합니다')
       : tag.includes(index + 1)
       ? tagClone.splice(tag.indexOf(index + 1), 1)
       : tagClone.push(index + 1); //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
@@ -222,22 +241,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinStartDate}
                           onChange={joinStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={joinEndDate}
                           onChange={joinEndDateChange}
@@ -250,22 +261,14 @@ const CardUpdateForm = (props) => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingStartDate}
                           onChange={meetingStartDateChange}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
                           defaultValue={meetingEndDate}
                           onChange={meetingEndDateChange}
@@ -317,7 +320,7 @@ const CardUpdateForm = (props) => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    onClick={() => onClickGoOut()}
+                    onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기

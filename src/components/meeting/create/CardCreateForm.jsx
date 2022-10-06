@@ -6,6 +6,7 @@ import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
 import TagButton from '../TagButton';
 import { useEffect } from 'react';
+import swal from 'sweetalert';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -13,16 +14,31 @@ export const orange = (str) => {
   return b;
 };
 
+//날짜관련 작업입니다.
+let now = new Date();
+let year = now.getFullYear();
+let month = now.getMonth() + 1;
+let day = now.getDay() + 2 >= 10 ? now.getDay() + 2 : '0' + String(now.getDay() + 2);
+let day2 = now.getDay() + 3 >= 10 ? now.getDay() + 3 : '0' + String(now.getDay() + 3);
+let day3 = now.getDay() + 4 >= 10 ? now.getDay() + 4 : '0' + String(now.getDay() + 4);
+let nowDate = Number(day) + month * 100 + year * 10000;
+let arr = [String(year), String(month), String(day)];
+let arr2 = [String(year), String(month), String(day2)];
+let arr3 = [String(year), String(month), String(day3)];
+let nowDateState = arr.join('-'); //모집시작일
+let nowDateState2 = arr2.join('-'); //모집마감일
+let nowDateState3 = arr3.join('-'); //활동시작일,활동마감일
+
 const CardCreateForm = () => {
   const navigate = useNavigate();
   const [title, setTitle, titleChange] = useInput('');
   const [tag, setTag, tagChange] = useInput([]);
   const [location, setLocation, locationChange] = useInput('');
   const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
-  const [joinStartDate, setJoinStartDate, joinStartDateChange] = useInput('');
-  const [joinEndDate, setJoinEndDate, joinEndDateChange] = useInput('');
-  const [meetingStartDate, setMeetingStartDate, meetingStartDateChange] = useInput('');
-  const [meetingEndDate, setMeetingEndDate, meetingEndDateChange] = useInput('');
+  const [joinStartDate, setJoinStartDate] = useState(nowDateState);
+  const [joinEndDate, setJoinEndDate] = useState(nowDateState2);
+  const [meetingStartDate, setMeetingStartDate] = useState(nowDateState3);
+  const [meetingEndDate, setMeetingEndDate] = useState(nowDateState3);
   const [content, setContent, contentChange] = useInput('');
   const [image, setImage] = useState('');
 
@@ -43,31 +59,54 @@ const CardCreateForm = () => {
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const JSD = orange(joinStartDate);
-    const JED = orange(joinEndDate);
-    const MSD = orange(meetingStartDate);
-    const MED = orange(meetingEndDate);
+    const JSD = orange(joinStartDate && joinStartDate);
+    const JED = orange(joinEndDate && joinEndDate);
+    const MSD = orange(meetingStartDate && meetingStartDate);
+    const MED = orange(meetingEndDate && meetingEndDate);
+    console.log(JSD);
 
     let formData = new FormData();
-    if (JSD <= JED && MSD <= MED && JED <= MSD) {
+
+    if (JSD < JED && JED < MSD && MSD <= MED) {
       formData.append('image', image);
+      console.log('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
         .createMeeting(formData)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      navigate('/meeting');
-    } else {
-      alert('날짜 형식에 어긋납니다');
+        .then((res) => {
+          console.log(res);
+          navigate('/meeting');
+        })
+        .catch((err) => {
+          console.log(err);
+          swal('작성 포맷이 올바르지 않습니다.');
+        });
+    } else if (!(JSD < JED)) {
+      swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
+    } else if (!(JED < MSD)) {
+      swal('활동시작일은 모집마감일보다 이후이어야 합니다.');
+    } else if (!(MSD <= MED)) {
+      swal('활동시작일은 활동마감일보다 이후일 수 없습니다.');
     }
   };
 
   const onClickGoOut = (e) => {
-    if (window.confirm('작성한 내용이 사라집니다. 그래도 나가시겠습니까?')) {
-      navigate('/meeting');
-    } else {
-      return true;
-    }
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        '네,나갈래요': true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '네,나갈래요':
+          navigate('/meeting');
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   const onChangeImageHandler = (e) => {
@@ -76,7 +115,15 @@ const CardCreateForm = () => {
 
   //태그를 다루는 파트입니다.
 
-  const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+  const tagList = [
+    '#챌린지',
+    '#플로깅',
+    '#비건',
+    '#재활용',
+    '#이모저모(친목)',
+    '#반려용품',
+    '#기타',
+  ];
   const tagStateList = [false, false, false, false, false, false, false];
 
   const onClickTagHandler = (e, index) => {
@@ -170,8 +217,7 @@ const CardCreateForm = () => {
                       </label>
                       <div className="mt-1">
                         <select
-                          id="about"
-                          name="about"
+                          z
                           rows={1}
                           className="h-9 mt-1 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           value={limitPeople}
@@ -214,25 +260,25 @@ const CardCreateForm = () => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
-                          value={joinStartDate}
-                          onChange={joinStartDateChange}
+                          defaultValue={joinStartDate}
+                          onChange={(e) => {
+                            nowDate <= orange(e.target.value)
+                              ? setJoinStartDate(e.target.value)
+                              : swal('현재날짜 이후로만 설정 가능합니다');
+                          }}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
-                          value={joinEndDate}
-                          onChange={joinEndDateChange}
+                          defaultValue={joinEndDate}
+                          onChange={(e) => {
+                            nowDate <= orange(e.target.value)
+                              ? setJoinEndDate(e.target.value)
+                              : swal('현재날짜 이후로만 설정 가능합니다');
+                          }}
                         />
                       </div>
                     </div>
@@ -242,25 +288,25 @@ const CardCreateForm = () => {
                       </label>
                       <div className="flex mt-1">
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 mt-1 mr-2 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
-                          value={meetingStartDate}
-                          onChange={meetingStartDateChange}
+                          defaultValue={meetingStartDate}
+                          onChange={(e) => {
+                            nowDate <= orange(e.target.value)
+                              ? setMeetingStartDate(e.target.value)
+                              : swal('현재날짜 이후로만 설정 가능합니다');
+                          }}
                         />
                         ~
                         <input
-                          id="about"
-                          name="about"
-                          rows={1}
                           className="h-6 ml-2 mt-1 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder=""
                           type="date"
-                          value={meetingEndDate}
-                          onChange={meetingEndDateChange}
+                          defaultValue={meetingEndDate}
+                          onChange={(e) => {
+                            nowDate <= orange(e.target.value)
+                              ? setMeetingEndDate(e.target.value)
+                              : swal('현재날짜 이후로만 설정 가능합니다');
+                          }}
                         />
                       </div>
                     </div>
@@ -302,7 +348,7 @@ const CardCreateForm = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    onClick={() => onClickGoOut()}
+                    onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기

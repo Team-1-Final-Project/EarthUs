@@ -7,16 +7,12 @@ import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Map from 'components/shop/Map';
+import swal from 'sweetalert';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
-  const loginData = useSelector((state) => {
-    return state.login;
-  });
-
+  const loginState = sessionStorage.getItem('Access_token');
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
   const [showAll, setShowAll] = useState(true);
@@ -38,6 +34,7 @@ const MeetingPage = () => {
         .getAllMeeting()
         .then((res) => {
           setData(res.data.data);
+          console.log('getall', res);
         })
         .catch((err) => console.log('err', err));
     } else {
@@ -45,7 +42,7 @@ const MeetingPage = () => {
       apis
         .searchMeetingTag({ tagIds: selectedTag })
         .then((res) => setData(res.data.data))
-        .catch((err) => alert(err));
+        .catch((err) => swal(err));
     }
   }, [selectedTag]);
 
@@ -55,7 +52,7 @@ const MeetingPage = () => {
       .getMyMeeting()
       .then((res) => {
         console.log('mymeetings', res);
-        setMyMeeting(res.data.data);
+        setMyMeeting(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -68,20 +65,20 @@ const MeetingPage = () => {
       <Container>
         <Navbar />
         <div className="pt-20 px-20">
-          <div className="flex justify-between py-3">
+          <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
-            <Button
-              onClick={() => {
-                loginData.loginState
-                  ? navigate('/meeting/create')
-                  : alert('로그인하셔야 이용가능합니다');
-              }}
-            >
-              모임 생성
-            </Button>
+            <div className="flex justify-end">
+              <Button
+                onClick={() => {
+                  loginState ? navigate('/meeting/create') : swal('로그인을 먼저 해주세요');
+                }}
+              >
+                모임 생성
+              </Button>
+            </div>
           </div>
 
-          {loginData.loginState ? (
+          {loginState ? (
             myMeeting ? (
               <MeetingCarousel>
                 {myMeeting.map((item) => {
@@ -97,12 +94,14 @@ const MeetingPage = () => {
               </MeetingCarousel>
             ) : null
           ) : (
-            <div className="w-full flex justify-center">로그인이 필요합니다</div>
+            <div className="w-full flex justify-center items-center h-32">
+              로그인이 필요한 기능입니다.
+            </div>
           )}
         </div>
         <div className="pt-10 px-20">
           <div>
-            <h1 className="text-2xl">태그 목록</h1>
+            <h1 className="text-2xl">전체 모임</h1>
           </div>
           <div className="py-10">
             <TagListStyle className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">
@@ -129,12 +128,12 @@ const MeetingPage = () => {
               ))}
             </TagListStyle>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data &&
               data.map((item) => {
                 return (
                   <Link
-                    style={{ display: 'flex', width: '320px', height: '550px' }}
+                    style={{ display: 'flex', width: '280px', height: '450px' }}
                     to={`/meeting/detail/${item.id}`}
                   >
                     <MeetingCard id={item.id} data={item} />
@@ -158,13 +157,18 @@ export default MeetingPage;
 const Button = styled.button`
   background-color: #3cc2df;
   color: #ffffff;
-  padding: 0.7vw;
-  padding-left: 3vw;
-  padding-right: 3vw;
+  padding: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 40px;
   margin-top: 7vh;
   margin-right: 3vw;
   transition: 250ms transform;
+  @media (max-width: 500px) {
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: small;
+  }
   &:hover {
     transform: scale(1.03);
   }

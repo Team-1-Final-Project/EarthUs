@@ -9,13 +9,14 @@ import { apis } from 'api/api';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 
 const MeetingDetail = (props) => {
   const detail = { ...props.data };
 
   const [liked, setLiked] = useState(false);
   const [likeNums, setLikeNums] = useState(0);
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
 
   const likeHandler = async () => {
     if (loginState) {
@@ -24,7 +25,7 @@ const MeetingDetail = (props) => {
         setLiked(res.data.data.meetingLike);
         res.data.data.meetingLike ? setLikeNums(likeNums + 1) : setLikeNums(likeNums - 1);
       } catch (err) {
-        alert(err);
+        swal(err);
       }
     } else {
       toast.error('로그인이 필요합니다.');
@@ -132,27 +133,11 @@ const StyledCard = styled.div`
       object-fit: cover;
     }
   }
-  & > div:last-of-type {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    display: flex;
+  @media (max-width: 800px) {
     flex-direction: column;
-    justify-content: space-between;
-    & > .title {
-      font-weight: bold;
-      color: black;
-      font-size: 1.75vw;
-      margin: 1rem;
-      word-wrap: normal;
-    }
-    & > .link-to {
-      margin: 1rem;
-      font-weight: bold;
-      font-size: 0.8vw;
-    }
-    & > .link-to:hover {
-      text-decoration: underline;
+    font-size: small;
+    & > {
+      font-size: medium;
     }
   }
 `;

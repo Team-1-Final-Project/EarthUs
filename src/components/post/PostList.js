@@ -5,34 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getPostList } from 'redux/modules/postSlice';
-import { apis } from 'api/api';
+import { getHeart } from 'redux/modules/heartSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { putChangeHeart } from 'redux/modules/heartSlice';
 
 const PostList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = useSelector((state) => state.login.loginState);
+  const loginState = sessionStorage.getItem('Access_token');
   const [like, setLike] = useState('');
 
   useEffect(() => {
     dispatch(getPostList());
-  }, []);
+  }, [dispatch]);
 
-  const postList = useSelector((state) => state.post.post.data);
-  const onClickHeart = (boardId, e) => {
-    dispatch(putChangeHeart(boardId));
-
-    dispatch(getPostList());
-    e.stopPropagation();
-  };
+  const postList = useSelector((state) => state?.post.post.data);
 
   return (
     <>
       <ToastContainer />
       {postList?.map((post) => {
-        return <Post key={post?.boardId} data={post} onClickHeart={onClickHeart} like={like} />;
+        return <Post key={post?.boardId} post={post} />;
       })}
       <AddPostButtonStyled
         onClick={() => {
