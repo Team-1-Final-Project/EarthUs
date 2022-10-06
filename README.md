@@ -27,6 +27,10 @@
   <img src="https://skillicons.dev/icons?i=react,redux,styledcomponents,tailwindcss,js,html,css,figma&perline=20"/>
 </p>
 
+🛠 API
+
+  <img src="https://img.shields.io/badge/AXIOS-F7DF1E?style=for-the-badge&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/kakao map-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
+
 ## 트러블 슈팅 ✅
 
 <details> <summary>➡️ 😛김민석: 새로고침시 데이터가 안불러와지는 문제가 있었습니다. </summary> <div markdown="1">
