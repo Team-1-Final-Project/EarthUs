@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
-import KakaoLogin from 'components/Login/KakaoLogin';
+import KakaoLogin from 'components/login/KakaoLogin';
 import HomeButton from './HomeButton';
 
 function Navbar() {
