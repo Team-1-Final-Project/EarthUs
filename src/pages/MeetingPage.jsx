@@ -70,7 +70,7 @@ const MeetingPage = () => {
             <div className="flex justify-end">
               <Button
                 onClick={() => {
-                  loginState ? navigate('/meeting/create') : swal('로그인하셔야 이용가능합니다');
+                  loginState ? navigate('/meeting/create') : swal('로그인을 먼저 해주세요');
                 }}
               >
                 모임 생성
@@ -94,7 +94,9 @@ const MeetingPage = () => {
               </MeetingCarousel>
             ) : null
           ) : (
-            <div className="w-full flex justify-center">로그인이 필요합니다</div>
+            <div className="w-full flex justify-center items-center h-32">
+              로그인이 필요한 기능입니다.
+            </div>
           )}
         </div>
         <div className="pt-10 px-20">
@@ -126,7 +128,7 @@ const MeetingPage = () => {
               ))}
             </TagListStyle>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data &&
               data.map((item) => {
                 return (
