@@ -1,50 +1,54 @@
-# Earth, us
+# 제로웨이스트 커뮤니티 - Earth, us 🌎
 
-## 서비스 소개 
+## 🌳 Intro: 서비스 소개 
+<br/>
+<strong>Earth, us</strong>란 제로웨이스트를 위한 커뮤니티로 유저들의 일상과 노하우를 공유하고,<br/>
+미션을 제공받아 완수하여 장기&지속적인 환경보호 운동 실천을 독려하고 개인 미션 수행완료를 통한 뱃지획득 기능으로 성취감을 부여하여 <br/>
+일상에 자연스레 녹아드는 제로웨이스트를 추구하는 서비스입니다.
 
-## Earth, us란 제로웨이스트를 위한 커뮤니티로 유저들의 일상과 노하우를 공유하고, 미션을 제공받아 완수하여 장기&지속적인 환경보호 운동 실천을 독려하고 개인 미션 수행완료를 통한 뱃지획득 기능으로 성취감을 부여하여 일상에 자연스레 녹아드는 제로웨이스트를 추구하는 서비스입니다.
+<br/>
+<br/>
+📅 <strong>프로젝트 기간</strong> : 2022.09.19 ~
 
-- 프로젝트 기간 : 2022.09.19 ~
+### ⭐️ Feat: 주요 기능 소개 
 
-### 주요 기능 소개 
-
-### 1. 데일리미션
+#### 1) 데일리미션
 매일 제로웨이스트를 실천할 수 있는 미션을 제공하며 사용자들이 미션을 달성 했는지 스스로 체크할 수 있습니다.
-### 2. 모임기능
+#### 2) 모임기능
 제로웨이스트 관련 모임을 생성하고 참여할 수 있습니다.<br>
 모임별 채팅을 통해 모임 참여자들끼리 소통할 수 있습니다.<br>
 모임 참여 후기를 작성할 수 있습니다.
-### 3. 커뮤니티
+#### 3) 커뮤니티
 게시글, 댓글 작성을 통해 자유롭게 소통할 수 있습니다.
-### 4. 뱃지
+#### 4) 뱃지
 커뮤니티, 모임 활동 등을 통해 뱃지를 획득할 수 있습니다.<br>
 유저 프로필을 통해 획득한 뱃지를 볼 수 있으며, 타인이 볼 수 있습니다.<br>
 대표 뱃지를 설정할 수 있습니다.
 
 
-## 유저 플로우(추후 업데이트)
+## 👤 User: 유저 플로우
 
-미작성
+추후 작성 예정
 
-## 개발환경 및 기술스택 
+## 🛠 Skills: 개발환경 및 기술스택 
 
-🛠 Dev Tools
+🛠 <strong>Dev Tools</strong>
 
 <p herf="https://skillicons.dev">
   <img src="https://skillicons.dev/icons?i=vscode,github&perline=20"/>
 </p>
 
-🛠 Tools
+🛠 <strong>Tools</strong>
 
 <p herf="https://skillicons.dev">
   <img src="https://skillicons.dev/icons?i=react,redux,styledcomponents,tailwindcss,js,html,css,figma&perline=20"/>
 </p>
 
-🛠 API
+🛠 <strong>API</strong>
 
   <img src="https://img.shields.io/badge/AXIOS-F7DF1E?style=for-the-badge&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/kakao map-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
 
-## 트러블 슈팅 
+## 📌 Trouble Shooting: 트러블 슈팅 
 
 <details> <summary>➡️ 😛김민석: 새로고침시 데이터가 안불러와지는 문제가 있었습니다. </summary> <div markdown="1">
   <br/>
@@ -62,7 +66,7 @@
   </div>
   </details>
 
-## 담당기능구현 
+## 🖥 Role: 담당 기능 
 
 | 이름       | 포지션       | 담당 기능 구현          |
 | ---------- | ------------ | ----------------------------------------|
@@ -72,10 +76,18 @@
 |🤩박세은 | `FE` | `커뮤니티 댓글 CRUD` `모임 좋아요 및 태그조회` `커뮤니티 태그조회` `모임후기 CRUD` | 
 
 
-## 코드 컨벤션 (추후 업데이트)
+## 💻 Code: 코드 컨벤션 
 
-## 디렉토리 구조 (추후 업데이트)
+추후 작성 예정
 
-## 서비스 아키텍쳐
+## 🗂 Directory: 디렉토리 구조 
 
-## 팀원 소개 
+추후 작성 예정
+
+## 📔 Architecture: 서비스 아키텍쳐
+
+추후 작성 예정
+
+## 👥 Team: 팀원 소개 
+
+추후 작성 예정
