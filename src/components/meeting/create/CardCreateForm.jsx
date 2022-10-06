@@ -19,10 +19,15 @@ let now = new Date();
 let year = now.getFullYear();
 let month = now.getMonth() + 1;
 let day = now.getDay() + 2 >= 10 ? now.getDay() + 2 : '0' + String(now.getDay() + 2);
+let day2 = now.getDay() + 3 >= 10 ? now.getDay() + 3 : '0' + String(now.getDay() + 3);
+let day3 = now.getDay() + 4 >= 10 ? now.getDay() + 4 : '0' + String(now.getDay() + 4);
 let nowDate = Number(day) + month * 100 + year * 10000;
 let arr = [String(year), String(month), String(day)];
-let nowDateState = arr.join('-');
-console.log('now', nowDate);
+let arr2 = [String(year), String(month), String(day2)];
+let arr3 = [String(year), String(month), String(day3)];
+let nowDateState = arr.join('-'); //모집시작일
+let nowDateState2 = arr2.join('-'); //모집마감일
+let nowDateState3 = arr3.join('-'); //활동시작일,활동마감일
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
@@ -31,9 +36,9 @@ const CardCreateForm = () => {
   const [location, setLocation, locationChange] = useInput('');
   const [limitPeople, setLimitPeople, limitPeopleChange] = useInput('');
   const [joinStartDate, setJoinStartDate] = useState(nowDateState);
-  const [joinEndDate, setJoinEndDate] = useState(nowDateState);
-  const [meetingStartDate, setMeetingStartDate] = useState(nowDateState);
-  const [meetingEndDate, setMeetingEndDate] = useState(nowDateState);
+  const [joinEndDate, setJoinEndDate] = useState(nowDateState2);
+  const [meetingStartDate, setMeetingStartDate] = useState(nowDateState3);
+  const [meetingEndDate, setMeetingEndDate] = useState(nowDateState3);
   const [content, setContent, contentChange] = useInput('');
   const [image, setImage] = useState('');
 
@@ -110,7 +115,15 @@ const CardCreateForm = () => {
 
   //태그를 다루는 파트입니다.
 
-  const tagList = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+  const tagList = [
+    '#챌린지',
+    '#플로깅',
+    '#비건',
+    '#재활용',
+    '#이모저모(친목)',
+    '#반려용품',
+    '#기타',
+  ];
   const tagStateList = [false, false, false, false, false, false, false];
 
   const onClickTagHandler = (e, index) => {
