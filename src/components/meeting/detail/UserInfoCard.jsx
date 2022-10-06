@@ -19,10 +19,12 @@ export default UserInfoCard;
 const StyledCard = styled.div`
   cursor: pointer;
   margin: 15px;
-  border-radius: 20px;
-  border: 0.5px solid;
-  border-color: #d3c8c8;
-  background-color: #f5f5f5;
+  border-radius: 10px;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #eaecee;
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   position: relative;
   flex-direction: column;
   width: 200px;
@@ -31,16 +33,17 @@ const StyledCard = styled.div`
   transition: 250ms transform;
   user-select: none;
   &:hover {
-    transform: scale(1.01);
+    transform: scale(1.04);
+    transition: 500ms;
   }
   & > div:first-of-type {
     border-radius: 30px;
     width: 100%;
     height: 60%;
     position: relative;
-    background-color: gray;
+    background-color: white;
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: white;
     padding: 5%;
     display: flex;
     justify-content: center;
@@ -51,12 +54,12 @@ const StyledCard = styled.div`
       position: relative;
       object-fit: cover;
       border: 4px solid;
-      border-color: #dadada;
+      border-color: white;
     }
   }
   & > div:last-of-type {
     width: 100%;
-    background-color: #f5f5f5;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

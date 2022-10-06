@@ -1,11 +1,11 @@
 import React from 'react';
 import Logo from 'assets/Logo.png';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, NavLink } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
-import KakaoLogin from 'components/Login/KakaoLogin';
 import HomeButton from './HomeButton';
+import KakaoLogin from 'components/login/KakaoLogin';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -14,13 +14,32 @@ function Navbar() {
   const loginState = sessionStorage.getItem('Access_token');
   const image = sessionStorage.getItem('profileImage');
 
-  const list = [
-    ['zerowaste', ''],
-    ['community', 'community'],
-    ['zeromoim', 'meeting'],
-    ['zeroshop', 'zeroshop'],
+  const links = [
+    {
+      path: '/',
+      label: '홈',
+      exact: 'true',
+      end: 'true',
+    },
+    {
+      path: '/community',
+      label: '커뮤니티',
+      exact: 'false',
+      end: 'false',
+    },
+    {
+      path: '/meeting',
+      label: '제로모임',
+      exact: 'false',
+      end: 'false',
+    },
+    {
+      path: '/zeroshop',
+      label: '제로샵',
+      exact: 'false',
+      end: 'false',
+    },
   ];
-
   return (
     <nav className="">
       <div className="max-w-6xl px-4 mx-auto">
@@ -55,7 +74,7 @@ function Navbar() {
                     </div>
                     <KakaoLogin />
                     <button
-                      className="inset-x-0 bottom-0 p-2 mt-10 text-white rounded-md text-slate-300"
+                      className="inset-x-0 bottom-0 p-2 mt-10 rounded-md text-slate-300"
                       onClick={() => setModalState(false)}
                     >
                       닫기
@@ -66,17 +85,22 @@ function Navbar() {
             )}
           </div>
         </div>
+
         <div className="flex items-center justify-between h-16">
-          {list.map((list, index) => (
-            <div
-              className={'text-defaultText hover:cursor-pointer hover:text-defaultColor'}
-              key={index}
+          {links.map(({ path, label, exact, end }) => (
+            <NavLink
+              to={path}
+              className={({ isActive }) =>
+                isActive ? 'py-1 border-b-2 border-black font-black' : ''
+              }
+              exact={exact}
+              end={end}
               onClick={() => {
-                navigate(`/${list[1]}`);
+                navigate();
               }}
             >
-              {list[0]}
-            </div>
+              {label}
+            </NavLink>
           ))}
         </div>
       </div>

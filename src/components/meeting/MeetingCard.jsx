@@ -105,7 +105,8 @@ const StyledCard = styled.div`
   overflow: hidden;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.04);
+    transition: 800ms;
   }
   & > div:first-of-type {
     width: 100%;
