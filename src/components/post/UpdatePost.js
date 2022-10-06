@@ -1,25 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Preview from './Preview';
 import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
 import { useDispatch } from 'react-redux';
-import { addPost, getPostList } from 'redux/modules/postSlice';
+import { addPost, getDetailPost, getPostList, updatePost } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
-
-const AddPost = () => {
+import { useEffect } from 'react';
+const UpdatePost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const params = useParams();
+  const [data, setData] = useState();
   const [chooseTag, setChooseTag] = useState([]);
   const [image, setImage] = useState('');
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  const onChangeImage = (e) => {
-    setImage(e.target.files[0]);
-  };
-  console.log(image);
 
   const [tagList, setTagList] = useState([
     { id: 1, name: '#플로깅', state: false },
@@ -36,6 +33,18 @@ const AddPost = () => {
     { id: 12, name: '#기타', state: false },
   ]);
 
+  useEffect(() => {
+    dispatch(getDetailPost(params.id)).then((res) => {
+      console.log(res.payload.data);
+      setData(res.payload.data);
+    });
+  }, [params.id, dispatch]);
+
+  const onChangeImage = (e) => {
+    setImage(e.target.files[0]);
+    console.log(image);
+  };
+
   return (
     <Layout>
       <Container>
@@ -43,7 +52,7 @@ const AddPost = () => {
         <ContainerStyled>
           <div className="main">
             <AddImgFormStyle>
-              <TitleStyle>게시글 작성</TitleStyle>
+              <TitleStyle>게시글 수정</TitleStyle>
               <LabelStyle htmlFor="img">사진등록</LabelStyle>
 
               <ImageDivStyle>
@@ -51,20 +60,7 @@ const AddPost = () => {
                   {image ? (
                     <Preview img={image} />
                   ) : (
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <img className="h-full w-full" src={data?.boardImage} />
                   )}
 
                   <div className="flex text-sm text-gray-600">
@@ -97,6 +93,7 @@ const AddPost = () => {
                   placeholder="제목을 입력해 주세요"
                   name="title"
                   type="text"
+                  defaultValue={data?.title}
                 />
                 <LabelStyle htmlFor="content">내용</LabelStyle>
                 <InputStyled
@@ -105,6 +102,7 @@ const AddPost = () => {
                   height="4rem"
                   name="content"
                   type="text"
+                  defaultValue={data?.content}
                 />
 
                 <TagListStyle>
@@ -114,7 +112,6 @@ const AddPost = () => {
                   </LabelStyle>
                   <div>
                     {tagList?.map((tag) => {
-                      console.log(tagList);
                       return (
                         <TagStyle
                           backColor={tag.state ? '#3cc2df' : '#f3f4f5'}
@@ -180,14 +177,14 @@ const AddPost = () => {
                       formData.append('data', data);
                       formData.append('boardImage', image);
                       console.log(image);
-                      dispatch(addPost(formData)).then((res) => {
+                      dispatch(updatePost(params.id, formData)).then((res) => {
                         console.log(res);
                         dispatch(getPostList()).catch((err) => {
                           console.log(err);
                         });
                       });
                       console.log(formData);
-                      navigate('/community');
+                      // navigate('/community');
                     }
                   }}
                   className="button"
@@ -332,4 +329,4 @@ const ButtonStyle = styled.div`
   }
 `;
 
-export default AddPost;
+export default UpdatePost;
