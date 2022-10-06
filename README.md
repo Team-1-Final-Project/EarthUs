@@ -29,7 +29,7 @@
 
 ## 트러블 슈팅 ✅
 
-<details> <summary>➡️ 새로고침시 데이터가 안불러와지는 문제가 있었습니다. </summary> <div markdown="1">
+<details> <summary>➡️ (김민석) 새로고침시 데이터가 안불러와지는 문제가 있었습니다. </summary> <div markdown="1">
   <br/>
 
 **`문제원인`**
