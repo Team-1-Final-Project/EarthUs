@@ -9,9 +9,14 @@
 
 ## 개발환경 및 기술스택 ✅
 
+🛠 Dev Tools
+
 <p herf="https://skillicons.dev">
   <img src="https://skillicons.dev/icons?i=vscode,github&perline=20"/>
 </p>
+
+🛠 Tools
+
 <p herf="https://skillicons.dev">
   <img src="https://skillicons.dev/icons?i=react,redux,styledcomponents,tailwindcss,js,html,css,figma&perline=20"/>
 </p>
