@@ -7,11 +7,18 @@ function MenuBar() {
   const navigate = useNavigate();
   const params = useParams();
   const pathName = useLocation().pathname.split('/')[1];
+
+  const loginState = sessionStorage.getItem('Access_token');
+  const image = sessionStorage.getItem('profileImage');
+  const nickname = sessionStorage.getItem('nickname');
+  const email = sessionStorage.getItem('email');
+
   //pathName으로 메뉴바 체크하기
 
-  const user = useSelector((state) => {
-    return state.login;
-  });
+  // const user = useSelector((state) => {
+  //   return state.login;
+  // });
+
   const menuList = [
     { menu: '마이 페이지', link: '/mypage' },
     { menu: '개인 정보 설정', link: '/mypage/setting' },
@@ -22,7 +29,7 @@ function MenuBar() {
     <div className="flex flex-col w-56 bg-white">
       <div className="flex h-40">
         <img
-          src={user.image}
+          src={image}
           className="w-12 h-12 bg-gray-300 rounded-full hover:cursor-pointer"
           alt=""
           onClick={() => {
@@ -30,8 +37,8 @@ function MenuBar() {
           }}
         ></img>
         <div className="ml-2 text-left">
-          <div className="text-xl font-bold">{user.nickname}</div>
-          <div className="text-sm ">{user.email}</div>
+          <div className="text-xl font-bold">{nickname}</div>
+          <div className="text-sm ">{email}</div>
         </div>
       </div>
       <div className="text-left">
