@@ -129,6 +129,13 @@ export const apis = {
         'Content-Type': `multipart/form-data`,
       },
     }),
+  deleteMeetingReview: (reviewID) => api.delete(`/review/${reviewID}`),
+  updateMeetingReview: (reviewID, data) =>
+    api.put(`/review/${reviewID}`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),

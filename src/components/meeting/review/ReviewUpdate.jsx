@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
-import Preview from '../create/Preview';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import { apis } from 'api/api';
 import { useNavigate } from 'react-router-dom';
+import Preview from '../create/Preview';
 
-const ReviewForm = () => {
-  const [image, setImage] = useState('');
-  const [content, setContent] = useState('');
+const ReviewUpdate = () => {
+  const params = useParams();
   const navigate = useNavigate();
+  const [image, setImage] = useState('');
+  const [newImage, setNewImage] = useState('');
+  const [content, setContent] = useState('');
 
-  const onSubmitHandler = async (e) => {
+  useEffect(() => {
+    apis
+      .getMeetingReview(Number(params.id))
+      .then((res) => {
+        setContent(res.data.data.content);
+        setImage(res.data.data.reviewImage);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const onUpdateHandler = async (e) => {
     e.preventDefault();
     if (content === '') {
       toast.error('내용이 비어있습니다.');
@@ -22,17 +35,19 @@ const ReviewForm = () => {
       content: content,
     };
 
-    formData.append('image', image);
     formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
+    if (newImage !== '') {
+      formData.append('image', newImage);
+    }
+
     try {
-      await apis.addMeetingReview(26, formData);
+      await apis.updateMeetingReview(Number(params.id), formData);
       navigate('/review');
     } catch (err) {
       console.log(err);
     }
   };
-
   return (
     <>
       <ToastContainer />
@@ -46,7 +61,11 @@ const ReviewForm = () => {
                 <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                   <div className="space-y-1 text-center flex flex-col items-center justify-center">
                     {image ? (
-                      <Preview img={image} />
+                      newImage ? (
+                        <Preview img={newImage} />
+                      ) : (
+                        <img src={image} alt="reviewImage" />
+                      )
                     ) : (
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"
@@ -74,7 +93,7 @@ const ReviewForm = () => {
                           name="image"
                           type="file"
                           className="sr-only"
-                          onChange={(e) => setImage(e.target.files[0])}
+                          onChange={(e) => setNewImage(e.target.files[0])}
                         />
                       </label>
                     </div>
@@ -105,13 +124,13 @@ const ReviewForm = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    // onClick={() => onClickGoOut()}
+                    onClick={() => navigate(`/review/detail/${Number(params.id)}`)}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기
                   </button>
                   <button
-                    onClick={(e) => onSubmitHandler(e)}
+                    onClick={(e) => onUpdateHandler(e)}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     작성완료
@@ -126,4 +145,4 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+export default ReviewUpdate;

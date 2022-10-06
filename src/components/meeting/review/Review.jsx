@@ -5,11 +5,11 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cursor-pointer" onClick={() => navigate(`/review/${id}`)}>
+    <div className="cursor-pointer" onClick={() => navigate(`/review/detail/${id}`)}>
       <div className="w-72">
-        <img src={reviewImage} alt="reviewImage" className="w-72 h-56 object-cover mb-4 rounded" />
-        <p className="h-20">{content}</p>
-        <div className="flex">
+        <img src={reviewImage} alt="reviewImage" className="w-72 h-56 object-cover mb-2 rounded" />
+        <p className="h-20 p-2 line-clamp-3">{content}</p>
+        <div className="flex mt-2">
           <img
             src={author.profileImage}
             alt="writerProfile"
