@@ -9,6 +9,18 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+api.interceptors.request.use(
+  (config) => {
+    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
+    console.log('인터셉터요청성공');
+    return config;
+  },
+  (error) => {
+    console.log('인터셉터요청에러', error);
+    return Promise.reject(error);
+  }
+);
+
 export const jsonAPI = axios.create({
   baseURL: `http://localhost:3001/`,
 });
@@ -151,18 +163,6 @@ export const apis = {
     return response.data;
   },
 };
-
-api.interceptors.request.use(
-  (config) => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
-    console.log('인터셉터요청성공');
-    return config;
-  },
-  (error) => {
-    console.log('인터셉터요청에러', error);
-    return Promise.reject(error);
-  }
-);
 
 // api.interceptors.response.use(
 //   response => {
