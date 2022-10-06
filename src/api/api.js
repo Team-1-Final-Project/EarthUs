@@ -140,6 +140,24 @@ export const apis = {
   getMeetingLike: (meetingID) => api.get(`meeting/heart/${meetingID}`),
   updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
+  //meeting review
+  getMeetingReviewListAll: () => api.get('/review'),
+  getMeetingReview: (reviewID) => api.get(`/review/${reviewID}`),
+  addMeetingReview: (meetingID, data) =>
+    api.post(`/review/${meetingID}`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+  deleteMeetingReview: (reviewID) => api.delete(`/review/${reviewID}`),
+  updateMeetingReview: (reviewID, data) =>
+    api.put(`/review/${reviewID}`, data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+  getMeetingReviewList: (meetingID) => api.get(`/review/meeting/${meetingID}`),
+
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
   searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
