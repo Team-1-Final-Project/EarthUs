@@ -5,6 +5,7 @@ import Navbar from 'components/navbar/Navbar';
 import Footer from 'components/footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import MeetingInfo from './MeetingInfo';
 
 const ReviewDetail = () => {
   const params = useParams();
@@ -14,14 +15,14 @@ const ReviewDetail = () => {
 
   useEffect(() => {
     apis
-      .getMeetingReview(Number(params.id))
+      .getMeetingReview(params.id)
       .then((res) => setReview(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
   const onDeleteHandler = () => {
     apis
-      .deleteMeetingReview(Number(params.id))
+      .deleteMeetingReview(params.id)
       .then((res) => navigate('/review'))
       .catch((err) => console.log(err));
   };
@@ -29,7 +30,7 @@ const ReviewDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="mt-20 mx-auto max-w-6xl">
+      <div className="mt-20 mx-auto max-w-6xl min-h-screen">
         <div className="flex items-center mb-10 justify-between">
           <div className="flex items-center">
             <img
@@ -59,12 +60,15 @@ const ReviewDetail = () => {
             </div>
           )}
         </div>
-        <img
-          src={review && review.reviewImage}
-          alt="reviewImage"
-          className="max-w-4xl max-h-96 mb-10"
-        />
-        <div className="pb-36">{review && review.content}</div>
+        {review && <MeetingInfo meetingID={review.meetingId} />}
+        {review.reviewImage && (
+          <img
+            src={review && review.reviewImage}
+            alt="reviewImage"
+            className="max-w-4xl max-h-96 mb-10"
+          />
+        )}
+        <pre>{review && review.content}</pre>
       </div>
       <Footer />
     </>

@@ -10,18 +10,23 @@ import { apis } from 'api/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import Review from 'components/meeting/review/Review';
 import swal from 'sweetalert';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
   const loginState = sessionStorage.getItem('Access_token');
 
+  const [reviews, setReviews] = useState('');
+
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
+
   useEffect(() => {
     let finder = applyerData.find((item) => item.email === email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
     finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
   });
+
   const onClickApplyHandler = () => {
     loginState
       ? applyState
@@ -87,6 +92,15 @@ const MeetingDetailPage = () => {
       })
       .catch((err) => console.log('err', err));
   }, [applyState]);
+
+  //모임 후기
+  useEffect(() => {
+    apis
+      .getMeetingReviewList(params)
+      .then((res) => setReviews(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Layout>
       <Container>
@@ -161,6 +175,15 @@ const MeetingDetailPage = () => {
                 );
               })}
           </div>
+          {reviews &&
+            reviews.map((review) => (
+              <>
+                <h1 className="text-3xl ml-20 mt-10">모임 후기</h1>
+                <div className="grid grid-cols-4 justify-items-center mt-10">
+                  <Review key={review.id} {...review} />
+                </div>
+              </>
+            ))}
         </div>
       </Container>
     </Layout>

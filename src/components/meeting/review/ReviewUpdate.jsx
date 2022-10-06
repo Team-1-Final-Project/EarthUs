@@ -66,6 +66,8 @@ const ReviewUpdate = () => {
                       ) : (
                         <img src={image} alt="reviewImage" />
                       )
+                    ) : newImage ? (
+                      <Preview img={newImage} />
                     ) : (
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"

@@ -129,7 +129,7 @@ export const apis = {
   updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
   //meeting review
-  getMeetingReviewList: () => api.get('/review'),
+  getMeetingReviewListAll: () => api.get('/review'),
   getMeetingReview: (reviewID) => api.get(`/review/${reviewID}`),
   addMeetingReview: (meetingID, data) =>
     api.post(`/review/${meetingID}`, data, {
@@ -144,6 +144,7 @@ export const apis = {
         'Content-Type': `multipart/form-data`,
       },
     }),
+  getMeetingReviewList: (meetingID) => api.get(`/review/meeting/${meetingID}`),
 
   //tag
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),

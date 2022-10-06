@@ -5,7 +5,7 @@ import { apis } from 'api/api';
 import { useNavigate } from 'react-router-dom';
 
 const ReviewForm = () => {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
