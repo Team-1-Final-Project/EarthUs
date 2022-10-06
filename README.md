@@ -66,6 +66,20 @@
   </div>
   </details>
 
+<details> <summary>➡️ 🥸오정진: React slick 각 자식요소에 Margin 및 Padding css 설정이 안 되는 이슈를 발견하였습니다. </summary> <div markdown="1">
+  <br/>
+
+**`문제원인`**
+  * 라이브러리 특성상 기본적으로 설정되어 있는 css 파일들이 있기에, 기존의 설정되어 있는 css가 우선적으로 선언되어 내가 선언하는 css가 적용이 되지 않는 문제를 발견하였습니다.
+
+  
+**`해결방안`**
+  * react slick build시 사용되는 slick.css와 slick-theme.css를 따로 빼와서 margin과 padding default 값을 삭제 해, 원하는 대로 css 수정을 가능하게 변경하였습니다.
+  
+  </div>
+  </details>
+ 
+ 
 ## 🖥 Role: 담당 기능 
 
 | 이름       | 포지션       | 담당 기능 구현          |
