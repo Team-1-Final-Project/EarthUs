@@ -13,9 +13,6 @@ function Navbar() {
   const [modalState, setModalState] = useState(false);
   const loginState = sessionStorage.getItem('Access_token');
   const image = sessionStorage.getItem('profileImage');
-  const pathName = useLocation().pathname.split('/')[1];
-
-  console.log(pathName);
 
   const links = [
     {

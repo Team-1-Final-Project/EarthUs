@@ -7,8 +7,6 @@ import { GrLocation } from 'react-icons/gr';
 export default function Meeting({ meeting }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const pathName = useLocation().pathname.split('/').at(-1);
-  console.log(pathName);
 
   return (
     <div className="w-full">
