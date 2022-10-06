@@ -1,9 +1,9 @@
 # Earth, us
 
-## 서비스 소개 ✅
+## 서비스 소개 
 - 프로젝트 기간 : 2022.09.19 ~
 
-### 주요 기능 소개 ✅
+### 주요 기능 소개 
 
 ### 1. 데일리미션
 매일 제로웨이스트를 실천할 수 있는 미션을 제공하며 사용자들이 미션을 달성 했는지 스스로 체크할 수 있습니다.
@@ -19,9 +19,11 @@
 대표 뱃지를 설정할 수 있습니다.
 
 
-## 유저 플로우
+## 유저 플로우(추후 업데이트)
 
-## 개발환경 및 기술스택 ✅
+미작성
+
+## 개발환경 및 기술스택 
 
 🛠 Dev Tools
 
@@ -39,7 +41,7 @@
 
   <img src="https://img.shields.io/badge/AXIOS-F7DF1E?style=for-the-badge&logo=axios&logoColor=white"/> <img src="https://img.shields.io/badge/kakao map-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black"> 
 
-## 트러블 슈팅 ✅
+## 트러블 슈팅 
 
 <details> <summary>➡️ 😛김민석: 새로고침시 데이터가 안불러와지는 문제가 있었습니다. </summary> <div markdown="1">
   <br/>
@@ -57,7 +59,7 @@
   </div>
   </details>
 
-## 담당기능구현 ✅
+## 담당기능구현 
 
 | 이름       | 포지션       | 담당 기능 구현          |
 | ---------- | ------------ | ----------------------------------------|
@@ -67,10 +69,10 @@
 |🤩박세은 | `FE` | `커뮤니티 댓글 CRUD` `모임 좋아요 및 태그조회` `커뮤니티 태그조회` `모임후기 CRUD` | 
 
 
-## 코드 컨벤션 
+## 코드 컨벤션 (추후 업데이트)
 
-## 디렉토리 구조 
+## 디렉토리 구조 (추후 업데이트)
 
 ## 서비스 아키텍쳐
 
-## 팀원 소개 ✅
+## 팀원 소개 
