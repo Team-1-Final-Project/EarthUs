@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const CommentForm = ({ addCommentHandler }) => {
   const [content, setContent] = useState('');
   const params = useParams();
-  const loginState = sessionStorage.getItem('Access_token');
+  const loginState = sessionStorage.getItem('nickname');
 
   const onSubmitHandler = (e) => {
     e.preventDefault();

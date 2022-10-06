@@ -8,6 +8,7 @@ export const getPostList = createAsyncThunk('GET_POST_LIST', async () => {
 
 export const addPost = createAsyncThunk('ADD_POST', async (newPost) => {
   await multi.post('/board', newPost);
+  console.log(newPost);
 });
 
 export const getDetailPost = createAsyncThunk('GET_DETAIL_POST', async (id) => {
@@ -19,8 +20,8 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (boardId) => {
   await token.delete(`/board/${boardId}`);
 });
 
-export const updatePost = createAsyncThunk('UPDATE_POST', async (updatePost) => {
-  await token.put(`/board/${updatePost.post.boardId}`, updatePost);
+export const updatePost = createAsyncThunk('UPDATE_POST', async (boardId, updatePost) => {
+  await token.put(`/board/${boardId}`, updatePost);
 });
 
 const postSlice = createSlice({
