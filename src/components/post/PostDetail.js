@@ -101,7 +101,13 @@ const PostDetail = () => {
 
               {data?.writerName === name ? (
                 <ButtonStyled>
-                  <BsPencil className="button" />
+                  <BsPencil
+                    className="button"
+                    onClick={() => {
+                      console.log(data);
+                      navigate(`/updatepost/${params.id}`);
+                    }}
+                  />
                   <BsTrash
                     className="button"
                     onClick={() => {

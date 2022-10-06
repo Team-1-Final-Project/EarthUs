@@ -9,6 +9,7 @@ import MeetingRoute from './sub/MeetingRoute';
 import ZeroShop from 'pages/ZeroShop';
 import MyPageRoute from './sub/MypageRoute';
 import ScrollToTop from 'components/ScrollTop';
+import UpdatePost from 'components/post/UpdatePost';
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/community" element={<PostListPage />} />
         <Route path="/communitydetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
+        <Route path="/updatepost/:id" element={<UpdatePost />} />
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/zeroshop" element={<ZeroShop />} />
       </Routes>
