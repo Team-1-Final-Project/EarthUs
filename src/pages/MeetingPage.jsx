@@ -10,6 +10,7 @@ import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { api } from 'api/api';
+import Footer from 'components/footer/Footer';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ const MeetingPage = () => {
             <div className="flex justify-end">
               <Button
                 onClick={() => {
-                  loginState ? navigate('/meeting/create') : swal('로그인을 먼저 해주세요');
+                  loginState ? navigate('/meeting/create') : swal('로그인이 필요한 기능입니다.');
                 }}
               >
                 모임 생성
@@ -149,6 +150,7 @@ const MeetingPage = () => {
             )}
           </div>
         </div>
+        <Footer />
       </Container>
     </Layout>
   );

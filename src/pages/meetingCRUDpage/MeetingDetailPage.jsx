@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import Review from 'components/meeting/review/Review';
 import swal from 'sweetalert';
+import Footer from 'components/footer/Footer';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const MeetingDetailPage = () => {
               res.data.error && swal(res.data.error.message);
             })
             .catch((err) => console.log(err))
-      : swal('로그인 먼저하세요');
+      : swal('로그이 필요한 기능입니다');
     return console.log('applystate', applyState);
   };
 
@@ -185,6 +186,7 @@ const MeetingDetailPage = () => {
               </>
             ))}
         </div>
+        <Footer />
       </Container>
     </Layout>
   );
