@@ -5,6 +5,7 @@ import { apis } from 'api/api';
 import KakaoMap from 'components/map/Map';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useNavigate } from 'react-router-dom';
+import Footer from 'components/footer/Footer';
 
 function ZeroOnlineShop() {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ function ZeroOnlineShop() {
           </button>
         </div>
         <ShopList shop={shop} />
+        <Footer />
       </Container>
     </Layout>
   );
