@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 const PostListPage = () => {
-  const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
   const [showAll, setShowAll] = useState(true);
 
@@ -37,15 +36,8 @@ const PostListPage = () => {
   useEffect(() => {
     if (selectedTag.length === 0) {
       setShowAll(true);
-      apis.getPost('board').then((res) => {
-        setData(res.data.data);
-      });
     } else {
       setShowAll(false);
-      apis
-        .searchPostTag({ tagIds: selectedTag })
-        .then((res) => setData(res.data.data))
-        .catch((err) => alert(err));
     }
   }, [selectedTag]);
 
@@ -76,7 +68,7 @@ const PostListPage = () => {
             />
           ))}
         </TagListStyle>
-        <PostList />
+        <PostList selectedTag={selectedTag} />
       </Container>
     </Layout>
   );
