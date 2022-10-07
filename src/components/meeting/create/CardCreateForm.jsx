@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
-import TagButton from '../TagButton';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
+import styled from 'styled-components';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -58,13 +58,12 @@ const CardCreateForm = () => {
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-
+    console.log('태그', ...tag);
+    console.log('data', data);
     const JSD = orange(joinStartDate && joinStartDate);
     const JED = orange(joinEndDate && joinEndDate);
     const MSD = orange(meetingStartDate && meetingStartDate);
     const MED = orange(meetingEndDate && meetingEndDate);
-    console.log(JSD);
-
     let formData = new FormData();
 
     if (JSD < JED && JED < MSD && MSD <= MED) {
@@ -115,25 +114,15 @@ const CardCreateForm = () => {
 
   //태그를 다루는 파트입니다.
 
-  const tagList = [
-    '#챌린지',
-    '#플로깅',
-    '#비건',
-    '#재활용',
-    '#이모저모(친목)',
-    '#반려용품',
-    '#기타',
-  ];
-  const tagStateList = [false, false, false, false, false, false, false];
-
-  const onClickTagHandler = (e, index) => {
-    e.preventDefault();
-    let tagClone = tag;
-    tag.includes(index + 1) ? tagClone.splice(tag.indexOf(index + 1), 1) : tagClone.push(index + 1);
-    //보낼태크배열에 태그인덱스가 담겨있다면 제거, 담겨있지 않다면 추가를 합니다.
-    setTag(tagClone);
-    console.log('태그', tag);
-  };
+  const [tagList, setTagList] = useState([
+    { id: 1, name: '#챌린지', state: false },
+    { id: 2, name: '#플로깅', state: false },
+    { id: 3, name: '#비건', state: false },
+    { id: 4, name: '#재활용', state: false },
+    { id: 5, name: '#이모저모(친목)', state: false },
+    { id: 6, name: '#반려용품', state: false },
+    { id: 7, name: '#기타', state: false },
+  ]);
 
   return (
     <>
@@ -332,15 +321,32 @@ const CardCreateForm = () => {
                     <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                       태그
                     </label>
-                    {tagList.map((item, index) => {
+                    {tagList?.map((item) => {
                       return (
-                        <button
-                          onClick={(e) => {
-                            onClickTagHandler(e, index);
+                        <TagStyle
+                          backColor={item.state ? '#3cc2df' : '#f3f4f5'}
+                          fontColor={item.state ? '#f3f4f5' : '#3cc2df'}
+                          key={item.id}
+                          onClick={() => {
+                            if (tag.length >= 3 && !item.state) {
+                              alert('태그는 3개까지 선택 가능합니다.');
+                            } else {
+                              if (item.state) {
+                                setTag(
+                                  tag.filter((id) => {
+                                    return id !== item.id;
+                                  })
+                                );
+                              } else {
+                                setTag([...tag, item.id]);
+                              }
+                              item.state = !item.state;
+                              setTagList([...tagList]);
+                            }
                           }}
                         >
-                          <TagButton tagName={item} initialTagState={tagStateList[index]} />
-                        </button>
+                          {item.name}
+                        </TagStyle>
                       );
                     })}
                   </div>
@@ -371,3 +377,15 @@ const CardCreateForm = () => {
 };
 
 export default CardCreateForm;
+
+const TagStyle = styled.span`
+  padding: 0px 5px;
+  font-size: 12px;
+
+  border: 1px solid #f3f4f5;
+  border-radius: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: ${(props) => props.fontColor};
+  background-color: ${(props) => props.backColor};
+`;

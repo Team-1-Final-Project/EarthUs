@@ -102,6 +102,17 @@ const MeetingDetailPage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  //버튼관련 파트입니다
+  //모집기간이 지날경우 모집마감된 모임이라고 표시해줍니다.
+  let now = new Date();
+  let year = now.getFullYear();
+  let month = now.getMonth() + 1;
+  let day = now.getDay() + 2 >= 10 ? now.getDay() + 2 : '0' + String(now.getDay() + 2);
+  let nowDate = Number(day) + month * 100 + year * 10000;
+  console.log('나우데이트', nowDate);
+
+  let arr = [String(year), String(month), String(day)];
+
   return (
     <Layout>
       <Container>
