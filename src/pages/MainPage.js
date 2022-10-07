@@ -8,11 +8,8 @@ import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-<<<<<<< HEAD
-import { Container, Layout } from 'utils/styles/GlobalStyles';
-=======
 import swal from 'sweetalert';
->>>>>>> cfd051596469d0f01486d4acd5680fa971e5c21f
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -52,16 +49,16 @@ function MainPage() {
           <Navbar />
           <ToastContainer />
 
-      <Banner />
-      <Dailymission
-        mission={mission}
-        checkDailyMission={checkDailyMission}
-        clearCount={clearCount}
-      />
-      <TopPost hitBoard={hitBoard} />
-      <Meeting meeting={meeting} />
-      <Footer />
-      </Container>
+          <Banner />
+          <Dailymission
+            mission={mission}
+            checkDailyMission={checkDailyMission}
+            clearCount={clearCount}
+          />
+          <TopPost hitBoard={hitBoard} />
+          <Meeting meeting={meeting} />
+          <Footer />
+        </Container>
       </Layout>
       {/* <LoginGoogle /> */}
     </div>
