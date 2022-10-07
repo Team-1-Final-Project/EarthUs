@@ -56,6 +56,21 @@ const ProfileIcon = (props) => {
               </div>
             )}
           </Menu.Item>
+          <Menu.Item key="모임 생성하기">
+            {({ active }) => (
+              <div
+                onClick={() => {
+                  navigate('/meeting/create');
+                }}
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-2 text-sm text-gray-700'
+                )}
+              >
+                모임 생성하기
+              </div>
+            )}
+          </Menu.Item>
           <Menu.Item key="내프로필">
             {({ active }) => (
               <div

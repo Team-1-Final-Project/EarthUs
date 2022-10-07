@@ -70,7 +70,7 @@ const MeetingPage = () => {
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <Button
                 onClick={() => {
                   loginState ? navigate('/meeting/create') : swal('로그인이 필요한 기능입니다.');
@@ -78,7 +78,7 @@ const MeetingPage = () => {
               >
                 모임 생성
               </Button>
-            </div>
+            </div> */}
           </div>
 
           {loginState ? (
