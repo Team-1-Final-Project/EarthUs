@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const user = {
   name: 'Tom Cook',
@@ -40,21 +41,38 @@ const ProfileIcon = (props) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {userNavigation.map((item) => (
-            <Menu.Item key={item.name}>
-              {({ active }) => (
-                <div
-                  onClick={() => navigate(item.href)}
-                  className={classNames(
-                    active ? 'bg-gray-100' : '',
-                    'block px-4 py-2 text-sm text-gray-700'
-                  )}
-                >
-                  {item.name}
-                </div>
-              )}
-            </Menu.Item>
-          ))}
+          <Menu.Item key="내프로필">
+            {({ active }) => (
+              <div
+                onClick={() => {
+                  navigate('/mypage');
+                }}
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-2 text-sm text-gray-700'
+                )}
+              >
+                내 프로필
+              </div>
+            )}
+          </Menu.Item>
+          <Menu.Item key="내프로필">
+            {({ active }) => (
+              <div
+                onClick={() => {
+                  sessionStorage.clear();
+                  swal('로그아웃되었습니다');
+                  navigate('/');
+                }}
+                className={classNames(
+                  active ? 'bg-gray-100' : '',
+                  'block px-4 py-2 text-sm text-gray-700'
+                )}
+              >
+                로그아웃
+              </div>
+            )}
+          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>
