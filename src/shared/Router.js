@@ -10,7 +10,7 @@ import MyPageRoute from './sub/MypageRoute';
 import ScrollToTop from 'components/ScrollTop';
 import ReviewRoute from './sub/ReviewRoute';
 import UpdatePost from 'components/post/UpdatePost';
-import ZeroshopRouter from './sub/ZeroshopRouter';
+import ZeroshopRoute from './sub/ZeroshopRoute';
 
 const Router = () => {
   return (
@@ -26,7 +26,7 @@ const Router = () => {
         <Route path="/updatepost/:id" element={<UpdatePost />} />
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/review/*" element={<ReviewRoute />} />
-        <Route path="/zeroshop/*" element={<ZeroshopRouter />} />
+        <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
       </Routes>
     </BrowserRouter>
   );

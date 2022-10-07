@@ -6,6 +6,7 @@ import KakaoMap from 'components/map/Map';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useNavigate } from 'react-router-dom';
 import Footer from 'components/footer/Footer';
+import OfflineShopCard from 'components/shop/OfflineShopCard';
 
 function ZeroOfflineShop() {
   const navigate = useNavigate();
@@ -26,9 +27,10 @@ function ZeroOfflineShop() {
           </button>
           <button className="m-3 hover:cursor-pointer text-defaultColor">Offline</button>
         </div>
-        <ShopList shop={shop} />
-        <div className="flex justify-center mt-20">
-          <KakaoMap />
+        <div className="flex flex-col items-center">
+          <OfflineShopCard />
+          <OfflineShopCard />
+          <OfflineShopCard />
         </div>
         <Footer />
       </Container>

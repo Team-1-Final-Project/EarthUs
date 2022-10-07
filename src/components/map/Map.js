@@ -42,13 +42,11 @@ const KakaoMap = () => {
         {markers.map((item) => (
           <Map
             center={{ lat: 37.54478312746583, lng: 127.05670308843499 }}
-            style={{ width: '400px', height: '400px' }}
+            style={{ width: '400px', height: '200px' }}
             level={3}
             onCreate={setMap}
           >
-            <MapMarker position={item.position}>
-              <div className="bg-white">대림창고</div>
-            </MapMarker>
+            <MapMarker position={item.position}></MapMarker>
           </Map>
         ))}
       </Container>
