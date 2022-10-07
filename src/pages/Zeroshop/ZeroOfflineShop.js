@@ -4,31 +4,63 @@ import React, { useState, useEffect } from 'react';
 import { apis } from 'api/api';
 import KakaoMap from 'components/map/Map';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Footer from 'components/footer/Footer';
+import OfflineShopCard from 'components/shop/OfflineShopCard';
 
 function ZeroOfflineShop() {
   const navigate = useNavigate();
-  const [shop, setShop] = useState();
+  const [shopList, setShopList] = useState();
+
   useEffect(() => {
     apis.getShopList().then((res) => {
       console.log(res);
     });
   }, []);
 
+  //param을 따오는 부분입니다.
+  const params = useParams();
+  const param = params.id;
+
+  useEffect(() => {
+    apis
+      .getOfflineShopList(param)
+      .then((res) => {
+        console.log('res', res);
+        setShopList(res.data.data);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
+  }, []);
+  const page = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <Layout>
       <Container>
         <Navbar />
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer " onClick={() => navigate('/zeroshop')}>
             Online
           </button>
           <button className="m-3 hover:cursor-pointer text-defaultColor">Offline</button>
         </div>
-        <ShopList shop={shop} />
-        <div className="flex justify-center mt-20">
-          <KakaoMap />
+        <div className="flex justify-center mt-5">
+          <h1 className="text-xl">"제로웨이스트 상품들을 판매하는 오프라인 상점을 소개합니다."</h1>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+          {shopList &&
+            shopList.map((shop) => {
+              return <OfflineShopCard shop={shop} />;
+            })}
+        </div>
+        <div className="w-full flex justify-center mt-10">
+          {page.map((item) => {
+            return (
+              <a href={'/zeroshop/offline/' + item}>
+                <span className={item == param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
+              </a>
+            );
+          })}
         </div>
         <Footer />
       </Container>

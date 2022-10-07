@@ -1,4 +1,22 @@
 import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+   *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'NotoSerifKR-Medium';
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-family: 'NotoSerifKR-Medium';
+    line-height: 1.6;
+  }
+  
+`;
 
 export const Layout = styled.div`
   max-width: 100vw;

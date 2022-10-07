@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+/*font.css*/
+/*font*/
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/src/assets/fonts/NanumMyeongjo-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'NotoSerifKR-ExtraLight';
+  src: url('/src/assets/fonts/NotoSerifKR-ExtraLight.ttf');
+}
+@font-face {
+  font-family: 'NotoSerifKR-Light';
+  src: url('/src/assets/fonts/NotoSerifKR-Light.ttf');
+}
+@font-face {
+  font-family: 'NotoSerifKR-Medium';
+  src: url('/src/assets/fonts/NotoSerifKR-Medium.ttf');
+}
