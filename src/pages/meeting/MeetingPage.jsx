@@ -67,6 +67,12 @@ const MeetingPage = () => {
       {/* <Map></Map> */}
       <Container>
         <Navbar />
+        <div className="w-full flex justify-center">
+          <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review')}>
+            모임후기
+          </button>
+        </div>
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
