@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { apis } from 'api/api';
 import { useNavigate } from 'react-router-dom';
 import Preview from '../create/Preview';
+import swal from 'sweetalert';
 
 const ReviewUpdate = () => {
   const params = useParams();
@@ -48,6 +49,26 @@ const ReviewUpdate = () => {
       console.log(err);
     }
   };
+
+  const onClickGoOut = (e) => {
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        '네,나갈래요': true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '네,나갈래요':
+          navigate(`/review/detail/${Number(params.id)}`);
+          break;
+
+        default:
+          break;
+      }
+    });
+  };
+
   return (
     <>
       <ToastContainer />
@@ -126,7 +147,7 @@ const ReviewUpdate = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    onClick={() => navigate(`/review/detail/${Number(params.id)}`)}
+                    onClick={(e) => onClickGoOut(e)}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기

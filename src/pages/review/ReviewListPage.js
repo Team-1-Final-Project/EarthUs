@@ -11,9 +11,9 @@ const MeetingReviewPage = () => {
         <Container>
           <Navbar />
           <ReviewList />
+          <Footer />
         </Container>
       </Layout>
-      <Footer />
     </>
   );
 };

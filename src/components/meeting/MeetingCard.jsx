@@ -12,6 +12,7 @@ const MeetingCard = (props) => {
   const admin = data.admin;
 
   const [liked, setLiked] = useState(false);
+  const [meetingStatus, setMeetingStatus] = useState('');
   const loginState = sessionStorage.getItem('Access_token');
 
   useEffect(() => {
@@ -25,6 +26,21 @@ const MeetingCard = (props) => {
     }
   }, [loginState, data.id]);
 
+  useEffect(() => {
+    if (data.meetingStatus && data.meetingStatus.code === 'CAN_JOIN') {
+      setMeetingStatus('모집중');
+    }
+    if (
+      data.meetingStatus &&
+      (data.meetingStatus.code === 'COMPLETE_JOIN' || data.meetingStatus.code === 'PASS_DEADLINE')
+    ) {
+      setMeetingStatus('모집완료');
+    }
+    if (data.meetingStatus && data.meetingStatus.code === 'COMPLETED_MEETING') {
+      setMeetingStatus('모임완료');
+    }
+  }, [data.meetingStatus.code]);
+
   return (
     <>
       <StyledCard>
@@ -32,7 +48,20 @@ const MeetingCard = (props) => {
           <img src={data.meetingImage}></img>
         </div>
         <StyledDetail>
-          <StyledH1>{data.title}</StyledH1>
+          <div className="flex ">
+            <span
+              className={`mr-1 min-w-fit font-semibold ${
+                meetingStatus === '모집중'
+                  ? `text-defaultColor`
+                  : meetingStatus === '모집완료'
+                  ? `text-greenColor`
+                  : `text-defaultLine`
+              }`}
+            >
+              {meetingStatus}
+            </span>
+            <StyledH1 className="line-clamp-1">{data.title}</StyledH1>
+          </div>
           <div className="flex items-center">
             <AiOutlineCalendar />
             <StyledH3>
@@ -136,6 +165,7 @@ const StyledH1 = styled.h1`
   margin-bottom: 7%;
   color: #333;
 `;
+
 const StyledH3 = styled.h3`
   font-size: 0.8em;
   margin: 1%;

@@ -16,7 +16,7 @@ const MeetingInfo = ({ meetingID }) => {
 
   return (
     <div
-      className="w-96 h-36 mb-10 default_outline cursor-pointer"
+      className="w-full sm:w-96 h-36 mb-10 default_outline cursor-pointer"
       onClick={() => navigate(`/meeting/detail/${meetingID}`)}
     >
       <div className="flex">
@@ -26,7 +26,7 @@ const MeetingInfo = ({ meetingID }) => {
           className="w-36 h-36 rounded-xl object-cover mr-5"
         />
         <div className="flex flex-col py-10">
-          <h1 className="text-xl font-semibold">{meeting.title}</h1>
+          <h1 className="text-xl font-semibold line-clamp-1">{meeting.title}</h1>
           <p className="line-clamp-3">{meeting.content}</p>
         </div>
       </div>

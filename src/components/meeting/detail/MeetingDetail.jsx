@@ -16,6 +16,7 @@ const MeetingDetail = (props) => {
 
   const [liked, setLiked] = useState(false);
   const [likeNums, setLikeNums] = useState(0);
+  const [meetingStatus, setMeetingStatus] = useState('');
   const loginState = sessionStorage.getItem('Access_token');
 
   const likeHandler = async () => {
@@ -43,6 +44,22 @@ const MeetingDetail = (props) => {
         .catch((err) => console.log(err));
     }
   }, [loginState, detail.heartNums]);
+
+  useEffect(() => {
+    if (detail.meetingStatus && detail.meetingStatus.code === 'CAN_JOIN') {
+      setMeetingStatus('모집중');
+    }
+    if (
+      detail.meetingStatus &&
+      (detail.meetingStatus.code === 'COMPLETE_JOIN' ||
+        detail.meetingStatus.code === 'PASS_DEADLINE')
+    ) {
+      setMeetingStatus('모집완료');
+    }
+    if (detail.meetingStatus && detail.meetingStatus.code === 'COMPLETED_MEETING') {
+      setMeetingStatus('모임완료');
+    }
+  }, [detail.meetingStatus]);
 
   return (
     <>
@@ -76,6 +93,17 @@ const MeetingDetail = (props) => {
             ></img>
           </div>
           <div className="w-1/2 px-5">
+            <span
+              className={`min-w-fit text-lg font-semibold ${
+                meetingStatus === '모집중'
+                  ? `text-defaultColor`
+                  : meetingStatus === '모집완료'
+                  ? `text-greenColor`
+                  : `text-defaultLine`
+              }`}
+            >
+              {meetingStatus}
+            </span>
             <h1 className="pb-2 mb-5 text-3xl mt-3">{detail.title}</h1>
             <div className="flex items-center">
               <AiOutlineCalendar />
@@ -169,6 +197,7 @@ const TagListLayout = styled.div`
   height: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const Tagbutton = styled.button`
