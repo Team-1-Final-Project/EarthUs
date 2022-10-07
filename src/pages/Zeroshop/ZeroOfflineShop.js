@@ -44,7 +44,10 @@ function ZeroOfflineShop() {
           </button>
           <button className="m-3 hover:cursor-pointer text-defaultColor">Offline</button>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex justify-center mt-5">
+          <h1 className="text-xl">"제로웨이스트 상품들을 판매하는 오프라인 상점을 소개합니다."</h1>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
           {shopList &&
             shopList.map((shop) => {
               return <OfflineShopCard shop={shop} />;
@@ -54,7 +57,7 @@ function ZeroOfflineShop() {
           {page.map((item) => {
             return (
               <a href={'/zeroshop/offline/' + item}>
-                <span className="m-2">{item}</span>
+                <span className={item == param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
               </a>
             );
           })}
