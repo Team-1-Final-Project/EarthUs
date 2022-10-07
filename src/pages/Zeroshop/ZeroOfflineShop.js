@@ -21,7 +21,7 @@ function ZeroOfflineShop() {
     <Layout>
       <Container>
         <Navbar />
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer " onClick={() => navigate('/zeroshop')}>
             Online
           </button>
