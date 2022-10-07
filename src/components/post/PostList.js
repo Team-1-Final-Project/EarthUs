@@ -23,7 +23,7 @@ const PostList = ({ selectedTag }) => {
   }, [dispatch, selectedTag]);
 
   const postList = useSelector((state) => state?.post.post.data);
-  console.log(postList);
+
   return (
     <>
       <ToastContainer />
