@@ -1,9 +1,10 @@
 import KakaoMap from 'components/map/Map';
+import { GrLocation } from 'react-icons/gr';
 
-const OfflineShopCard = () => {
+const OfflineShopCard = ({ shop }) => {
   return (
     <div className="w-4/5 p-7 mt-20 outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
-      <div className="text-2xl">대림창고</div>
+      <div className="text-2xl mb-3">{shop.title}</div>
       <div className="flex justify-between">
         <div className="max-h-52 overflow-hidden">
           <div className="text-mid p-3 ">
@@ -16,10 +17,12 @@ const OfflineShopCard = () => {
         </div>
 
         <div className="outline outline-2 shadow-lg outline-[#eaecee] m-3">
-          <KakaoMap />
+          <KakaoMap address={shop.address} title={shop.title} />
         </div>
       </div>
-      <div className="text-lg w-full">위치 : 서울특별시 성동구 성수이로 79</div>
+      <div className="px-2 text-lg w-full flex items-center">
+        <GrLocation /> 위치 : {shop.address}
+      </div>
     </div>
   );
 };

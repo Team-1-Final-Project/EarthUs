@@ -5,15 +5,16 @@ import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 // import { useState } from 'react';
 
-const KakaoMap = () => {
+const KakaoMap = ({ address, title }) => {
   const { kakao } = window;
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
+  console.log('이름', address);
 
   useEffect(() => {
     const places = new kakao.maps.services.Places();
-    places.keywordSearch('대림창고', (data, status, _pagination) => {
+    places.keywordSearch(address, (data, status, _pagination) => {
       //데이터는 검색결과임
       if (status === kakao.maps.services.Status.OK) {
         //검색결과가 있으면
