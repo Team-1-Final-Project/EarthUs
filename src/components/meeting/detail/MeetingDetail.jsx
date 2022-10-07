@@ -48,7 +48,7 @@ const MeetingDetail = (props) => {
     <>
       <ToastContainer />
 
-      <div className="w-full h-full px-5 py-2 flex flex-col outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
+      <div className="w-4/5 h-full px-5 py-5 flex flex-col outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
         <TagListLayout>
           <div>
             {detail.tagMeetings &&
@@ -69,13 +69,13 @@ const MeetingDetail = (props) => {
           </div>
         </TagListLayout>
         <StyledDiv className="flex w-full 3xl:flex-col py-2">
-          <div className="w-1/2">
+          <div className="w-1/2 p-5">
             <img
-              className="w-full max-h-96 rounded-xl object-cover"
+              className="w-full rounded-2xl max-h-64 object-cover outline outline-2 outline-[#eaecee] shadow-lg"
               src={detail.meetingImage}
             ></img>
           </div>
-          <div className="w-1/2 px-5">
+          <div className="w-1/2 p-5">
             <h1 className="pb-2 mb-5 text-3xl mt-3">{detail.title}</h1>
             <div className="flex items-center">
               <AiOutlineCalendar />
