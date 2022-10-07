@@ -43,7 +43,7 @@ const KakaoMap = ({ address, title }) => {
         {markers.map((item) => (
           <Map
             center={{ lat: 37.54478312746583, lng: 127.05670308843499 }}
-            style={{ width: '400px', height: '200px' }}
+            style={{ width: '380px', height: '200px' }}
             level={3}
             onCreate={setMap}
           >
