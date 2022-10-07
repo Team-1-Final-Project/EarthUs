@@ -71,7 +71,7 @@ const MeetingDetail = (props) => {
         <StyledDiv className="flex w-full 3xl:flex-col py-2">
           <div className="w-1/2 p-5">
             <img
-              className="w-full rounded-2xl max-h-64 object-cover outline outline-2 outline-[#eaecee] shadow-lg"
+              className="w-full rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
               src={detail.meetingImage}
             ></img>
           </div>

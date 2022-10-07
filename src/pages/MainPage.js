@@ -8,6 +8,7 @@ import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -34,14 +35,18 @@ function MainPage() {
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <Navbar />
-      <ToastContainer />
+      <Layout>
+        <Container>
+          <Navbar />
+          <ToastContainer />
 
-      <Banner />
-      <Dailymission mission={mission} checkDailyMission={checkDailyMission} />
-      <TopPost hitBoard={hitBoard} />
-      <Meeting meeting={meeting} />
-      <Footer />
+          <Banner />
+          <Dailymission mission={mission} checkDailyMission={checkDailyMission} />
+          <TopPost hitBoard={hitBoard} />
+          <Meeting meeting={meeting} />
+          <Footer />
+        </Container>
+      </Layout>
       {/* <LoginGoogle /> */}
     </div>
   );

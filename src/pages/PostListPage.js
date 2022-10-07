@@ -5,6 +5,7 @@ import { apis } from 'api/api';
 import Navbar from 'components/navbar/Navbar';
 import styled from 'styled-components';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import Footer from 'components/footer/Footer';
 
 const PostListPage = () => {
   const [data, setData] = useState();
@@ -77,6 +78,7 @@ const PostListPage = () => {
           ))}
         </TagListStyle>
         <PostList />
+        <Footer />
       </Container>
     </Layout>
   );
