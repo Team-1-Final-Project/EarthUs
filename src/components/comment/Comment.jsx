@@ -6,7 +6,7 @@ import {
   BsTrash,
   BsFillExclamationTriangleFill,
 } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import swal from 'sweetalert';
 
 const Comment = ({
   content,
@@ -20,7 +20,6 @@ const Comment = ({
   const [editDeleteToggle, setEditDeleteToggle] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
   const [editContent, setEditContent] = useState(content);
-  const [deleteModal, setDeleteModal] = useState(false);
 
   const login = sessionStorage.getItem('nickname');
 
@@ -35,45 +34,38 @@ const Comment = ({
     setEditToggle(false);
   };
 
-  const deleteHandler = () => {
-    deleteCommentHandler(commentId);
-    setDeleteModal(false);
+  const deleteHandler = (e) => {
+    e.preventDefault();
+    swal('정말로 삭제하시겠습니까?', {
+      buttons: {
+        cancel: '취소',
+        삭제: true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '삭제':
+          deleteCommentHandler(commentId);
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   return (
     <>
-      {deleteModal ? (
-        <Modal onConfirm={() => setDeleteModal(false)} width="w-3/12" height="h-3/6">
-          <BsFillExclamationTriangleFill className="xl:w-1/6 xl:h-1/6  w-8 h-8 text-blueColor mb-8" />
-          <h1 className="xl:text-4xl text-lg text-blackColor mb-3 font-semibold">삭제</h1>
-          <span className="xl:text-2xl text-base text-blackColor">댓글을 삭제하시겠습니까?</span>
-          <div className="mt-8 xl:mt-16 flex">
-            <button
-              className="bg-gray-300 text-white w-14 h-6 text-sm xl:w-20 xl:h-8 xl:text-base rounded mt-3 mr-3"
-              onClick={() => setDeleteModal(false)}
-            >
-              취소
-            </button>
-            <button
-              className="bg-blueColor text-white w-14 h-6 text-sm xl:w-20 xl:h-8 xl:text-base rounded mt-3"
-              onClick={deleteHandler}
-            >
-              삭제
-            </button>
-          </div>
-        </Modal>
-      ) : null}
-      <div className="border-b border-grayLineColor p-5 mb-4">
+      <div className="border-b border-lightGrayColor p-5 mb-4">
         <div className="flex justify-between mb-3">
           <div className="flex justify-center items-center pb-3">
-            <img src={profileImage} alt="profile" className="w-12 h-12 rounded-full" />
+            <img src={profileImage} alt="profile" className="w-12 h-12 rounded-full object-cover" />
             <div className="flex flex-col ml-3">
               <span className="font-bold text-lg text-blueColor">{commentWriter}</span>
               <span className="text-sm text-grayColor">{createdAt.split('T')[0]}</span>
             </div>
           </div>
           <div className="relative">
-            {login.nickname === commentWriter && !editToggle ? (
+            {login === commentWriter && !editToggle ? (
               <BsThreeDotsVertical
                 onClick={() => setEditDeleteToggle(!editDeleteToggle)}
                 className="cursor-pointer text-grayColor mb-2"
@@ -97,8 +89,8 @@ const Comment = ({
                   <BsTrash />
                   <span
                     className="ml-1 cursor-pointer text-blackColor"
-                    onClick={() => {
-                      setDeleteModal(true);
+                    onClick={(e) => {
+                      deleteHandler(e);
                       setEditDeleteToggle(false);
                     }}
                   >
@@ -113,7 +105,7 @@ const Comment = ({
           {editToggle ? (
             <form
               onSubmit={editHandler}
-              className="border border-grayLineColor rounded-md mt-5 p-5 flex flex-col h-44"
+              className="outline outline-lightGrayColor outline-1 rounded-md mt-5 p-5 flex flex-col h-44"
             >
               <textarea
                 onChange={(e) => setEditContent(e.target.value)}

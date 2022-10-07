@@ -1,17 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
-import ReviewForm from 'components/meeting/review/ReviewForm';
-import ReviewDetail from 'components/meeting/review/ReviewDetail';
-import ReviewUpdate from 'components/meeting/review/ReviewUpdate';
-import MeetingReviewPage from 'pages/MeetingReviewPage';
+import MeetingReviewPage from 'pages/review/ReviewListPage';
+import ReviewDetailPage from 'pages/review/ReviewDetailPage';
+import ReviewCreatePage from 'pages/review/ReviewCreatePage';
+import ReviewUpdatePage from 'pages/review/ReviewUpdatePage';
 
 const ReviewRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<MeetingReviewPage />} />
-      <Route path="/create" element={<ReviewForm />} />
-      <Route path="/detail/:id" element={<ReviewDetail />} />
-      <Route path="/update/:id" element={<ReviewUpdate />} />
+      <Route path="/create/:id" element={<ReviewCreatePage />} />
+      <Route path="/detail/:id" element={<ReviewDetailPage />} />
+      <Route path="/update/:id" element={<ReviewUpdatePage />} />
     </Routes>
   );
 };

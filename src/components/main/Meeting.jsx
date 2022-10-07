@@ -22,9 +22,9 @@ function Meeting({ meeting }) {
               >
                 <div className="flex justify-between ">
                   <div className="w-2/3 mt-2 ml-4">
-                    <div className="">
+                    <div className="truncate ">
                       <span className="font-bold text-defaultColor">모집 중 </span>
-                      <span className="font-bold">{meeting.title}</span>
+                      <span className="font-bold ">{meeting.title}</span>
                     </div>
                     <div className="mt-2 text-sm">
                       <div>일시 : {meeting.meetingStartDate}</div>

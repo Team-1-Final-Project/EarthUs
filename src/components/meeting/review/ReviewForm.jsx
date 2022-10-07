@@ -3,11 +3,14 @@ import Preview from '../create/Preview';
 import { ToastContainer, toast } from 'react-toastify';
 import { apis } from 'api/api';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+import { useParams } from 'react-router-dom';
 
 const ReviewForm = () => {
   const [image, setImage] = useState(null);
   const [content, setContent] = useState('');
   const navigate = useNavigate();
+  const params = useParams().id;
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -26,11 +29,30 @@ const ReviewForm = () => {
     formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 
     try {
-      await apis.addMeetingReview(26, formData);
+      await apis.addMeetingReview(params, formData);
       navigate('/review');
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const onClickGoOut = (e) => {
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        '네,나갈래요': true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '네,나갈래요':
+          navigate(-1);
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   return (
@@ -105,7 +127,7 @@ const ReviewForm = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
                   <button
                     type="submit"
-                    // onClick={() => onClickGoOut()}
+                    onClick={(e) => onClickGoOut(e)}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기
