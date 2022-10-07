@@ -7,7 +7,7 @@ const ZeroshopRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<ZeroOnlineShop />} />
-      <Route path="/offline" element={<ZeroOfflineShop />} />
+      <Route path="/offline/:id" element={<ZeroOfflineShop />} />
     </Routes>
   );
 };

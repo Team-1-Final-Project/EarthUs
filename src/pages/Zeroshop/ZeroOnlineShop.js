@@ -24,7 +24,7 @@ function ZeroOnlineShop() {
           <button className="m-3 hover:cursor-pointer text-defaultColor">Online</button>
           <button
             className="m-3 hover:cursor-pointer"
-            onClick={() => navigate('/zeroshop/offline')}
+            onClick={() => navigate('/zeroshop/offline/1')}
           >
             Offline
           </button>

@@ -162,11 +162,14 @@ export const apis = {
   searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
   searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
 
-  //shop
+  //Onlineshop
   getShopList: async () => {
     const response = await api.get('recommends');
     return response.data;
   },
+  //OfflineShop
+  getOfflineShopList: (page) => api.get(`/zeroshop/offline?page=${page}`),
+
   //mypage
   getMyMeeting: async () => {
     const response = await api.get('mypage/meeting');
