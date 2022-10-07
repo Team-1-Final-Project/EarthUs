@@ -46,6 +46,9 @@ const MeetingDetail = (props) => {
   }, [loginState, detail.heartNums]);
 
   useEffect(() => {
+    if (detail.meetingStatus && detail.meetingStatus.code === 'READY_FOR_JOIN') {
+      setMeetingStatus('모집준비중');
+    }
     if (detail.meetingStatus && detail.meetingStatus.code === 'CAN_JOIN') {
       setMeetingStatus('모집중');
     }
@@ -95,7 +98,9 @@ const MeetingDetail = (props) => {
           <div className="w-1/2 px-5">
             <span
               className={`min-w-fit text-lg font-semibold ${
-                meetingStatus === '모집중'
+                meetingStatus === '모집준비중'
+                  ? `text-gray-400`
+                  : meetingStatus === '모집중'
                   ? `text-defaultColor`
                   : meetingStatus === '모집완료'
                   ? `text-greenColor`

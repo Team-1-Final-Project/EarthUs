@@ -27,6 +27,9 @@ const MeetingCard = (props) => {
   }, [loginState, data.id]);
 
   useEffect(() => {
+    if (data.meetingStatus && data.meetingStatus.code === 'READY_FOR_JOIN') {
+      setMeetingStatus('모집준비중');
+    }
     if (data.meetingStatus && data.meetingStatus.code === 'CAN_JOIN') {
       setMeetingStatus('모집중');
     }
@@ -48,10 +51,12 @@ const MeetingCard = (props) => {
           <img src={data.meetingImage}></img>
         </div>
         <StyledDetail>
-          <div className="flex ">
+          <div>
             <span
-              className={`mr-1 min-w-fit font-semibold ${
-                meetingStatus === '모집중'
+              className={`mr-1 min-w-fit font-semibold text-sm ${
+                meetingStatus === '모집준비중'
+                  ? `text-gray-400`
+                  : meetingStatus === '모집중'
                   ? `text-defaultColor`
                   : meetingStatus === '모집완료'
                   ? `text-greenColor`
@@ -162,7 +167,7 @@ const StyledDetail = styled.div`
 
 const StyledH1 = styled.h1`
   font-size: 1em;
-  margin-bottom: 7%;
+  margin-bottom: 5%;
   color: #333;
 `;
 
