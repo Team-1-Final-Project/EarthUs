@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Dailymission({ mission, checkDailyMission }) {
+function Dailymission({ mission, checkDailyMission, clearCount }) {
   return (
     <>
       <div className="flex justify-center">
@@ -13,8 +13,7 @@ function Dailymission({ mission, checkDailyMission }) {
               </span>
               <div className="m-2 text-base md:text-lg">
                 현재까지 성공한 인원은&nbsp;
-                <span className="text-lg font-bold text-defaultColor">{mission.clearCount}</span>명
-                입니다.
+                <span className="text-lg font-bold text-defaultColor">{clearCount}</span>명 입니다.
               </div>
               <button className="w-20 p-1 default_button" onClick={checkDailyMission}>
                 미션 성공
