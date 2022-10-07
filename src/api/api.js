@@ -11,7 +11,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
+    config.headers['Authorization'] = sessionStorage.getItem('Access_token');
     console.log('인터셉터요청성공');
     return config;
   },

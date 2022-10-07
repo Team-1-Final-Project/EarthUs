@@ -13,6 +13,7 @@ module.exports = {
         yellowColor: '#EDF3EC',
         modalBackground: 'rgba(11, 19, 30, 0.37)',
         greenColor: '#ADC1A9',
+        lightGrayColor: '#EAECEE',
       },
       translate: {
         modal: '-50%',

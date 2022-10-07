@@ -3,6 +3,7 @@ import Comment from 'components/comment/Comment';
 import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 
 const CommentList = ({ commentListData }) => {
   const [commentList, setCommentList] = useState([]);
@@ -43,7 +44,7 @@ const CommentList = ({ commentListData }) => {
   };
 
   return (
-    <div className="w-screen m-auto mt-5 px-5 py-6 border border-grayLineColor rounded-lg comment:w-4/5">
+    <ContainerStyle>
       {commentList?.map((comment) => (
         <Comment
           {...comment}
@@ -53,8 +54,24 @@ const CommentList = ({ commentListData }) => {
         />
       ))}
       <CommentForm addCommentHandler={addCommentHandler} />
-    </div>
+    </ContainerStyle>
   );
 };
 
 export default CommentList;
+
+const ContainerStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  outline-color: #eaecee;
+
+  @media (max-width: 750px) {
+    min-width: 400px;
+  }
+`;
