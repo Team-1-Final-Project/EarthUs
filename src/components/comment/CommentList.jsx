@@ -9,7 +9,8 @@ const CommentList = ({ commentListData }) => {
   const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
-    commentListData && setCommentList(commentListData);
+    commentListData && setCommentList(Array.from(commentListData).reverse());
+    console.log(commentListData);
   }, [commentListData]);
 
   const addCommentHandler = async (content) => {
