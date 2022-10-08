@@ -1,14 +1,14 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
+import styled from 'styled-components';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const ProfileIcon = (props) => {
-  const img = props.image;
+const PostingButton = () => {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +16,9 @@ const ProfileIcon = (props) => {
       <div>
         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="sr-only">Open user menu</span>
-          <img className="h-10 w-10 rounded-full" src={img} alt="" />
+          <AddPostButtonStyled>
+            <AiOutlinePlus />
+          </AddPostButtonStyled>
         </Menu.Button>
       </div>
       <Transition
@@ -28,19 +30,19 @@ const ProfileIcon = (props) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <Menu.Item key="내프로필">
+        <Menu.Items className="fixed right-20 bottom-40 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Item key="커뮤니티 글 작성">
             {({ active }) => (
               <div
                 onClick={() => {
-                  navigate('/mypage');
+                  navigate('/addpost');
                 }}
                 className={classNames(
                   active ? 'bg-gray-100' : '',
                   'block px-4 py-2 text-sm text-gray-700'
                 )}
               >
-                내 프로필
+                커뮤니티 글 작성
               </div>
             )}
           </Menu.Item>
@@ -59,27 +61,28 @@ const ProfileIcon = (props) => {
               </div>
             )}
           </Menu.Item>
-          <Menu.Item key="내프로필">
-            {({ active }) => (
-              <div
-                onClick={() => {
-                  sessionStorage.clear();
-                  swal('로그아웃되었습니다');
-                  navigate('/');
-                }}
-                className={classNames(
-                  active ? 'bg-gray-100' : '',
-                  'block px-4 py-2 text-sm text-gray-700'
-                )}
-              >
-                로그아웃
-              </div>
-            )}
-          </Menu.Item>
         </Menu.Items>
       </Transition>
     </Menu>
   );
 };
 
-export default ProfileIcon;
+export default PostingButton;
+
+export const AddPostButtonStyled = styled.div`
+  font-size: 40px;
+  color: white;
+  padding: 10px;
+  background-color: #3cc2df;
+  border-radius: 48px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  position: fixed;
+  right: 60px;
+  bottom: 80px;
+  &:hover {
+    transform: scale(1.1) rotate();
+    transition: 800ms;
+  }
+`;

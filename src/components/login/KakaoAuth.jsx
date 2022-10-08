@@ -1,5 +1,5 @@
 //redirct uri페이지
-import { localApi, api, apis } from 'api/api';
+import { localApi, api, apis, multi } from 'api/api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ const KakaoAuth = () => {
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
         //서버 배포시 localApi => api 로 변경 필요.
         localApi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
+        multi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         apis
           .kakaoLogin()
           .then((res) => {

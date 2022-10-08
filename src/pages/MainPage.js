@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import PostingButton from 'components/button/PostingButton';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -55,6 +56,7 @@ function MainPage() {
             checkDailyMission={checkDailyMission}
             clearCount={clearCount}
           />
+          <PostingButton />
           <TopPost hitBoard={hitBoard} />
           <Meeting meeting={meeting} />
           <Footer />

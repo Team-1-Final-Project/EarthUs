@@ -50,7 +50,7 @@ const PostList = ({ selectedTag }) => {
   );
 };
 
-const AddPostButtonStyled = styled.div`
+export const AddPostButtonStyled = styled.div`
   font-size: 40px;
   color: white;
   padding: 10px;
@@ -61,5 +61,9 @@ const AddPostButtonStyled = styled.div`
   position: fixed;
   right: 20px;
   bottom: 80px;
+  &:hover {
+    transform: scale(1.1);
+    transition: 800ms;
+  }
 `;
 export default PostList;
