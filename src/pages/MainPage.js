@@ -18,6 +18,8 @@ function MainPage() {
   const [hitBoard, setHitBoard] = useState();
   const [meeting, setMeeting] = useState();
 
+  const loginState = sessionStorage.getItem('Access_token');
+
   useEffect(() => {
     apis.getMainMission().then((res) => {
       setMission(res.data);
@@ -56,10 +58,11 @@ function MainPage() {
             checkDailyMission={checkDailyMission}
             clearCount={clearCount}
           />
-          <PostingButton />
+
           <TopPost hitBoard={hitBoard} />
           <Meeting meeting={meeting} />
           <Footer />
+          {loginState && <PostingButton />}
         </Container>
       </Layout>
       {/* <LoginGoogle /> */}
