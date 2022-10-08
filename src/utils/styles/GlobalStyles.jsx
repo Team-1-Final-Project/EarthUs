@@ -7,13 +7,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'NotoSerifKR-Medium';
-    line-height: 1.6;
+    font-family: 'Pretendard-Regular';
+
   }
 
   h1 {
-    font-family: 'NotoSerifKR-Medium';
-    line-height: 1.6;
+    font-family: 'Pretendard-Regular';
+
   }
   
 `;

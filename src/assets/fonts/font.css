@@ -4,19 +4,23 @@
 /*font*/
 
 @font-face {
-  font-family: 'NanumMyeongjo';
-  src: url('/src/assets/fonts/NanumMyeongjo-Regular.ttf');
+  font-family: 'Pretendard-ExtraLight';
+  src: url('/src/assets/fonts/alternative/Pretendard-ExtraLight.ttf');
 }
 
 @font-face {
-  font-family: 'NotoSerifKR-ExtraLight';
-  src: url('/src/assets/fonts/NotoSerifKR-ExtraLight.ttf');
+  font-family: 'Pretendard-Light';
+  src: url('/src/assets/fonts/alternative/Pretendard-Light.ttf');
 }
 @font-face {
-  font-family: 'NotoSerifKR-Light';
-  src: url('/src/assets/fonts/NotoSerifKR-Light.ttf');
+  font-family: 'Pretendard-Regular';
+  src: url('/src/assets/fonts/alternative/Pretendard-Regular.ttf');
 }
 @font-face {
-  font-family: 'NotoSerifKR-Medium';
-  src: url('/src/assets/fonts/NotoSerifKR-Medium.ttf');
+  font-family: 'Pretendard-Thin';
+  src: url('/src/assets/fonts/alternative/Pretendard-Thin.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  src: url('/src/assets/fonts/alternative/Pretendard-ExtraBold.ttf');
 }

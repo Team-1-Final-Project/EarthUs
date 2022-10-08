@@ -46,10 +46,10 @@ function Meeting({ meeting }) {
                     </div>
                   </div>
                   {meeting.meetingImage && (
-                    <div className="w-1/3 ml-2">
+                    <div className="w-1/3 ml-2 ">
                       <img
                         src={meeting.meetingImage}
-                        className="w-full h-40 rounded-lg"
+                        className="w-full h-40 rounded-lg object-cover"
                         alt="이미지"
                       />
                     </div>
