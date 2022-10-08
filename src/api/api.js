@@ -9,6 +9,15 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+export const localApi = axios.create({
+  baseURL: `http://54.180.116.99/`,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
+  // withCredentials: true,
+});
+
 api.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = sessionStorage.getItem('Access_token');
@@ -106,6 +115,7 @@ export const apis = {
   },
 
   //kakao login
+  kakaoLogin: () => api.get(`login/member`),
   kakaoLogin: () => api.get(`login/member`),
 
   //comment
