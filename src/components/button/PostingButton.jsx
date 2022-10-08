@@ -3,6 +3,8 @@ import { Menu, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useEffect } from 'react';
+import { api } from 'api/api';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -10,6 +12,10 @@ function classNames(...classes) {
 
 const PostingButton = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
+  });
 
   return (
     <Menu as="div" className="relative ml-3">
@@ -82,7 +88,7 @@ export const AddPostButtonStyled = styled.div`
   right: 60px;
   bottom: 80px;
   &:hover {
-    transform: scale(1.1) rotate();
+    transform: scale(1.05);
     transition: 800ms;
   }
 `;

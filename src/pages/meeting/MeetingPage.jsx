@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { api } from 'api/api';
 import Footer from 'components/footer/Footer';
+import PostingButton from 'components/button/PostingButton';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -156,6 +157,7 @@ const MeetingPage = () => {
               })}
           </div>
         </div>
+        {loginState && <PostingButton />}
         <Footer />
       </Container>
     </Layout>
