@@ -26,7 +26,7 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (boardId) => {
 });
 
 export const updatePost = createAsyncThunk('UPDATE_POST', async (boardId, updatePost) => {
-  await token.put(`/board/${boardId}`, updatePost);
+  await multi.put(`/board/${boardId}`, updatePost);
 });
 
 const postSlice = createSlice({

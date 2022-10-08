@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { addPost, getDetailPost, getPostList, updatePost } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useEffect } from 'react';
+import swal from 'sweetalert';
+
 const UpdatePost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,10 +37,29 @@ const UpdatePost = () => {
 
   useEffect(() => {
     dispatch(getDetailPost(params.id)).then((res) => {
-      console.log(res.payload.data);
-      setData(res.payload.data);
+      setData(res?.payload.data);
+      setChooseTag(
+        res?.payload.data.tagBoards.map((tag) => {
+          return tag.id;
+        })
+      );
     });
-  }, [params.id, dispatch]);
+    setTagList(
+      tagList?.map((tag) => {
+        for (let id of chooseTag) {
+          if (tag.id === id) {
+            tag.state = !tag.state;
+          }
+        }
+        return tag;
+      })
+    );
+  }, []);
+  console.log(data);
+  console.log(chooseTag);
+  console.log(tagList);
+
+  // setImage(data?.profileImage);
 
   const onChangeImage = (e) => {
     setImage(e.target.files[0]);
@@ -119,7 +140,7 @@ const UpdatePost = () => {
                           key={tag.id}
                           onClick={() => {
                             if (chooseTag.length >= 5 && !tag.state) {
-                              alert('태그는 5개까지 선택 가능합니다.');
+                              swal('태그는 5개까지 선택 가능합니다.');
                             } else {
                               if (tag.state) {
                                 setChooseTag(
@@ -155,13 +176,13 @@ const UpdatePost = () => {
                 <ButtonStyle
                   onClick={() => {
                     if (titleRef.current.value === '') {
-                      alert('제목을 입력 해주세요');
+                      swal('제목을 입력 해주세요');
                     } else if (contentRef.current.value === '') {
-                      alert('내용을 입력 해주세요');
+                      swal('내용을 입력 해주세요');
                     } else if (chooseTag.length === 0) {
-                      alert('태그를 선택 해주세요');
+                      swal('태그를 선택 해주세요');
                     } else if (image === '') {
-                      alert('이미지를 추가 해주세요');
+                      swal('이미지를 추가 해주세요');
                     } else {
                       const formData = new FormData();
                       const data = new Blob(

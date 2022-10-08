@@ -7,6 +7,7 @@ import HomeButton from 'components/navbar/HomeButton';
 import { useDispatch } from 'react-redux';
 import { addPost, getPostList } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import swal from 'sweetalert';
 
 const AddPost = () => {
   const navigate = useNavigate();
@@ -122,7 +123,7 @@ const AddPost = () => {
                           key={tag.id}
                           onClick={() => {
                             if (chooseTag.length >= 5 && !tag.state) {
-                              alert('태그는 5개까지 선택 가능합니다.');
+                              swal('태그는 5개까지 선택 가능합니다.');
                             } else {
                               if (tag.state) {
                                 setChooseTag(
@@ -158,13 +159,13 @@ const AddPost = () => {
                 <ButtonStyle
                   onClick={() => {
                     if (titleRef.current.value === '') {
-                      alert('제목을 입력 해주세요');
+                      swal('제목을 입력 해주세요');
                     } else if (contentRef.current.value === '') {
-                      alert('내용을 입력 해주세요');
+                      swal('내용을 입력 해주세요');
                     } else if (chooseTag.length === 0) {
-                      alert('태그를 선택 해주세요');
+                      swal('태그를 선택 해주세요');
                     } else if (image === '') {
-                      alert('이미지를 추가 해주세요');
+                      swal('이미지를 추가 해주세요');
                     } else {
                       const formData = new FormData();
                       const data = new Blob(
