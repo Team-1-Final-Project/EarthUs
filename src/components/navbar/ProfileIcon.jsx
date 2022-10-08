@@ -44,7 +44,7 @@ const ProfileIcon = (props) => {
               </div>
             )}
           </Menu.Item>
-          <Menu.Item key="모임 생성하기">
+          {/* <Menu.Item key="모임 생성하기">
             {({ active }) => (
               <div
                 onClick={() => {
@@ -58,7 +58,7 @@ const ProfileIcon = (props) => {
                 모임 생성하기
               </div>
             )}
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="내프로필">
             {({ active }) => (
               <div
