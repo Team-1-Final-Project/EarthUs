@@ -8,7 +8,6 @@ import { Container, Layout } from 'utils/styles/GlobalStyles';
 import Footer from 'components/footer/Footer';
 
 const PostListPage = () => {
-  const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
   const [showAll, setShowAll] = useState(true);
 
@@ -38,15 +37,8 @@ const PostListPage = () => {
   useEffect(() => {
     if (selectedTag.length === 0) {
       setShowAll(true);
-      apis.getPost('board').then((res) => {
-        setData(res.data.data);
-      });
     } else {
       setShowAll(false);
-      apis
-        .searchPostTag({ tagIds: selectedTag })
-        .then((res) => setData(res.data.data))
-        .catch((err) => alert(err));
     }
   }, [selectedTag]);
 
@@ -54,7 +46,7 @@ const PostListPage = () => {
     <Layout>
       <Container>
         <Navbar />
-        <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden post:overflow-x-hidden post:justify-center">
+        <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden">
           <button
             type="button"
             className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
@@ -77,8 +69,7 @@ const PostListPage = () => {
             />
           ))}
         </TagListStyle>
-        <PostList />
-        <Footer />
+        <PostList selectedTag={selectedTag} />
       </Container>
     </Layout>
   );

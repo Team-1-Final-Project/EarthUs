@@ -67,6 +67,12 @@ const MeetingPage = () => {
       {/* <Map></Map> */}
       <Container>
         <Navbar />
+        <div className="w-full flex justify-center">
+          <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review')}>
+            모임후기
+          </button>
+        </div>
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
@@ -131,6 +137,11 @@ const MeetingPage = () => {
               ))}
             </TagListStyle>
           </div>
+          {data && data.length === 0 && (
+            <div className="h-96 m-auto text-2xl text-center text-gray-300">
+              해당 태그의 모임이 없습니다.
+            </div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data &&
               data.map((item) => {
@@ -143,11 +154,6 @@ const MeetingPage = () => {
                   </Link>
                 );
               })}
-            {data && data.length === 0 && (
-              <div className="w-full h-96 m-20 text-4xl text-center text-gray-300">
-                해당 태그의 모임이 없습니다.
-              </div>
-            )}
           </div>
         </div>
         <Footer />

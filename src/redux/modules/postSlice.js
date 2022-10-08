@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { multi, token } from 'api/api';
+import { multi, token, apis } from 'api/api';
 
 export const getPostList = createAsyncThunk('GET_POST_LIST', async () => {
   const { data } = await token.get('/board');
+  return data;
+});
+
+export const searchPostTag = createAsyncThunk('GET_POST_BY_TAG', async (selectedTag) => {
+  const { data } = await apis.searchPostTag({ tagIds: selectedTag });
   return data;
 });
 
@@ -30,6 +35,9 @@ const postSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getPostList.fulfilled, (state, action) => {
+      state.post = action.payload;
+    });
+    builder.addCase(searchPostTag.fulfilled, (state, action) => {
       state.post = action.payload;
     });
     builder.addCase(getDetailPost.fulfilled, (state, action) => {
