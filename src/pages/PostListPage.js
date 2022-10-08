@@ -70,6 +70,7 @@ const PostListPage = () => {
           ))}
         </TagListStyle>
         <PostList selectedTag={selectedTag} />
+        <Footer />
       </Container>
     </Layout>
   );
