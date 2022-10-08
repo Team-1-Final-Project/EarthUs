@@ -4,7 +4,7 @@ import Banner1 from 'assets/images/Banner1.png';
 function Banner() {
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center ">
         <div className="flex items-center justify-center w-full gap-10 bg-green-800 h-96">
           <div className="text-2xl font-bold text-white md:text-5xl">
             <div className="m-2">제로웨이스트의 모든 것</div>

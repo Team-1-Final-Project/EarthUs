@@ -11,10 +11,10 @@ export default function Meeting({ meeting }) {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between">
-        <div className="m-4 mt-10 text-xl font-bold">참여중인 모임</div>
+        <div className="m-4 mt-10 text-xl font-bold ">참여중인 모임</div>
         <div className="text-sm text-defaultLine">더 보기</div>
       </div>
-      <div className="mt-10">
+      <div className="">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {meeting &&
             meeting.map((meeting) => (
