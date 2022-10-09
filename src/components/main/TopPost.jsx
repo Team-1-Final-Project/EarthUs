@@ -8,7 +8,7 @@ function TopPost({ hitBoard }) {
   const navigate = useNavigate();
   return (
     <>
-      <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
+      <div className="w-full pt-2 m-auto mt-8 text-defaultText">
         <div className="text-xl font-bold text-left">주간 인기글</div>
         <Carousel>
           {hitBoard &&

@@ -8,7 +8,6 @@ import Footer from 'components/footer/Footer';
 import { LikePost, WritePost } from 'components/mypage/Post';
 
 function MyPage({ meeting, writePost, likePost }) {
-  console.log(writePost, likePost);
   function sliceData(data) {
     return data?.slice(0, 2);
   }
