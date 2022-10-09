@@ -12,6 +12,7 @@ import swal from 'sweetalert';
 import { api } from 'api/api';
 import Footer from 'components/footer/Footer';
 import PostingButton from 'components/button/PostingButton';
+import { useMemo } from 'react';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -97,7 +98,10 @@ const MeetingPage = () => {
                       style={{ display: 'flex', width: '20vw' }}
                       to={`/meeting/detail/${item.id}`}
                     >
-                      <MeetingCard data={item} />
+                      <MeetingCard
+                        onClick={() => navigate(`/meeting/detail/${item.id}`)}
+                        data={item}
+                      />
                     </Link>
                   );
                 })}
