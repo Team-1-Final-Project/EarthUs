@@ -114,6 +114,13 @@ export const apis = {
     return response.data;
   },
 
+  updatePost: (boardId, updatePost) =>
+    api.put(`board/${boardId}`, updatePost, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+
   //kakao login
   // kakaoLogin: () => api.get(`login/member`),
   // 서버 배포시 위 api로 변경 필요
