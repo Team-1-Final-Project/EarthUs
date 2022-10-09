@@ -27,6 +27,7 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (boardId) => {
 
 export const updatePost = createAsyncThunk('UPDATE_POST', async (boardId, updatePost) => {
   await multi.put(`/board/${boardId}`, updatePost);
+  console.log(updatePost);
 });
 
 const postSlice = createSlice({
