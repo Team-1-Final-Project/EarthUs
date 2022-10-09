@@ -68,7 +68,23 @@ const MeetingDetail = (props) => {
     <>
       <ToastContainer />
 
-      <div className="w-4/5 h-full px-5 py-5 flex flex-col outline outline-2 shadow-lg rounded-xl outline-[#eaecee]">
+      <div className="w-4/5 h-full px-5 py-5 flex flex-col">
+        <h1 className="mb-5 text-3xl mt-3">
+          <span
+            className={`min-w-fit text-3xl font-semibold ${
+              meetingStatus === '모집준비중'
+                ? `text-gray-400`
+                : meetingStatus === '모집중'
+                ? `text-defaultColor`
+                : meetingStatus === '모집완료'
+                ? `text-greenColor`
+                : `text-defaultLine`
+            }`}
+          >
+            {meetingStatus}
+          </span>
+          {' | ' + detail.title}
+        </h1>
         <TagListLayout>
           <div>
             {detail.tagMeetings &&
@@ -88,28 +104,14 @@ const MeetingDetail = (props) => {
             <span className="text-xl text-defaultText">{likeNums}</span>
           </div>
         </TagListLayout>
-        <StyledDiv className="flex w-full 3xl:flex-col py-2">
-          <div className="w-1/2 p-5">
+        <StyledDiv className="flex w-full flex-col py-2">
+          <div className="w-full p-5 flex justify-center">
             <img
-              className="w-full rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
+              className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
               src={detail.meetingImage}
             ></img>
           </div>
           <div className="w-1/2 px-5">
-            <span
-              className={`min-w-fit text-lg font-semibold ${
-                meetingStatus === '모집준비중'
-                  ? `text-gray-400`
-                  : meetingStatus === '모집중'
-                  ? `text-defaultColor`
-                  : meetingStatus === '모집완료'
-                  ? `text-greenColor`
-                  : `text-defaultLine`
-              }`}
-            >
-              {meetingStatus}
-            </span>
-            <h1 className="pb-2 mb-5 text-3xl mt-3">{detail.title}</h1>
             <div className="flex items-center">
               <AiOutlineCalendar />
               <h1 className="text-xl px-2 py-2">
@@ -135,7 +137,7 @@ const MeetingDetail = (props) => {
           </div>
         </StyledDiv>
         <div className="h-full px-10 mt-2 text-gray-500 ">
-          <h1 className="text-2xl py-4">설명</h1>{' '}
+          <h1 className="text-2xl py-4">모임 설명</h1>{' '}
           <h1 className="text-lg px-3 mb-5">{detail.content}</h1>
         </div>
       </div>
