@@ -3,8 +3,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useEffect } from 'react';
-import { api } from 'api/api';
+import { useState } from 'react';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -12,17 +11,21 @@ function classNames(...classes) {
 
 const PostingButton = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
-  });
+  const [state, setState] = useState(false);
+  const loginState = sessionStorage.getItem('Access_token');
 
   return (
     <Menu as="div" className="relative ml-3">
       <div>
         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="sr-only">Open user menu</span>
-          <AddPostButtonStyled>
+
+          <AddPostButtonStyled
+            onClick={() => {
+              state ? setState(false) : setState(true);
+            }}
+            className={state ? '-rotate-90' : 'rotate-90'}
+          >
             <AiOutlinePlus />
           </AddPostButtonStyled>
         </Menu.Button>
@@ -87,6 +90,7 @@ export const AddPostButtonStyled = styled.div`
   position: fixed;
   right: 60px;
   bottom: 80px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   &:hover {
     transform: scale(1.05);
     transition: 800ms;
