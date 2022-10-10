@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
-import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { api } from 'api/api';
 import Footer from 'components/footer/Footer';
+import { ToastContainer, toast } from 'react-toastify';
 
 const MeetingPage = () => {
-  const navigate = useNavigate();
   const loginState = sessionStorage.getItem('Access_token');
   const [data, setData] = useState();
   const [selectedTag, setSelectedTag] = useState([]);
@@ -27,6 +25,10 @@ const MeetingPage = () => {
     } else {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
+  };
+
+  const toastifyHandler = () => {
+    toast.error('로그인이 필요합니다.');
   };
 
   useEffect(() => {
@@ -49,6 +51,7 @@ const MeetingPage = () => {
   }, [selectedTag]);
 
   const [myMeeting, setMyMeeting] = useState();
+
   useEffect(() => {
     api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
     apis
@@ -66,7 +69,9 @@ const MeetingPage = () => {
     <Layout>
       {/* <Map></Map> */}
       <Container>
+        <ToastContainer />
         <Navbar />
+        <ToastContainer />
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
@@ -84,16 +89,9 @@ const MeetingPage = () => {
           {loginState ? (
             myMeeting && (
               <MeetingCarousel>
-                {myMeeting.map((item) => {
-                  return (
-                    <Link
-                      style={{ display: 'flex', width: '20vw' }}
-                      to={`/meeting/detail/${item.id}`}
-                    >
-                      <MeetingCard data={item} />
-                    </Link>
-                  );
-                })}
+                {myMeeting.map((item) => (
+                  <MeetingCard key={item.id} data={item} toastifyHandler={toastifyHandler} />
+                ))}
               </MeetingCarousel>
             )
           ) : (
@@ -138,16 +136,9 @@ const MeetingPage = () => {
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data &&
-              data.map((item) => {
-                return (
-                  <Link
-                    style={{ display: 'flex', width: '280px', height: '450px' }}
-                    to={`/meeting/detail/${item.id}`}
-                  >
-                    <MeetingCard id={item.id} data={item} />
-                  </Link>
-                );
-              })}
+              data.map((item) => (
+                <MeetingCard key={item.id} data={item} toastifyHandler={toastifyHandler} />
+              ))}
           </div>
         </div>
         <Footer />
