@@ -9,6 +9,10 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+export const postAPI = {
+  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
+};
+
 export const localApi = axios.create({
   baseURL: `http://54.180.116.99/`,
   headers: {
