@@ -1,5 +1,5 @@
 //redirct uri페이지
-import { api, apis } from 'api/api';
+import { localApi, api, apis, multi } from 'api/api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,12 +8,15 @@ const KakaoAuth = () => {
   let code = new URL(window.location.href).searchParams.get('code');
 
   useEffect(() => {
-    api
+    //서버 배포시 localApi => api 로 변경 필요.
+    localApi
       .get(`login/kakao?code=${code}`)
       .then((res) => {
         const ACCESS_TOKEN = res.headers['authorization'];
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
-        api.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
+        //서버 배포시 localApi => api 로 변경 필요.
+        localApi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
+        multi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         apis
           .kakaoLogin()
           .then((res) => {

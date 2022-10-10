@@ -9,6 +9,19 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+export const postAPI = {
+  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
+};
+
+export const localApi = axios.create({
+  baseURL: `http://54.180.116.99/`,
+  headers: {
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json,',
+  },
+  // withCredentials: true,
+});
+
 api.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = sessionStorage.getItem('Access_token');
@@ -105,8 +118,17 @@ export const apis = {
     return response.data;
   },
 
+  updatePost: (boardId, updatePost) =>
+    api.put(`board/${boardId}`, updatePost, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+
   //kakao login
-  kakaoLogin: () => api.get(`login/member`),
+  // kakaoLogin: () => api.get(`login/member`),
+  // 서버 배포시 위 api로 변경 필요
+  kakaoLogin: () => localApi.get(`login/member`),
 
   //comment
   addComment: (data) => api.post('/comment', data),

@@ -10,6 +10,8 @@ import swal from 'sweetalert';
 import { api } from 'api/api';
 import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
+import PostingButton from 'components/button/PostingButton';
+import { useMemo } from 'react';
 
 const MeetingPage = () => {
   const loginState = sessionStorage.getItem('Access_token');
@@ -71,7 +73,12 @@ const MeetingPage = () => {
       <Container>
         <ToastContainer />
         <Navbar />
-        <ToastContainer />
+        <div className="w-full flex justify-center">
+          <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review')}>
+            모임후기
+          </button>
+        </div>
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
@@ -141,6 +148,7 @@ const MeetingPage = () => {
               ))}
           </div>
         </div>
+        {loginState && <PostingButton />}
         <Footer />
       </Container>
     </Layout>

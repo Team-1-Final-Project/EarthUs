@@ -9,12 +9,16 @@ import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
+import { Container, Layout } from 'utils/styles/GlobalStyles';
+import PostingButton from 'components/button/PostingButton';
 
 function MainPage() {
   const [mission, setMission] = useState();
   const [clearCount, setClearCount] = useState(0);
   const [hitBoard, setHitBoard] = useState();
   const [meeting, setMeeting] = useState();
+
+  const loginState = sessionStorage.getItem('Access_token');
 
   useEffect(() => {
     apis.getMainMission().then((res) => {
@@ -43,18 +47,24 @@ function MainPage() {
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <Navbar />
-      <ToastContainer />
+      <Layout>
+        <Container>
+          <Navbar />
+          <ToastContainer />
 
-      <Banner />
-      <Dailymission
-        mission={mission}
-        checkDailyMission={checkDailyMission}
-        clearCount={clearCount}
-      />
-      <TopPost hitBoard={hitBoard} />
-      <Meeting meeting={meeting} />
-      <Footer />
+          <Banner />
+          <Dailymission
+            mission={mission}
+            checkDailyMission={checkDailyMission}
+            clearCount={clearCount}
+          />
+
+          <TopPost hitBoard={hitBoard} />
+          <Meeting meeting={meeting} />
+          <Footer />
+          {loginState && <PostingButton />}
+        </Container>
+      </Layout>
       {/* <LoginGoogle /> */}
     </div>
   );
