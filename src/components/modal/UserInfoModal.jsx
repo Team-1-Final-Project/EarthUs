@@ -10,14 +10,14 @@ const Backdrop = ({ onConfirm }) => {
 const ModalOverlay = ({ children }) => {
   return (
     <div
-      className={`z-50 w-80 xl:w-3/12 xl:h-3/6 rounded-lg shadow-2xl bg-white top-1/2 left-1/2 fixed translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-5`}
+      className={`z-50 w-80 xl:w-2/3 xl:h-4/5 rounded-lg shadow-xl bg-white top-1/2 left-1/2 fixed translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-5`}
     >
       {children}
     </div>
   );
 };
 
-const Modal = ({ children, onConfirm }) => {
+const UserInfoModal = ({ children, onConfirm }) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -32,4 +32,4 @@ const Modal = ({ children, onConfirm }) => {
   );
 };
 
-export default Modal;
+export default UserInfoModal;

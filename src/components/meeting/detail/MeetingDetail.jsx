@@ -111,7 +111,7 @@ const MeetingDetail = (props) => {
               src={detail.meetingImage}
             ></img>
           </div>
-          <div className="w-1/2 px-5">
+          <div className="w-1/2">
             <div className="flex items-center">
               <AiOutlineCalendar />
               <h1 className="text-xl px-2 py-2">
@@ -135,11 +135,11 @@ const MeetingDetail = (props) => {
               <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
             </div>
           </div>
+          <div className="mt-2">
+            <h1 className="text-2xl py-4">모임 설명</h1>{' '}
+            <div className="text-ellipsis overflow-hidden">{detail.content}</div>
+          </div>
         </StyledDiv>
-        <div className="h-full px-10 mt-2 text-gray-500 ">
-          <h1 className="text-2xl py-4">모임 설명</h1>{' '}
-          <h1 className="text-lg px-3 mb-5">{detail.content}</h1>
-        </div>
       </div>
     </>
   );
