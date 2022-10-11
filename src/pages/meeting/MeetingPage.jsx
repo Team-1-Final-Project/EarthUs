@@ -168,7 +168,7 @@ const MeetingPage = () => {
           {page.map((item) => {
             return (
               <a href={'/meeting/' + (item - 1)}>
-                <span className={item == param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
+                <span className={item === param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
               </a>
             );
           })}

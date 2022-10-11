@@ -8,6 +8,7 @@ import MeetingUpdatePage from 'pages/meeting/MeetingUpdatePage';
 const MeetingRoute = () => {
   return (
     <Routes>
+      <Route path="/" element={<MeetingPage />} />
       <Route path="/:id" element={<MeetingPage />} />
       <Route path="/create" element={<MeetingCreatePage />} />
       <Route path="/detail/:id" element={<MeetingDetailPage />} />
