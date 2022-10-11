@@ -14,6 +14,7 @@ import Review from 'components/meeting/review/Review';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
 import { BsFillPencilFill } from 'react-icons/bs';
+import Modal from 'components/modal/UserInfoModal';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
@@ -136,6 +137,8 @@ const MeetingDetailPage = () => {
 
   let arr = [String(year), String(month), String(day)];
 
+  //유저카드 관련 파트입니다.
+  const [userModal, setUserModal] = useState(false);
   return (
     <Layout>
       <Container>
@@ -219,11 +222,17 @@ const MeetingDetailPage = () => {
             {applyerData &&
               applyerData.map((item) => {
                 return (
-                  <UserInfoCard
-                    nickname={item.nickname}
-                    email={item.email}
-                    profileImage={item.profileImage}
-                  />
+                  <button
+                    onClick={() => {
+                      userModal ? setUserModal(false) : setUserModal(true);
+                    }}
+                  >
+                    <UserInfoCard
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                    />
+                  </button>
                 );
               })}
           </div>
