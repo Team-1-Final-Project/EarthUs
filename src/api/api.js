@@ -164,7 +164,7 @@ export const apis = {
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
   cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
-  getAllMeeting: () => api.get('meeting'),
+  getAllMeeting: (page) => api.get(`meeting?page=${page}`),
   getMeetingUser: (meetingId) => api.get(`meeting/crew/${meetingId}`),
 
   //meeting like

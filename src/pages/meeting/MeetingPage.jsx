@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
 import { apis } from 'api/api';
@@ -30,14 +30,16 @@ const MeetingPage = () => {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
+  const page = [1];
+  const param = useParams();
 
   useEffect(() => {
     if (selectedTag.length === 0) {
       setShowAll(true);
       apis
-        .getAllMeeting()
+        .getAllMeeting(param === '' ? param : 0)
         .then((res) => {
-          setData(res.data.data);
+          setData(res.data.data.content);
           console.log('getall', res);
         })
         .catch((err) => console.log('err', err));
@@ -162,6 +164,15 @@ const MeetingPage = () => {
           </div>
         </div>
         {loginState && <PostingButton />}
+        <div className="w-full flex justify-center mt-10">
+          {page.map((item) => {
+            return (
+              <a href={'/meeting/' + (item - 1)}>
+                <span className={item == param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
+              </a>
+            );
+          })}
+        </div>
         <Footer />
       </Container>
     </Layout>
