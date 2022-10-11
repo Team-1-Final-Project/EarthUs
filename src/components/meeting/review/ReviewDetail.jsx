@@ -18,11 +18,27 @@ const ReviewDetail = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const onDeleteHandler = () => {
-    apis
-      .deleteMeetingReview(params.id)
-      .then((res) => navigate('/review'))
-      .catch((err) => console.log(err));
+  const onDeleteHandler = (e) => {
+    e.preventDefault();
+    swal('정말로 삭제하시겠습니까?', {
+      buttons: {
+        cancel: '취소',
+        삭제: true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '삭제':
+          apis
+            .deleteMeetingReview(params.id)
+            .then((res) => navigate('/review'))
+            .catch((err) => console.log(err));
+
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   return (
