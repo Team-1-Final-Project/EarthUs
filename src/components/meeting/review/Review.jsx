@@ -5,7 +5,7 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cursor-pointer" onClick={() => navigate(`/review/detail/${id}`)}>
+    <div className="cursor-pointer py-2" onClick={() => navigate(`/review/detail/${id}`)}>
       <div className="w-64">
         {reviewImage ? (
           <img
