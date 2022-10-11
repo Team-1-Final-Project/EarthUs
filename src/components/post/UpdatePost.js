@@ -8,6 +8,9 @@ import { useDispatch } from 'react-redux';
 import { addPost, getDetailPost, getPostList, updatePost } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useEffect } from 'react';
+import swal from 'sweetalert';
+import { apis } from 'api/api';
+
 const UpdatePost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,14 +38,49 @@ const UpdatePost = () => {
 
   useEffect(() => {
     dispatch(getDetailPost(params.id)).then((res) => {
-      console.log(res.payload.data);
-      setData(res.payload.data);
+      setData(res?.payload.data);
+
+      setChooseTag(
+        res?.payload.data.tagBoards.map((tag) => {
+          return tag.id;
+        })
+      );
+
+      setTagList(
+        tagList.map((tag) => {
+          res?.payload.data.tagBoards.map((tag2) => {
+            if (tag.id === tag2.id) {
+              tag.state = !tag.state;
+            }
+          });
+          return tag;
+        })
+      );
     });
-  }, [params.id, dispatch]);
+  }, [dispatch, params.id]);
 
   const onChangeImage = (e) => {
     setImage(e.target.files[0]);
-    console.log(image);
+  };
+
+  //나가기버튼 클릭시
+  const onClickGoOut = (e) => {
+    e.preventDefault();
+    swal('작성한 내용이 사라질 수 있습니다. 그래도 나가시겠습니까?', {
+      buttons: {
+        cancel: '아니요. 계속 작성할래요',
+        '네,나갈래요': true,
+      },
+    }).then((value) => {
+      switch (value) {
+        case '네,나갈래요':
+          navigate('/meeting');
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   return (
@@ -119,7 +157,7 @@ const UpdatePost = () => {
                           key={tag.id}
                           onClick={() => {
                             if (chooseTag.length >= 5 && !tag.state) {
-                              alert('태그는 5개까지 선택 가능합니다.');
+                              swal('태그는 5개까지 선택 가능합니다.');
                             } else {
                               if (tag.state) {
                                 setChooseTag(
@@ -144,24 +182,17 @@ const UpdatePost = () => {
               </AddPostFormStyle>
 
               <ButtonWrapStyle>
-                <ButtonStyle
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                  className="button"
-                >
+                <ButtonStyle onClick={onClickGoOut} className="button">
                   뒤로가기
                 </ButtonStyle>
                 <ButtonStyle
-                  onClick={() => {
+                  onClick={async () => {
                     if (titleRef.current.value === '') {
-                      alert('제목을 입력 해주세요');
+                      swal('제목을 입력 해주세요');
                     } else if (contentRef.current.value === '') {
-                      alert('내용을 입력 해주세요');
+                      swal('내용을 입력 해주세요');
                     } else if (chooseTag.length === 0) {
-                      alert('태그를 선택 해주세요');
-                    } else if (image === '') {
-                      alert('이미지를 추가 해주세요');
+                      swal('태그를 선택 해주세요');
                     } else {
                       const formData = new FormData();
                       const data = new Blob(
@@ -177,14 +208,20 @@ const UpdatePost = () => {
                       formData.append('data', data);
                       formData.append('boardImage', image);
                       console.log(image);
-                      dispatch(updatePost(params.id, formData)).then((res) => {
+                      // dispatch(updatePost(params.id, formData)).then((res) => {
+                      //   console.log(res);
+                      //   dispatch(getPostList()).catch((err) => {
+                      //     console.log(err);
+                      //   });
+                      // });
+                      await apis.updatePost(params.id, formData).then((res) => {
                         console.log(res);
-                        dispatch(getPostList()).catch((err) => {
-                          console.log(err);
-                        });
                       });
-                      console.log(formData);
-                      // navigate('/community');
+
+                      // for (let value of formData.values()) {
+                      //   console.log(value);
+                      // }
+                      navigate('/community');
                     }
                   }}
                   className="button"

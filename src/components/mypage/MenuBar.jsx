@@ -40,7 +40,7 @@ function MenuBar() {
       <div className="flex h-40">
         <img
           src={image}
-          className="w-12 h-12 bg-gray-300 rounded-full hover:cursor-pointer"
+          className="w-12 h-12 bg-gray-300 rounded-full hover:cursor-pointer backdrop-grayscale"
           alt=""
           onClick={() => {
             navigate('/mypage');

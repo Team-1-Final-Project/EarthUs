@@ -9,6 +9,10 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+export const postAPI = {
+  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
+};
+
 export const localApi = axios.create({
   baseURL: `http://54.180.116.99/`,
   headers: {
@@ -42,30 +46,9 @@ export const multi = axios.create({
   baseURL: `http://3.37.61.61/`,
   headers: {
     'Content-Type': 'multipart/form-data',
+    Authorization: sessionStorage.getItem('Access_token'),
   },
 });
-token.interceptors.request.use(
-  (config) => {
-    config.headers['Authorization'] = sessionStorage.getItem('Access_token');
-    console.log('인터셉터요청성공');
-    return config;
-  },
-  (error) => {
-    console.log('인터셉터요청에러', error);
-    return Promise.reject(error);
-  }
-);
-multi.interceptors.request.use(
-  (config) => {
-    config.headers['Authorization'] = sessionStorage.getItem('Access_token');
-    console.log('인터셉터요청성공');
-    return config;
-  },
-  (error) => {
-    console.log('인터셉터요청에러', error);
-    return Promise.reject(error);
-  }
-);
 
 export const apis = {
   // mainpage
@@ -135,9 +118,17 @@ export const apis = {
     return response.data;
   },
 
+  updatePost: (boardId, updatePost) =>
+    api.put(`board/${boardId}`, updatePost, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+
   //kakao login
-  kakaoLogin: () => api.get(`login/member`),
-  kakaoLogin: () => api.get(`login/member`),
+  // kakaoLogin: () => api.get(`login/member`),
+  // 서버 배포시 위 api로 변경 필요
+  kakaoLogin: () => localApi.get(`login/member`),
 
   //comment
   addComment: (data) => api.post('/comment', data),

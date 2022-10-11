@@ -48,7 +48,7 @@ const MeetingDetailPage = () => {
               res.data.error && swal(res.data.error.message);
             })
             .catch((err) => console.log(err))
-      : swal('로그이 필요한 기능입니다');
+      : swal('로그인이 필요한 기능입니다.');
     return console.log('applystate', applyState);
   };
 
@@ -69,7 +69,7 @@ const MeetingDetailPage = () => {
         console.log('detaildata', res);
       })
       .catch((err) => console.log('err', err, params));
-  }, []);
+  }, [applyState]);
 
   const onUpdateHandler = () => {
     if (
@@ -125,12 +125,6 @@ const MeetingDetailPage = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const JOIN =
-    detailData &&
-    (detailData.meetingStatus.code === 'CAN_JOIN' ||
-      detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
-    detailData.admin.email !== email;
-
   let reviewWrite = reviews && reviews.find((review) => review.author.email === email);
   //버튼관련 파트입니다
   //모집기간이 지날경우 모집마감된 모임이라고 표시해줍니다.
@@ -153,24 +147,39 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
-          {JOIN && applyState && (
-            <Button
-              onClick={() => {
-                onClickApplyHandler();
-              }}
-            >
-              참여취소
-            </Button>
-          )}
-          {JOIN && !applyState && (
-            <Button
-              onClick={() => {
-                onClickApplyHandler();
-              }}
-            >
-              참여하기
-            </Button>
-          )}
+          {detailData &&
+            (detailData.meetingStatus.code === 'CAN_JOIN' ||
+              detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
+            detailData.admin.email !== email &&
+            applyState && (
+              <Button
+                onClick={() => {
+                  onClickApplyHandler();
+                }}
+              >
+                참여취소
+              </Button>
+            )}
+          {detailData &&
+            detailData.meetingStatus.code === 'CAN_JOIN' &&
+            detailData.admin.email !== email &&
+            !applyState && (
+              <Button
+                onClick={() => {
+                  onClickApplyHandler();
+                }}
+              >
+                참여하기
+              </Button>
+            )}
+          {detailData &&
+            detailData.meetingStatus.code !== 'CAN_JOIN' &&
+            detailData.admin.email !== email &&
+            !applyState && (
+              <DisabledButton type="button" disabled>
+                {detailData.meetingStatus.message}
+              </DisabledButton>
+            )}
           {detailData && detailData.admin.email === email && (
             <>
               <Button onClick={onUpdateHandler}>수정하기</Button>
@@ -258,5 +267,16 @@ const Button = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+  float: right;
+`;
+
+const DisabledButton = styled.button`
+  padding: 0px 10px;
+  height: 40px;
+  width: 120px;
+  background-color: #cccccc;
+  color: rgba(145, 148, 163, 1);
+  border-radius: 40px;
+  margin-right: 20px;
   float: right;
 `;
