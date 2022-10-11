@@ -75,7 +75,7 @@ const MeetingPage = () => {
         <Navbar />
         <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
-          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review')}>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review/1')}>
             모임후기
           </button>
         </div>

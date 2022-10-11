@@ -163,7 +163,7 @@ export const apis = {
   updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
   //meeting review
-  getMeetingReviewListAll: () => api.get('/review'),
+  getMeetingReviewListAll: (pageNum) => api.get(`/review?page=${pageNum}`),
   getMeetingReview: (reviewID) => api.get(`/review/${reviewID}`),
   addMeetingReview: (meetingID, data) =>
     api.post(`/review/${meetingID}`, data, {

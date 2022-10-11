@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { apis } from 'api/api';
 import Review from './Review';
 
-const ReviewList = () => {
+const ReviewList = ({ reviewData }) => {
   const [reviews, setReviews] = useState([]);
+
   useEffect(() => {
-    apis
-      .getMeetingReviewListAll()
-      .then((res) => setReviews(res.data.data))
-      .catch((err) => console.log(err));
-  }, []);
+    setReviews(reviewData);
+  }, [reviewData]);
 
   return (
     <div className="m-auto mt-20 min-h-screen">
