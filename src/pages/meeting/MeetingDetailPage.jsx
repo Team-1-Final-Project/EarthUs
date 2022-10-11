@@ -138,7 +138,7 @@ const MeetingDetailPage = () => {
   let arr = [String(year), String(month), String(day)];
 
   //유저카드 관련 파트입니다.
-  const [userModal, setUserModal] = useState(false);
+
   return (
     <Layout>
       <Container>
@@ -222,17 +222,11 @@ const MeetingDetailPage = () => {
             {applyerData &&
               applyerData.map((item) => {
                 return (
-                  <button
-                    onClick={() => {
-                      userModal ? setUserModal(false) : setUserModal(true);
-                    }}
-                  >
-                    <UserInfoCard
-                      nickname={item.nickname}
-                      email={item.email}
-                      profileImage={item.profileImage}
-                    />
-                  </button>
+                  <UserInfoCard
+                    nickname={item.nickname}
+                    email={item.email}
+                    profileImage={item.profileImage}
+                  />
                 );
               })}
           </div>
