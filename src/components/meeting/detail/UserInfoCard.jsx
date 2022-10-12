@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import UserInfoModal from 'components/modal/UserInfoModal';
 import Close from 'assets/images/Close.png';
+import badges from 'assets/images/badge';
 
 const UserInfoCard = (props) => {
   const [userModal, setUserModal] = useState(false);
@@ -33,10 +34,15 @@ const UserInfoCard = (props) => {
               </div>
               <div className="text-xl m-2">{props.nickname}</div>
               <div className="text-xl py-4 text-[#8e8a8a]">
-                "소개글입니다 안녕하세요 김민석입니다. 플로깅을 좋아하고 어디어디에서 활동하고
-                있습니다"
+                "안녕하세요 {props.nickname}입니다."
               </div>
-              <div className="w-4/5 h-1/5 bg-yellow-200 p-4">보유한 뱃지</div>
+              <div className="grid w-8/12 grid-cols-4 gap-10 justify-items-center">
+                {badges.map((badge, index) => (
+                  <div key={index}>
+                    <img className="w-20 h-20 bg-gray-100 rounded-full grayscale" src={badge} />
+                  </div>
+                ))}
+              </div>
             </div>
           }
           onConfirm={() => setUserModal(false)}
