@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
-import { apis } from 'api/api';
+import { api, apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
-import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import { api } from 'api/api';
 import Footer from 'components/footer/Footer';
+import { ToastContainer, toast } from 'react-toastify';
 import PostingButton from 'components/button/PostingButton';
-import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Paging from 'components/pagination/Paging';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -30,15 +30,23 @@ const MeetingPage = () => {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
+  const param = useParams().id;
+  const [totalElements, setTotalElements] = useState(1);
+  console.log('p', param);
+
+  const toastifyHandler = () => {
+    toast.error('로그인이 필요합니다.');
+  };
 
   useEffect(() => {
     if (selectedTag.length === 0) {
       setShowAll(true);
       apis
-        .getAllMeeting()
+        .getAllMeeting(param - 1)
         .then((res) => {
-          setData(res.data.data);
-          console.log('getall', res);
+          console.log(res);
+          setData(res.data.data.content);
+          setTotalElements(res.data.data.totalElements);
         })
         .catch((err) => console.log('err', err));
     } else {
@@ -48,15 +56,16 @@ const MeetingPage = () => {
         .then((res) => setData(res.data.data))
         .catch((err) => swal(err));
     }
-  }, [selectedTag]);
+  }, [param]);
 
   const [myMeeting, setMyMeeting] = useState();
+
   useEffect(() => {
     api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
     apis
       .getMyMeeting()
       .then((res) => {
-        console.log('mymeetings', res);
+        // console.log('mymeetings', res);
         setMyMeeting(res.data);
       })
       .catch((err) => {
@@ -68,10 +77,11 @@ const MeetingPage = () => {
     <Layout>
       {/* <Map></Map> */}
       <Container>
+        <ToastContainer />
         <Navbar />
         <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
-          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review')}>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review/1')}>
             모임후기
           </button>
         </div>
@@ -92,19 +102,9 @@ const MeetingPage = () => {
           {loginState ? (
             myMeeting && (
               <MeetingCarousel>
-                {myMeeting.map((item) => {
-                  return (
-                    <Link
-                      style={{ display: 'flex', width: '20vw' }}
-                      to={`/meeting/detail/${item.id}`}
-                    >
-                      <MeetingCard
-                        onClick={() => navigate(`/meeting/detail/${item.id}`)}
-                        data={item}
-                      />
-                    </Link>
-                  );
-                })}
+                {myMeeting.map((item) => (
+                  <MeetingCard key={item.id} data={item} toastifyHandler={toastifyHandler} />
+                ))}
               </MeetingCarousel>
             )
           ) : (
@@ -149,19 +149,13 @@ const MeetingPage = () => {
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {data &&
-              data.map((item) => {
-                return (
-                  <Link
-                    style={{ display: 'flex', width: '280px', height: '450px' }}
-                    to={`/meeting/detail/${item.id}`}
-                  >
-                    <MeetingCard id={item.id} data={item} />
-                  </Link>
-                );
-              })}
+              data.map((item) => (
+                <MeetingCard key={item.id} data={item} toastifyHandler={toastifyHandler} />
+              ))}
           </div>
         </div>
         {loginState && <PostingButton />}
+        <Paging totalElements={totalElements} pageName="meeting" />
         <Footer />
       </Container>
     </Layout>
