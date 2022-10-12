@@ -230,7 +230,7 @@ const MeetingDetailPage = () => {
                 );
               })}
           </div>
-          {reviews && (
+          {reviews.length > 0 && (
             <>
               <h1 className="text-3xl ml-20 mt-10">모임 후기</h1>
               <ReviewList reviewData={reviews} />
