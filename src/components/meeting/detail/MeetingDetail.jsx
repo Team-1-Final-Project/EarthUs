@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
+import KakaoMap from 'components/map/Map';
 
 const MeetingDetail = (props) => {
   const detail = { ...props.data };
@@ -133,6 +134,7 @@ const MeetingDetail = (props) => {
               <GrLocation />
               <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
             </div>
+            {detail.location && <KakaoMap address={detail.location}></KakaoMap>}
           </div>
           <div className="mt-2">
             <h1 className="text-2xl py-4">모임 설명</h1>{' '}
