@@ -10,7 +10,7 @@ const Backdrop = ({ onConfirm }) => {
 const ModalOverlay = ({ children }) => {
   return (
     <div
-      className={`z-50 w-80 xl:w-2/3 xl:h-4/5 rounded-lg shadow-xl bg-white top-1/2 left-1/2 fixed translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-5`}
+      className={`z-50 w-80 xl:w-1/2 xl:h-4/5 rounded-lg shadow-xl bg-white top-1/2 left-1/2 fixed translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center p-5`}
     >
       {children}
     </div>
