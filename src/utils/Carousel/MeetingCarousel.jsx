@@ -6,7 +6,7 @@ const Carousel = ({ children }) => {
   // 옵션
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 1000,
     slidesToShow: 4,
     slidesToScroll: 2,

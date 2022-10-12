@@ -9,6 +9,10 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
+export const postAPI = {
+  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
+};
+
 export const localApi = axios.create({
   baseURL: `http://54.180.116.99/`,
   headers: {
@@ -114,6 +118,13 @@ export const apis = {
     return response.data;
   },
 
+  updatePost: (boardId, updatePost) =>
+    api.put(`board/${boardId}`, updatePost, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    }),
+
   //kakao login
   // kakaoLogin: () => api.get(`login/member`),
   // 서버 배포시 위 api로 변경 필요
@@ -144,7 +155,7 @@ export const apis = {
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
   cancelMeeting: (meetingID) => api.delete(`meeting/join/${meetingID}`), //모임참여취소
   getMeeting: (meetingID) => api.get(`meeting/${meetingID}`),
-  getAllMeeting: () => api.get('meeting'),
+  getAllMeeting: (page) => api.get(`meeting?page=${page}`),
   getMeetingUser: (meetingId) => api.get(`meeting/crew/${meetingId}`),
 
   //meeting like
@@ -152,7 +163,7 @@ export const apis = {
   updateMeetingLike: (meetingID) => api.put(`meeting/heart/${meetingID}`),
 
   //meeting review
-  getMeetingReviewListAll: () => api.get('/review'),
+  getMeetingReviewListAll: (pageNum) => api.get(`/review?page=${pageNum}`),
   getMeetingReview: (reviewID) => api.get(`/review/${reviewID}`),
   addMeetingReview: (meetingID, data) =>
     api.post(`/review/${meetingID}`, data, {

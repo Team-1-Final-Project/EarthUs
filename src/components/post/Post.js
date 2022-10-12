@@ -48,7 +48,6 @@ const Post = ({ post }) => {
 
     apis.getHeart(post?.boardId).then((res) => {
       setHeartState(res.data.boardLike);
-      console.log(heartState);
     });
   }, [dispatch, post?.boardId, heartState]);
 

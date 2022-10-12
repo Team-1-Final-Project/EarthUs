@@ -1,8 +1,17 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import UserInfoModal from 'components/modal/UserInfoModal';
+import Close from 'assets/images/Close.png';
+import badges from 'assets/images/badge';
 
 const UserInfoCard = (props) => {
+  const [userModal, setUserModal] = useState(false);
   return (
-    <>
+    <div
+      onClick={() => {
+        userModal ? setUserModal(false) : setUserModal(true);
+      }}
+    >
       <StyledCard>
         <div>
           <img src={props.profileImage && props.profileImage} />
@@ -10,11 +19,47 @@ const UserInfoCard = (props) => {
         <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
         <StyledDetail2>{props.email && props.email}</StyledDetail2>
       </StyledCard>
-    </>
+      {userModal ? (
+        <UserInfoModal
+          children={
+            <div className="w-full h-full flex flex-col items-center">
+              <button className="absolute right-5 top-5" onClick={() => setUserModal(false)}>
+                <StyledImg className="h-8 w-8" src={Close} />
+              </button>
+              <div className="py-5">
+                <img
+                  className="rounded-full w-48 h-48 shadow-lg shadow-[#d6d5d5]"
+                  src={props.profileImage}
+                />
+              </div>
+              <div className="text-xl m-2">{props.nickname}</div>
+              <div className="text-xl py-4 text-[#8e8a8a]">
+                "안녕하세요 {props.nickname}입니다."
+              </div>
+              <div className="grid w-8/12 grid-cols-4 gap-10 justify-items-center">
+                {badges.map((badge, index) => (
+                  <div key={index}>
+                    <img className="w-20 h-20 bg-gray-100 rounded-full grayscale" src={badge} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          }
+          onConfirm={() => setUserModal(false)}
+          nickname={props.nickname}
+          email={props.email}
+          profileImage={props.profileImage}
+        />
+      ) : null}
+    </div>
   );
 };
 
 export default UserInfoCard;
+
+const StyledImg = styled.img`
+  filter: opacity(0.5) drop-shadow(0 0 0 #ffffff);
+`;
 
 const StyledCard = styled.div`
   cursor: pointer;

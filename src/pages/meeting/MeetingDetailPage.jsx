@@ -10,10 +10,11 @@ import { apis } from 'api/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
-import Review from 'components/meeting/review/Review';
+import ReviewList from 'components/meeting/review/ReviewList';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
 import { BsFillPencilFill } from 'react-icons/bs';
+import Modal from 'components/modal/UserInfoModal';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
@@ -136,6 +137,8 @@ const MeetingDetailPage = () => {
 
   let arr = [String(year), String(month), String(day)];
 
+  //유저카드 관련 파트입니다.
+
   return (
     <Layout>
       <Container>
@@ -227,15 +230,12 @@ const MeetingDetailPage = () => {
                 );
               })}
           </div>
-          {reviews &&
-            reviews.map((review) => (
-              <>
-                <h1 className="text-3xl ml-20 mt-10">모임 후기</h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center mt-10">
-                  <Review key={review.id} {...review} />
-                </div>
-              </>
-            ))}
+          {reviews.length > 0 && (
+            <>
+              <h1 className="text-3xl ml-20 mt-10">모임 후기</h1>
+              <ReviewList reviewData={reviews} />
+            </>
+          )}
         </div>
         <Footer />
       </Container>

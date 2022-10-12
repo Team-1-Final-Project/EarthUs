@@ -44,7 +44,7 @@ const ReviewUpdate = () => {
 
     try {
       await apis.updateMeetingReview(Number(params.id), formData);
-      navigate('/review');
+      navigate(`/review/detail/${params.id}`);
     } catch (err) {
       console.log(err);
     }
