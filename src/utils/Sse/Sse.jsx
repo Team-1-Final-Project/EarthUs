@@ -5,7 +5,7 @@ export default function Sse() {
 
   const id = 6;
   useEffect(() => {
-    const sse = new EventSource(`http://3.37.61.61/subscribe/${id}`, { withCredentials: true });
+    const sse = new EventSource(`http://54.180.116.99/subscribe/${id}`, { withCredentials: true });
 
     function handleStream(e) {
       console.log(e);

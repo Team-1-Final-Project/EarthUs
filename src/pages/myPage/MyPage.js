@@ -6,6 +6,7 @@ import Badge from 'components/mypage/Badge';
 import Mission from 'components/mypage/Mission';
 import Footer from 'components/footer/Footer';
 import { LikePost, WritePost } from 'components/mypage/Post';
+import Sse from 'utils/Sse/Sse';
 
 function MyPage({ meeting, writePost, likePost }) {
   function sliceData(data) {
@@ -14,6 +15,7 @@ function MyPage({ meeting, writePost, likePost }) {
 
   return (
     <div className="w-full">
+      <Sse />
       <Navbar />
       <div className="flex justify-center mt-20">
         <MenuBar />
