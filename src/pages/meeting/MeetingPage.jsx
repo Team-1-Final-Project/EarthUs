@@ -12,6 +12,7 @@ import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import PostingButton from 'components/button/PostingButton';
 import { useNavigate } from 'react-router-dom';
+import Paging from 'components/pagination/Paging';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -29,8 +30,9 @@ const MeetingPage = () => {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
-  const page = [1];
-  const param = useParams();
+  const param = useParams().id;
+  const [totalElements, setTotalElements] = useState(1);
+  console.log('p', param);
 
   const toastifyHandler = () => {
     toast.error('로그인이 필요합니다.');
@@ -40,10 +42,11 @@ const MeetingPage = () => {
     if (selectedTag.length === 0) {
       setShowAll(true);
       apis
-        .getAllMeeting(param === '' ? param : 0)
+        .getAllMeeting(param - 1)
         .then((res) => {
+          console.log(res);
           setData(res.data.data.content);
-          console.log('getall', res);
+          setTotalElements(res.data.data.totalElements);
         })
         .catch((err) => console.log('err', err));
     } else {
@@ -53,7 +56,7 @@ const MeetingPage = () => {
         .then((res) => setData(res.data.data))
         .catch((err) => swal(err));
     }
-  }, [selectedTag]);
+  }, [param]);
 
   const [myMeeting, setMyMeeting] = useState();
 
@@ -62,7 +65,7 @@ const MeetingPage = () => {
     apis
       .getMyMeeting()
       .then((res) => {
-        console.log('mymeetings', res);
+        // console.log('mymeetings', res);
         setMyMeeting(res.data);
       })
       .catch((err) => {
@@ -152,15 +155,7 @@ const MeetingPage = () => {
           </div>
         </div>
         {loginState && <PostingButton />}
-        <div className="w-full flex justify-center mt-10">
-          {page.map((item) => {
-            return (
-              <a href={'/meeting/' + (item - 1)}>
-                <span className={item === param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
-              </a>
-            );
-          })}
-        </div>
+        <Paging totalElements={totalElements} pageName="meeting" />
         <Footer />
       </Container>
     </Layout>
