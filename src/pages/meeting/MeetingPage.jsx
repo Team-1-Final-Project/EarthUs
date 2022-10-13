@@ -12,7 +12,7 @@ import Footer from 'components/footer/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import PostingButton from 'components/button/PostingButton';
 import { useNavigate } from 'react-router-dom';
-import Paging from 'components/pagination/Paging';
+import MeetingPaging from 'components/pagination/MeetingPaging';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -165,7 +165,7 @@ const MeetingPage = () => {
         </div>
         {loginState && <PostingButton />}
         {data && data.length > 0 && (
-          <Paging
+          <MeetingPaging
             totalElements={totalElements}
             selectedTag={selectedTag}
             onPagingAllMeeting={pagingAllMeeting}
