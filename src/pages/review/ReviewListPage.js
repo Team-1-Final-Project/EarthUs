@@ -36,7 +36,7 @@ const MeetingReviewPage = () => {
           </div>
           <h1 className="text-2xl my-10">모임 후기</h1>
           <ReviewList reviewData={reviews} />
-          <ReviewPaging totalElements={totalElements} />
+          {reviews && reviews.length > 0 && <ReviewPaging totalElements={totalElements} />}
           <Footer />
         </Container>
       </Layout>
