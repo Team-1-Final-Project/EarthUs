@@ -70,16 +70,16 @@ const MeetingPage = () => {
   const [myMeeting, setMyMeeting] = useState();
 
   useEffect(() => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
-    apis
-      .getMyMeeting()
-      .then((res) => {
-        // console.log('mymeetings', res);
-        setMyMeeting(res.data);
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
+    if (loginState) {
+      apis
+        .getMyMeeting()
+        .then((res) => {
+          setMyMeeting(res.data);
+        })
+        .catch((err) => {
+          console.log('err', err);
+        });
+    }
   }, []);
 
   return (
