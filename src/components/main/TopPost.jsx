@@ -15,7 +15,7 @@ function TopPost({ hitBoard }) {
             hitBoard.map((board) => (
               <div
                 key={board.boardId}
-                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
+                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer hover:scale-[1.02] ease-in duration-300"
                 onClick={() => {
                   navigate(`/communitydetail/${board.boardId}`);
                 }}

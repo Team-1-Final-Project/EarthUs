@@ -15,7 +15,7 @@ function Meeting({ meeting }) {
             meeting.map((meeting) => (
               <div
                 key={meeting.id}
-                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
+                className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer hover:scale-[1.02] ease-in duration-300"
                 onClick={() => {
                   navigate(`meeting/detail/${meeting.id}`);
                 }}
