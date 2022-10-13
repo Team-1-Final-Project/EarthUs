@@ -30,47 +30,56 @@ const MeetingPage = () => {
       setSelectedTag(selectedTag.filter((ele) => ele !== id));
     }
   };
-  const param = useParams().id;
   const [totalElements, setTotalElements] = useState(1);
-  console.log('p', param);
 
   const toastifyHandler = () => {
     toast.error('로그인이 필요합니다.');
   };
 
+  const pagingAllMeeting = (page) => {
+    apis
+      .getAllMeeting(page - 1)
+      .then((res) => {
+        console.log(res);
+        setData(res.data.data.content);
+        setTotalElements(res.data.data.totalElements);
+      })
+      .catch((err) => console.log('err', err));
+  };
+
+  const pagingByTag = (page) => {
+    apis
+      .searchMeetingTag(page - 1, { tagIds: selectedTag })
+      .then((res) => {
+        setData(res.data.data.content);
+        setTotalElements(res.data.data.totalElements);
+      })
+      .catch((err) => swal(err));
+  };
+
   useEffect(() => {
     if (selectedTag.length === 0) {
       setShowAll(true);
-      apis
-        .getAllMeeting(param - 1)
-        .then((res) => {
-          console.log(res);
-          setData(res.data.data.content);
-          setTotalElements(res.data.data.totalElements);
-        })
-        .catch((err) => console.log('err', err));
+      pagingAllMeeting(1);
     } else {
       setShowAll(false);
-      apis
-        .searchMeetingTag({ tagIds: selectedTag })
-        .then((res) => setData(res.data.data))
-        .catch((err) => swal(err));
+      pagingByTag(1);
     }
-  }, [param]);
+  }, [selectedTag]);
 
   const [myMeeting, setMyMeeting] = useState();
 
   useEffect(() => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
-    apis
-      .getMyMeeting()
-      .then((res) => {
-        // console.log('mymeetings', res);
-        setMyMeeting(res.data);
-      })
-      .catch((err) => {
-        console.log('err', err);
-      });
+    if (loginState) {
+      apis
+        .getMyMeeting()
+        .then((res) => {
+          setMyMeeting(res.data);
+        })
+        .catch((err) => {
+          console.log('err', err);
+        });
+    }
   }, []);
 
   return (
@@ -155,7 +164,14 @@ const MeetingPage = () => {
           </div>
         </div>
         {loginState && <PostingButton />}
-        <Paging totalElements={totalElements} pageName="meeting" />
+        {data && data.length > 0 && (
+          <Paging
+            totalElements={totalElements}
+            selectedTag={selectedTag}
+            onPagingAllMeeting={pagingAllMeeting}
+            onPagingByTag={pagingByTag}
+          />
+        )}
         <Footer />
       </Container>
     </Layout>

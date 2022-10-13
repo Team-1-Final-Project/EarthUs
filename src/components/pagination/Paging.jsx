@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pagination from 'react-js-pagination';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Paging = ({ totalElements, pageName }) => {
-  const navigate = useNavigate();
+const Paging = ({ totalElements, selectedTag, onPagingAllMeeting, onPagingByTag }) => {
   const [page, setPage] = useState(1);
 
   const handlePageChange = (page) => {
-    navigate(`/${pageName}/${page}`);
     setPage(page);
+    window.scrollTo(0, 0);
+    if (selectedTag.length === 0) {
+      onPagingAllMeeting(page);
+    } else {
+      onPagingByTag(page);
+    }
   };
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedTag]);
 
   return (
     <PaginationBox>
