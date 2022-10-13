@@ -1,6 +1,5 @@
 import React from 'react';
-import Logo from 'assets/images/Logo.png';
-import { useLocation, useNavigate, useParams, NavLink } from 'react-router-dom';
+import { useLocation, useNavigate, NavLink } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';

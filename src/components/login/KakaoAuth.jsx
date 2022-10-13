@@ -24,9 +24,11 @@ const KakaoAuth = () => {
             const nickname = res.data.nickname;
             const image = res.data.profileImage;
             const email = res.data.email;
+            const id = res.data.id;
             sessionStorage.setItem('profileImage', image);
             sessionStorage.setItem('nickname', nickname);
             sessionStorage.setItem('email', email);
+            sessionStorage.setItem('id', id);
             navigate(sessionStorage.getItem('Location') ? sessionStorage.getItem('Location') : '/');
           })
           .catch((err) => console.log('err', err));
