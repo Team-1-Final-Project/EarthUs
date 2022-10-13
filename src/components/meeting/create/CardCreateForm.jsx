@@ -18,9 +18,9 @@ export const orange = (str) => {
 let now = new Date();
 let year = now.getFullYear();
 let month = now.getMonth() + 1;
-let day = now.getDay() + 2 >= 10 ? now.getDay() + 2 : '0' + String(now.getDay() + 2);
-let day2 = now.getDay() + 3 >= 10 ? now.getDay() + 3 : '0' + String(now.getDay() + 3);
-let day3 = now.getDay() + 4 >= 10 ? now.getDay() + 4 : '0' + String(now.getDay() + 4);
+let day = now.getDate() >= 10 ? now.getDate() : '0' + String(now.getDate());
+let day2 = now.getDate() + 1 >= 10 ? now.getDate() + 1 : '0' + String(now.getDate() + 1);
+let day3 = now.getDate() + 2 >= 10 ? now.getDate() + 2 : '0' + String(now.getDate() + 2);
 let nowDate = Number(day) + month * 100 + year * 10000;
 let arr = [String(year), String(month), String(day)];
 let arr2 = [String(year), String(month), String(day2)];
@@ -28,6 +28,7 @@ let arr3 = [String(year), String(month), String(day3)];
 let nowDateState = arr.join('-'); //모집시작일
 let nowDateState2 = arr2.join('-'); //모집마감일
 let nowDateState3 = arr3.join('-'); //활동시작일,활동마감일
+console.log('here', day);
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const CardCreateForm = () => {
         })
         .catch((err) => {
           console.log(err);
-          swal('작성 포맷이 올바르지 않습니다.');
+          swal('작성 포맷이 올바르지 않습니다. 이미지 파일이 jpg형식인지 확인해 주세요.');
         });
     } else if (!(JSD < JED)) {
       swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
