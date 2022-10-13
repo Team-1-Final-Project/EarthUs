@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import PostingButton from 'components/button/PostingButton';
+import Sse from 'utils/Sse/Sse';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -64,6 +65,7 @@ function MainPage() {
           <Footer />
           {loginState && <PostingButton />}
         </Container>
+        <Sse />
       </Layout>
       {/* <LoginGoogle /> */}
     </div>

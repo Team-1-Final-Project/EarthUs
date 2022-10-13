@@ -8,7 +8,7 @@ function Meeting({ meeting }) {
   const navigate = useNavigate();
   return (
     <>
-      <div className="w-8/12 pt-2 m-auto mt-8 text-defaultText">
+      <div className="w-full pt-2 m-auto mt-8 text-defaultText">
         <div className="text-xl font-bold text-left">신규 모임</div>
         <Carousel>
           {meeting &&
@@ -49,7 +49,7 @@ function Meeting({ meeting }) {
                     <div className="w-1/3 ml-2 ">
                       <img
                         src={meeting.meetingImage}
-                        className="w-full h-40 rounded-lg object-cover"
+                        className="object-cover w-full h-40 rounded-lg"
                         alt="이미지"
                       />
                     </div>
