@@ -4,50 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import 'react-toastify/dist/ReactToastify.css';
 import { apis } from 'api/api';
-import { useDispatch, useSelector } from 'react-redux';
-import PostList from './PostList';
+import { useDispatch } from 'react-redux';
 import { getPostList } from 'redux/modules/postSlice';
 const Post = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginState = sessionStorage.getItem('Acess_token');
-
-  //지어줄이름,비동기api요청,query 옵션
-  // const { data } = useQuery('getHeartState', () => token.get(`/board/heart/${post?.boardId}`));
-  // const heartState = data?.data.data.boardLike;
-  // console.log(heartState, post);
-
-  // const toggleHeart = async (id) => {
-  //   return await token.put(`/board/heart/${id}`);
-  // };
-
-  // const queryClient = useQueryClient();
-
-  // const { mutate } = useMutation(toggleHeart, {
-  //   onSuccess: (data) => {
-  //     queryClient.invalidateQueries('getHeartState');
-  // console.log(data.data.data.boardLike);
-  //   },
-  // });
-
   const [heartState, setHeartState] = useState(false);
+
   useEffect(() => {
-    // dispatch(getHeart(post?.boardId)).then((res) => {
-    //   console.log(res.payload, res.meta.arg);
-    //   console.log(heartState);
-
-    //   setHeartState(...heartState);
-    //   setHeartState([
-    //     heartState.push({
-    //       state: res.payload,
-    //       boardId: res.meta.arg,
-    //     }),
-    //   ]);
-    // console.log(heartState);
-    // });
-
     apis.getHeart(post?.boardId).then((res) => {
       setHeartState(res.data.boardLike);
+      console.log(heartState);
     });
   }, [dispatch, post?.boardId, heartState]);
 
@@ -103,6 +70,7 @@ const Post = ({ post }) => {
                   console.log(res);
                 });
                 console.log(post?.boardId);
+                console.log(post.heartBoardNums);
                 console.log(heartState);
                 e.stopPropagation();
               }}
