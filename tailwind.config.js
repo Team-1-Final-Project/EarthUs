@@ -23,7 +23,7 @@ module.exports = {
         meeting: 'repeat(8, auto)',
       },
       screens: {
-        post: '1330px',
+        post: '1200px',
         meeting: '820px',
         comment: '501px',
       },
