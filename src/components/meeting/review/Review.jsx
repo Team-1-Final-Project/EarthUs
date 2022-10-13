@@ -5,7 +5,10 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cursor-pointer py-2" onClick={() => navigate(`/review/detail/${id}`)}>
+    <div
+      className="cursor-pointer hover:scale-[1.02] ease-in duration-300 shadow-lg shadow-[#d2d2d2] mb-10 outline outline-lightGrayColor"
+      onClick={() => navigate(`/review/detail/${id}`)}
+    >
       <div className="w-64">
         {reviewImage ? (
           <img
@@ -17,7 +20,7 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
           <div className="w-72 h-56 mb-2" />
         )}
         <p className="h-20 p-2 line-clamp-3">{content}</p>
-        <div className="flex mt-2">
+        <div className="flex mt-2 px-2 py-5">
           <img
             src={author.profileImage}
             alt="writerProfile"
