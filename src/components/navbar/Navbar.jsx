@@ -5,7 +5,7 @@ import ProfileIcon from './ProfileIcon';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import HomeButton from './HomeButton';
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 
 function Navbar() {
   const navigate = useNavigate();
