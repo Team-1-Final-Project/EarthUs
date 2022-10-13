@@ -13,3 +13,30 @@
 .default_button {
   @apply duration-300 ease-in-out bg-white hover:text-white text-defaultColor outline outline-defaultColor rounded-3xl outline-1 hover:bg-defaultColor;
 }
+
+@charset "utf-8";
+
+/*default.css*/
+/*font*/
+
+@font-face {
+  font-family: 'Pretendard-ExtraLight';
+  src: url('./assets/fonts/alternative/Pretendard-ExtraLight.ttf');
+}
+
+@font-face {
+  font-family: 'Pretendard-Light';
+  src: url('./assets/fonts/alternative/Pretendard-Light.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('./assets/fonts/alternative/Pretendard-Regular.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-Thin';
+  src: url('./assets/fonts/alternative/Pretendard-Thin.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  src: url('./assets/fonts/alternative/Pretendard-ExtraBold.ttf');
+}
