@@ -77,7 +77,7 @@ const CardUpdateForm = (props) => {
         })
         .catch((err) => {
           console.log(err);
-          swal('작성 포맷이 올바르지 않습니다.');
+          swal('작성 포맷이 올바르지 않습니다. 이미지 파일이 jpg형식인지 확인해 주세요.');
         });
     } else if (!(JSD < JED)) {
       swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
