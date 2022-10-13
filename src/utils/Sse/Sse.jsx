@@ -4,24 +4,23 @@ export default function Sse() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    const id = sessionStorage.getItem('id');
+    if (sessionStorage.getItem('id') != null) {
+      const id = sessionStorage.getItem('id');
+      const sse = new EventSource(id && `http://54.180.116.99/subscribe/${id}`, {
+        withCredentials: true,
+      });
 
-    const sse = new EventSource(id && `http://54.180.116.99/subscribe/${id}`, {
-      withCredentials: true,
-    });
-
-    function handleStream(e) {
-      console.log(e);
-      setData(e);
+      // sse.addEventListener('');
+      sse.addEventListener('sse', function (e) {
+        // var data = JSON.parse(e);
+        console.log(e);
+      });
+      sse.addEventListener('open', function (e) {
+        console.log(e.data);
+      });
+      sse.addEventListener('error', function (e) {
+        console.log(e.data);
+      });
     }
-    sse.onmessage = (e) => {
-      handleStream(e);
-    };
-    sse.onerror = (e) => {
-      sse.close();
-    };
-    // return () => {
-    //   sse.close();
-    // };
-  });
+  }, []);
 }

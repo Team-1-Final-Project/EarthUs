@@ -11,7 +11,6 @@ function Navbar() {
   const state = useLocation();
   const [modalState, setModalState] = useState(false);
   const loginState = sessionStorage.getItem('Access_token');
-  const id = sessionStorage.getItem('id');
   const image = sessionStorage.getItem('profileImage');
 
   const links = [

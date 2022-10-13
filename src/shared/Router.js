@@ -13,6 +13,7 @@ import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import Sse from 'utils/Sse/Sse';
+import MeetingChat from 'components/chat/Chatting';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
+        <Route path="/meeting/chat/*" element={<MeetingChat />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
         <Route path="/community" element={<PostListPage />} />
         <Route path="/communitydetail/:id" element={<PostDetail />} />

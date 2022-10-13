@@ -14,8 +14,11 @@ const PostList = ({ selectedTag }) => {
   const { ref, inView } = useInView();
   const dispatch = useDispatch();
   const loginState = sessionStorage.getItem('Access_token');
+  const postList = useSelector((state) => state?.post.post.data);
+  console.log(postList);
 
   useEffect(() => {
+    dispatch(getPostList());
     if (inView && hasNextPage) {
       fetchNextPage();
     }
@@ -25,9 +28,7 @@ const PostList = ({ selectedTag }) => {
     } else {
       dispatch(searchPostTag(selectedTag));
     }
-  }, [dispatch, selectedTag, hasNextPage, inView, fetchNextPage]);
-
-  const postList = useSelector((state) => state?.post.post.data);
+  }, [dispatch, selectedTag, hasNextPage, inView, fetchNextPage, data]);
 
   return (
     <>
@@ -36,7 +37,7 @@ const PostList = ({ selectedTag }) => {
         ? data.pages.map((page, pageIndex) => {
             console.log(data);
             console.log(data?.pages);
-            const posts = page.posts;
+            const posts = page.posts.content;
             console.log(posts);
             return posts?.map((post, postIndex) => {
               if (data?.pages.length === pageIndex + 1 && posts.length === postIndex + 1) {

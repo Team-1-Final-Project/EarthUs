@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Pagination from 'react-js-pagination';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Paging = ({ totalElements, pageName }) => {
+const Paging = ({ totalElements }) => {
   const navigate = useNavigate();
+  const params = useParams().id;
   const [page, setPage] = useState(1);
 
   const handlePageChange = (page) => {
-    navigate(`/${pageName}/${page}`);
     setPage(page);
+    window.scrollTo(0, 0);
+    navigate(`/review/${page}`);
   };
+
+  useEffect(() => {
+    setPage(Number(params));
+  }, [params]);
 
   return (
     <PaginationBox>

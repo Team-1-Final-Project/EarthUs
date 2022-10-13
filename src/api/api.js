@@ -73,7 +73,7 @@ export const apis = {
   },
 
   postDailiyMissionCheck: async () => {
-    const response = await localApi.post('main/daily');
+    const response = await api.post('main/daily');
     return response.data;
   },
 

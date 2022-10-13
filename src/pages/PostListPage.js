@@ -46,7 +46,7 @@ const PostListPage = () => {
     <Layout>
       <Container>
         <Navbar />
-        <TagListStyle className="w-4/5 pb-2 mt-4 mx-auto grid grid-cols-post overflow-x-scroll overflow-y-hidden">
+        <TagListStyle className="w-4/5 grid grid-cols-post pb-2 mt-4 mx-auto overflow-x-scroll overflow-y-hidden post:w-full post:flex post:justify-center post:items-center">
           <button
             type="button"
             className={`block min-w-max max-w-max h-6 px-3 text-xs flex items-center justify-center rounded-2xl mr-2 cursor-pointer ${
