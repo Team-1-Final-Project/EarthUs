@@ -21,22 +21,30 @@
 
 @font-face {
   font-family: 'Pretendard-ExtraLight';
-  src: url('./assets/fonts/alternative/Pretendard-ExtraLight.ttf');
+  src: url('./assets/fonts/Pretendard-ExtraLight.ttf');
 }
 
 @font-face {
   font-family: 'Pretendard-Light';
-  src: url('./assets/fonts/alternative/Pretendard-Light.ttf');
+  src: url('./assets/fonts/Pretendard-Light.ttf');
 }
 @font-face {
   font-family: 'Pretendard-Regular';
-  src: url('./assets/fonts/alternative/Pretendard-Regular.ttf');
+  src: url('./assets/fonts/Pretendard-Regular.ttf');
 }
 @font-face {
   font-family: 'Pretendard-Thin';
-  src: url('./assets/fonts/alternative/Pretendard-Thin.ttf');
+  src: url('./assets/fonts/Pretendard-Thin.ttf');
 }
 @font-face {
   font-family: 'Pretendard-ExtraBold';
-  src: url('./assets/fonts/alternative/Pretendard-ExtraBold.ttf');
+  src: url('./assets/fonts/Pretendard-ExtraBold.ttf');
+}
+@font-face {
+  font-family: 'FuzzyBubbles-Bold';
+  src: url('./assets/fonts/FuzzyBubbles-Bold.ttf');
+}
+@font-face {
+  font-family: 'FuzzyBubbles-Regular';
+  src: url('./assets/fonts/FuzzyBubbles-Regular.ttf');
 }
