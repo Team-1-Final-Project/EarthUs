@@ -14,7 +14,6 @@ const Post = ({ post, heart, setHeart }) => {
   useEffect(() => {
     apis.getHeart(post?.boardId).then((res) => {
       setHeartState(res.data.boardLike);
-      console.log(heartState);
     });
   }, [dispatch, post?.boardId, heartState]);
 
@@ -30,7 +29,7 @@ const Post = ({ post, heart, setHeart }) => {
           {post?.tagBoards.map((tag) => {
             return (
               <span key={tag.id} className="tag">
-                {`#${tag.tagName}`}{' '}
+                {`# ${tag.tagName}`}{' '}
               </span>
             );
           })}
