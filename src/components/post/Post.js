@@ -20,6 +20,7 @@ const Post = ({ post }) => {
 
   return (
     <ContainerStyle
+      className="hover:scale-[1.02] ease-in duration-300 cursor-pointer"
       onClick={() => {
         navigate(`/communitydetail/${post?.boardId}`);
       }}

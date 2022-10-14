@@ -181,7 +181,7 @@ export const apis = {
   getMeetingReviewList: (meetingID) => api.get(`/review/meeting/${meetingID}`),
 
   //tag
-  searchMeetingTag: (meetingTag) => api.post(`/meeting/tag`, meetingTag),
+  searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
   searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
 
   //Onlineshop
