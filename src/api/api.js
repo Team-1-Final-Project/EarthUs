@@ -9,10 +9,6 @@ export const api = axios.create({
   // withCredentials: true,
 });
 
-export const postAPI = {
-  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
-};
-
 export const localApi = axios.create({
   baseURL: `http://54.180.116.99/`,
   headers: {
@@ -77,10 +73,23 @@ export const apis = {
     return response.data;
   },
 
+  // post
+
+  addPost: async (newPost) => {
+    const response = await api.post('/board', newPost, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response;
+  },
+
   getPost: async () => {
     const response = await api.get('board');
     return response;
   },
+
+  getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
 
   // getDetail: async (boardId) => {
   //   const response = await api.get(`board/${boardId}`, {});
@@ -182,7 +191,7 @@ export const apis = {
 
   //tag
   searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
-  searchPostTag: (postTag) => api.post(`/board/tag`, postTag),
+  searchPostTag: (page, postTag) => localApi.post(`/board/tag?page=${page}`, postTag),
 
   //Onlineshop
   getShopList: async () => {

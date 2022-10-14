@@ -1,46 +1,36 @@
 import Post from './Post';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getPostList, searchPostTag } from 'redux/modules/postSlice';
+import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostingButton from 'components/button/PostingButton';
-import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQueryScroll } from 'hooks/useInfiniteQueryScroll';
 
 const PostList = ({ selectedTag }) => {
-  const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQueryScroll();
+  const [postList, setPostList] = useState([]);
+
+  const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQueryScroll(selectedTag);
+
   const { ref, inView } = useInView();
-  const dispatch = useDispatch();
   const loginState = sessionStorage.getItem('Access_token');
-  const postList = useSelector((state) => state?.post.post.data);
-  console.log(postList);
 
   useEffect(() => {
-    dispatch(getPostList());
     if (inView && hasNextPage) {
       fetchNextPage();
     }
+  }, [hasNextPage, inView, fetchNextPage, data]);
 
-    if (selectedTag.length === 0) {
-      dispatch(getPostList());
-    } else {
-      dispatch(searchPostTag(selectedTag));
-    }
-  }, [dispatch, selectedTag, hasNextPage, inView, fetchNextPage, data]);
-
+  useEffect(() => {
+    setPostList(data);
+  }, [data]);
   return (
     <>
       <ToastContainer />
-      {isSuccess && data?.pages
-        ? data.pages.map((page, pageIndex) => {
-            console.log(data);
-            console.log(data?.pages);
+      {isSuccess && postList?.pages
+        ? postList.pages.map((page, pageIndex) => {
             const posts = page.posts.content;
-            console.log(posts);
             return posts?.map((post, postIndex) => {
-              if (data?.pages.length === pageIndex + 1 && posts.length === postIndex + 1) {
+              if (postList?.pages.length === pageIndex + 1 && posts.length === postIndex + 1) {
                 return (
                   <div ref={ref} key={post?.boardId}>
                     <Post post={post} />
@@ -52,7 +42,7 @@ const PostList = ({ selectedTag }) => {
             });
           })
         : null}
-      {postList?.length === 0 && (
+      {postList?.pages && postList?.pages[0].posts.content.length === 0 && (
         <div className="h-96 mt-10 m-auto text-2xl text-center text-gray-300">
           해당 태그의 게시물이 없습니다.
         </div>
