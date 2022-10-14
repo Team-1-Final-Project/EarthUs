@@ -4,8 +4,10 @@ import ProfileIcon from './ProfileIcon';
 import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import HomeButton from './HomeButton';
+
 import KakaoLogin from 'components/login/KakaoLogin';
 import Sse from 'utils/Sse/Sse';
+
 
 function Navbar() {
   const navigate = useNavigate();

@@ -10,12 +10,13 @@ const Post = ({ post }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [heartState, setHeartState] = useState(false);
+  const [heartNum, setHeartNum] = useState(post?.heartBoardNums);
 
   useEffect(() => {
     apis.getHeart(post?.boardId).then((res) => {
       setHeartState(res.data.boardLike);
     });
-  }, [dispatch, post?.boardId, heartState]);
+  }, [dispatch, post?.boardId]);
 
   return (
     <ContainerStyle
@@ -29,7 +30,7 @@ const Post = ({ post }) => {
           {post?.tagBoards.map((tag) => {
             return (
               <span key={tag.id} className="tag">
-                {`# ${tag.tagName}`}{' '}
+                {`# ${tag.tagName}`}
               </span>
             );
           })}
@@ -57,26 +58,25 @@ const Post = ({ post }) => {
             <div
               className="iconWrap"
               onClick={(e) => {
-                // dispatch(putChangeHeart(post?.boardId)).then((res) => {
-                //   console.log(res.payload);
-                // });
-                // mutate(post?.boardId);
-
                 apis.postHeart(post?.boardId).then((res) => {
                   apis.getHeart(post?.boardId).then((res) => {
                     dispatch(getPostList());
                     setHeartState(res.data.boardLike);
+
+                    // if (heartState) {
+                    //   setHeartNum(heartNum - 1);
+                    // } else {
+                    //   setHeartNum(heartNum + 1);
+                    // }
                   });
-                  console.log(res);
                 });
-                console.log(post?.boardId);
-                console.log(post.heartBoardNums);
-                console.log(heartState);
+
                 e.stopPropagation();
               }}
             >
               {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
               <span className="count ">{post?.heartBoardNums}</span>
+              {/* <span className="count ">{heartNum}</span> */}
             </div>
             <div
               className="iconWrap"
