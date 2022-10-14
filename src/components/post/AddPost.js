@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
 import { useDispatch } from 'react-redux';
-import { addPost, getPostList } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import swal from 'sweetalert';
+import { apis } from 'api/api';
 
 const AddPost = () => {
   const navigate = useNavigate();
@@ -172,7 +172,7 @@ const AddPost = () => {
                   뒤로가기
                 </ButtonStyle>
                 <ButtonStyle
-                  onClick={() => {
+                  onClick={async () => {
                     if (titleRef.current.value === '') {
                       swal('제목을 입력 해주세요');
                     } else if (contentRef.current.value === '') {
@@ -196,17 +196,11 @@ const AddPost = () => {
                       formData.append('data', data);
                       formData.append('boardImage', image);
                       console.log(image);
-                      dispatch(addPost(formData)).then((res) => {
-                        console.log(res);
-                        dispatch(getPostList()).catch((err) => {
-                          console.log(err);
-                        });
-                      });
+                      apis.addPost(formData).then(() => navigate('/community'));
 
                       // for (let value of formData.values()) {
                       //   console.log(value);
                       // }
-                      navigate('/community');
                     }
                   }}
                   className="button"
