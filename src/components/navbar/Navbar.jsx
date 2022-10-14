@@ -5,6 +5,7 @@ import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import HomeButton from './HomeButton';
 import KakaoLogin from 'components/login/KakaoLogin';
+import Sse from 'utils/Sse/Sse';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function Navbar() {
                 <div className="hover:cursor-pointer">
                   <ProfileIcon image={image}></ProfileIcon>
                 </div>
+                <Sse />
               </div>
             ) : (
               <button
