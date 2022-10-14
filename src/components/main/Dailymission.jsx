@@ -7,7 +7,7 @@ function Dailymission({ mission, checkDailyMission, clearCount }) {
         <div className="flex flex-col items-center justify-center w-full h-40 mt-8 default_outline  min-w-[400px] shadow-lg">
           {mission && (
             <>
-              <div className="text-lg md:text-xl">오늘의 미션은</div>
+              <div className="text-lg font-bold md:text-xl">오늘의 미션은</div>
               <span className="text-xl font-bold md:text-2xl text-defaultColor">
                 {mission.mission}
               </span>
