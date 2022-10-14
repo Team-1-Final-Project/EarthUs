@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { apis } from 'api/api';
 import { useDispatch } from 'react-redux';
 import { getPostList } from 'redux/modules/postSlice';
-const Post = ({ post }) => {
+const Post = ({ post, heart, setHeart }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [heartState, setHeartState] = useState(false);
@@ -67,6 +67,7 @@ const Post = ({ post }) => {
                   apis.getHeart(post?.boardId).then((res) => {
                     dispatch(getPostList());
                     setHeartState(res.data.boardLike);
+                    setHeart(post.content);
                   });
                   console.log(res);
                 });
