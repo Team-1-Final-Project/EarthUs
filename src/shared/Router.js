@@ -12,13 +12,11 @@ import ReviewRoute from './sub/ReviewRoute';
 import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
-import Sse from 'utils/Sse/Sse';
 import MeetingChat from 'components/chat/Chatting';
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Sse />
       <ScrollToTop />
       <GlobalStyle />
       <Routes>
