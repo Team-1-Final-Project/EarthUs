@@ -1,27 +1,38 @@
 import { useInfiniteQuery } from 'react-query';
-import { postAPI } from 'api/api';
+import { apis } from 'api/api';
+import useDidMountEffect from './useDidMountEffect';
 
-export const useInfiniteQueryScroll = () => {
+export const useInfiniteQueryScroll = (selectedTag) => {
   const getPostPage = async ({ pageParam = 0 }) => {
-    const { data } = await postAPI.getAllPost(pageParam);
-
-    return {
-      posts: data?.data,
-      nextPage: pageParam + 1,
-      isLast: data?.data.length < 10,
-    };
+    if (selectedTag.length === 0) {
+      const { data } = await apis.getAllPost(pageParam);
+      return {
+        posts: data?.data,
+        nextPage: pageParam + 1,
+        isLast: data?.data.content.length < 10,
+      };
+    } else {
+      const { data } = await apis.searchPostTag(pageParam, { tagIds: selectedTag });
+      return {
+        posts: data?.data,
+        nextPage: pageParam + 1,
+        isLast: data?.data.content.length < 10,
+      };
+    }
   };
 
-  const { data, isSuccess, hasNextPage, isFetchNextPage, fetchNextPage } = useInfiniteQuery(
-    ['getPostPage'],
-    getPostPage,
-    {
+  const { data, isSuccess, hasNextPage, isFetchNextPage, fetchNextPage, remove, refetch } =
+    useInfiniteQuery(['getPostPage'], getPostPage, {
       getNextPageParam: ({ nextPage, isLast }) => {
         return isLast ? false : nextPage;
       },
       refetchOnWindowFocus: false,
-    }
-  );
+    });
+
+  useDidMountEffect(() => {
+    remove();
+    refetch();
+  }, [selectedTag]);
 
   return {
     data,
