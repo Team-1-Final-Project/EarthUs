@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export default function Sse() {
-  const [data, setData] = useState();
-
+  const id = sessionStorage.getItem('id');
+  console.log(id);
   useEffect(() => {
     if (sessionStorage.getItem('id') != null) {
-      const id = sessionStorage.getItem('id');
       const sse = new EventSource(id && `http://54.180.116.99/subscribe/${id}`, {
         withCredentials: true,
       });
 
-      // sse.addEventListener('');
-      sse.addEventListener('sse', function (e) {
-        // var data = JSON.parse(e);
-        console.log(e);
+      sse.addEventListener('message', function (e) {
+        const data = JSON.parse(e.data);
+        toast('😍 ' + data.content, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       });
-      sse.addEventListener('open', function (e) {
-        console.log(e.data);
-      });
-      sse.addEventListener('error', function (e) {
-        console.log(e.data);
-      });
+      // sse.addEventListener('connect', function (e) {});
+      // sse.addEventListener('error', function (e) {});
     }
-  }, []);
+  });
 }
