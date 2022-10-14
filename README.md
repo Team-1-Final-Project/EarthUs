@@ -118,7 +118,10 @@
 
 ## 📔 Architecture: 서비스 아키텍쳐
 
-추후 작성 예정
+![Slice 4](https://user-images.githubusercontent.com/102432453/194732437-e582ef0a-5d9a-4772-8f46-95208a556585.jpg)
+
+
+
 
 ## 👥 Team: 팀원 소개 
 
