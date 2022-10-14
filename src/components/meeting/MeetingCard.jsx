@@ -1,39 +1,140 @@
-import ProfileIcon from 'components/Navbar/ProfileIcon';
-import { AiFillHeart, AiOutlineComment } from 'react-icons/ai';
+import CardProfileIcon from './CardProfileIcon';
 import styled from 'styled-components';
+import { AiOutlineComment, AiOutlineCalendar } from 'react-icons/ai';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { IoMdPeople } from 'react-icons/io';
+import { GrLocation } from 'react-icons/gr';
+import { useState, useEffect } from 'react';
+import { apis } from 'api/api';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
-const MeetingCard = () => {
+const MeetingCard = (props) => {
+  const navigate = useNavigate();
+  const data = { ...props.data };
+  const admin = data.admin;
+
+  const [liked, setLiked] = useState(false);
+  const [likeNums, setLikeNums] = useState(0);
+  const [meetingStatus, setMeetingStatus] = useState('');
+  const loginState = sessionStorage.getItem('Access_token');
+
+  useEffect(() => {
+    data.heartNums && setLikeNums(data.heartNums);
+    if (loginState && data.id) {
+      apis
+        .getMeetingLike(data.id)
+        .then((res) => {
+          setLiked(res.data.data.meetingLike);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loginState, data.heartNums]);
+
+  useEffect(() => {
+    if (data.meetingStatus && data.meetingStatus.code === 'READY_FOR_JOIN') {
+      setMeetingStatus('모집준비중');
+    }
+    if (data.meetingStatus && data.meetingStatus.code === 'CAN_JOIN') {
+      setMeetingStatus('모집중');
+    }
+    if (
+      data.meetingStatus &&
+      (data.meetingStatus.code === 'COMPLETE_JOIN' || data.meetingStatus.code === 'PASS_DEADLINE')
+    ) {
+      setMeetingStatus('모집완료');
+    }
+    if (data.meetingStatus && data.meetingStatus.code === 'COMPLETED_MEETING') {
+      setMeetingStatus('모임완료');
+    }
+  }, [data.meetingStatus.code]);
+
+  const likeHandler = async (e) => {
+    e.stopPropagation();
+    if (loginState) {
+      try {
+        const res = await apis.updateMeetingLike(data.id);
+        setLiked(res.data.data.meetingLike);
+        res.data.data.meetingLike ? setLikeNums(likeNums + 1) : setLikeNums(likeNums - 1);
+      } catch (err) {
+        swal(err);
+      }
+    } else {
+      props.toastifyHandler();
+    }
+  };
+
   return (
     <>
-      <StyledCard>
-        <div>
-          <img src="image/card/cardimg.jpg"></img>
-        </div>
-        <StyledDetail>
-          <StyledH1>아차산 플로깅 주2회</StyledH1>
-          <StyledH3>22.10.22~22.12.30</StyledH3>
-          <StyledH3>3/10명 참여중</StyledH3>
-          <StyledH3>서울시 성동구 서울숲로 2길</StyledH3>
-          <StyledContentBox></StyledContentBox>
-        </StyledDetail>
-        <StyledSubDetail>
-          <div>written by </div>
-          <ProfileIcon />
-          <div className="w-1/2 flex justify-end items-center">
-            <AiFillHeart className="m-2 text-red-600"></AiFillHeart>
-            40
-            <AiOutlineComment className="m-2" />
-            50
+      <StyledCardContainer onClick={() => navigate(`/meeting/detail/${data.id}`)}>
+        <StyledCard>
+          <div>
+            <img src={data.meetingImage}></img>
           </div>
-        </StyledSubDetail>
-      </StyledCard>
+          <StyledDetail>
+            <div>
+              <span
+                className={`mr-1 min-w-fit font-semibold text-sm ${
+                  meetingStatus === '모집준비중'
+                    ? `text-gray-400`
+                    : meetingStatus === '모집중'
+                    ? `text-defaultColor`
+                    : meetingStatus === '모집완료'
+                    ? `text-greenColor`
+                    : `text-defaultLine`
+                }`}
+              >
+                {meetingStatus}
+              </span>
+              <StyledH1 className="line-clamp-1">{data.title}</StyledH1>
+            </div>
+            <div className="flex items-center">
+              <AiOutlineCalendar />
+              <StyledH3>
+                {data.joinStartDate}~{data.joinEndDate}
+              </StyledH3>
+            </div>
+            <div className="flex items-center">
+              <IoMdPeople />
+              <StyledH3>
+                {data.nowPeople}/{data.limitPeople}명 참여중
+              </StyledH3>
+            </div>
+            <div className="flex items-center">
+              <GrLocation />
+              <StyledH3>{data.location}</StyledH3>
+            </div>
+            <StyledContentBox>{data.content}</StyledContentBox>
+          </StyledDetail>
+          <StyledSubDetail>
+            <CardProfileIcon image={admin && admin.profileImage} />
+
+            <div className="w-full flex justify-between items-center text-xs">
+              <div>by {admin && admin.nickname}</div>
+              <div className="w-1/2 flex justify-end items-center" onClick={likeHandler}>
+                {liked ? (
+                  <BsHeartFill className="w-4 h-4 m-2 text-red-600" />
+                ) : (
+                  <BsHeart className="w-4 h-4 m-2 text-red-600" />
+                )}
+                <span>{likeNums}</span>
+              </div>
+            </div>
+          </StyledSubDetail>
+        </StyledCard>
+      </StyledCardContainer>
     </>
   );
 };
 
 export default MeetingCard;
 
-const WriterImage = styled.div``;
+const StyledCardContainer = styled.div`
+  display: flex;
+  width: 280px;
+  height: 450px;
+`;
+
 const StyledSubDetail = styled.div`
   margin-top: 10px;
   width: 100%;
@@ -41,43 +142,48 @@ const StyledSubDetail = styled.div`
   color: #333;
   display: flex;
   align-items: center;
-  padding-left: 5%;
+  padding: 0 5%;
   & > img {
-    width: 1.7rem;
-    height: 1.7rem;
-    margin-left: 5%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 2%;
   }
 `;
 
 const StyledCard = styled.div`
   cursor: pointer;
-  border: 0.5px solid;
-  border-color: #d3c8c8;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #eaecee;
   position: relative;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme?.color?.background || 'white'};
-  width: 20vw;
-  max-width: ${window.innerWidth / 4};
-  height: 40vw;
+  width: 220px;
+  height: 400px;
+  max-width: 19rem;
   transition: 250ms transform;
   user-select: none;
   overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.04);
+    transition: 800ms;
   }
   & > div:first-of-type {
     width: 100%;
     height: 50%;
     position: relative;
-    background-color: gray;
     overflow: hidden;
     & > img {
       width: 100%;
       height: 100%;
-      position: relative;
       object-fit: cover;
     }
+  }
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 380px;
   }
 `;
 
@@ -89,17 +195,24 @@ const StyledDetail = styled.div`
 
 const StyledH1 = styled.h1`
   font-size: 1em;
-  margin-bottom: 7%;
+  margin-bottom: 5%;
   color: #333;
 `;
+
 const StyledH3 = styled.h3`
-  font-size: 1em;
+  font-size: 0.8em;
   margin: 1%;
+  margin-left: 3%;
   color: #333;
 `;
 const StyledContentBox = styled.div`
+  font-size: 0.8em;
   width: 100%;
-  height: 40%;
+  height: 36%;
   background-color: #f4f4f4;
-  margin-top: 10%;
+  margin-top: 3%;
+  padding: 3%;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
 `;

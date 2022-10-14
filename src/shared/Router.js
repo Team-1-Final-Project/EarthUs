@@ -6,23 +6,31 @@ import PostDetail from 'components/post/PostDetail';
 import KakaoAuth from 'components/login/KakaoAuth';
 import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
-import ZeroShop from 'pages/ZeroShop';
-import CommentList from 'components/comment/CommentList';
 import MyPageRoute from './sub/MypageRoute';
+import ScrollToTop from 'components/ScrollTop';
+import ReviewRoute from './sub/ReviewRoute';
+import UpdatePost from 'components/post/UpdatePost';
+import ZeroshopRoute from './sub/ZeroshopRoute';
+import { GlobalStyle } from 'utils/styles/GlobalStyles';
+import MeetingChat from 'components/chat/Chatting';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
+        <Route path="/meeting/chat/*" element={<MeetingChat />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
-        <Route path="/post" element={<PostListPage />} />
-        <Route path="/postdetail/:id" element={<PostDetail />} />
+        <Route path="/community" element={<PostListPage />} />
+        <Route path="/communitydetail/:id" element={<PostDetail />} />
         <Route path="/addpost" element={<AddPost />} />
-        <Route path="/kauth" element={<KakaoAuth />} />
-        <Route path="/zeroshop" element={<ZeroShop />} />
-        <Route path="/comment" element={<CommentList />} />
+        <Route path="/updatepost/:id" element={<UpdatePost />} />
+        <Route path="/login/kakao" element={<KakaoAuth />} />
+        <Route path="/review/*" element={<ReviewRoute />} />
+        <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
       </Routes>
     </BrowserRouter>
   );

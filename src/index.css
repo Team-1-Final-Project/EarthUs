@@ -3,9 +3,48 @@
 @tailwind utilities;
 
 .default_outline {
-  @apply outline outline-1 outline-defaultLine rounded-xl;
+  @apply outline outline-1 outline-[#EAECEE] rounded-xl;
 }
 
 .hover_button {
   @apply hover:outline-none hover:bg-defaultColor hover:text-white;
+}
+
+.default_button {
+  @apply duration-300 ease-in-out bg-white hover:text-white text-defaultColor outline outline-defaultColor rounded-3xl outline-1 hover:bg-defaultColor;
+}
+
+@charset "utf-8";
+
+/*default.css*/
+/*font*/
+
+@font-face {
+  font-family: 'Pretendard-ExtraLight';
+  src: url('./assets/fonts/Pretendard-ExtraLight.ttf');
+}
+
+@font-face {
+  font-family: 'Pretendard-Light';
+  src: url('./assets/fonts/Pretendard-Light.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('./assets/fonts/Pretendard-Regular.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-Thin';
+  src: url('./assets/fonts/Pretendard-Thin.ttf');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  src: url('./assets/fonts/Pretendard-ExtraBold.ttf');
+}
+@font-face {
+  font-family: 'FuzzyBubbles-Bold';
+  src: url('./assets/fonts/FuzzyBubbles-Bold.ttf');
+}
+@font-face {
+  font-family: 'FuzzyBubbles-Regular';
+  src: url('./assets/fonts/FuzzyBubbles-Regular.ttf');
 }

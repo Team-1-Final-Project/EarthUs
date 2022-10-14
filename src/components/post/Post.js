@@ -1,124 +1,183 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-
-const Post = ({ post, heart, setHeart }) => {
+import 'react-toastify/dist/ReactToastify.css';
+import { apis } from 'api/api';
+import { useDispatch } from 'react-redux';
+import { getPostList } from 'redux/modules/postSlice';
+const Post = ({ post }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [heartState, setHeartState] = useState(false);
+
+  useEffect(() => {
+    apis.getHeart(post?.boardId).then((res) => {
+      setHeartState(res.data.boardLike);
+    });
+  }, [dispatch, post?.boardId, heartState]);
 
   return (
-    <ContainerStyled
+    <ContainerStyle
+      className="hover:scale-[1.02] ease-in duration-300 cursor-pointer"
       onClick={() => {
-        navigate(`/postdetail/${post.boardId}`);
+        navigate(`/communitydetail/${post?.boardId}`);
       }}
     >
-      <div className="TopWrap">
-        <TagStyled>{post && post.tag}</TagStyled>
-        <TimeStyled>{post && post.createdAt}</TimeStyled>
-      </div>
-
-      <ContentsContainerStyled>
-        <div className="profileWrap">
-          <ProfileStyled>
-            <img className="img" src={post && post.profileimage} alt="profileimg" />
-          </ProfileStyled>
-          <NameStyled>{post && post.writerName}</NameStyled>
+      <TopWrapStyle>
+        <div className="tagList">
+          {post?.tagBoards.map((tag) => {
+            return (
+              <span key={tag.id} className="tag">
+                {`# ${tag.tagName}`}{' '}
+              </span>
+            );
+          })}
         </div>
+        <span className="date">{post?.createdAt.substr(0, 10)}</span>
+      </TopWrapStyle>
 
-        <div>
-          <TitleStyled>{post && post.title}</TitleStyled>
-          <ContentStyled>{post && post.content}</ContentStyled>
-        </div>
-
-        <ImageStyled>
-          <img className="img" src={post && post.image} alt="img" />
-        </ImageStyled>
-
-        <IconContainerstyled>
-          <div
-            className="iconWrap"
-            onClick={(event) => {
-              setHeart(!heart);
-              event.stopPropagation();
-            }}
-          >
-            {heart ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-            <span className="count">{post && post.heartNums}</span>
+      <ContentsWrapStyle>
+        <div className="profileIconWrap">
+          <div className="profileWrap">
+            <ProfileStyle>
+              <img
+                className="img"
+                onError={(e) => {
+                  e.currentTarget.style = 'null';
+                }}
+                src={post?.profileImage}
+                alt="img"
+              />
+            </ProfileStyle>
+            <NameStyle>{post?.writerName}</NameStyle>
           </div>
 
-          <div
-            className="iconWrap"
-            onClick={(event) => {
-              navigate('/postdetail');
-              event.stopPropagation();
-            }}
-          >
-            <AiOutlineComment />
-            <span className="count">{post && post.commentNums}</span>
+          <IconContainerstyle>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                // dispatch(putChangeHeart(post?.boardId)).then((res) => {
+                //   console.log(res.payload);
+                // });
+                // mutate(post?.boardId);
+
+                apis.postHeart(post?.boardId).then((res) => {
+                  apis.getHeart(post?.boardId).then((res) => {
+                    dispatch(getPostList());
+                    setHeartState(res.data.boardLike);
+                  });
+                  console.log(res);
+                });
+                console.log(post?.boardId);
+                console.log(post.heartBoardNums);
+                console.log(heartState);
+                e.stopPropagation();
+              }}
+            >
+              {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
+              <span className="count ">{post?.heartBoardNums}</span>
+            </div>
+            <div
+              className="iconWrap"
+              onClick={(e) => {
+                // dispatch(getDetailPost(data?.boardId));
+                navigate(`/communitydetail/${post?.boardId}`);
+              }}
+            >
+              <AiOutlineComment />
+              <span className="count count1">{post?.commentNums}</span>
+            </div>
+          </IconContainerstyle>
+        </div>
+
+        <ContentWrapStyle>
+          <div className="titleContentWrap">
+            <TitleStyle>{post?.title}</TitleStyle>
+            <ContentStyle>{post?.content}</ContentStyle>
           </div>
-        </IconContainerstyled>
-      </ContentsContainerStyled>
-    </ContainerStyled>
+
+          <ImageStyled>
+            <img className="boardImg" src={post?.boardImage} alt="img" />
+          </ImageStyled>
+        </ContentWrapStyle>
+      </ContentsWrapStyle>
+    </ContainerStyle>
   );
 };
 
-const ContainerStyled = styled.div`
+const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
-  min-width: 400px;
-  height: 250px;
   margin: auto;
   margin-top: 2em;
-  padding: 20px;
-  border: 1px solid #969696;
-  border-radius: 15px;
-  .TopWrap {
-    display: flex;
-    justify-content: space-between;
-  }
-  @media (max-width: 900px) {
-    height: 405px;
-    width: 80%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  outline-color: #eaecee;
+
+  @media (max-width: 750px) {
+    min-width: 400px;
   }
 `;
 
-const ContentsContainerStyled = styled.div`
-  display: grid;
-  grid-template-columns: 130px auto 170px;
+const TopWrapStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  .tagList {
+    width: 70%;
+  }
+  .tag {
+    /* width: max-content; */
+    margin-bottom: 10px;
+    padding: 0px 5px;
+    font-size: 12px;
+    color: #3cc2df;
+    background-color: #f3f4f5;
+    border: 1px solid #f3f4f5;
+    border-radius: 20px;
+    margin-right: 5px;
+    word-break: keep-all;
+    white-space: normal;
+  }
+  .date {
+    color: #595f63;
+    font-size: 14px;
+  }
+`;
+
+const ContentsWrapStyle = styled.div`
+  display: flex;
+
+  .profileIconWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-right: 30px;
+    @media (max-width: 750px) {
+      flex-direction: row;
+      margin-bottom: 20px;
+      align-items: center;
+      margin-right: 0px;
+    }
+  }
   .profileWrap {
     display: flex;
     align-items: top;
-    margin: 0;
   }
-  @media (max-width: 900px) {
-    display: flex;
+  @media (max-width: 750px) {
     flex-direction: column;
   }
 `;
 
-const TagStyled = styled.span`
-  width: max-content;
-  margin-bottom: 10px;
-  padding: 0px 10px;
-  font-size: 14px;
-  color: #3cc2df;
-  background-color: #f3f4f5;
-  border: 1px solid #f3f4f5;
-  border-radius: 5px;
-`;
-
-const TimeStyled = styled.span`
-  color: #595f63;
-  font-size: 14px;
-`;
-
-const ProfileStyled = styled.div`
+const ProfileStyle = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 70%;
   overflow: hidden;
-  margin-bottom: 10px;
   .img {
     width: 100%;
     height: 100%;
@@ -126,70 +185,100 @@ const ProfileStyled = styled.div`
   }
 `;
 
-const NameStyled = styled.span`
+const NameStyle = styled.span`
   margin-left: 10px;
+  width: 70px;
   color: #333;
-  font-size: 14px;
+  font-size: 15px;
   position: relative;
   top: 15px;
 `;
 
-const TitleStyled = styled.h1`
-  margin-bottom: 20px;
+const IconContainerstyle = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  color: #595f63;
+  cursor: pointer;
+  .iconWrap {
+    display: flex;
+    align-items: center;
+    color: #3cc2df;
+  }
+  .count {
+    margin-right: 10px;
+    margin-left: 5px;
+    color: #595f63;
+  }
+  .count1 {
+    @media (max-width: 750px) {
+      margin: 0;
+      margin-left: 5px;
+    }
+  }
+`;
+
+const ContentWrapStyle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .titleContentWrap {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-right: 20px;
+    @media (max-width: 750px) {
+      width: 100%;
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
+  }
+  @media (max-width: 750px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const TitleStyle = styled.h1`
+  margin-bottom: 10px;
   color: #333;
   font-size: 18px;
   font-weight: bold;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
-const ContentStyled = styled.span`
+const ContentStyle = styled.div`
   margin-right: 20px;
-  font-size: 15px;
+  font-size: 14px;
   color: #595f63;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  @media (max-width: 900px) {
+  @media (max-width: 750px) {
     -webkit-line-clamp: 3;
-  }
-`;
-
-const IconContainerstyled = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 17px;
-  color: #595f63;
-  position: relative;
-  bottom: 20px;
-  .count {
-    margin-right: 10px;
-    margin-left: 5px;
-  }
-  .iconWrap {
-    display: flex;
-    align-items: center;
-  }
-  @media (max-width: 900px) {
-    justify-content: flex-end;
+    margin-right: 0px;
   }
 `;
 
 const ImageStyled = styled.div`
-  width: 170px;
-  height: 170px;
-  max-width: 250px;
-  max-height: 250px;
   border-radius: 10px;
   overflow: hidden;
+  max-width: 250px;
+  width: 250px;
+  height: 150px;
 
-  .img {
+  .boardImg {
     width: 100%;
     height: 100%;
+    /* max-height: 200px; */
+    overflow: hidden;
     object-fit: cover;
   }
-  @media (max-width: 900px) {
-    margin-top: 15px;
-    width: 240px;
-    height: 140px;
+  @media (max-width: 750px) {
+    margin: 0;
   }
 `;
 
