@@ -8,7 +8,6 @@ import { useInfiniteQueryScroll } from 'hooks/useInfiniteQueryScroll';
 
 const PostList = ({ selectedTag }) => {
   const [postList, setPostList] = useState([]);
-
   const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQueryScroll(selectedTag);
 
   const { ref, inView } = useInView();

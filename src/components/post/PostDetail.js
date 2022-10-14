@@ -27,8 +27,6 @@ const PostDetail = () => {
   const heartData = useSelector((state) => state.heart.heart);
 
   const name = sessionStorage.getItem('nickname');
-  console.log(name);
-  console.log(data?.writerName);
 
   return (
     <Layout>

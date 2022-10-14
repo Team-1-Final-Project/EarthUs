@@ -21,11 +21,9 @@ export const localApi = axios.create({
 api.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = sessionStorage.getItem('Access_token');
-    console.log('인터셉터요청성공');
     return config;
   },
   (error) => {
-    console.log('인터셉터요청에러', error);
     return Promise.reject(error);
   }
 );
