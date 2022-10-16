@@ -6,7 +6,7 @@ export const api = axios.create({
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
   },
-  // withCredentials: true,
+  withCredentials: true,
 });
 
 export const localApi = axios.create({
