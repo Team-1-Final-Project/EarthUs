@@ -5,7 +5,7 @@ import Modal from 'components/modal/Modal';
 import { useState } from 'react';
 import HomeButton from './HomeButton';
 
-import KakaoLogin from 'components/login/KakaoLogin';
+import KakaoLogin from 'components/Login/KakaoLogin';
 import Sse from 'utils/Sse/Sse';
 
 function Navbar() {
