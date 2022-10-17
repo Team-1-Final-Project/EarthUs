@@ -1,7 +1,6 @@
 import PostList from 'components/post/PostList';
 import Tag from 'components/tag/Tag';
 import { useEffect, useState } from 'react';
-import { apis } from 'api/api';
 import Navbar from 'components/navbar/Navbar';
 import styled from 'styled-components';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
