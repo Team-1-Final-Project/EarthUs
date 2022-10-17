@@ -20,7 +20,6 @@ const KakaoAuth = () => {
         apis
           .kakaoLogin()
           .then((res) => {
-            console.log('res', res);
             const nickname = res.data.nickname;
             const image = res.data.profileImage;
             const email = res.data.email;

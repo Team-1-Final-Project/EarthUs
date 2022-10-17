@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ShopList({ shop }) {
-  console.log(shop);
   return (
     <div className="flex justify-center">
       {shop &&
@@ -9,7 +8,7 @@ function ShopList({ shop }) {
           <>
             <div className="flex flex-row w-8/12 h-48 default_outline " key={shop.id}>
               <div className="w-1/2">
-                <img className="h-48 rounded-lg " src={shop.image} />
+                <img className="h-48 rounded-lg " src={shop.image} alt="shopImage" />
               </div>
               <div className="flex flex-col w-1/2 gap-4 ml-2">
                 <div className="mt-2 text-2xl font-bold">{shop.shopName}</div>

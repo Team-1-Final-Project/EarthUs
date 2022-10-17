@@ -4,7 +4,6 @@ import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 function TopPost({ hitBoard }) {
-  console.log(hitBoard);
   const navigate = useNavigate();
   return (
     <>
@@ -43,7 +42,11 @@ function TopPost({ hitBoard }) {
                     </div>
                   </div>
                   <div className="w-1/3">
-                    <img src={board.boardImage} className="w-full h-40 rounded-lg" />
+                    <img
+                      src={board.boardImage}
+                      alt="boardImage"
+                      className="w-full h-40 rounded-lg"
+                    />
                   </div>
                 </div>
               </div>
