@@ -4,14 +4,12 @@ import Preview from './Preview';
 import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
-import { useDispatch } from 'react-redux';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import swal from 'sweetalert';
 import { apis } from 'api/api';
 
 const AddPost = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [chooseTag, setChooseTag] = useState([]);
   const [image, setImage] = useState('');
@@ -20,7 +18,6 @@ const AddPost = () => {
   const onChangeImage = (e) => {
     setImage(e.target.files[0]);
   };
-  console.log(image);
 
   const [tagList, setTagList] = useState([
     { id: 1, name: '#플로깅', state: false },
@@ -135,7 +132,6 @@ const AddPost = () => {
                   </LabelStyle>
                   <div>
                     {tagList?.map((tag) => {
-                      console.log(tagList);
                       return (
                         <TagStyle
                           backColor={tag.state ? '#3cc2df' : '#f3f4f5'}
@@ -195,12 +191,8 @@ const AddPost = () => {
                       );
                       formData.append('data', data);
                       formData.append('boardImage', image);
-                      console.log(image);
-                      apis.addPost(formData).then(() => navigate('/community'));
 
-                      // for (let value of formData.values()) {
-                      //   console.log(value);
-                      // }
+                      apis.addPost(formData).then(() => navigate('/community'));
                     }
                   }}
                   className="button"

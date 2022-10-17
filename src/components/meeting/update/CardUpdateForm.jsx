@@ -28,7 +28,6 @@ const CardUpdateForm = (props) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
-    console.log('here', props);
     props.detailData && setTitle(props.detailData.title);
     props.detailData && setLocation(props.detailData.location);
     props.detailData && setLimitPeople(props.detailData.limitPeople);
@@ -37,7 +36,6 @@ const CardUpdateForm = (props) => {
     props.detailData && setMeetingStartDate(props.detailData.meetingStartDate);
     props.detailData && setMeetingEndDate(props.detailData.meetingEndDate);
     props.detailData && setContent(props.detailData.content);
-    console.log('data', data);
   }, [props.detailData]);
 
   const data = {
@@ -71,12 +69,10 @@ const CardUpdateForm = (props) => {
       await apis
         .updateMeeting(props.params, formData)
         .then((res) => {
-          console.log('image', image && image);
           swal(res.data.data);
           navigate('/meeting');
         })
         .catch((err) => {
-          console.log(err);
           swal('작성 포맷이 올바르지 않습니다. 이미지 파일이 jpg형식인지 확인해 주세요.');
         });
     } else if (!(JSD < JED)) {
@@ -137,6 +133,7 @@ const CardUpdateForm = (props) => {
                       <img
                         className="h-full w-full"
                         src={props.detailData ? props.detailData.meetingImage : null}
+                        alt="meetingImage"
                       />
                     )}
 

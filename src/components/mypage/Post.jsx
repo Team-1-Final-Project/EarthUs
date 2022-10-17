@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 export function WritePost({ writePost }) {
   const navigate = useNavigate();
 
-  console.log(writePost);
   return (
     <div>
       <div className="m-4 text-xl font-bold">작성한 게시글</div>
@@ -40,7 +39,7 @@ export function WritePost({ writePost }) {
                   </div>
                 </div>
                 <div className="w-1/3">
-                  <img src={post.boardImage} className="w-full h-40 rounded-lg" />
+                  <img src={post.boardImage} className="w-full h-40 rounded-lg" alt="boardImage" />
                 </div>
               </div>
             </div>
@@ -87,7 +86,7 @@ export function LikePost({ likePost }) {
                   </div>
                 </div>
                 <div className="w-1/3">
-                  <img src={post.boardImage} className="w-full h-40 rounded-lg" />
+                  <img src={post.boardImage} className="w-full h-40 rounded-lg" alt="boardImage" />
                 </div>
               </div>
             </div>

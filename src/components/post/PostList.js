@@ -17,7 +17,7 @@ const PostList = ({ selectedTag }) => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [hasNextPage, inView, fetchNextPage, data]);
+  }, [hasNextPage, inView, fetchNextPage]);
 
   useEffect(() => {
     setPostList(data);

@@ -10,7 +10,6 @@ const KakaoMap = ({ address, title }) => {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  console.log('이름', address);
 
   useEffect(() => {
     const places = new kakao.maps.services.Places();

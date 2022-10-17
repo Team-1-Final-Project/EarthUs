@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import MeetingCard from 'components/meeting/MeetingCard';
 import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
 import Tag from 'components/tag/Tag';
 import Navbar from 'components/navbar/Navbar';
-import { api, apis } from 'api/api';
+import { apis } from 'api/api';
 import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import swal from 'sweetalert';
@@ -40,7 +39,6 @@ const MeetingPage = () => {
     apis
       .getAllMeeting(page - 1)
       .then((res) => {
-        console.log(res);
         setData(res.data.data.content);
         setTotalElements(res.data.data.totalElements);
       })
@@ -80,7 +78,7 @@ const MeetingPage = () => {
           console.log('err', err);
         });
     }
-  }, []);
+  }, [loginState]);
 
   return (
     <Layout>
@@ -97,15 +95,6 @@ const MeetingPage = () => {
         <div className="pt-20 px-20">
           <div className="flex-col py-3">
             <h1 className="text-2xl">참여중인 모임</h1>
-            {/* <div className="flex justify-end">
-              <Button
-                onClick={() => {
-                  loginState ? navigate('/meeting/create') : swal('로그인이 필요한 기능입니다.');
-                }}
-              >
-                모임 생성
-              </Button>
-            </div> */}
           </div>
 
           {loginState ? (

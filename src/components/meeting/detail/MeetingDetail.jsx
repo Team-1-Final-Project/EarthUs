@@ -109,7 +109,8 @@ const MeetingDetail = (props) => {
             <img
               className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
               src={detail.meetingImage}
-            ></img>
+              alt="meetingImage"
+            />
           </div>
           <div className="w-1/2">
             <div className="flex items-center">

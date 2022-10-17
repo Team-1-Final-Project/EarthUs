@@ -9,14 +9,14 @@ export const useInfiniteQueryScroll = (selectedTag) => {
       return {
         posts: data?.data,
         nextPage: pageParam + 1,
-        isLast: data?.data.content.length < 10,
+        isLast: data?.data.last,
       };
     } else {
       const { data } = await apis.searchPostTag(pageParam, { tagIds: selectedTag });
       return {
         posts: data?.data,
         nextPage: pageParam + 1,
-        isLast: data?.data.content.length < 10,
+        isLast: data?.data.last,
       };
     }
   };

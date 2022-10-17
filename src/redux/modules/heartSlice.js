@@ -3,12 +3,10 @@ import { token } from 'api/api';
 
 export const getHeart = createAsyncThunk('GET_HEART_LIST', async (id) => {
   const { data } = await token.get(`/board/heart/${id}`);
-  console.log(data.data.boardLike);
   return data.data.boardLike;
 });
 export const putChangeHeart = createAsyncThunk('PUT_CHANGE_HEART', async (id) => {
   const { data } = await token.put(`/board/heart/${id}`);
-  console.log(data.data, id);
   return data.data;
 });
 
