@@ -30,7 +30,6 @@ function MainPage() {
     });
     apis.getMainHitBoard().then((res) => {
       setHitBoard(res.data);
-      console.log(res);
     });
   }, []);
 
