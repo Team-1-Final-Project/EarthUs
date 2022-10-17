@@ -8,7 +8,6 @@ import HomeButton from './HomeButton';
 import KakaoLogin from 'components/login/KakaoLogin';
 import Sse from 'utils/Sse/Sse';
 
-
 function Navbar() {
   const navigate = useNavigate();
   const state = useLocation();
@@ -92,6 +91,7 @@ function Navbar() {
         <div className="flex items-center justify-between h-16">
           {links.map(({ path, label, exact, end }) => (
             <NavLink
+              key={label}
               to={path}
               className={({ isActive }) =>
                 isActive ? 'py-1 border-b-2 border-black font-black' : ''
