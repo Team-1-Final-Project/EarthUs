@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-import 'react-toastify/dist/ReactToastify.css';
 import { apis } from 'api/api';
 import { useDispatch } from 'react-redux';
 import { getPostList } from 'redux/modules/postSlice';
-const Post = ({ post }) => {
+const Post = ({ post, onToastifyHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [heartState, setHeartState] = useState(false);
   const [heartNum, setHeartNum] = useState(post?.heartBoardNums);
 
+  const loginState = sessionStorage.getItem('Access_token');
+
   useEffect(() => {
-    apis.getHeart(post?.boardId).then((res) => {
-      setHeartState(res.data.boardLike);
-    });
-  }, [dispatch, post?.boardId]);
+    if (loginState) {
+      apis.getHeart(post?.boardId).then((res) => {
+        setHeartState(res.data.boardLike);
+      });
+    }
+  }, [loginState, post?.boardId]);
 
   return (
     <ContainerStyle
@@ -58,20 +61,17 @@ const Post = ({ post }) => {
             <div
               className="iconWrap"
               onClick={(e) => {
-                apis.postHeart(post?.boardId).then((res) => {
-                  apis.getHeart(post?.boardId).then((res) => {
-                    dispatch(getPostList());
-                    setHeartState(res.data.boardLike);
-
-                    // if (heartState) {
-                    //   setHeartNum(heartNum - 1);
-                    // } else {
-                    //   setHeartNum(heartNum + 1);
-                    // }
-                  });
-                });
-
                 e.stopPropagation();
+                if (loginState) {
+                  apis.postHeart(post?.boardId).then((res) => {
+                    apis.getHeart(post?.boardId).then((res) => {
+                      dispatch(getPostList());
+                      setHeartState(res.data.boardLike);
+                    });
+                  });
+                } else {
+                  onToastifyHandler();
+                }
               }}
             >
               {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
