@@ -45,6 +45,7 @@ const KakaoMap = ({ address, title }) => {
             style={{ width: '380px', height: '200px' }}
             level={3}
             onCreate={setMap}
+            key={title}
           >
             <MapMarker position={item.position}></MapMarker>
           </Map>
