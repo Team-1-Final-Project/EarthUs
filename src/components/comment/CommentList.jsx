@@ -4,6 +4,7 @@ import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CommentList = ({ commentListData }) => {
   const [commentList, setCommentList] = useState([]);
@@ -43,18 +44,26 @@ const CommentList = ({ commentListData }) => {
     }
   };
 
+  const toastifyHandler = () => {
+    toast.error('내용이 비어있습니다.');
+  };
+
   return (
-    <ContainerStyle>
-      {commentList?.map((comment) => (
-        <Comment
-          {...comment}
-          key={comment.commentId}
-          editCommentHandler={editCommentHandler}
-          deleteCommentHandler={deleteCommentHandler}
-        />
-      ))}
-      <CommentForm addCommentHandler={addCommentHandler} />
-    </ContainerStyle>
+    <>
+      <ToastContainer />
+      <ContainerStyle>
+        {commentList?.map((comment) => (
+          <Comment
+            {...comment}
+            key={comment.commentId}
+            editCommentHandler={editCommentHandler}
+            deleteCommentHandler={deleteCommentHandler}
+            onToastifyHandler={toastifyHandler}
+          />
+        ))}
+        <CommentForm addCommentHandler={addCommentHandler} onToastifyHandler={toastifyHandler} />
+      </ContainerStyle>
+    </>
   );
 };
 
