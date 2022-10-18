@@ -45,7 +45,7 @@ const AddPost = () => {
     }).then((value) => {
       switch (value) {
         case '네,나갈래요':
-          navigate('/meeting');
+          navigate('/community');
           break;
 
         default:

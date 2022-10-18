@@ -107,8 +107,7 @@ const PostDetail = () => {
                   <BsTrash
                     className="button"
                     onClick={() => {
-                      dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
-                      navigate('/community');
+                      dispatch(deletePost(params.id)).then(() => navigate('/community'));
                     }}
                   />
                 </ButtonStyled>
