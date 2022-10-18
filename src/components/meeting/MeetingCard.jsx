@@ -69,7 +69,7 @@ const MeetingCard = (props) => {
       <StyledCardContainer onClick={() => navigate(`/meeting/detail/${data.id}`)}>
         <StyledCard>
           <div>
-            <img src={data.meetingImage}></img>
+            {data?.meetingImage ? <img src={data.meetingImage} alt="meetingImage" /> : null}
           </div>
           <StyledDetail>
             <div>

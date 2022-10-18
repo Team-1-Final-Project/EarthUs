@@ -25,9 +25,9 @@ const MeetingInfo = ({ meetingID }) => {
           alt="meetingImage"
           className="w-36 h-36 rounded-xl object-cover mr-5"
         />
-        <div className="flex flex-col py-10">
-          <h1 className="text-xl font-semibold line-clamp-1">{meeting.title}</h1>
-          <p className="line-clamp-3">{meeting.content}</p>
+        <div className="flex flex-col py-10 mr-5">
+          <h1 className="font-bold text line-clamp-1">{meeting.title}</h1>
+          <p className="text-sm line-clamp-3">{meeting.content}</p>
         </div>
       </div>
     </div>

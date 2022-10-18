@@ -6,7 +6,7 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
 
   return (
     <div
-      className="cursor-pointer hover:scale-[1.02] ease-in duration-300 shadow-lg shadow-[#d2d2d2] mb-10 outline outline-lightGrayColor"
+      className="cursor-pointer hover:scale-[1.02] ease-in duration-300 shadow-lg shadow-[#d2d2d2] mb-10 outline outline-lightGrayColor outline-1 rounded"
       onClick={() => navigate(`/review/detail/${id}`)}
     >
       <div className="w-64">
