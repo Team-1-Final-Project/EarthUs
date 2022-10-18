@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { multi, token, apis } from 'api/api';
+import { apis, api } from 'api/api';
 
 export const getPostList = createAsyncThunk('GET_POST_LIST', async () => {
-  const { data } = await token.get('/board');
+  const { data } = await api.get('/board');
   return data;
 });
 
@@ -12,22 +12,28 @@ export const searchPostTag = createAsyncThunk('GET_POST_BY_TAG', async (selected
 });
 
 export const addPost = createAsyncThunk('ADD_POST', async (newPost) => {
-  await multi.post('/board', newPost);
-  console.log(newPost);
+  await api.post('/board', newPost, {
+    headers: {
+      'Content-Type': `multipart/form-data`,
+    },
+  });
 });
 
 export const getDetailPost = createAsyncThunk('GET_DETAIL_POST', async (id) => {
-  const { data } = await token.get(`/board/${id}`);
+  const { data } = await api.get(`/board/${id}`);
   return data;
 });
 
 export const deletePost = createAsyncThunk('DELETE_POST', async (boardId) => {
-  await token.delete(`/board/${boardId}`);
+  await api.delete(`/board/${boardId}`);
 });
 
 export const updatePost = createAsyncThunk('UPDATE_POST', async (boardId, updatePost) => {
-  await multi.put(`/board/${boardId}`, updatePost);
-  console.log(updatePost);
+  await api.put(`/board/${boardId}`, updatePost, {
+    headers: {
+      'Content-Type': `multipart/form-data`,
+    },
+  });
 });
 
 const postSlice = createSlice({

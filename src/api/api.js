@@ -21,11 +21,9 @@ export const localApi = axios.create({
 api.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = sessionStorage.getItem('Access_token');
-    console.log('인터셉터요청성공');
     return config;
   },
   (error) => {
-    console.log('인터셉터요청에러', error);
     return Promise.reject(error);
   }
 );
@@ -117,12 +115,12 @@ export const apis = {
   // },
 
   getHeart: async (boardId) => {
-    const response = await token.get(`board/heart/${boardId}`, {});
+    const response = await api.get(`board/heart/${boardId}`, {});
 
     return response.data;
   },
   postHeart: async (boardId) => {
-    const response = await token.put(`board/heart/${boardId}`, {});
+    const response = await api.put(`board/heart/${boardId}`, {});
 
     return response.data;
   },
@@ -191,7 +189,7 @@ export const apis = {
 
   //tag
   searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
-  searchPostTag: (page, postTag) => localApi.post(`/board/tag?page=${page}`, postTag),
+  searchPostTag: (page, postTag) => api.post(`/board/tag?page=${page}`, postTag),
 
   //Onlineshop
   getShopList: async () => {
@@ -206,12 +204,16 @@ export const apis = {
     const response = await api.get('mypage/meeting');
     return response.data;
   },
-  getMyLikePpst: async () => {
+  getMyLikePost: async () => {
     const response = await api.get('mypage/hitboard');
     return response.data;
   },
   getMyWritePost: async () => {
     const response = await api.get('mypage/board');
+    return response.data;
+  },
+  getMyBadge: async () => {
+    const response = await api.get('/mypage/badge');
     return response.data;
   },
 };

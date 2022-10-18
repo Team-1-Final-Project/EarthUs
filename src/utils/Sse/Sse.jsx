@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 export default function Sse() {
   const id = sessionStorage.getItem('id');
-  console.log(id);
   useEffect(() => {
     if (sessionStorage.getItem('id') != null) {
       const sse = new EventSource(id && `http://54.180.116.99/subscribe/${id}`, {

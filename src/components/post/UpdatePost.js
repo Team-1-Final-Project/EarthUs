@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Footer from 'components/footer/Footer';
 import HomeButton from 'components/navbar/HomeButton';
 import { useDispatch } from 'react-redux';
-import { addPost, getDetailPost, getPostList, updatePost } from 'redux/modules/postSlice';
+import { getDetailPost } from 'redux/modules/postSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
@@ -74,7 +74,7 @@ const UpdatePost = () => {
     }).then((value) => {
       switch (value) {
         case '네,나갈래요':
-          navigate('/meeting');
+          navigate(`/communitydetail/${params.id}`);
           break;
 
         default:
@@ -98,7 +98,7 @@ const UpdatePost = () => {
                   {image ? (
                     <Preview img={image} />
                   ) : (
-                    <img className="h-full w-full" src={data?.boardImage} />
+                    <img className="h-full w-full" src={data?.boardImage} alt="boardImage" />
                   )}
 
                   <div className="flex text-sm text-gray-600">
@@ -207,20 +207,11 @@ const UpdatePost = () => {
                       );
                       formData.append('data', data);
                       formData.append('boardImage', image);
-                      console.log(image);
-                      // dispatch(updatePost(params.id, formData)).then((res) => {
-                      //   console.log(res);
-                      //   dispatch(getPostList()).catch((err) => {
-                      //     console.log(err);
-                      //   });
-                      // });
+
                       await apis.updatePost(params.id, formData).then((res) => {
                         console.log(res);
                       });
 
-                      // for (let value of formData.values()) {
-                      //   console.log(value);
-                      // }
                       navigate('/community');
                     }
                   }}

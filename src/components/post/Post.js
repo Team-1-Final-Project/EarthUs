@@ -2,20 +2,26 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
-import 'react-toastify/dist/ReactToastify.css';
 import { apis } from 'api/api';
-import { useDispatch } from 'react-redux';
-import { getPostList } from 'redux/modules/postSlice';
-const Post = ({ post }) => {
+
+const Post = ({ post, onToastifyHandler }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [heartState, setHeartState] = useState(false);
+  const [heartNum, setHeartNum] = useState(post?.heartBoardNums);
+
+  const loginState = sessionStorage.getItem('Access_token');
 
   useEffect(() => {
-    apis.getHeart(post?.boardId).then((res) => {
-      setHeartState(res.data.boardLike);
-    });
-  }, [dispatch, post?.boardId, heartState]);
+    post && setHeartNum(post?.heartBoardNums);
+  }, [post]);
+
+  useEffect(() => {
+    if (loginState) {
+      apis.getHeart(post?.boardId).then((res) => {
+        setHeartState(res.data.boardLike);
+      });
+    }
+  }, [loginState, post?.boardId]);
 
   return (
     <ContainerStyle
@@ -29,7 +35,7 @@ const Post = ({ post }) => {
           {post?.tagBoards.map((tag) => {
             return (
               <span key={tag.id} className="tag">
-                {`# ${tag.tagName}`}{' '}
+                {`# ${tag.tagName}`}
               </span>
             );
           })}
@@ -57,26 +63,20 @@ const Post = ({ post }) => {
             <div
               className="iconWrap"
               onClick={(e) => {
-                // dispatch(putChangeHeart(post?.boardId)).then((res) => {
-                //   console.log(res.payload);
-                // });
-                // mutate(post?.boardId);
-
-                apis.postHeart(post?.boardId).then((res) => {
-                  apis.getHeart(post?.boardId).then((res) => {
-                    dispatch(getPostList());
-                    setHeartState(res.data.boardLike);
-                  });
-                  console.log(res);
-                });
-                console.log(post?.boardId);
-                console.log(post.heartBoardNums);
-                console.log(heartState);
                 e.stopPropagation();
+                if (loginState) {
+                  apis.postHeart(post?.boardId).then((res) => {
+                    setHeartState(res.data.boardLike);
+                    res.data.boardLike ? setHeartNum(heartNum + 1) : setHeartNum(heartNum - 1);
+                  });
+                } else {
+                  onToastifyHandler();
+                }
               }}
             >
               {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-              <span className="count ">{post?.heartBoardNums}</span>
+              <span className="count ">{heartNum}</span>
+              {/* <span className="count ">{heartNum}</span> */}
             </div>
             <div
               className="iconWrap"

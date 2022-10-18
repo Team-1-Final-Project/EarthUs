@@ -1,6 +1,6 @@
 import Post from './Post';
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostingButton from 'components/button/PostingButton';
 import { useInView } from 'react-intersection-observer';
@@ -8,7 +8,6 @@ import { useInfiniteQueryScroll } from 'hooks/useInfiniteQueryScroll';
 
 const PostList = ({ selectedTag }) => {
   const [postList, setPostList] = useState([]);
-
   const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQueryScroll(selectedTag);
 
   const { ref, inView } = useInView();
@@ -18,11 +17,16 @@ const PostList = ({ selectedTag }) => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [hasNextPage, inView, fetchNextPage, data]);
+  }, [hasNextPage, inView, fetchNextPage]);
 
   useEffect(() => {
     setPostList(data);
   }, [data]);
+
+  const toastifyHandler = () => {
+    toast.error('로그인이 필요합니다.');
+  };
+
   return (
     <>
       <ToastContainer />
@@ -33,11 +37,11 @@ const PostList = ({ selectedTag }) => {
               if (postList?.pages.length === pageIndex + 1 && posts.length === postIndex + 1) {
                 return (
                   <div ref={ref} key={post?.boardId}>
-                    <Post post={post} />
+                    <Post post={post} onToastifyHandler={toastifyHandler} />
                   </div>
                 );
               } else {
-                return <Post key={post?.boardId} post={post} />;
+                return <Post key={post?.boardId} post={post} onToastifyHandler={toastifyHandler} />;
               }
             });
           })

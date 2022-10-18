@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { apis } from 'api/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsTrash, BsPencil } from 'react-icons/bs';
@@ -27,8 +26,6 @@ const PostDetail = () => {
   const heartData = useSelector((state) => state.heart.heart);
 
   const name = sessionStorage.getItem('nickname');
-  console.log(name);
-  console.log(data?.writerName);
 
   return (
     <Layout>
@@ -104,15 +101,13 @@ const PostDetail = () => {
                   <BsPencil
                     className="button"
                     onClick={() => {
-                      console.log(data);
                       navigate(`/updatepost/${params.id}`);
                     }}
                   />
                   <BsTrash
                     className="button"
                     onClick={() => {
-                      dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
-                      navigate('/community');
+                      dispatch(deletePost(params.id)).then(() => navigate('/community'));
                     }}
                   />
                 </ButtonStyled>
@@ -148,6 +143,7 @@ const ImageStyled = styled.div`
   max-width: 250px;
   width: 250px;
   height: 150px;
+  margin-right: 10px;
 
   .boardImg {
     width: 100%;

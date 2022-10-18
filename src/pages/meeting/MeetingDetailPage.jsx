@@ -1,8 +1,7 @@
 import React from 'react';
 import MeetingDetail from 'components/meeting/detail/MeetingDetail';
 import UserInfoCard from 'components/meeting/detail/UserInfoCard';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from 'components/navbar/Navbar';
 import { useEffect } from 'react';
@@ -14,7 +13,6 @@ import ReviewList from 'components/meeting/review/ReviewList';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
 import { BsFillPencilFill } from 'react-icons/bs';
-import Modal from 'components/modal/UserInfoModal';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
@@ -24,11 +22,13 @@ const MeetingDetailPage = () => {
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
+  const [applyerData, setApplyerData] = useState([]);
+  const email = sessionStorage.getItem('email');
 
   useEffect(() => {
     let finder = applyerData.find((item) => item.email === email); //finder는 참여자데이터에 내이메일을 찾아주는 역할을합니다.
     finder ? setApplyState(true) : setApplyState(false); //finder가 존재한다면, 즉 참여자명단에 내가 포함되어 있는지에 따라 참여버튼을 변경합니다.
-  });
+  }, [applyerData, email]);
 
   const onClickApplyHandler = () => {
     loginState
@@ -36,26 +36,20 @@ const MeetingDetailPage = () => {
         ? apis
             .cancelMeeting(params)
             .then((res) => {
-              console.log('apply cancel success', res);
               setApplyState(false);
             })
             .catch((err) => console.log(err))
         : apis
             .applyMeeting(params)
             .then((res) => {
-              console.log('apply success', res);
               setApplyState(true);
               res.data.error && swal(res.data.error.message);
             })
             .catch((err) => console.log(err))
       : swal('로그인이 필요한 기능입니다.');
-    return console.log('applystate', applyState);
   };
 
   //여기부터 수정하기 파트입니다
-  const image = sessionStorage.getItem('profileImage');
-  const email = sessionStorage.getItem('email');
-  const nickname = sessionStorage.getItem('nickname');
 
   let params = useParams().id; // URL로 부터 params를 따옵니다.
 
@@ -66,7 +60,6 @@ const MeetingDetailPage = () => {
       .getMeeting(params)
       .then((res) => {
         setDetailData(res.data.data);
-        console.log('detaildata', res);
       })
       .catch((err) => console.log('err', err, params));
   }, [applyState]);
@@ -98,7 +91,6 @@ const MeetingDetailPage = () => {
     apis
       .deleteMeeting(params)
       .then((res) => {
-        console.log(res);
         swal(res.data.data);
         navigate('/meeting');
       })
@@ -106,13 +98,12 @@ const MeetingDetailPage = () => {
   };
 
   //여기부터 모임 참여 유저 조회 파트입니다.
-  const [applyerData, setApplyerData] = useState([]);
+
   useEffect(() => {
     apis
       .getMeetingUser(params)
       .then((res) => {
         setApplyerData(res.data.data);
-        console.log('유저정보', res.data.data);
       })
       .catch((err) => console.log('err', err));
   }, [applyState]);
@@ -128,14 +119,6 @@ const MeetingDetailPage = () => {
   let reviewWrite = reviews && reviews.find((review) => review.author.email === email);
   //버튼관련 파트입니다
   //모집기간이 지날경우 모집마감된 모임이라고 표시해줍니다.
-  let now = new Date();
-  let year = now.getFullYear();
-  let month = now.getMonth() + 1;
-  let day = now.getDay() + 2 >= 10 ? now.getDay() + 2 : '0' + String(now.getDay() + 2);
-  let nowDate = Number(day) + month * 100 + year * 10000;
-  console.log('나우데이트', nowDate);
-
-  let arr = [String(year), String(month), String(day)];
 
   //유저카드 관련 파트입니다.
 
