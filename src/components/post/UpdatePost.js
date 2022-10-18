@@ -182,7 +182,7 @@ const UpdatePost = () => {
               </AddPostFormStyle>
 
               <ButtonWrapStyle>
-                <ButtonStyle onClick={onClickGoOut} className="button">
+                <ButtonStyle onClick={onClickGoOut} className="button cursor-pointer">
                   뒤로가기
                 </ButtonStyle>
                 <ButtonStyle
@@ -215,7 +215,7 @@ const UpdatePost = () => {
                       navigate('/community');
                     }
                   }}
-                  className="button"
+                  className="button cursor-pointer"
                 >
                   작성완료
                 </ButtonStyle>
