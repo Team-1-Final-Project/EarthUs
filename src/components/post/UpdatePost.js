@@ -74,7 +74,7 @@ const UpdatePost = () => {
     }).then((value) => {
       switch (value) {
         case '네,나갈래요':
-          navigate('/meeting');
+          navigate(`/communitydetail/${params.id}`);
           break;
 
         default:
