@@ -22,7 +22,7 @@ const MeetingChat = () => {
             />
           </ProfileImage>
           <>
-            <div className="chat">안녕하세요</div>
+            <div className="chat">안녕하세</div>
             <div className="time">오전 7:00</div>
           </>
         </ChatWrap>
