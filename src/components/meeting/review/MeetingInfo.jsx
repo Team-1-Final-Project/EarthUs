@@ -20,12 +20,14 @@ const MeetingInfo = ({ meetingID }) => {
       onClick={() => navigate(`/meeting/detail/${meetingID}`)}
     >
       <div className="flex">
-        <img
-          src={meeting.meetingImage}
-          alt="meetingImage"
-          className="w-36 h-36 rounded-xl object-cover mr-5"
-        />
-        <div className="flex flex-col py-10 mr-5">
+        {meeting.meetingImage && (
+          <img
+            src={meeting.meetingImage}
+            alt="meetingImage"
+            className="w-36 h-36 rounded-xl object-cover"
+          />
+        )}
+        <div className="flex flex-col py-10 mx-5">
           <h1 className="font-bold text line-clamp-1">{meeting.title}</h1>
           <p className="text-sm line-clamp-3">{meeting.content}</p>
         </div>
