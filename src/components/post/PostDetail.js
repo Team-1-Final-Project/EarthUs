@@ -144,6 +144,7 @@ const ImageStyled = styled.div`
   max-width: 250px;
   width: 250px;
   height: 150px;
+  margin-right: 10px;
 
   .boardImg {
     width: 100%;
