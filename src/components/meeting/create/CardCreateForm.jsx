@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Preview from '../create/Preview';
 import { apis } from 'api/api';
 import Footer from 'components/footer/Footer';
-import { useEffect } from 'react';
 import swal from 'sweetalert';
 import styled from 'styled-components';
 
@@ -28,7 +27,6 @@ let arr3 = [String(year), String(month), String(day3)];
 let nowDateState = arr.join('-'); //모집시작일
 let nowDateState2 = arr2.join('-'); //모집마감일
 let nowDateState3 = arr3.join('-'); //활동시작일,활동마감일
-console.log('here', day);
 
 const CardCreateForm = () => {
   const navigate = useNavigate();
@@ -59,8 +57,6 @@ const CardCreateForm = () => {
 
   const onClickSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log('태그', ...tag);
-    console.log('data', data);
     const JSD = orange(joinStartDate && joinStartDate);
     const JED = orange(joinEndDate && joinEndDate);
     const MSD = orange(meetingStartDate && meetingStartDate);
@@ -69,16 +65,13 @@ const CardCreateForm = () => {
 
     if (JSD < JED && JED < MSD && MSD <= MED) {
       formData.append('image', image);
-      console.log('image', image);
       formData.append('data', new Blob([JSON.stringify(data)], { type: 'application/json' }));
       await apis
         .createMeeting(formData)
         .then((res) => {
-          console.log(res);
           navigate('/meeting');
         })
         .catch((err) => {
-          console.log(err);
           swal('작성 포맷이 올바르지 않습니다. 이미지 파일이 jpg형식인지 확인해 주세요.');
         });
     } else if (!(JSD < JED)) {

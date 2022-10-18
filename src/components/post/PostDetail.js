@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { apis } from 'api/api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsTrash, BsPencil } from 'react-icons/bs';
@@ -102,7 +101,6 @@ const PostDetail = () => {
                   <BsPencil
                     className="button"
                     onClick={() => {
-                      console.log(data);
                       navigate(`/updatepost/${params.id}`);
                     }}
                   />
@@ -146,6 +144,7 @@ const ImageStyled = styled.div`
   max-width: 250px;
   width: 250px;
   height: 150px;
+  margin-right: 10px;
 
   .boardImg {
     width: 100%;

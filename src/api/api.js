@@ -115,12 +115,12 @@ export const apis = {
   // },
 
   getHeart: async (boardId) => {
-    const response = await token.get(`board/heart/${boardId}`, {});
+    const response = await api.get(`board/heart/${boardId}`, {});
 
     return response.data;
   },
   postHeart: async (boardId) => {
-    const response = await token.put(`board/heart/${boardId}`, {});
+    const response = await api.put(`board/heart/${boardId}`, {});
 
     return response.data;
   },
@@ -189,7 +189,7 @@ export const apis = {
 
   //tag
   searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
-  searchPostTag: (page, postTag) => localApi.post(`/board/tag?page=${page}`, postTag),
+  searchPostTag: (page, postTag) => api.post(`/board/tag?page=${page}`, postTag),
 
   //Onlineshop
   getShopList: async () => {

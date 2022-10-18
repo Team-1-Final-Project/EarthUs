@@ -10,7 +10,6 @@ const KakaoMap = ({ address, title }) => {
   const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
-  console.log('이름', address);
 
   useEffect(() => {
     const places = new kakao.maps.services.Places();
@@ -46,6 +45,7 @@ const KakaoMap = ({ address, title }) => {
             style={{ width: '380px', height: '200px' }}
             level={3}
             onCreate={setMap}
+            key={title}
           >
             <MapMarker position={item.position}></MapMarker>
           </Map>

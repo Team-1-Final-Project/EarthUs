@@ -26,13 +26,13 @@ function ZeroOfflineShop() {
     apis
       .getOfflineShopList(param)
       .then((res) => {
-        console.log('res', res);
         setShopList(res.data.data);
       })
       .catch((err) => {
         console.log('err', err);
       });
   }, []);
+
   const page = [1, 2, 3, 4];
   return (
     <Layout>
@@ -50,13 +50,13 @@ function ZeroOfflineShop() {
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
           {shopList &&
             shopList.map((shop) => {
-              return <OfflineShopCard shop={shop} />;
+              return <OfflineShopCard shop={shop} key={shop.title} />;
             })}
         </div>
         <div className="w-full flex justify-center mt-10">
           {page.map((item) => {
             return (
-              <a href={'/zeroshop/offline/' + item}>
+              <a href={'/zeroshop/offline/' + item} key={item}>
                 <span className={item == param ? 'm-3 text-cyan-400' : 'm-2'}>{item}</span>
               </a>
             );

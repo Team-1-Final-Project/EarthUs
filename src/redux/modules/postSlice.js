@@ -13,7 +13,6 @@ export const searchPostTag = createAsyncThunk('GET_POST_BY_TAG', async (selected
 
 export const addPost = createAsyncThunk('ADD_POST', async (newPost) => {
   await multi.post('/board', newPost);
-  console.log(newPost);
 });
 
 export const getDetailPost = createAsyncThunk('GET_DETAIL_POST', async (id) => {
@@ -27,7 +26,6 @@ export const deletePost = createAsyncThunk('DELETE_POST', async (boardId) => {
 
 export const updatePost = createAsyncThunk('UPDATE_POST', async (boardId, updatePost) => {
   await multi.put(`/board/${boardId}`, updatePost);
-  console.log(updatePost);
 });
 
 const postSlice = createSlice({
