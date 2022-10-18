@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { apis } from 'api/api';
 import { useDispatch } from 'react-redux';
-import { getPostList } from 'redux/modules/postSlice';
+
 const Post = ({ post, onToastifyHandler }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [heartState, setHeartState] = useState(false);
   const [heartNum, setHeartNum] = useState(post?.heartBoardNums);
 
@@ -64,10 +63,8 @@ const Post = ({ post, onToastifyHandler }) => {
                 e.stopPropagation();
                 if (loginState) {
                   apis.postHeart(post?.boardId).then((res) => {
-                    apis.getHeart(post?.boardId).then((res) => {
-                      dispatch(getPostList());
-                      setHeartState(res.data.boardLike);
-                    });
+                    setHeartState(res.data.boardLike);
+                    res.data.boardLike ? setHeartNum(heartNum + 1) : setHeartNum(heartNum - 1);
                   });
                 } else {
                   onToastifyHandler();
@@ -75,7 +72,7 @@ const Post = ({ post, onToastifyHandler }) => {
               }}
             >
               {heartState ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
-              <span className="count ">{post?.heartBoardNums}</span>
+              <span className="count ">{heartNum}</span>
               {/* <span className="count ">{heartNum}</span> */}
             </div>
             <div
