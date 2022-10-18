@@ -106,11 +106,13 @@ const MeetingDetail = (props) => {
         </TagListLayout>
         <StyledDiv className="flex w-full flex-col py-2">
           <div className="w-full p-5 flex justify-center">
-            <img
-              className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
-              src={detail.meetingImage}
-              alt="meetingImage"
-            />
+            {detail && detail.meetingImage && (
+              <img
+                className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
+                src={detail.meetingImage}
+                alt="meetingImage"
+              />
+            )}
           </div>
           <div className="w-1/2">
             <div className="flex items-center">
