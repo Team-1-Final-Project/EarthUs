@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { apis } from 'api/api';
-import { useDispatch } from 'react-redux';
 
 const Post = ({ post, onToastifyHandler }) => {
   const navigate = useNavigate();
@@ -11,6 +10,10 @@ const Post = ({ post, onToastifyHandler }) => {
   const [heartNum, setHeartNum] = useState(post?.heartBoardNums);
 
   const loginState = sessionStorage.getItem('Access_token');
+
+  useEffect(() => {
+    post && setHeartNum(post?.heartBoardNums);
+  }, [post]);
 
   useEffect(() => {
     if (loginState) {
