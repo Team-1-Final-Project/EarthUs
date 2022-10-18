@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER}`,
+  baseURL: `http://54.180.116.99/`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
@@ -204,12 +204,16 @@ export const apis = {
     const response = await api.get('mypage/meeting');
     return response.data;
   },
-  getMyLikePpst: async () => {
+  getMyLikePost: async () => {
     const response = await api.get('mypage/hitboard');
     return response.data;
   },
   getMyWritePost: async () => {
     const response = await api.get('mypage/board');
+    return response.data;
+  },
+  getMyBadge: async () => {
+    const response = await api.get('/mypage/badge');
     return response.data;
   },
 };
