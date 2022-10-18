@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { token } from 'api/api';
+import { api } from 'api/api';
 
 export const getHeart = createAsyncThunk('GET_HEART_LIST', async (id) => {
-  const { data } = await token.get(`/board/heart/${id}`);
+  const { data } = await api.get(`/board/heart/${id}`);
   return data.data.boardLike;
 });
 export const putChangeHeart = createAsyncThunk('PUT_CHANGE_HEART', async (id) => {
-  const { data } = await token.put(`/board/heart/${id}`);
+  const { data } = await api.put(`/board/heart/${id}`);
   return data.data;
 });
 
