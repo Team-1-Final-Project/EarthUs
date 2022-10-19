@@ -20,7 +20,7 @@ function ZeroOnlineShop() {
     <Layout>
       <Container>
         <Navbar />
-        <div className="w-full flex justify-center">
+        <div className="flex justify-center w-full">
           <button className="m-3 hover:cursor-pointer text-defaultColor">Online</button>
           <button
             className="m-3 hover:cursor-pointer"
