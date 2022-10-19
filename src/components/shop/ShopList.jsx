@@ -1,22 +1,26 @@
 import React from 'react';
 
 function ShopList({ shop }) {
+  console.log(shop);
   return (
-    <div className="flex justify-center">
+    <div className="grid grid-cols-1 gap-2 place-content-center">
       {shop &&
         shop.map((shop) => (
           <>
-            <div className="flex flex-row w-8/12 h-48 default_outline " key={shop.id}>
-              <div className="w-1/2">
+            <div
+              className="flex flex-row w-full h-48 text-center shadow-lg default_outline "
+              key={shop.id}
+            >
+              <div className="w-4/12">
                 <img className="h-48 rounded-lg " src={shop.image} alt="shopImage" />
               </div>
-              <div className="flex flex-col w-1/2 gap-4 ml-2">
+              <div className="flex flex-col justify-center w-full gap-4 ml-2">
                 <div className="mt-2 text-2xl font-bold">{shop.shopName}</div>
                 <div className="mr-2 text-sm">{shop.content}</div>
-                <div className="relative">
+                <div className="">
                   <button
                     onClick={() => window.open(`${shop.link}`, '_blank')}
-                    className="absolute p-1 w-28 default_outline hover_button"
+                    className="p-1 w-28 default_outline hover_button"
                   >
                     사이트 이동
                   </button>
