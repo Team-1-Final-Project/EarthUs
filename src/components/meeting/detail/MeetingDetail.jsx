@@ -104,8 +104,8 @@ const MeetingDetail = (props) => {
             <span className="text-xl text-defaultText">{likeNums}</span>
           </div>
         </TagListLayout>
-        <StyledDiv className="flex w-full flex-col py-2">
-          <div className="w-full p-5 flex justify-center">
+        <StyledDiv className="flex w-full py-2">
+          <div className="w-1/2 p-5 flex justify-center">
             {detail && detail.meetingImage && (
               <img
                 className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
@@ -137,13 +137,15 @@ const MeetingDetail = (props) => {
               <GrLocation />
               <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
             </div>
-            {detail.location && <KakaoMap address={detail.location}></KakaoMap>}
-          </div>
-          <div className="mt-2">
-            <h1 className="text-2xl py-4">모임 설명</h1>{' '}
-            <div className="text-ellipsis overflow-hidden">{detail.content}</div>
+            <div className="rounded-xl overflow-hidden w-3/4">
+              {detail.location && <KakaoMap address={detail.location}></KakaoMap>}
+            </div>
           </div>
         </StyledDiv>
+        <div className="mt-2">
+          <h1 className="text-2xl py-4">모임 설명</h1>{' '}
+          <div className="text-ellipsis overflow-hidden">{detail.content}</div>
+        </div>
       </div>
     </>
   );
