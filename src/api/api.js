@@ -6,7 +6,7 @@ export const api = axios.create({
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
   },
-  // withCredentials: true,
+  withCredentials: true,
 });
 
 export const localApi = axios.create({
@@ -204,12 +204,16 @@ export const apis = {
     const response = await api.get('mypage/meeting');
     return response.data;
   },
-  getMyLikePpst: async () => {
+  getMyLikePost: async () => {
     const response = await api.get('mypage/hitboard');
     return response.data;
   },
   getMyWritePost: async () => {
     const response = await api.get('mypage/board');
+    return response.data;
+  },
+  getMyBadge: async () => {
+    const response = await api.get('/mypage/badge');
     return response.data;
   },
 };

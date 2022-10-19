@@ -30,7 +30,7 @@ const ReviewForm = () => {
 
     try {
       await apis.addMeetingReview(params, formData);
-      navigate('/review');
+      navigate('/review/1');
     } catch (err) {
       console.log(err);
     }

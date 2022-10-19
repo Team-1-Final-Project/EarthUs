@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, getDetailPost, getPostList } from 'redux/modules/postSlice';
 import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
@@ -27,11 +29,13 @@ const PostDetail = () => {
 
   const name = sessionStorage.getItem('nickname');
 
+  const loginState = sessionStorage.getItem('Access_token');
+
   return (
     <Layout>
       <Container>
         <Navbar />
-
+        <ToastContainer />
         <ContainerStyle>
           <TopWrapStyle>
             <div className="tagList">
@@ -62,12 +66,15 @@ const PostDetail = () => {
               <div
                 className="iconWrap"
                 onClick={(e) => {
-                  dispatch(putChangeHeart(data?.boardId)).then(() => {
-                    dispatch(getHeart(params.id));
-                    dispatch(getDetailPost(data?.boardId));
-                  });
-
                   e.stopPropagation();
+                  if (loginState) {
+                    dispatch(putChangeHeart(data?.boardId)).then(() => {
+                      dispatch(getHeart(params.id));
+                      dispatch(getDetailPost(data?.boardId));
+                    });
+                  } else {
+                    toast.error('로그인이 필요합니다.');
+                  }
                 }}
               >
                 {heartData ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
@@ -99,16 +106,15 @@ const PostDetail = () => {
               {data?.writerName === name ? (
                 <ButtonStyled>
                   <BsPencil
-                    className="button"
+                    className="button cursor-pointer"
                     onClick={() => {
                       navigate(`/updatepost/${params.id}`);
                     }}
                   />
                   <BsTrash
-                    className="button"
+                    className="button cursor-pointer"
                     onClick={() => {
-                      dispatch(deletePost(params.id)).then(() => dispatch(getPostList()));
-                      navigate('/community');
+                      dispatch(deletePost(params.id)).then(() => navigate('/community'));
                     }}
                   />
                 </ButtonStyled>

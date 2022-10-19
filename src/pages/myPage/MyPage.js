@@ -7,7 +7,7 @@ import Mission from 'components/mypage/Mission';
 import Footer from 'components/footer/Footer';
 import { LikePost, WritePost } from 'components/mypage/Post';
 
-function MyPage({ meeting, writePost, likePost }) {
+function MyPage({ meeting, writePost, likePost, myBadge }) {
   function sliceData(data) {
     return data?.slice(0, 2);
   }
@@ -18,7 +18,7 @@ function MyPage({ meeting, writePost, likePost }) {
       <div className="flex justify-center mt-20">
         <MenuBar />
         <div className="w-3/6">
-          <Badge />
+          <Badge myBadge={myBadge} />
           <Mission />
           <Meeting meeting={sliceData(meeting)} />
           <WritePost writePost={sliceData(writePost)} />

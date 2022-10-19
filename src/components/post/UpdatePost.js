@@ -74,7 +74,7 @@ const UpdatePost = () => {
     }).then((value) => {
       switch (value) {
         case '네,나갈래요':
-          navigate('/meeting');
+          navigate(`/communitydetail/${params.id}`);
           break;
 
         default:
@@ -182,7 +182,7 @@ const UpdatePost = () => {
               </AddPostFormStyle>
 
               <ButtonWrapStyle>
-                <ButtonStyle onClick={onClickGoOut} className="button">
+                <ButtonStyle onClick={onClickGoOut} className="button cursor-pointer">
                   뒤로가기
                 </ButtonStyle>
                 <ButtonStyle
@@ -215,7 +215,7 @@ const UpdatePost = () => {
                       navigate('/community');
                     }
                   }}
-                  className="button"
+                  className="button cursor-pointer"
                 >
                   작성완료
                 </ButtonStyle>
