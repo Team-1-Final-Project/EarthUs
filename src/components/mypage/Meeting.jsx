@@ -61,7 +61,7 @@ export default function Meeting({ meeting }) {
         </div>
         {meeting?.length == 0 && (
           <div className="flex items-center justify-center w-full h-20 text-xl text-defaultLine">
-            작성된 게시글이 없습니다.
+            참여중인 모임이 없습니다.
           </div>
         )}
       </div>

@@ -9,7 +9,7 @@ export function WritePost({ writePost }) {
     <div>
       <div className="m-4 text-xl font-bold">작성한 게시글</div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {writePost.map((post) => (
+        {writePost?.map((post) => (
           <div
             key={post.boardId}
             className="h-40 bg-white shadow-lg default_outline hover:cursor-pointer"
@@ -98,7 +98,7 @@ export function LikePost({ likePost }) {
       </div>
       {likePost?.length == 0 && (
         <div className="flex items-center justify-center w-full h-20 text-xl text-defaultLine">
-          참여중인 모임이 없습니다.
+          좋아요한 게시글이 없습니다.
         </div>
       )}
     </div>
