@@ -1,7 +1,10 @@
 import React from 'react';
 import badges from 'assets/images/badge';
 
-function Badge() {
+function Badge({ myBadge }) {
+  // console.log(myBadge);
+  const successId = myBadge?.map((myBadge) => myBadge.id);
+
   return (
     <div>
       <div className="m-4 mt-10 text-xl font-bold">내가 획득한 뱃지</div>
@@ -10,7 +13,9 @@ function Badge() {
           {badges.map((badge, index) => (
             <div key={index}>
               <img
-                className="w-20 h-20 bg-gray-100 rounded-full grayscale"
+                className={`w-20 h-20 bg-gray-100 rounded-full ${
+                  successId?.includes(index) ? null : 'grayscale'
+                }`}
                 src={badge}
                 alt="badgeImage"
               />
