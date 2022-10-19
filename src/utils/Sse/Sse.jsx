@@ -6,7 +6,7 @@ export default function Sse() {
   useEffect(() => {
     if (sessionStorage.getItem('id') != null) {
       // const sse = new EventSource(id && `${process.env.REACT_APP_SERVER}subscribe/${id}`,
-      const sse = new EventSource(id && `http://43.201.109.6/subscribe/${id}`, {
+      const sse = new EventSource(id && `${process.env.REACT_APP_SERVER}subscribe/${id}`, {
         withCredentials: true,
       });
 

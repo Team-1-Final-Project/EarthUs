@@ -4,7 +4,6 @@ import ReactTooltip from 'react-tooltip';
 
 function Badge({ myBadge }) {
   const successId = myBadge?.map((myBadge) => myBadge.id);
-  console.log(myBadge);
   return (
     <div>
       <div className="m-4 mt-10 text-xl font-bold">획득한 뱃지</div>
