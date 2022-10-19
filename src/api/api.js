@@ -193,7 +193,7 @@ export const apis = {
 
   //Onlineshop
   getShopList: async () => {
-    const response = await api.get('recommends');
+    const response = await api.get('/zeroshop/online');
     return response.data;
   },
   //OfflineShop

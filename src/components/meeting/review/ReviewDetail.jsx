@@ -30,7 +30,7 @@ const ReviewDetail = () => {
         case '삭제':
           apis
             .deleteMeetingReview(params.id)
-            .then((res) => navigate('/review'))
+            .then((res) => navigate('/review/1'))
             .catch((err) => console.log(err));
 
           break;
