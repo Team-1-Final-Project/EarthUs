@@ -1,5 +1,5 @@
-import ZeroOfflineShop from 'pages/zeroshop/ZeroOfflineShop';
-import ZeroOnlineShop from 'pages/zeroshop/ZeroOnlineShop';
+import ZeroOfflineShop from 'pages/zeroShop/ZeroOfflineShop';
+import ZeroOnlineShop from 'pages/zeroShop/ZeroOnlineShop';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
