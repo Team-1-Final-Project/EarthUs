@@ -38,7 +38,7 @@ function ZeroOfflineShop() {
     <Layout>
       <Container>
         <Navbar />
-        <div className="w-full flex justify-center">
+        <div className="flex justify-center w-full">
           <button className="m-3 hover:cursor-pointer " onClick={() => navigate('/zeroshop')}>
             Online
           </button>
@@ -53,7 +53,7 @@ function ZeroOfflineShop() {
               return <OfflineShopCard shop={shop} key={shop.title} />;
             })}
         </div>
-        <div className="w-full flex justify-center mt-10">
+        <div className="flex justify-center w-full mt-10">
           {page.map((item) => {
             return (
               <a href={'/zeroshop/offline/' + item} key={item}>

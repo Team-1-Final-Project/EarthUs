@@ -15,7 +15,7 @@ const KakaoAuth = () => {
         const ACCESS_TOKEN = res.headers['authorization'];
         sessionStorage.setItem('Access_token', ACCESS_TOKEN);
         //서버 배포시 localApi => api 로 변경 필요.
-        api.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
+        localApi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         multi.defaults.headers.common['Authorization'] = ACCESS_TOKEN;
         apis
           .kakaoLogin()
