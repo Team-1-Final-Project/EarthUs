@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, getDetailPost, getPostList } from 'redux/modules/postSlice';
 import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
@@ -27,11 +29,19 @@ const PostDetail = () => {
 
   const name = sessionStorage.getItem('nickname');
 
+  const loginState = sessionStorage.getItem('Access_token');
+
+  const [commentCount, setCommentCount] = useState(data?.commentNums);
+
+  useEffect(() => {
+    setCommentCount(data?.commentNums);
+  }, [data]);
+
   return (
     <Layout>
       <Container>
         <Navbar />
-
+        <ToastContainer />
         <ContainerStyle>
           <TopWrapStyle>
             <div className="tagList">
@@ -62,12 +72,15 @@ const PostDetail = () => {
               <div
                 className="iconWrap"
                 onClick={(e) => {
-                  dispatch(putChangeHeart(data?.boardId)).then(() => {
-                    dispatch(getHeart(params.id));
-                    dispatch(getDetailPost(data?.boardId));
-                  });
-
                   e.stopPropagation();
+                  if (loginState) {
+                    dispatch(putChangeHeart(data?.boardId)).then(() => {
+                      dispatch(getHeart(params.id));
+                      dispatch(getDetailPost(data?.boardId));
+                    });
+                  } else {
+                    toast.error('로그인이 필요합니다.');
+                  }
                 }}
               >
                 {heartData ? <AiFillHeart style={{ color: '#3cc2df' }} /> : <AiOutlineHeart />}
@@ -81,7 +94,7 @@ const PostDetail = () => {
                 }}
               >
                 <AiOutlineComment />
-                <span className="count">{data?.commentNums}</span>
+                <span className="count">{commentCount}</span>
               </div>
             </IconContainerstyle>
             <ProfileButtonWrapStyle>
@@ -99,13 +112,13 @@ const PostDetail = () => {
               {data?.writerName === name ? (
                 <ButtonStyled>
                   <BsPencil
-                    className="button"
+                    className="button cursor-pointer"
                     onClick={() => {
                       navigate(`/updatepost/${params.id}`);
                     }}
                   />
                   <BsTrash
-                    className="button"
+                    className="button cursor-pointer"
                     onClick={() => {
                       dispatch(deletePost(params.id)).then(() => navigate('/community'));
                     }}
@@ -115,7 +128,11 @@ const PostDetail = () => {
             </ProfileButtonWrapStyle>
           </IconButtonWrapStyle>
         </ContainerStyle>
-        <CommentList commentListData={data?.commentResponseDtoList} />
+        <CommentList
+          commentListData={data?.commentResponseDtoList}
+          commentCount={commentCount}
+          setCommentCount={setCommentCount}
+        />
       </Container>
     </Layout>
   );

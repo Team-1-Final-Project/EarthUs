@@ -12,7 +12,6 @@ export default function Meeting({ meeting }) {
     <div className="w-full">
       <div className="flex items-center justify-between">
         <div className="m-4 mt-10 text-xl font-bold ">참여중인 모임</div>
-        <div className="text-sm text-defaultLine">더 보기</div>
       </div>
       <div className="">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -60,6 +59,11 @@ export default function Meeting({ meeting }) {
               </div>
             ))}
         </div>
+        {meeting?.length == 0 && (
+          <div className="flex items-center justify-center w-full h-20 text-xl text-defaultLine">
+            참여중인 모임이 없습니다.
+          </div>
+        )}
       </div>
     </div>
   );

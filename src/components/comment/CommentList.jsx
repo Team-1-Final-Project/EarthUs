@@ -4,8 +4,9 @@ import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 
-const CommentList = ({ commentListData }) => {
+const CommentList = ({ commentListData, commentCount, setCommentCount }) => {
   const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const CommentList = ({ commentListData }) => {
     try {
       const res = await apis.addComment(content);
       setCommentList([...commentList, res.data.data]);
+      setCommentCount(commentCount + 1);
     } catch (err) {
       alert(err);
     }
@@ -38,23 +40,32 @@ const CommentList = ({ commentListData }) => {
     try {
       await apis.deleteComment(id);
       setCommentList(commentList.filter((comment) => comment.commentId !== id));
+      setCommentCount(commentCount - 1);
     } catch (err) {
       alert(err);
     }
   };
 
+  const toastifyHandler = () => {
+    toast.error('내용이 비어있습니다.');
+  };
+
   return (
-    <ContainerStyle>
-      {commentList?.map((comment) => (
-        <Comment
-          {...comment}
-          key={comment.commentId}
-          editCommentHandler={editCommentHandler}
-          deleteCommentHandler={deleteCommentHandler}
-        />
-      ))}
-      <CommentForm addCommentHandler={addCommentHandler} />
-    </ContainerStyle>
+    <>
+      <ToastContainer />
+      <ContainerStyle>
+        {commentList?.map((comment) => (
+          <Comment
+            {...comment}
+            key={comment.commentId}
+            editCommentHandler={editCommentHandler}
+            deleteCommentHandler={deleteCommentHandler}
+            onToastifyHandler={toastifyHandler}
+          />
+        ))}
+        <CommentForm addCommentHandler={addCommentHandler} onToastifyHandler={toastifyHandler} />
+      </ContainerStyle>
+    </>
   );
 };
 

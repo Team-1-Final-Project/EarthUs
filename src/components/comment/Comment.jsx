@@ -1,11 +1,5 @@
-import Modal from 'components/modal/Modal';
 import React, { useEffect, useState } from 'react';
-import {
-  BsThreeDotsVertical,
-  BsPencilSquare,
-  BsTrash,
-  BsFillExclamationTriangleFill,
-} from 'react-icons/bs';
+import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 import swal from 'sweetalert';
 
 const Comment = ({
@@ -16,6 +10,7 @@ const Comment = ({
   profileImage,
   editCommentHandler,
   deleteCommentHandler,
+  onToastifyHandler,
 }) => {
   const [editDeleteToggle, setEditDeleteToggle] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
@@ -29,7 +24,10 @@ const Comment = ({
 
   const editHandler = (e) => {
     e.preventDefault();
-    if (editContent === '') return;
+    if (editContent === '') {
+      onToastifyHandler();
+      return;
+    }
     editCommentHandler({ commentId, content: editContent });
     setEditToggle(false);
   };
@@ -116,7 +114,10 @@ const Comment = ({
                 <button
                   type="button"
                   className="bg-gray-300 text-white w-16 h-8 rounded-3xl mt-3 mr-3"
-                  onClick={() => setEditToggle(false)}
+                  onClick={() => {
+                    setEditToggle(false);
+                    setEditContent(content);
+                  }}
                 >
                   취소
                 </button>
