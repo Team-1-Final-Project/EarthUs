@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify';
 
-const CommentList = ({ commentListData }) => {
+const CommentList = ({ commentListData, commentCount, setCommentCount }) => {
   const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,7 @@ const CommentList = ({ commentListData }) => {
     try {
       const res = await apis.addComment(content);
       setCommentList([...commentList, res.data.data]);
+      setCommentCount(commentCount + 1);
     } catch (err) {
       alert(err);
     }
@@ -39,6 +40,7 @@ const CommentList = ({ commentListData }) => {
     try {
       await apis.deleteComment(id);
       setCommentList(commentList.filter((comment) => comment.commentId !== id));
+      setCommentCount(commentCount - 1);
     } catch (err) {
       alert(err);
     }
