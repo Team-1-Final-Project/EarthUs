@@ -60,6 +60,8 @@ const MeetingDetailPage = () => {
       .getMeeting(params)
       .then((res) => {
         setDetailData(res.data.data);
+        setApplyerData(res.data.data.crews);
+        console.log('1', res.data.data.crews);
       })
       .catch((err) => console.log('err', err, params));
   }, [applyState]);
@@ -103,7 +105,8 @@ const MeetingDetailPage = () => {
     apis
       .getMeetingUser(params)
       .then((res) => {
-        setApplyerData(res.data.data);
+        // setApplyerData(res.data.data);
+        // console.log('applyer', res.data.data);
       })
       .catch((err) => console.log('err', err));
   }, [applyState]);
@@ -204,11 +207,13 @@ const MeetingDetailPage = () => {
           <div className="px-20 flex flex-wrap">
             {applyerData &&
               applyerData.map((item) => {
+                console.log('여기', item);
                 return (
                   <UserInfoCard
                     nickname={item.nickname}
                     email={item.email}
                     profileImage={item.profileImage}
+                    badgeList={item.badgeList}
                   />
                 );
               })}

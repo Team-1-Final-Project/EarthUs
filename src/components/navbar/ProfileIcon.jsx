@@ -14,7 +14,7 @@ const ProfileIcon = (props) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
-        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+        <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm hover:scale-105 duration-500">
           <span className="sr-only">Open user menu</span>
           <img className="h-10 w-10 rounded-full" src={img} alt="" />
         </Menu.Button>
