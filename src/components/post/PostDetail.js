@@ -33,6 +33,10 @@ const PostDetail = () => {
 
   const [commentCount, setCommentCount] = useState(data?.commentNums);
 
+  useEffect(() => {
+    setCommentCount(data?.commentNums);
+  }, [data]);
+
   return (
     <Layout>
       <Container>
