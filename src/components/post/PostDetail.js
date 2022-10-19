@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
@@ -30,6 +30,8 @@ const PostDetail = () => {
   const name = sessionStorage.getItem('nickname');
 
   const loginState = sessionStorage.getItem('Access_token');
+
+  const [commentCount, setCommentCount] = useState(data?.commentNums);
 
   return (
     <Layout>
@@ -88,7 +90,7 @@ const PostDetail = () => {
                 }}
               >
                 <AiOutlineComment />
-                <span className="count">{data?.commentNums}</span>
+                <span className="count">{commentCount}</span>
               </div>
             </IconContainerstyle>
             <ProfileButtonWrapStyle>
@@ -122,7 +124,11 @@ const PostDetail = () => {
             </ProfileButtonWrapStyle>
           </IconButtonWrapStyle>
         </ContainerStyle>
-        <CommentList commentListData={data?.commentResponseDtoList} />
+        <CommentList
+          commentListData={data?.commentResponseDtoList}
+          commentCount={commentCount}
+          setCommentCount={setCommentCount}
+        />
       </Container>
     </Layout>
   );
