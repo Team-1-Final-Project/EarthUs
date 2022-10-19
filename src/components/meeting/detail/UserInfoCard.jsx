@@ -14,8 +14,8 @@ const UserInfoCard = (props) => {
       }}
     >
       <StyledCard>
-        <div>
-          <img src={props.profileImage && props.profileImage} />
+        <div className="">
+          <img className="" src={props.profileImage && props.profileImage} />
         </div>
         <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
         <StyledDetail2>{props.email && props.email}</StyledDetail2>
@@ -29,7 +29,7 @@ const UserInfoCard = (props) => {
               </button>
               <div className="py-5">
                 <img
-                  className="rounded-full w-48 h-48 shadow-lg shadow-[#d6d5d5]"
+                  className="rounded-full w-32 h-32 shadow-lg shadow-[#d6d5d5]"
                   src={props.profileImage}
                 />
               </div>
