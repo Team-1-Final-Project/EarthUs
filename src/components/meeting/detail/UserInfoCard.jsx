@@ -33,7 +33,7 @@ const UserInfoCard = (props) => {
                   src={props.profileImage}
                 />
               </div>
-              <div className="text-xl m-2">{props.nickname}</div>
+              <div className="text-xl m-2 font-bold">{props.nickname}</div>
 
               <div className="w-full">
                 <Badge myBadge={props.badgeList} />
