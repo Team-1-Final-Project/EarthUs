@@ -12,7 +12,7 @@ function ZeroOnlineShop() {
   const [shop, setShop] = useState();
   useEffect(() => {
     apis.getShopList().then((res) => {
-      console.log(res);
+      setShop(res.data);
     });
   }, []);
 
