@@ -18,7 +18,7 @@ export const localApi = axios.create({
   // withCredentials: true,
 });
 
-localApi.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     config.headers['Authorization'] = sessionStorage.getItem('Access_token');
     return config;

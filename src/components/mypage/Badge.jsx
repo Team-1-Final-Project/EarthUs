@@ -7,7 +7,7 @@ function Badge({ myBadge }) {
 
   return (
     <div>
-      <div className="m-4 mt-10 text-xl font-bold">내가 획득한 뱃지</div>
+      <div className="m-4 mt-10 text-xl font-bold">획득한 뱃지</div>
       <div className="flex justify-center">
         <div className="grid w-8/12 grid-cols-4 gap-10 justify-items-center">
           {badges.map((badge, index) => (
