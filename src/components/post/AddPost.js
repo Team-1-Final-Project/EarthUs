@@ -117,10 +117,10 @@ const AddPost = () => {
                   type="text"
                 />
                 <LabelStyle htmlFor="content">내용</LabelStyle>
-                <InputStyled
+                <TextAreaStyled
                   ref={contentRef}
                   placeholder="내용을 입력해 주세요"
-                  height="4rem"
+                  height="20rem"
                   name="content"
                   type="text"
                 />
@@ -164,7 +164,7 @@ const AddPost = () => {
               </AddPostFormStyle>
 
               <ButtonWrapStyle>
-                <ButtonStyle onClick={onClickGoOut} className="button">
+                <ButtonStyle onClick={onClickGoOut} className="button cursor-pointer">
                   뒤로가기
                 </ButtonStyle>
                 <ButtonStyle
@@ -175,8 +175,6 @@ const AddPost = () => {
                       swal('내용을 입력 해주세요');
                     } else if (chooseTag.length === 0) {
                       swal('태그를 선택 해주세요');
-                    } else if (image === '') {
-                      swal('이미지를 추가 해주세요');
                     } else {
                       const formData = new FormData();
                       const data = new Blob(
@@ -195,7 +193,7 @@ const AddPost = () => {
                       apis.addPost(formData).then(() => navigate('/community'));
                     }
                   }}
-                  className="button"
+                  className="button cursor-pointer"
                 >
                   작성완료
                 </ButtonStyle>
@@ -265,6 +263,16 @@ const LabelStyle = styled.label`
   }
 `;
 const InputStyled = styled.input`
+  box-shadow: 0 1px 3px -1px #e5e7eb;
+  padding: 15px;
+  margin: 10px 0 10px 0;
+  height: ${(props) => props.height || '2.25rem'};
+  input::placeholder {
+    font-size: 14px;
+  }
+`;
+
+const TextAreaStyled = styled.textarea`
   box-shadow: 0 1px 3px -1px #e5e7eb;
   padding: 15px;
   margin: 10px 0 10px 0;
