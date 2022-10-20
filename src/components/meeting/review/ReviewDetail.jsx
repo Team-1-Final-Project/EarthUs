@@ -81,7 +81,7 @@ const ReviewDetail = () => {
           className="max-w-4xl max-h-96 mb-10"
         />
       )}
-      <ContentStyle className="break-all whitespace-pre-wrap tracking-tighter">
+      <ContentStyle className="break-all whitespace-pre-wrap">
         {review && review.content}
       </ContentStyle>
     </div>
