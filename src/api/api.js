@@ -156,7 +156,9 @@ export const apis = {
       headers: {
         'Content-Type': `multipart/form-data`,
       },
-    }), //모임수정
+    }),
+
+  //모임수정
   // getMyMeeting: () => api.get(`mypage/meeting`),
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
@@ -190,6 +192,10 @@ export const apis = {
   //tag
   searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
   searchPostTag: (page, postTag) => api.post(`/board/tag?page=${page}`, postTag),
+
+  //search
+  searchMeeting: (keyword) => api.get(`/meeting/search?keyword=${keyword}`),
+  searchBoard: (keyword) => api.get(`/board/search?keyword=${keyword}`),
 
   //Onlineshop
   getShopList: async () => {
