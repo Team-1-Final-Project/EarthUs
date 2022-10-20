@@ -13,11 +13,15 @@ import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import MeetingChat from 'components/chat/Chatting';
+import Sse from 'utils/Sse/Sse';
+import { ToastContainer } from 'react-toastify';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <Sse />
+      <ToastContainer />
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<MainPage />} />

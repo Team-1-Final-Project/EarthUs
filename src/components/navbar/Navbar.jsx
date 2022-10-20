@@ -52,7 +52,6 @@ function Navbar() {
                 <div className="hover:cursor-pointer">
                   <ProfileIcon image={image}></ProfileIcon>
                 </div>
-                <Sse />
               </div>
             ) : (
               <button

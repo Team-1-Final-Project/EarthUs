@@ -8,8 +8,8 @@ function Badge({ myBadge }) {
     <div>
       <div className="m-4 mt-10 text-xl font-bold">획득한 뱃지</div>
       <div className="flex justify-center">
-        <div className="grid w-8/12 grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 justify-items-center">
-          {badges.map((badge, index) => (
+        <div className="grid w-11/12 grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 justify-items-center">
+          {badges.map((badge) => (
             <>
               <div
                 key={badge.id}
@@ -19,7 +19,7 @@ function Badge({ myBadge }) {
               >
                 <img
                   className={`w-20 h-20 bg-gray-100 rounded-full ${
-                    successId?.includes(index) ? null : 'grayscale'
+                    successId?.includes(badge.id) ? null : 'grayscale'
                   }`}
                   src={badge.image}
                   alt="badgeImage"
