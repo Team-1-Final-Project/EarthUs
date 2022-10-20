@@ -127,7 +127,7 @@ const Comment = ({
               </div>
             </form>
           ) : (
-            <span className="text-lg text-blackColor">{content}</span>
+            <span className="text-blackColor">{content}</span>
           )}
         </div>
       </div>
