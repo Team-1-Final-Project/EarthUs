@@ -322,10 +322,9 @@ const ContentStyle = styled.pre`
   margin-right: 20px;
   font-size: 14px;
   color: #595f63;
-  word-break:break-all;
+  word-break: break-all;
   white-space: pre-wrap;
-  word-spacing: -4px
- }
+  font-family: 'Pretendard-Regular';
 `;
 
 const ProfileButtonWrapStyle = styled.div`
