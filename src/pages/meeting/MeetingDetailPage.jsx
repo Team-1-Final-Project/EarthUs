@@ -199,6 +199,7 @@ const MeetingDetailPage = () => {
               nickname={detailData && detailData.admin.nickname}
               email={detailData && detailData.admin.email}
               profileImage={detailData && detailData.admin.profileImage}
+              badgeList={detailData.admin.badgeList}
             />
           </div>
         </div>
