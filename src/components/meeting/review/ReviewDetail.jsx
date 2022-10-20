@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import MeetingInfo from './MeetingInfo';
+import styled from 'styled-components';
 
 const ReviewDetail = () => {
   const params = useParams();
@@ -80,11 +81,15 @@ const ReviewDetail = () => {
           className="max-w-4xl max-h-96 mb-10"
         />
       )}
-      <pre className="break-all whitespace-pre-wrap tracking-tighter">
+      <ContentStyle className="break-all whitespace-pre-wrap tracking-tighter">
         {review && review.content}
-      </pre>
+      </ContentStyle>
     </div>
   );
 };
 
 export default ReviewDetail;
+
+const ContentStyle = styled.pre`
+  font-family: 'Pretendard-Regular';
+`;
