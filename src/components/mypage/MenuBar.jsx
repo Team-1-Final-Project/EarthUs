@@ -53,7 +53,7 @@ function MenuBar() {
       </div>
       <div className="text-left">
         {links.map(({ path, label, exact, end }) => (
-          <div className="flex h-20">
+          <div className="flex h-20" key={path}>
             <NavLink
               to={path}
               className={({ isActive }) => (isActive ? 'font-bold' : '')}

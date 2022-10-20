@@ -97,9 +97,9 @@ const UpdatePost = () => {
                 <div className="space-y-1 text-center flex flex-col items-center justify-center">
                   {image ? (
                     <Preview img={image} />
-                  ) : (
+                  ) : data?.boardImage ? (
                     <img className="h-full w-full" src={data?.boardImage} alt="boardImage" />
-                  )}
+                  ) : null}
 
                   <div className="flex text-sm text-gray-600">
                     <label
@@ -134,10 +134,10 @@ const UpdatePost = () => {
                   defaultValue={data?.title}
                 />
                 <LabelStyle htmlFor="content">내용</LabelStyle>
-                <InputStyled
+                <TextAreaStyled
                   ref={contentRef}
                   placeholder="내용을 입력해 주세요"
-                  height="4rem"
+                  height="20rem"
                   name="content"
                   type="text"
                   defaultValue={data?.content}
@@ -208,9 +208,7 @@ const UpdatePost = () => {
                       formData.append('data', data);
                       formData.append('boardImage', image);
 
-                      await apis.updatePost(params.id, formData).then((res) => {
-                        console.log(res);
-                      });
+                      await apis.updatePost(params.id, formData);
 
                       navigate('/community');
                     }
@@ -285,6 +283,16 @@ const LabelStyle = styled.label`
   }
 `;
 const InputStyled = styled.input`
+  box-shadow: 0 1px 3px -1px #e5e7eb;
+  padding: 15px;
+  margin: 10px 0 10px 0;
+  height: ${(props) => props.height || '2.25rem'};
+  input::placeholder {
+    font-size: 14px;
+  }
+`;
+
+const TextAreaStyled = styled.textarea`
   box-shadow: 0 1px 3px -1px #e5e7eb;
   padding: 15px;
   margin: 10px 0 10px 0;
