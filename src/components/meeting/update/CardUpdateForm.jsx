@@ -129,13 +129,13 @@ const CardUpdateForm = (props) => {
                   <div className="space-y-1 text-center flex flex-col items-center justify-center">
                     {image ? (
                       <Preview img={image} />
-                    ) : (
+                    ) : props.detailData && props.detailData.meetingImage ? (
                       <img
                         className="h-full w-full"
                         src={props.detailData ? props.detailData.meetingImage : null}
                         alt="meetingImage"
                       />
-                    )}
+                    ) : null}
 
                     <div className="flex text-sm text-gray-600">
                       <label

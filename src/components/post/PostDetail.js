@@ -320,7 +320,7 @@ const TitleStyle = styled.h1`
 `;
 const ContentStyle = styled.pre`
   margin-right: 20px;
-  font-size: 14px;
+  font-size: 16px;
   color: #595f63;
   word-break: break-all;
   white-space: pre-wrap;

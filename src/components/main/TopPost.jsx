@@ -42,11 +42,13 @@ function TopPost({ hitBoard }) {
                     </div>
                   </div>
                   <div className="w-1/3">
-                    <img
-                      src={board.boardImage}
-                      alt="boardImage"
-                      className="w-full h-40 rounded-lg"
-                    />
+                    {board && board.boardImage && (
+                      <img
+                        src={board.boardImage}
+                        alt="boardImage"
+                        className="w-full h-40 rounded-lg"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
