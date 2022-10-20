@@ -24,7 +24,7 @@ function Meeting({ meeting }) {
               >
                 <div className="flex justify-between ">
                   <div className="w-2/3 mt-2 ml-4">
-                    <div className="truncate ">
+                    <div className="line-clamp-1">
                       <span
                         className={`mr-1 min-w-fit font-semibold  ${
                           `${meeting.meetingStatus.message}` === '모집준비중'

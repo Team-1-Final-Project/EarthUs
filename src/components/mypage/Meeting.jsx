@@ -26,8 +26,20 @@ export default function Meeting({ meeting }) {
               >
                 <div className="flex justify-between ">
                   <div className="w-2/3 mt-2 ml-4">
-                    <div className="">
-                      <span className="font-bold text-defaultColor">모임명 </span>
+                    <div className="line-clamp-1">
+                      <span
+                        className={`mr-1 min-w-fit font-semibold  ${
+                          `${meeting.meetingStatus.message}` === '모집준비중'
+                            ? `text-gray-400`
+                            : `${meeting.meetingStatus.message}` === '모집중'
+                            ? `text-defaultColor`
+                            : `${meeting.meetingStatus.message}` === '모집완료'
+                            ? `text-greenColor`
+                            : `text-defaultLine`
+                        }`}
+                      >
+                        {meeting.meetingStatus.message}
+                      </span>
                       <span className="font-bold">{meeting.title}</span>
                     </div>
                     <div className="mt-2 text-sm">
