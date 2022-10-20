@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 export default function Sse() {
   const id = sessionStorage.getItem('id');
   useEffect(() => {
     if (sessionStorage.getItem('id') != null) {
-      const sse = new EventSource(id && `http://54.180.116.99/subscribe/${id}`, {
+      const sse = new EventSource(id && `${process.env.REACT_APP_SERVER}subscribe/${id}`, {
         withCredentials: true,
       });
 
@@ -22,8 +22,6 @@ export default function Sse() {
           theme: 'light',
         });
       });
-      // sse.addEventListener('connect', function (e) {});
-      // sse.addEventListener('error', function (e) {});
     }
-  });
+  }, []);
 }

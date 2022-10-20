@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
@@ -11,6 +11,7 @@ import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from 'components/footer/Footer';
 
 // import { BsThreeDotsVertical, BsPencilSquare, BsTrash } from 'react-icons/bs';
 const PostDetail = () => {
@@ -30,6 +31,12 @@ const PostDetail = () => {
   const name = sessionStorage.getItem('nickname');
 
   const loginState = sessionStorage.getItem('Access_token');
+
+  const [commentCount, setCommentCount] = useState(data?.commentNums);
+
+  useEffect(() => {
+    setCommentCount(data?.commentNums);
+  }, [data]);
 
   return (
     <Layout>
@@ -51,9 +58,11 @@ const PostDetail = () => {
           </TopWrapStyle>
 
           <ContentWrapStyle>
-            <ImageStyled>
-              <img className="boardImg" src={data?.boardImage} alt="img" />
-            </ImageStyled>
+            {data?.boardImage && (
+              <ImageStyled>
+                <img className="boardImg" src={data?.boardImage} alt="img" />
+              </ImageStyled>
+            )}
 
             <div className="titleContentWrap">
               <TitleStyle>{data?.title}</TitleStyle>
@@ -88,7 +97,7 @@ const PostDetail = () => {
                 }}
               >
                 <AiOutlineComment />
-                <span className="count">{data?.commentNums}</span>
+                <span className="count">{commentCount}</span>
               </div>
             </IconContainerstyle>
             <ProfileButtonWrapStyle>
@@ -122,7 +131,12 @@ const PostDetail = () => {
             </ProfileButtonWrapStyle>
           </IconButtonWrapStyle>
         </ContainerStyle>
-        <CommentList commentListData={data?.commentResponseDtoList} />
+        <CommentList
+          commentListData={data?.commentResponseDtoList}
+          commentCount={commentCount}
+          setCommentCount={setCommentCount}
+        />
+        <Footer />
       </Container>
     </Layout>
   );
@@ -147,10 +161,11 @@ const ContainerStyle = styled.div`
 const ImageStyled = styled.div`
   border-radius: 10px;
   overflow: hidden;
-  max-width: 250px;
-  width: 250px;
-  height: 150px;
-  margin-right: 10px;
+  // max-width: 500px;
+  width: 50%;
+  height: 50%;
+  min-width: 250px;
+  min-height: 150px;
 
   .boardImg {
     width: 100%;
@@ -207,8 +222,10 @@ const TopWrapStyle = styled.div`
 
 const ContentWrapStyle = styled.div`
   display: flex;
+  flex-direction: column;
 
   .titleContentWrap {
+    margin: 20px 0;
     display: flex;
     flex-direction: column;
   }
@@ -298,20 +315,17 @@ const NameStyle = styled.span`
 const TitleStyle = styled.h1`
   margin-bottom: 10px;
   color: #333;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 `;
-const ContentStyle = styled.span`
+const ContentStyle = styled.pre`
   margin-right: 20px;
   font-size: 14px;
   color: #595f63;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  @media (max-width: 650px) {
-    -webkit-line-clamp: 3;
-  }
+  word-break:break-all;
+  white-space: pre-wrap;
+  word-spacing: -4px
+ }
 `;
 
 const ProfileButtonWrapStyle = styled.div`

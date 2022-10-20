@@ -30,7 +30,7 @@ const ReviewDetail = () => {
         case '삭제':
           apis
             .deleteMeetingReview(params.id)
-            .then((res) => navigate('/review'))
+            .then((res) => navigate('/review/1'))
             .catch((err) => console.log(err));
 
           break;
@@ -80,7 +80,9 @@ const ReviewDetail = () => {
           className="max-w-4xl max-h-96 mb-10"
         />
       )}
-      <pre className="break-all whitespace-pre-wrap">{review && review.content}</pre>
+      <pre className="break-all whitespace-pre-wrap tracking-tighter">
+        {review && review.content}
+      </pre>
     </div>
   );
 };

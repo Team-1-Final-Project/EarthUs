@@ -6,11 +6,11 @@ export const api = axios.create({
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 export const localApi = axios.create({
-  baseURL: `http://54.180.116.99/`,
+  baseURL: `http://43.201.109.6/`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
@@ -193,7 +193,7 @@ export const apis = {
 
   //Onlineshop
   getShopList: async () => {
-    const response = await api.get('recommends');
+    const response = await api.get('/zeroshop/online');
     return response.data;
   },
   //OfflineShop

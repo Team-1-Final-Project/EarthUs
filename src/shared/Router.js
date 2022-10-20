@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from 'pages/MainPage';
 import PostListPage from 'pages/PostListPage';
 import PostDetail from 'components/post/PostDetail';
-import KakaoAuth from 'components/Login/KakaoAuth';
+import KakaoAuth from 'components/login/KakaoAuth';
 import AddPost from 'components/post/AddPost';
 import MeetingRoute from './sub/MeetingRoute';
 import MyPageRoute from './sub/MypageRoute';
@@ -13,11 +13,15 @@ import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import MeetingChat from 'components/chat/Chatting';
+import Sse from 'utils/Sse/Sse';
+import { ToastContainer } from 'react-toastify';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <Sse />
+      <ToastContainer />
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<MainPage />} />
