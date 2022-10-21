@@ -322,19 +322,19 @@ const CardUpdateForm = (props) => {
                     })}
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between">
+                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between flex-row-reverse">
+                  <button
+                    onClick={(e) => onClickSubmitHandler(e)}
+                    className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    수정완료
+                  </button>
                   <button
                     type="submit"
                     onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기
-                  </button>
-                  <button
-                    onClick={(e) => onClickSubmitHandler(e)}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    수정완료
                   </button>
                 </div>
               </div>
