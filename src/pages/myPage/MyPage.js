@@ -18,6 +18,7 @@ function MyPage({ meeting, writePost, likePost, myBadge }) {
       <div className="flex justify-center mt-20">
         <MenuBar />
         <div className="w-3/6">
+          <div className="m-4 mt-10 text-xl font-bold">획득한 뱃지</div>
           <Badge myBadge={myBadge} />
           <Mission />
           <Meeting meeting={sliceData(meeting)} />

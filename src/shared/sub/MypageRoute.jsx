@@ -13,7 +13,6 @@ function MyPageRoute() {
   const [myBadge, setMyBadge] = useState();
 
   useEffect(() => {
-    api.defaults.headers.common['Authorization'] = sessionStorage.getItem('Access_token');
     apis.getMyMeeting().then((res) => setMeeting(res.data));
     apis.getMyWritePost().then((res) => setWritePost(res.data));
     apis.getMyLikePost().then((res) => setLikePost(res.data));
@@ -29,7 +28,7 @@ function MyPageRoute() {
       />
       <Route path="/post" element={<MyPagePost writePost={writePost} likePost={likePost} />} />
       <Route path="/meet" element={<MyPageMeeting meeting={meeting} />} />
-      <Route path="/setting" element={<MyPageSetting />} />
+      <Route path="/setting" element={<MyPageSetting myBadge={myBadge} />} />
     </Routes>
   );
 }

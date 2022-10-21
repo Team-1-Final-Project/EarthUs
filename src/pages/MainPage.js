@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import PostingButton from 'components/button/PostingButton';
+import Loading from 'components/loading/Loading';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -20,6 +21,7 @@ function MainPage() {
 
   const loginState = sessionStorage.getItem('Access_token');
 
+  console.log(process.env);
   useEffect(() => {
     apis.getMainMission().then((res) => {
       setMission(res.data);
@@ -50,14 +52,12 @@ function MainPage() {
         <Container>
           <Navbar />
           <ToastContainer />
-
           <Banner />
           <Dailymission
             mission={mission}
             checkDailyMission={checkDailyMission}
             clearCount={clearCount}
           />
-
           <TopPost hitBoard={hitBoard} />
           <Meeting meeting={meeting} />
           <Footer />

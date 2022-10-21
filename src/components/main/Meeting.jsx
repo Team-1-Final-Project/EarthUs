@@ -6,7 +6,6 @@ import { AiOutlineCalendar } from 'react-icons/ai';
 import { GrLocation } from 'react-icons/gr';
 
 function Meeting({ meeting }) {
-  console.log(meeting);
   const navigate = useNavigate();
   return (
     <>
