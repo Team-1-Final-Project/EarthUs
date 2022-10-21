@@ -18,7 +18,6 @@ const UserInfoCard = (props) => {
           <img className="" src={props.profileImage && props.profileImage} />
         </div>
         <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
-        <StyledDetail2>{props.email && props.email}</StyledDetail2>
       </StyledCard>
       {userModal ? (
         <UserInfoModal
@@ -109,10 +108,4 @@ const StyledDetail = styled.div`
   font-size: large;
   font-weight: bold;
   margin-bottom: 30px;
-`;
-
-const StyledDetail2 = styled.div`
-  width: 100%;
-  text-align: center;
-  font-size: small;
 `;
