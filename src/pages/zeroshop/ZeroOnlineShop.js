@@ -29,6 +29,9 @@ function ZeroOnlineShop() {
             Offline
           </button>
         </div>
+        <div className="flex justify-center mt-5 mb-20">
+          <h1 className="text-xl">"제로웨이스트 상품들을 판매하는 온라인 상점을 소개합니다."</h1>
+        </div>
         <ShopList shop={shop} />
         <Footer />
       </Container>
