@@ -34,13 +34,14 @@ const MeetingReviewPage = () => {
             </button>
             <button className="m-3 hover:cursor-pointer text-defaultColor">모임후기</button>
           </div>
-          <h1 className="text-2xl my-10">모임 후기</h1>
-          {reviews && reviews.length === 0 && (
-            <div className="m-auto text-2xl text-center text-gray-300">모임 후기가 없습니다.</div>
-          )}
-          <ReviewList reviewData={reviews} />
-          {reviews && reviews.length > 0 && <ReviewPaging totalElements={totalElements} />}
-
+          <div className="pt-20 px-20">
+            <h1 className="text-2xl">모임 후기</h1>
+            {reviews && reviews.length === 0 && (
+              <div className="m-auto text-center text-gray-300 mt-10">모임 후기가 없습니다.</div>
+            )}
+            <ReviewList reviewData={reviews} />
+            {reviews && reviews.length > 0 && <ReviewPaging totalElements={totalElements} />}
+          </div>
           <Footer />
         </Container>
       </Layout>
