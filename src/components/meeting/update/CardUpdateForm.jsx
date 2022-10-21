@@ -73,7 +73,9 @@ const CardUpdateForm = (props) => {
           navigate('/meeting');
         })
         .catch((err) => {
-          swal('작성 포맷이 올바르지 않습니다. 이미지 파일이 jpg형식인지 확인해 주세요.');
+          swal(
+            `이미지파일이 jpg형식인지 확인해주시기 바랍니다.\n\n혹은 모든 항목이 완료되었는지 확인해주시기 바랍니다.`
+          );
         });
     } else if (!(JSD < JED)) {
       swal('모집마감일은 모집시작일보다 이후이어야 합니다.');
@@ -136,26 +138,24 @@ const CardUpdateForm = (props) => {
                         alt="meetingImage"
                       />
                     ) : null}
-
                     <div className="flex text-sm text-gray-600">
                       <label
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>Upload a file</span>
+                        <span>클릭해서 사진 올리기</span>
                         <input
                           id="file-upload"
-                          name="file-upload"
+                          name="image"
                           type="file"
                           className="sr-only"
                           onChange={(e) => {
                             onChangeImageHandler(e);
                           }}
-                          required
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
                     </div>
+                    자<p className="pl-1 text-sm">(jpg형식만 지원합니다.)</p>
                   </div>
                 </div>
               </div>
@@ -222,7 +222,7 @@ const CardUpdateForm = (props) => {
                           name="about"
                           rows={1}
                           className=" h-9 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                          placeholder="모임 장소를 입력해 주세요"
+                          placeholder="모임 장소를 자세히 입력해 주세요"
                           defaultValue={location}
                           onChange={locationChange}
                         />
