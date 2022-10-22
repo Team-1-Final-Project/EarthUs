@@ -4,7 +4,7 @@ import Navbar from 'components/navbar/Navbar';
 import React, { useEffect, useState } from 'react';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import { useNavigate, useParams } from 'react-router-dom';
-import ReviewPaging from 'components/pagination/ReviewPaging';
+import ReviewPaging from 'components/pagination/Paging';
 import { apis } from 'api/api';
 
 const MeetingReviewPage = () => {
@@ -36,7 +36,9 @@ const MeetingReviewPage = () => {
           </div>
           <h1 className="text-2xl my-10">모임 후기</h1>
           <ReviewList reviewData={reviews} />
-          {reviews && reviews.length > 0 && <ReviewPaging totalElements={totalElements} />}
+          {reviews && reviews.length > 0 && (
+            <ReviewPaging totalElements={totalElements} queryString="review?" />
+          )}
           <Footer />
         </Container>
       </Layout>

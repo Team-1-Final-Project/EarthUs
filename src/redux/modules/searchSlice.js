@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { apis } from 'api/api';
 
 const initialState = {
-  search: [],
+  searchDataList: [],
   isLoading: false,
   error: null,
 };
@@ -10,7 +10,7 @@ const initialState = {
 export const __searchCommunity = createAsyncThunk('SEARCH_COMMUNITY', async (payload, thunkAPI) => {
   try {
     const response = await apis.searchBoard(payload);
-    return thunkAPI.fulfillWithValue(response);
+    return thunkAPI.fulfillWithValue(response.data.content);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -26,7 +26,7 @@ const searchSlice = createSlice({
     },
     [__searchCommunity.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.search = action.payload;
+      state.searchDataList = action.payload;
     },
     [__searchCommunity.rejected]: (state, action) => {
       state.isLoading = false;

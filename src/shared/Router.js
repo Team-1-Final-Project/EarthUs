@@ -13,6 +13,7 @@ import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import MeetingChat from 'components/chat/Chatting';
+import CommunitySearchPage from 'pages/search/CommunitySearchPage';
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/review/*" element={<ReviewRoute />} />
         <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
+        <Route path="/community/search" element={<CommunitySearchPage />} />
       </Routes>
     </BrowserRouter>
   );

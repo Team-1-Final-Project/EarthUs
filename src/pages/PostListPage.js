@@ -6,15 +6,12 @@ import styled from 'styled-components';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import Footer from 'components/footer/Footer';
 import Search from 'components/search/Search';
-import { useDispatch } from 'react-redux';
-import { __searchCommunity } from 'redux/modules/searchSlice';
 import { useNavigate } from 'react-router-dom';
 
 const PostListPage = () => {
   const [selectedTag, setSelectedTag] = useState([]);
   const [showAll, setShowAll] = useState(true);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const tags = [
@@ -33,8 +30,7 @@ const PostListPage = () => {
   ];
 
   const communitySearchHandler = (searchKeyword) => {
-    dispatch(__searchCommunity(searchKeyword));
-    navigate();
+    navigate(`/community/search?keyword=${searchKeyword}&page=1`);
   };
 
   const tagHandler = (id) => {
@@ -57,7 +53,11 @@ const PostListPage = () => {
     <Layout>
       <Container>
         <Navbar />
-        <Search onSearch={communitySearchHandler} />
+        <Search
+          onSearch={communitySearchHandler}
+          className="rounded-full border w-64 h-8 my-4 mr-4 px-4 float-right flex justify-center items-center"
+          defaultValue=""
+        />
         <TagListStyle className="w-4/5 grid grid-cols-post pb-2 mt-4 mx-auto overflow-x-scroll overflow-y-hidden post:w-full post:flex post:justify-center post:items-center">
           <button
             type="button"

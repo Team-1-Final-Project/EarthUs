@@ -194,8 +194,8 @@ export const apis = {
   searchPostTag: (page, postTag) => api.post(`/board/tag?page=${page}`, postTag),
 
   //search
-  searchMeeting: (keyword) => api.get(`/meeting/search?keyword=${keyword}`),
-  searchBoard: (keyword) => api.get(`/board/search?keyword=${keyword}`),
+  searchMeeting: (keyword, page) => api.get(`/meeting/search?keyword=${keyword}&page=${page}`),
+  searchBoard: (keyword, page) => api.get(`/board/search?keyword=${keyword}&page=${page}`),
 
   //Onlineshop
   getShopList: async () => {

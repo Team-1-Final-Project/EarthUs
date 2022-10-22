@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pagination from 'react-js-pagination';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import qs from 'query-string';
 
-const Paging = ({ totalElements }) => {
+const Paging = ({ totalElements, queryString }) => {
   const navigate = useNavigate();
-  const params = useParams().id;
   const [page, setPage] = useState(1);
+  const pageNum = qs.parse(window.location.search)['page'];
 
   const handlePageChange = (page) => {
     setPage(page);
     window.scrollTo(0, 0);
-    navigate(`/review/${page}`);
+    navigate(`/${queryString}page=${page}`);
   };
 
   useEffect(() => {
-    setPage(Number(params));
-  }, [params]);
+    setPage(Number(pageNum));
+  }, [pageNum]);
 
   return (
     <PaginationBox>
