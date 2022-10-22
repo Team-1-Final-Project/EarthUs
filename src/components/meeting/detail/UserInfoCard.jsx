@@ -17,7 +17,9 @@ const UserInfoCard = (props) => {
         <div className="">
           <img className="" src={props.profileImage && props.profileImage} />
         </div>
+
         <StyledDetail>{props.nickname && props.nickname}</StyledDetail>
+        <StyledDetail2 className="font-light">{props.nickname && props.position}</StyledDetail2>
       </StyledCard>
       {userModal ? (
         <UserInfoModal
@@ -32,8 +34,8 @@ const UserInfoCard = (props) => {
                   src={props.profileImage}
                 />
               </div>
-              <div className="text-xl m-2 font-bold">{props.nickname}</div>
 
+              <div className="text-xl m-2 font-bold">{props.nickname}</div>
               <div className="w-full">
                 <Badge myBadge={props.badgeList} />
               </div>
@@ -108,4 +110,10 @@ const StyledDetail = styled.div`
   font-size: large;
   font-weight: bold;
   margin-bottom: 30px;
+`;
+const StyledDetail2 = styled.div`
+  width: 100%;
+  text-align: center;
+  font-size: large;
+  font-weight: light;
 `;
