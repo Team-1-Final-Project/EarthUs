@@ -9,9 +9,7 @@ const UpdateMeetingComment = ({ onClick, setUpdate, update }) => {
           onClick={() => {
             onClick();
           }}
-        >
-          완료
-        </AiOutlineCheck>
+        />
       ) : (
         <BsPencil
           className="button cursor-pointer"

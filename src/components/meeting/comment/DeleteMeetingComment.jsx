@@ -8,7 +8,7 @@ const DeleteMeetingComment = ({ data, setState }) => {
         className="button cursor-pointer"
         onClick={() => {
           apis.deleteMeetingComment(data.commentId).then((res) => {
-            setState('deletet');
+            setState('delete');
           });
         }}
       />
