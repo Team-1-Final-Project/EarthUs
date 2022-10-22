@@ -14,7 +14,7 @@ import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import Sse from 'utils/Sse/Sse';
 import { ToastContainer } from 'react-toastify';
-import MeetingComment from 'components/meeting/comment/MeetingComment';
+import MeetingCommentPage from 'pages/meetingComment/MeetingCommentPage';
 
 const Router = () => {
   return (
@@ -26,7 +26,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
-        <Route path="/meeting/comment/*" element={<MeetingComment />} />
+        <Route path="/meeting/comment/:id" element={<MeetingCommentPage />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
         <Route path="/community" element={<PostListPage />} />
         <Route path="/communitydetail/:id" element={<PostDetail />} />
