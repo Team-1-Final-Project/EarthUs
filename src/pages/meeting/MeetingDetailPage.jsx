@@ -132,6 +132,18 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
+          {applyerData &&
+            applyerData.map((item) => {
+              return item.email === email ? (
+                <Button
+                  onClick={() => {
+                    navigate(`/meeting/Comment/${params}`);
+                  }}
+                >
+                  소통의 장
+                </Button>
+              ) : null;
+            })}
           {detailData &&
             (detailData.meetingStatus.code === 'CAN_JOIN' ||
               detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
@@ -145,16 +157,9 @@ const MeetingDetailPage = () => {
                 >
                   참여취소
                 </Button>
-
-                <Button
-                  onClick={() => {
-                    navigate(`/meeting/Comment/${params}`);
-                  }}
-                >
-                  소통의 장
-                </Button>
               </>
             )}
+
           {detailData &&
             detailData.meetingStatus.code === 'CAN_JOIN' &&
             detailData.admin.email !== email &&
