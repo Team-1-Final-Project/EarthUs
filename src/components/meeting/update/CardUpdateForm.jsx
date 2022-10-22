@@ -120,13 +120,13 @@ const CardUpdateForm = (props) => {
 
   return (
     <>
-      <div className="mt-20 flex justify-center">
-        <div className="w-5/6 md:grid md:grid-cols-3 md:gap-6 ">
-          <div className="md:col-span-1">
-            <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">모임생성</h3>
+      <div className="mt-10 text-2xl font-bold text-gray-600 flex justify-center">모임 수정</div>
+      <div className="flex justify-center">
+        <div className="w-3/5 ">
+          <div className="">
+            <div className="px-4">
               <div className="h-full">
-                <label className="mt-10 block text-sm font-medium text-gray-700">사진 등록</label>
+                <label className="mt-5 block text-sm font-medium text-gray-700"></label>
                 <div className="mt-1 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                   <div className="space-y-1 text-center flex flex-col items-center justify-center">
                     {image ? (
@@ -143,7 +143,7 @@ const CardUpdateForm = (props) => {
                         htmlFor="file-upload"
                         className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>클릭해서 사진 올리기</span>
+                        <span>클릭해서 사진 변경하기</span>
                         <input
                           id="file-upload"
                           name="image"
@@ -155,20 +155,23 @@ const CardUpdateForm = (props) => {
                         />
                       </label>
                     </div>
-                    자<p className="pl-1 text-sm">(jpg형식만 지원합니다.)</p>
+                    <p className="pl-1 text-sm">(jpg형식만 지원합니다.)</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="mt-5 md:col-span-2 md:mt-0 ">
-            <form>
-              <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <div className="sm:overflow-hidden sm:rounded-md">
+                <div className="space-y-6 bg-white px-4 py-5">
                   <div className="grid grid-cols-3 gap-6"></div>
-
                   <div>
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                       제목
                     </label>
                     <div className="mt-1">
@@ -322,20 +325,20 @@ const CardUpdateForm = (props) => {
                     })}
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between flex-row-reverse">
+                <div className="px-4 py-3 text-right sm:px-6 flex justify-between flex-row-reverse">
                   <button
                     onClick={(e) => onClickSubmitHandler(e)}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     수정완료
                   </button>
-                  <button
+                  {/* <button
                     type="submit"
                     onClick={onClickGoOut}
                     className="inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     나가기
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </form>
