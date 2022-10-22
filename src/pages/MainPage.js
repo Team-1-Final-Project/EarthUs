@@ -17,6 +17,7 @@ function MainPage() {
   const [clearCount, setClearCount] = useState(0);
   const [hitBoard, setHitBoard] = useState();
   const [meeting, setMeeting] = useState();
+  console.log(process.env);
 
   const loginState = sessionStorage.getItem('Access_token');
 
