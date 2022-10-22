@@ -38,7 +38,9 @@ export function WritePost({ writePost }) {
                 </div>
               </div>
               <div className="w-1/3">
-                <img src={post.boardImage} className="w-full h-40 rounded-lg" alt="boardImage" />
+                {post && post.boardImage && (
+                  <img src={post.boardImage} className="w-full h-40 rounded-lg" alt="boardImage" />
+                )}
               </div>
             </div>
           </div>
@@ -90,7 +92,13 @@ export function LikePost({ likePost }) {
                   </div>
                 </div>
                 <div className="w-1/3">
-                  <img src={post.boardImage} className="w-full h-40 rounded-lg" alt="boardImage" />
+                  {post && post.boardImage && (
+                    <img
+                      src={post.boardImage}
+                      className="w-full h-40 rounded-lg"
+                      alt="boardImage"
+                    />
+                  )}
                 </div>
               </div>
             </div>

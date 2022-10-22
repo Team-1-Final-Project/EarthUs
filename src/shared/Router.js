@@ -12,9 +12,9 @@ import ReviewRoute from './sub/ReviewRoute';
 import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
-import MeetingChat from 'components/chat/Chatting';
 import Sse from 'utils/Sse/Sse';
 import { ToastContainer } from 'react-toastify';
+import MeetingComment from 'components/meeting/comment/MeetingComment';
 
 const Router = () => {
   return (
@@ -26,7 +26,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
-        <Route path="/meeting/chat/*" element={<MeetingChat />} />
+        <Route path="/meeting/comment/*" element={<MeetingComment />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
         <Route path="/community" element={<PostListPage />} />
         <Route path="/communitydetail/:id" element={<PostDetail />} />
