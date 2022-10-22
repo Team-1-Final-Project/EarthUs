@@ -1,9 +1,28 @@
+import { apis } from 'api/api';
+import { useRef } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { BsTrash, BsPencil } from 'react-icons/bs';
+import DeleteMeetingComment from './DeleteMeetingComment';
+import UpdateMeetingComment from './UpdateMeetingComment';
 
-const MeetingComment = ({ data }) => {
+const MeetingComment = ({ data, setState, state }) => {
   const name = sessionStorage.getItem('nickname');
-
+  const [update, setUpdate] = useState(false);
+  const ref = useRef(null);
+  const params = useParams().id;
+  const onClick = () => {
+    apis
+      .upDateMeetingComment(data.commentId, {
+        meetingId: params,
+        content: ref.current.value,
+      })
+      .then((res) => {
+        console.log(res);
+        setUpdate(false);
+        setState('put');
+      });
+  };
   return (
     <ContentsWrapStyle>
       <div className="profileWrap">
@@ -13,12 +32,22 @@ const MeetingComment = ({ data }) => {
         <NameStyle>{data.nickname}</NameStyle>
       </div>
       <ContentIconWrap>
-        <ContentStyle>{data.content}</ContentStyle>
+        {update ? (
+          <input className="input" type="text" ref={ref} defaultValue={data.content} />
+        ) : (
+          <ContentStyle>{data.content}</ContentStyle>
+        )}
 
         {data?.nickname === name ? (
           <IconStyled>
-            <BsPencil className="button cursor-pointer" onClick={() => {}} />
-            <BsTrash className="button cursor-pointer" onClick={() => {}} />
+            <UpdateMeetingComment
+              data={data}
+              setState={setState}
+              setUpdate={setUpdate}
+              update={update}
+              onClick={onClick}
+            />
+            <DeleteMeetingComment data={data} setState={setState} />
           </IconStyled>
         ) : null}
       </ContentIconWrap>
@@ -71,6 +100,9 @@ const ContentIconWrap = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  .input {
+    border: 1px solid #e2dddd;
+  }
 `;
 
 const ContentStyle = styled.span`

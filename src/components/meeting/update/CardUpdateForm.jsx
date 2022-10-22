@@ -6,6 +6,7 @@ import { apis } from 'api/api';
 import { useEffect } from 'react';
 import swal from 'sweetalert';
 import styled from 'styled-components';
+import Footer from 'components/footer/Footer';
 
 export const orange = (str) => {
   const a = str.split('-');
@@ -325,7 +326,7 @@ const CardUpdateForm = (props) => {
                     })}
                   </div>
                 </div>
-                <div className="px-4 py-3 text-right sm:px-6 flex justify-between flex-row-reverse">
+                <div className="flex flex-col items-center">
                   <button
                     onClick={(e) => onClickSubmitHandler(e)}
                     className="w-full inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -339,12 +340,14 @@ const CardUpdateForm = (props) => {
                   >
                     나가기
                   </button> */}
+                  <button className="py-2 text-sm  text-gray-400">돌아가기</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

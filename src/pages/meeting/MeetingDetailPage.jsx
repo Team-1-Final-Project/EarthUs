@@ -202,29 +202,30 @@ const MeetingDetailPage = () => {
         </ButtonLayout>
 
         <div>
-          <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
-          <div className="px-20">
-            <UserInfoCard
-              nickname={detailData && detailData.admin.nickname}
-              email={detailData && detailData.admin.email}
-              profileImage={detailData && detailData.admin.profileImage}
-              badgeList={detailData && detailData.admin.badgeList}
-            />
-          </div>
-        </div>
-        <div>
-          <h1 className="py-10 ml-20 text-3xl">Member Info</h1>
+          <h1 className="py-10 ml-20 text-3xl">참여중인 멤버</h1>
           <div className="flex flex-wrap px-20">
             {applyerData &&
-              applyerData.map((item) => {
-                return (
-                  <UserInfoCard
-                    nickname={item.nickname}
-                    email={item.email}
-                    profileImage={item.profileImage}
-                    badgeList={item.badgeList}
-                  />
-                );
+              applyerData.map((item, idx) => {
+                if (!idx)
+                  return (
+                    <UserInfoCard
+                      position={'리더'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
+                else
+                  return (
+                    <UserInfoCard
+                      position={'참여자'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
               })}
           </div>
           {reviews.length > 0 && (
