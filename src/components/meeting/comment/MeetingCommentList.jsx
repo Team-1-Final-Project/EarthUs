@@ -8,19 +8,23 @@ import MeetingComment from './MeetingComment';
 const MeetingCommentList = () => {
   const params = useParams().id;
   const [CommentList, setCommentList] = useState();
+  const [state, setState] = useState('read');
 
   useEffect(() => {
     apis.getMeetingCommentList(params).then((res) => {
       setCommentList(res.data);
+      setState('read');
     });
-  }, [params]);
+  }, [params, state]);
 
   return (
     <Container>
-      <AddMeetingComment />
+      <AddMeetingComment setState={setState} />
 
       {CommentList?.map((data) => {
-        return <MeetingComment key={data.commentId} data={data} />;
+        return (
+          <MeetingComment key={data.commentId} data={data} setState={setState} state={state} />
+        );
       })}
     </Container>
   );
@@ -30,5 +34,6 @@ const Container = styled.div`
   width: 70%;
   margin: auto;
   margin-top: 100px;
+  min-width: 300px;
 `;
 export default MeetingCommentList;

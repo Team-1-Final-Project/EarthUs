@@ -1,13 +1,13 @@
-import AddMeetingComment from 'components/meeting/comment/AddMeetingComment';
+import Footer from 'components/footer/Footer';
 import MeetingCommentList from 'components/meeting/comment/MeetingCommentList';
-import UpdateMeetingComment from 'components/meeting/comment/UpdateMeetingComment';
-import styled from 'styled-components';
+import Navbar from 'components/navbar/Navbar';
 
 const MeetingCommentPage = () => {
   return (
     <div>
+      <Navbar />
       <MeetingCommentList />
-      <UpdateMeetingComment />
+      <Footer />
     </div>
   );
 };

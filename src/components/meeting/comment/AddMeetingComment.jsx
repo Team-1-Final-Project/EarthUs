@@ -3,13 +3,14 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const AddMeetingComment = () => {
+const AddMeetingComment = ({ setState }) => {
   const ref = useRef(null);
   const params = useParams().id;
 
   const onClick = () => {
     apis.addMeetingComment(params, { content: ref.current.value }).then((res) => {
       console.log(res);
+      setState('add');
     });
 
     ref.current.value = '';
@@ -32,7 +33,8 @@ const FormWrap = styled.div`
 `;
 
 const InputStyled = styled.input`
-  box-shadow: 0 1px 3px -1px #e5e7eb;
+  box-shadow: 0 1px 3px -1px #98999c;
+  width: 60%;
   padding: 5px 10px;
   height: ${(props) => props.height || '2.25rem'};
   input::placeholder {
