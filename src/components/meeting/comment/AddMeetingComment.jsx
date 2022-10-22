@@ -32,9 +32,9 @@ const FormWrap = styled.div`
   margin-bottom: 50px;
 `;
 
-const InputStyled = styled.input`
+const InputStyled = styled.textarea`
   box-shadow: 0 1px 3px -1px #98999c;
-  width: 60%;
+  width: 90%;
   padding: 5px 10px;
   height: ${(props) => props.height || '2.25rem'};
   input::placeholder {
@@ -42,6 +42,7 @@ const InputStyled = styled.input`
   }
 `;
 const ButtonStyle = styled.div`
+  cursor: pointer;
   padding: 5px 10px;
   font-size: 14px;
   border-radius: 5px;
