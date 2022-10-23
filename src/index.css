@@ -48,3 +48,7 @@
   font-family: 'FuzzyBubbles-Regular';
   src: url('./assets/fonts/FuzzyBubbles-Regular.ttf');
 }
+@font-face {
+  font-family: 'HiMelody-Regular';
+  src: url('./assets/fonts/HiMelody-Regular.ttf');
+}

@@ -24,11 +24,11 @@ function TopPost({ hitBoard }) {
                     <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-[#EAECEE]">
                       {board.tagBoard}
                     </div>
-                    <div className="h-20 overflow-hidden text-ellipsis">
-                      <div className="text-lg font-bold">{board.title}</div>
-                      <div className="text-[0.9rem]">{board.content}</div>
+                    <div className="overflow-hidden h-28 text-ellipsis">
+                      <div className="text-lg font-bold line-clamp-1">{board.title}</div>
+                      <div className="mt-3 text-[0.9rem] line-clamp-3">{board.content}</div>
                     </div>
-                    <div className="absolute flex bottom-4">
+                    <div className="flex mt-2">
                       <div className="flex flex-row mr-2">
                         <AiOutlineComment className="m-auto" />
                         <span>
@@ -42,11 +42,13 @@ function TopPost({ hitBoard }) {
                     </div>
                   </div>
                   <div className="w-1/3">
-                    <img
-                      src={board.boardImage}
-                      alt="boardImage"
-                      className="w-full h-40 rounded-lg"
-                    />
+                    {board && board.boardImage && (
+                      <img
+                        src={board.boardImage}
+                        alt="boardImage"
+                        className="w-full h-40 rounded-lg"
+                      />
+                    )}
                   </div>
                 </div>
               </div>

@@ -61,7 +61,6 @@ const MeetingDetailPage = () => {
       .then((res) => {
         setDetailData(res.data.data);
         setApplyerData(res.data.data.crews);
-        console.log('1', res.data.data.crews);
       })
       .catch((err) => console.log('err', err, params));
   }, [applyState]);
@@ -133,19 +132,34 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
+          {applyerData &&
+            applyerData.map((item) => {
+              return item.email === email ? (
+                <Button
+                  onClick={() => {
+                    navigate(`/meeting/Comment/${params}`);
+                  }}
+                >
+                  소통의 장
+                </Button>
+              ) : null;
+            })}
           {detailData &&
             (detailData.meetingStatus.code === 'CAN_JOIN' ||
               detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
             detailData.admin.email !== email &&
             applyState && (
-              <Button
-                onClick={() => {
-                  onClickApplyHandler();
-                }}
-              >
-                참여취소
-              </Button>
+              <>
+                <Button
+                  onClick={() => {
+                    onClickApplyHandler();
+                  }}
+                >
+                  참여취소
+                </Button>
+              </>
             )}
+
           {detailData &&
             detailData.meetingStatus.code === 'CAN_JOIN' &&
             detailData.admin.email !== email &&
@@ -183,7 +197,7 @@ const MeetingDetailPage = () => {
             detailData.meetingStatus.code === 'COMPLETED_MEETING' &&
             !reviewWrite && (
               <button
-                className="flex justify-center items-center min-w-max px-4 h-10 text-defaultColor rounded-full border border-defaultColor hover:transition hover:duration-100	hover:scale-105"
+                className="flex items-center justify-center h-10 px-4 border rounded-full min-w-max text-defaultColor border-defaultColor hover:transition hover:duration-100 hover:scale-105"
                 onClick={() => navigate(`/review/create/${params}`)}
               >
                 <BsFillPencilFill className="mr-2" />
@@ -193,33 +207,35 @@ const MeetingDetailPage = () => {
         </ButtonLayout>
 
         <div>
-          <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
-          <div className="px-20">
-            <UserInfoCard
-              nickname={detailData && detailData.admin.nickname}
-              email={detailData && detailData.admin.email}
-              profileImage={detailData && detailData.admin.profileImage}
-            />
-          </div>
-        </div>
-        <div>
-          <h1 className="py-10 ml-20 text-3xl">Member Info</h1>
-          <div className="px-20 flex flex-wrap">
+          <h1 className="py-10 ml-20 text-3xl">참여중인 멤버</h1>
+          <div className="flex flex-wrap px-20">
             {applyerData &&
-              applyerData.map((item) => {
-                return (
-                  <UserInfoCard
-                    nickname={item.nickname}
-                    email={item.email}
-                    profileImage={item.profileImage}
-                    badgeList={item.badgeList}
-                  />
-                );
+              applyerData.map((item, idx) => {
+                if (!idx)
+                  return (
+                    <UserInfoCard
+                      position={'리더'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
+                else
+                  return (
+                    <UserInfoCard
+                      position={'참여자'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
               })}
           </div>
           {reviews.length > 0 && (
             <>
-              <h1 className="text-3xl ml-20 mt-10">모임 후기</h1>
+              <h1 className="mt-10 ml-20 text-3xl">모임 후기</h1>
               <ReviewList reviewData={reviews} />
             </>
           )}

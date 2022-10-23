@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 const MeetingCard = (props) => {
   const navigate = useNavigate();
   const data = { ...props.data };
-  const admin = data.admin;
+  const admin = data?.admin;
 
   const [liked, setLiked] = useState(false);
   const [likeNums, setLikeNums] = useState(0);
@@ -109,9 +109,9 @@ const MeetingCard = (props) => {
           <StyledSubDetail>
             <CardProfileIcon image={admin && admin.profileImage} />
 
-            <div className="w-full flex justify-between items-center text-xs">
+            <div className="flex items-center justify-between w-full text-xs">
               <div>by {admin && admin.nickname}</div>
-              <div className="w-1/2 flex justify-end items-center" onClick={likeHandler}>
+              <div className="flex items-center justify-end w-1/2" onClick={likeHandler}>
                 {liked ? (
                   <BsHeartFill className="w-4 h-4 m-2 text-red-600" />
                 ) : (

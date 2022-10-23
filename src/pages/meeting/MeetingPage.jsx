@@ -103,9 +103,7 @@ const MeetingPage = () => {
           defaultValue=""
         />
         <div className="pt-20 px-20">
-          <div className="flex-col py-3">
-            <h1 className="text-2xl">참여중인 모임</h1>
-          </div>
+          <h1 className="text-2xl">참여중인 모임</h1>
 
           {loginState ? (
             myMeeting && (
@@ -116,15 +114,14 @@ const MeetingPage = () => {
               </MeetingCarousel>
             )
           ) : (
-            <div className="w-full flex justify-center items-center h-32">
+            <div className="w-full flex justify-center items-center h-32 text-gray-300">
               로그인이 필요한 기능입니다.
             </div>
           )}
         </div>
         <div className="pt-10 px-20">
-          <div>
-            <h1 className="text-2xl">전체 모임</h1>
-          </div>
+          <h1 className="text-2xl">전체 모임</h1>
+
           <div className="py-10">
             <TagListStyle className="max-w-fit pb-2 grid grid-cols-meeting overflow-x-scroll overflow-y-hidden meeting:overflow-x-hidden">
               <button

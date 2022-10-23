@@ -2,9 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Carousel from 'utils/Carousel/Carousel';
 import { MdPeopleOutline } from 'react-icons/md';
+import { AiOutlineCalendar } from 'react-icons/ai';
 import { GrLocation } from 'react-icons/gr';
 
 function Meeting({ meeting }) {
+  console.log(meeting);
   const navigate = useNavigate();
   return (
     <>
@@ -22,12 +24,27 @@ function Meeting({ meeting }) {
               >
                 <div className="flex justify-between ">
                   <div className="w-2/3 mt-2 ml-4">
-                    <div className="truncate ">
-                      <span className="font-bold text-defaultColor">모집 중 </span>
+                    <div className="line-clamp-1">
+                      <span
+                        className={`mr-1 min-w-fit font-semibold  ${
+                          `${meeting.meetingStatus.message}` === '모집준비중'
+                            ? `text-gray-400`
+                            : `${meeting.meetingStatus.message}` === '모집중'
+                            ? `text-defaultColor`
+                            : `${meeting.meetingStatus.message}` === '모집완료'
+                            ? `text-greenColor`
+                            : `text-defaultLine`
+                        }`}
+                      >
+                        {meeting.meetingStatus.message}
+                      </span>
                       <span className="font-bold ">{meeting.title}</span>
                     </div>
                     <div className="mt-2 text-sm">
-                      <div>일시 : {meeting.meetingStartDate}</div>
+                      <div className="flex flex-row items-center">
+                        <AiOutlineCalendar />
+                        <span>&nbsp;일시 : {meeting.meetingStartDate}</span>
+                      </div>
                       <div className="flex flex-row items-center">
                         <MdPeopleOutline />
                         <span>

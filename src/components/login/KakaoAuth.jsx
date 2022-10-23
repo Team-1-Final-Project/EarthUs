@@ -1,12 +1,35 @@
 //redirct uri페이지
-import { localApi, api, apis, multi } from 'api/api';
+import { api, apis, multi } from 'api/api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const KakaoAuth = () => {
+  function Sse() {
+    const id = sessionStorage.getItem('id');
+    if (sessionStorage.getItem('id') != null) {
+      const sse = new EventSource(id && `${process.env.REACT_APP_SERVER}subscribe/${id}`, {
+        withCredentials: true,
+      });
+
+      sse.addEventListener('message', function (e) {
+        const data = JSON.parse(e.data);
+        toast('😍 ' + data.content, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
+    }
+  }
+
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get('code');
-
   useEffect(() => {
     //서버 배포시 localApi => api 로 변경 필요.
     api
@@ -28,6 +51,7 @@ const KakaoAuth = () => {
             sessionStorage.setItem('nickname', nickname);
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('id', id);
+            Sse();
             navigate(sessionStorage.getItem('Location') ? sessionStorage.getItem('Location') : '/');
           })
           .catch((err) => console.log('err', err));
