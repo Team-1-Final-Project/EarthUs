@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deletePost, getDetailPost, getPostList } from 'redux/modules/postSlice';
 import { getHeart, putChangeHeart } from 'redux/modules/heartSlice';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from 'components/footer/Footer';
 
@@ -46,7 +46,6 @@ const PostDetail = () => {
     <Layout>
       <Container>
         <Navbar />
-        <ToastContainer />
         <ContainerStyle>
           <TopWrapStyle>
             <div className="tagList">

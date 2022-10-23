@@ -8,7 +8,7 @@ import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import PostingButton from 'components/button/PostingButton';
 import { useNavigate } from 'react-router-dom';
 import MeetingPaging from 'components/pagination/MeetingPaging';
@@ -89,7 +89,6 @@ const MeetingPage = () => {
     <Layout>
       {/* <Map></Map> */}
       <Container>
-        <ToastContainer />
         <Navbar />
         <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
