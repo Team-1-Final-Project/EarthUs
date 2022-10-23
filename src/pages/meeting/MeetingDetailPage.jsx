@@ -207,7 +207,6 @@ const MeetingDetailPage = () => {
           <div className="px-20 flex flex-wrap">
             {applyerData &&
               applyerData.map((item) => {
-                console.log('여기', item);
                 return (
                   <UserInfoCard
                     nickname={item.nickname}

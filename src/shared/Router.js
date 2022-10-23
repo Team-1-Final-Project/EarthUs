@@ -14,6 +14,7 @@ import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
 import MeetingChat from 'components/chat/Chatting';
 import CommunitySearchPage from 'pages/search/CommunitySearchPage';
+import MeetingSearchPage from 'pages/search/MeetingSearchPage';
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/review/*" element={<ReviewRoute />} />
         <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
         <Route path="/community/search" element={<CommunitySearchPage />} />
+        <Route path="/meeting/search" element={<MeetingSearchPage />} />
       </Routes>
     </BrowserRouter>
   );

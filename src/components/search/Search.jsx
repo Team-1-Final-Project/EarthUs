@@ -24,6 +24,7 @@ const Search = ({ onSearch, className, defaultValue }) => {
         placeholder="검색어를 입력하세요"
         defaultValue={defaultValue}
         onKeyDown={handleOnkeyPress}
+        autoFocus={true}
       />
       <BsSearch className="w-5 h-5 cursor-pointer ml-2" onClick={() => onSearch(searchKeyword)} />
     </div>
