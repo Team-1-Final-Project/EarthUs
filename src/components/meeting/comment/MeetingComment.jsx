@@ -10,11 +10,9 @@ const MeetingComment = ({ data, setState, state }) => {
   const name = sessionStorage.getItem('nickname');
   const [update, setUpdate] = useState(false);
   const ref = useRef(null);
-  const params = useParams().id;
   const onClick = () => {
     apis
       .upDateMeetingComment(data.commentId, {
-        meetingId: params,
         content: ref.current.value,
       })
       .then((res) => {
