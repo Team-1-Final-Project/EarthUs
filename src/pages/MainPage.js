@@ -6,7 +6,7 @@ import TopPost from 'components/main/TopPost';
 import Meeting from 'components/main/Meeting';
 import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
@@ -50,8 +50,6 @@ function MainPage() {
       <Layout>
         <Container>
           <Navbar />
-          <ToastContainer />
-
           <Banner />
           <Dailymission
             mission={mission}

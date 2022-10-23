@@ -8,7 +8,7 @@ import ReviewUpdatePage from 'pages/review/ReviewUpdatePage';
 const ReviewRoute = () => {
   return (
     <Routes>
-      <Route path="/:id" element={<MeetingReviewPage />} />
+      <Route path="/" element={<MeetingReviewPage />} />
       <Route path="/create/:id" element={<ReviewCreatePage />} />
       <Route path="/detail/:id" element={<ReviewDetailPage />} />
       <Route path="/update/:id" element={<ReviewUpdatePage />} />

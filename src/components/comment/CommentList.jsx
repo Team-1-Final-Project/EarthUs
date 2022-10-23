@@ -4,7 +4,7 @@ import CommentForm from 'components/comment/CommentForm';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const CommentList = ({ commentListData, commentCount, setCommentCount }) => {
   const [commentList, setCommentList] = useState([]);
@@ -51,21 +51,18 @@ const CommentList = ({ commentListData, commentCount, setCommentCount }) => {
   };
 
   return (
-    <>
-      <ToastContainer />
-      <ContainerStyle>
-        {commentList?.map((comment) => (
-          <Comment
-            {...comment}
-            key={comment.commentId}
-            editCommentHandler={editCommentHandler}
-            deleteCommentHandler={deleteCommentHandler}
-            onToastifyHandler={toastifyHandler}
-          />
-        ))}
-        <CommentForm addCommentHandler={addCommentHandler} onToastifyHandler={toastifyHandler} />
-      </ContainerStyle>
-    </>
+    <ContainerStyle>
+      {commentList?.map((comment) => (
+        <Comment
+          {...comment}
+          key={comment.commentId}
+          editCommentHandler={editCommentHandler}
+          deleteCommentHandler={deleteCommentHandler}
+          onToastifyHandler={toastifyHandler}
+        />
+      ))}
+      <CommentForm addCommentHandler={addCommentHandler} onToastifyHandler={toastifyHandler} />
+    </ContainerStyle>
   );
 };
 
