@@ -34,6 +34,10 @@ const PostDetail = () => {
 
   const [commentCount, setCommentCount] = useState(data?.commentNums);
 
+  const toastifyHandler = () => {
+    toast.error('로그인이 필요합니다.');
+  };
+
   useEffect(() => {
     setCommentCount(data?.commentNums);
   }, [data]);
@@ -82,7 +86,7 @@ const PostDetail = () => {
                       dispatch(getDetailPost(data?.boardId));
                     });
                   } else {
-                    toast.error('로그인이 필요합니다.');
+                    toastifyHandler();
                   }
                 }}
               >
