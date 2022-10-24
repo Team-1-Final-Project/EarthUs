@@ -12,6 +12,7 @@ const MeetingComment = ({ data, setState, state }) => {
   const ref = useRef(null);
   const params = useParams().id;
   const onClick = () => {
+    console.log('cur', ref.current.value);
     apis
       .upDateMeetingComment(data.commentId, {
         meetingId: params,
