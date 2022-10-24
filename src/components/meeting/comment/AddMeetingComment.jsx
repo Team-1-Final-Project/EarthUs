@@ -34,7 +34,7 @@ const FormWrap = styled.div`
 
 const InputStyled = styled.textarea`
   box-shadow: 0 1px 3px -1px #98999c;
-  width: 90%;
+  width: 70%;
   padding: 5px 10px;
   height: ${(props) => props.height || '2.25rem'};
   input::placeholder {
