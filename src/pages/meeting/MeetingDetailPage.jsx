@@ -13,12 +13,16 @@ import ReviewList from 'components/meeting/review/ReviewList';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
 import { BsFillPencilFill } from 'react-icons/bs';
+import MeetingCommentList from 'components/meeting/comment/MeetingCommentList';
+import Close from 'assets/images/Close.png';
+import CommentModal from 'components/modal/CommentModal';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
   const loginState = sessionStorage.getItem('Access_token');
 
   const [reviews, setReviews] = useState('');
+  const [modal, setModal] = useState(false);
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
@@ -137,13 +141,27 @@ const MeetingDetailPage = () => {
               return item.email === email ? (
                 <Button
                   onClick={() => {
-                    navigate(`/meeting/Comment/${params}`);
+                    setModal(true); // navigate(`/meeting/Comment/${params}`);
                   }}
                 >
                   소통의 장
                 </Button>
               ) : null;
             })}
+          {modal ? (
+            <CommentModal
+              children={
+                <div className="w-full h-full flex flex-col items-center">
+                  <button className="absolute right-5 top-5" onClick={() => setModal(false)}>
+                    <StyledImg className="h-8 w-8" src={Close} />
+                  </button>
+                  <MeetingCommentList />
+                </div>
+              }
+              onConfirm={() => setModal(false)}
+            />
+          ) : null}
+
           {detailData &&
             (detailData.meetingStatus.code === 'CAN_JOIN' ||
               detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
@@ -279,4 +297,7 @@ const DisabledButton = styled.button`
   border-radius: 40px;
   margin-right: 20px;
   float: right;
+`;
+const StyledImg = styled.img`
+  filter: opacity(0.5) drop-shadow(0 0 0 #ffffff);
 `;
