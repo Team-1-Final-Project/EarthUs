@@ -61,11 +61,12 @@ const AddPost = () => {
         <ContainerStyled>
           <div className="main">
             <AddImgFormStyle>
-              <TitleStyle>게시글 작성</TitleStyle>
-              <LabelStyle htmlFor="img">사진등록</LabelStyle>
+              <div className="mt-10 text-2xl font-bold text-gray-600 flex justify-center">
+                게시글 작성
+              </div>
 
-              <ImageDivStyle>
-                <div className="space-y-1 text-center flex flex-col items-center justify-center">
+              <div className="mt-5 h-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                <div className="w-full space-y-1 text-center flex flex-col items-center justify-center">
                   {image ? (
                     <Preview img={image} />
                   ) : (
@@ -105,7 +106,7 @@ const AddPost = () => {
                     </label>
                   </div>
                 </div>
-              </ImageDivStyle>
+              </div>
             </AddImgFormStyle>
             <AddPostFormWrapStyle>
               <AddPostFormStyle>
@@ -163,11 +164,9 @@ const AddPost = () => {
                 </TagListStyle>
               </AddPostFormStyle>
 
-              <ButtonWrapStyle>
-                <ButtonStyle onClick={onClickGoOut} className="button cursor-pointer">
-                  뒤로가기
-                </ButtonStyle>
-                <ButtonStyle
+              <div className="flex flex-col items-center">
+                <button
+                  className="w-full inline-flex justify-center rounded-md border border-transparent bg-cyan-400 py-4 text-sm font-medium text-white shadow-sm hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   onClick={async () => {
                     if (titleRef.current.value === '') {
                       swal('제목을 입력 해주세요');
@@ -193,11 +192,13 @@ const AddPost = () => {
                       apis.addPost(formData).then(() => navigate('/community'));
                     }
                   }}
-                  className="button cursor-pointer"
                 >
                   작성완료
-                </ButtonStyle>
-              </ButtonWrapStyle>
+                </button>
+                <button onClick={onClickGoOut} className="py-2 text-sm text-gray-400">
+                  뒤로가기
+                </button>
+              </div>
             </AddPostFormWrapStyle>
           </div>
         </ContainerStyled>
@@ -208,19 +209,11 @@ const AddPost = () => {
 };
 const ContainerStyled = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  width: 80%;
+  width: 60%;
   align-items: center;
   margin: auto;
-  margin-top: 80px;
-  .main {
-    display: flex;
-    width: 100%;
-    @media (max-width: 600px) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
 `;
 const AddPostFormStyle = styled.div`
   display: flex;
@@ -228,21 +221,13 @@ const AddPostFormStyle = styled.div`
   width: 100%;
   margin: auto;
   padding: 20px 16px;
-  box-shadow: 0 2px 3px 0px #e5e7eb;
 `;
 
 const AddPostFormWrapStyle = styled.div`
   width: 100%;
 `;
 const AddImgFormStyle = styled.div`
-  width: 60%;
-  max-width: 400px;
-  min-width: 200px;
-  padding: 0px 16px 20px 16px;
-  @media (max-width: 600px) {
-    width: 100%;
-    max-width: 300px;
-  }
+  width: 100%;
 `;
 const TitleStyle = styled.h3`
   margin-bottom: 20px;
@@ -284,6 +269,9 @@ const TextAreaStyled = styled.textarea`
 
 const ImageDivStyle = styled.div`
   padding: 25px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   border: 1px dashed #e5e7eb;
   border-radius: 7px;
 `;
@@ -328,8 +316,6 @@ const ButtonWrapStyle = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 24px;
-  box-shadow: 0 2px 3px 0px #e5e7eb;
-  background-color: #f9fafb;
 `;
 const ButtonStyle = styled.div`
   padding: 8px 16px;

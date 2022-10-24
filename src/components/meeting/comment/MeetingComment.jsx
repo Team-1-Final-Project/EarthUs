@@ -11,6 +11,7 @@ const MeetingComment = ({ data, setState, state }) => {
   const [update, setUpdate] = useState(false);
   const ref = useRef(null);
   const onClick = () => {
+    console.log('cur', ref.current.value);
     apis
       .upDateMeetingComment(data.commentId, {
         content: ref.current.value,
