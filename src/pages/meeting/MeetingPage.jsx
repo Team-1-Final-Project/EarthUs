@@ -8,10 +8,11 @@ import { Layout, Container } from 'utils/styles/GlobalStyles';
 import MeetingCarousel from 'utils/Carousel/MeetingCarousel';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import PostingButton from 'components/button/PostingButton';
 import { useNavigate } from 'react-router-dom';
 import MeetingPaging from 'components/pagination/MeetingPaging';
+import Search from 'components/search/Search';
 
 const MeetingPage = () => {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ const MeetingPage = () => {
   const [showAll, setShowAll] = useState(true);
 
   const tags = ['챌린지', '플로깅', '비건', '재활용', '이모저모(친목)', '반려용품', '기타'];
+
+  const meetingSearchHandler = (searchKeyword) => {
+    navigate(`/meeting/search?keyword=${searchKeyword}&page=1`);
+  };
 
   const tagHandler = (id) => {
     if (selectedTag.indexOf(id) === -1) {
@@ -84,14 +89,18 @@ const MeetingPage = () => {
     <Layout>
       {/* <Map></Map> */}
       <Container>
-        <ToastContainer />
         <Navbar />
         <div className="w-full flex justify-center">
           <button className="m-3 hover:cursor-pointer text-defaultColor">제로모임</button>
-          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review/1')}>
+          <button className="m-3 hover:cursor-pointer" onClick={() => navigate('/review?page=1')}>
             모임후기
           </button>
         </div>
+        <Search
+          onSearch={meetingSearchHandler}
+          className="rounded-full border w-64 h-8 my-4 mr-4 px-4 float-right flex justify-center items-center"
+          defaultValue=""
+        />
         <div className="pt-20 px-20">
           <h1 className="text-2xl">참여중인 모임</h1>
 

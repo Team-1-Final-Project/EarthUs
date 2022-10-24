@@ -12,6 +12,8 @@ import ReviewRoute from './sub/ReviewRoute';
 import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
+import CommunitySearchPage from 'pages/search/CommunitySearchPage';
+import MeetingSearchPage from 'pages/search/MeetingSearchPage';
 import Sse from 'utils/Sse/Sse';
 import { ToastContainer } from 'react-toastify';
 import MeetingCommentPage from 'pages/meetingComment/MeetingCommentPage';
@@ -35,6 +37,8 @@ const Router = () => {
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/review/*" element={<ReviewRoute />} />
         <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
+        <Route path="/community/search" element={<CommunitySearchPage />} />
+        <Route path="/meeting/search" element={<MeetingSearchPage />} />
       </Routes>
     </BrowserRouter>
   );
