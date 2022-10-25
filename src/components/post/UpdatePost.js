@@ -107,7 +107,7 @@ const UpdatePost = () => {
                       htmlFor="file-upload"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
-                      <span>Upload a file</span>
+                      <span>클릭해서 이미지 수정하기</span>
 
                       <input
                         onChange={(e) => {
@@ -240,7 +240,7 @@ const AddPostFormStyle = styled.div`
   flex-direction: column;
   width: 100%;
   margin: auto;
-  padding: 20px 16px;\
+  padding: 20px 16px;
 `;
 
 const AddPostFormWrapStyle = styled.div`

@@ -340,7 +340,9 @@ const CardUpdateForm = (props) => {
                   >
                     나가기
                   </button> */}
-                  <button className="py-2 text-sm  text-gray-400">돌아가기</button>
+                  <button onClick={onClickGoOut} className="py-2 text-sm  text-gray-400">
+                    돌아가기
+                  </button>
                 </div>
               </div>
             </form>
