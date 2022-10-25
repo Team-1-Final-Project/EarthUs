@@ -91,7 +91,7 @@ const AddPost = () => {
                       htmlFor="file-upload"
                       className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
-                      <span>Upload a file</span>
+                      <span>클릭해서 사진 올리기</span>
 
                       <input
                         onChange={(e) => {
@@ -105,6 +105,7 @@ const AddPost = () => {
                       />
                     </label>
                   </div>
+                  <p className="pl-1 text-sm">(jpg형식만 지원합니다.)</p>
                 </div>
               </div>
             </AddImgFormStyle>
