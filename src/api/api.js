@@ -213,7 +213,20 @@ export const apis = {
     return response.data;
   },
   getMyBadge: async () => {
-    const response = await api.get('/mypage/badge');
+    const response = await api.get('mypage/badge');
+    return response.data;
+  },
+  updateProfileImage: async (data) => {
+    const response = await api.post('mypage/profile', data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    });
+    return response.data;
+  },
+
+  updateRepBadge: async () => {
+    const response = await api.post('mypage/badge');
     return response.data;
   },
 };

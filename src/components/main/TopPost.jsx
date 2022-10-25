@@ -4,7 +4,6 @@ import { AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 function TopPost({ hitBoard }) {
-  console.log(hitBoard);
   const navigate = useNavigate();
   return (
     <>

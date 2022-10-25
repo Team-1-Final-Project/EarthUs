@@ -25,6 +25,9 @@ const KakaoAuth = () => {
           theme: 'light',
         });
       });
+      sse.onerror = (err) => {
+        console.error('EventSource failed:', err);
+      };
     }
   }
 
@@ -43,12 +46,15 @@ const KakaoAuth = () => {
         apis
           .kakaoLogin()
           .then((res) => {
+            console.log(res);
             const nickname = res.data.nickname;
+            const username = res.data.username;
             const image = res.data.profileImage;
             const email = res.data.email;
             const id = res.data.id;
             sessionStorage.setItem('profileImage', image);
             sessionStorage.setItem('nickname', nickname);
+            sessionStorage.setItem('username', username);
             sessionStorage.setItem('email', email);
             sessionStorage.setItem('id', id);
             Sse();

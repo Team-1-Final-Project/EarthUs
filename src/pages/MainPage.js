@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from 'components/navbar/Navbar';
 import Dailymission from 'components/main/Dailymission';
-import { api, apis } from 'api/api';
+import { apis } from 'api/api';
 import TopPost from 'components/main/TopPost';
 import Meeting from 'components/main/Meeting';
 import Banner from 'components/banner/Banner';
 import Footer from 'components/footer/Footer';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import { Container, Layout } from 'utils/styles/GlobalStyles';
 import PostingButton from 'components/button/PostingButton';
-import Loading from 'components/loading/Loading';
 
 function MainPage() {
   const [mission, setMission] = useState();
@@ -21,7 +20,6 @@ function MainPage() {
 
   const loginState = sessionStorage.getItem('Access_token');
 
-  console.log(process.env);
   useEffect(() => {
     apis.getMainMission().then((res) => {
       setMission(res.data);
