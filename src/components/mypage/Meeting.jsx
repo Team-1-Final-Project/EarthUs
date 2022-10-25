@@ -30,12 +30,12 @@ export default function Meeting({ meeting }) {
                       <span
                         className={`mr-1 min-w-fit font-semibold  ${
                           `${meeting.meetingStatus.message}` === '모집준비중'
-                            ? `text-gray-400`
+                            ? `text-defaultLine`
                             : `${meeting.meetingStatus.message}` === '모집중'
                             ? `text-defaultColor`
                             : `${meeting.meetingStatus.message}` === '모집완료'
                             ? `text-greenColor`
-                            : `text-defaultLine`
+                            : `text-gray-400`
                         }`}
                       >
                         {meeting.meetingStatus.message}

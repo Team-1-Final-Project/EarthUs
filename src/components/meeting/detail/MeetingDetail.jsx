@@ -70,12 +70,12 @@ const MeetingDetail = (props) => {
         <span
           className={`min-w-fit text-3xl font-semibold ${
             meetingStatus === '모집준비중'
-              ? `text-gray-400`
+              ? `text-defaultLine`
               : meetingStatus === '모집중'
               ? `text-defaultColor`
               : meetingStatus === '모집완료'
               ? `text-greenColor`
-              : `text-defaultLine`
+              : `text-gray-400`
           }`}
         >
           {meetingStatus}
