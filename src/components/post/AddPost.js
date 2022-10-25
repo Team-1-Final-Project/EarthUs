@@ -105,7 +105,7 @@ const AddPost = () => {
                       />
                     </label>
                   </div>
-                  <p className="pl-1 text-sm">(jpg형식만 지원합니다.)</p>
+                  <p className="pl-1 text-sm">(png, jpeg, jpg을 지원합니다.)</p>
                 </div>
               </div>
             </AddImgFormStyle>
