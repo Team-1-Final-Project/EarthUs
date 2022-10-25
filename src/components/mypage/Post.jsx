@@ -22,7 +22,7 @@ export function WritePost({ writePost }) {
                 <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-[#EAECEE]">
                   {post.tagBoard}
                 </div>
-                <div className="h-20 overflow-hidden text-ellipsis">
+                <div className="h-24 overflow-hidden text-ellipsis">
                   <div className="text-lg font-bold">{post.title}</div>
                   <div className="text-[0.9rem]">{post.content}</div>
                 </div>
