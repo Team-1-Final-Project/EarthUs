@@ -48,7 +48,7 @@ function MenuBar() {
         ></img>
         <div className="ml-2 text-left">
           <div className="text-xl font-bold">{nickname}</div>
-          {/* <div className="text-sm ">{email}</div> */}
+          <div className="text-sm ">{email}</div>
         </div>
       </div>
       <div className="text-left">
