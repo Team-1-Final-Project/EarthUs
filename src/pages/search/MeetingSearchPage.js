@@ -42,7 +42,7 @@ const CommunitySearchPage = () => {
         <Navbar />
         <Search
           onSearch={newMeetingSearchHandler}
-          className="border border-defaultText w-80 h-10 my-4 mx-auto px-4 flex justify-center items-center"
+          className="rounded-full border w-80 h-10 my-4 m-auto px-4 flex justify-center items-center"
           defaultValue={keyword}
         />
         <h1 className="text-xl mb-10">
