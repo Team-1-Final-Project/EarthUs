@@ -31,9 +31,7 @@ function TopPost({ hitBoard }) {
                     <div className="flex mt-2">
                       <div className="flex flex-row mr-2">
                         <AiOutlineComment className="m-auto" />
-                        <span>
-                          {board.commentsList?.length ? 'board.commentsList?.length' : '0'}
-                        </span>
+                        <span>{board.commentNums}</span>
                       </div>
                       <div className="flex flex-row">
                         <AiOutlineHeart className="m-auto" />
