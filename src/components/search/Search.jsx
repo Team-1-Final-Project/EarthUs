@@ -12,7 +12,10 @@ const Search = ({ onSearch, className, defaultValue }) => {
 
   const handleOnkeyPress = (e) => {
     if (e.key === 'Enter') {
-      onSearch(searchKeyword);
+      if (e.nativeEvent.isComposing === false && e.previousKey !== 'Shift') {
+        e.preventDefault();
+        onSearch(searchKeyword);
+      }
     }
   };
   return (
