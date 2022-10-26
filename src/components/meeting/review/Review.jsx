@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
+const Review = ({ author, content, id, createdAt, reviewThumbImage }) => {
   const navigate = useNavigate();
 
   return (
@@ -10,10 +10,10 @@ const Review = ({ author, content, id, meetingId, reviewImage, createdAt }) => {
       onClick={() => navigate(`/review/detail/${id}`)}
     >
       <div className="w-64">
-        {reviewImage ? (
+        {reviewThumbImage ? (
           <img
-            src={reviewImage}
-            alt="reviewImage"
+            src={reviewThumbImage}
+            alt="reviewThumbImage"
             className="w-72 h-56 object-cover mb-2 rounded"
           />
         ) : (
