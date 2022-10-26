@@ -12,9 +12,11 @@ import ReviewRoute from './sub/ReviewRoute';
 import UpdatePost from 'components/post/UpdatePost';
 import ZeroshopRoute from './sub/ZeroshopRoute';
 import { GlobalStyle } from 'utils/styles/GlobalStyles';
-import MeetingChat from 'components/chat/Chatting';
+import CommunitySearchPage from 'pages/search/CommunitySearchPage';
+import MeetingSearchPage from 'pages/search/MeetingSearchPage';
 import Sse from 'utils/Sse/Sse';
 import { ToastContainer } from 'react-toastify';
+import MeetingCommentPage from 'pages/meetingComment/MeetingCommentPage';
 
 const Router = () => {
   return (
@@ -26,7 +28,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/meeting/*" element={<MeetingRoute />} />
-        <Route path="/meeting/chat/*" element={<MeetingChat />} />
+        <Route path="/meeting/comment/:id" element={<MeetingCommentPage />} />
         <Route path="/mypage/*" element={<MyPageRoute />} />
         <Route path="/community" element={<PostListPage />} />
         <Route path="/communitydetail/:id" element={<PostDetail />} />
@@ -35,6 +37,8 @@ const Router = () => {
         <Route path="/login/kakao" element={<KakaoAuth />} />
         <Route path="/review/*" element={<ReviewRoute />} />
         <Route path="/zeroshop/*" element={<ZeroshopRoute />} />
+        <Route path="/community/search" element={<CommunitySearchPage />} />
+        <Route path="/meeting/search" element={<MeetingSearchPage />} />
       </Routes>
     </BrowserRouter>
   );

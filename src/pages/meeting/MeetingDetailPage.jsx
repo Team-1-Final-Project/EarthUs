@@ -13,12 +13,16 @@ import ReviewList from 'components/meeting/review/ReviewList';
 import swal from 'sweetalert';
 import Footer from 'components/footer/Footer';
 import { BsFillPencilFill } from 'react-icons/bs';
+import MeetingCommentList from 'components/meeting/comment/MeetingCommentList';
+import Close from 'assets/images/Close.png';
+import CommentModal from 'components/modal/CommentModal';
 
 const MeetingDetailPage = () => {
   const navigate = useNavigate();
   const loginState = sessionStorage.getItem('Access_token');
 
   const [reviews, setReviews] = useState('');
+  const [modal, setModal] = useState(false);
 
   //여기부터 참여하기 파트입니다
   const [applyState, setApplyState] = useState(false);
@@ -132,19 +136,48 @@ const MeetingDetailPage = () => {
           <MeetingDetail data={detailData} />
         </div>
         <ButtonLayout>
+          {applyerData &&
+            applyerData.map((item) => {
+              return item.email === email ? (
+                <Button
+                  onClick={() => {
+                    setModal(true); // navigate(`/meeting/Comment/${params}`);
+                  }}
+                >
+                  소통의 장
+                </Button>
+              ) : null;
+            })}
+          {modal ? (
+            <CommentModal
+              children={
+                <div className="w-full h-full flex flex-col items-center">
+                  <button className="absolute right-5 top-5" onClick={() => setModal(false)}>
+                    <StyledImg className="h-8 w-8" src={Close} />
+                  </button>
+                  <MeetingCommentList />
+                </div>
+              }
+              onConfirm={() => setModal(false)}
+            />
+          ) : null}
+
           {detailData &&
             (detailData.meetingStatus.code === 'CAN_JOIN' ||
               detailData.meetingStatus.code === 'COMPLETE_JOIN') &&
             detailData.admin.email !== email &&
             applyState && (
-              <Button
-                onClick={() => {
-                  onClickApplyHandler();
-                }}
-              >
-                참여취소
-              </Button>
+              <>
+                <Button
+                  onClick={() => {
+                    onClickApplyHandler();
+                  }}
+                >
+                  참여취소
+                </Button>
+              </>
             )}
+
           {detailData &&
             detailData.meetingStatus.code === 'CAN_JOIN' &&
             detailData.admin.email !== email &&
@@ -192,29 +225,30 @@ const MeetingDetailPage = () => {
         </ButtonLayout>
 
         <div>
-          <h1 className="py-10 ml-20 text-3xl">Leader Info</h1>
-          <div className="px-20">
-            <UserInfoCard
-              nickname={detailData && detailData.admin.nickname}
-              email={detailData && detailData.admin.email}
-              profileImage={detailData && detailData.admin.profileImage}
-              badgeList={detailData && detailData.admin.badgeList}
-            />
-          </div>
-        </div>
-        <div>
-          <h1 className="py-10 ml-20 text-3xl">Member Info</h1>
+          <h1 className="py-10 ml-20 text-3xl">참여중인 멤버</h1>
           <div className="flex flex-wrap px-20">
             {applyerData &&
-              applyerData.map((item) => {
-                return (
-                  <UserInfoCard
-                    nickname={item.nickname}
-                    email={item.email}
-                    profileImage={item.profileImage}
-                    badgeList={item.badgeList}
-                  />
-                );
+              applyerData.map((item, idx) => {
+                if (!idx)
+                  return (
+                    <UserInfoCard
+                      position={'리더'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
+                else
+                  return (
+                    <UserInfoCard
+                      position={'참여자'}
+                      nickname={item.nickname}
+                      email={item.email}
+                      profileImage={item.profileImage}
+                      badgeList={item.badgeList}
+                    />
+                  );
               })}
           </div>
           {reviews.length > 0 && (
@@ -263,4 +297,7 @@ const DisabledButton = styled.button`
   border-radius: 40px;
   margin-right: 20px;
   float: right;
+`;
+const StyledImg = styled.img`
+  filter: opacity(0.5) drop-shadow(0 0 0 #ffffff);
 `;

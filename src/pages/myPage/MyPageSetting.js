@@ -16,10 +16,18 @@ function MyPageSetting({ myBadge }) {
   const [repImage, setRepImage, imageChange] = useInput(profileImage);
   const [nickname, setNickname] = useInput();
 
-  const deleteImage = () => {};
-  const changeImage = () => {
-    apis.updateProfileImage(repImage).then((res) => console.log(res));
-    console.log('hi');
+  let formData = new FormData();
+
+  const deleteImage = () => {
+    formData.set('file', null);
+    apis.updateProfileImage(formData).then((res) => setRepImage(res));
+  };
+
+  const changeImage = (e) => {
+    if (e.target.files[0]) {
+      formData.set('file', e.target.files[0]);
+      apis.updateProfileImage(formData).then((res) => setRepImage(res.profileImage));
+    }
   };
 
   return (
@@ -36,7 +44,11 @@ function MyPageSetting({ myBadge }) {
               </div>
               <div className="m-4 text-xl font-bold">대표 이미지 설정</div>
               <div>
-                <ImageSetting repImage={repImage} changeImage={changeImage} />
+                <ImageSetting
+                  repImage={repImage}
+                  changeImage={changeImage}
+                  deleteImage={deleteImage}
+                />
               </div>
               <div className="m-4 text-xl font-bold">대표 뱃지 설정</div>
               <div>

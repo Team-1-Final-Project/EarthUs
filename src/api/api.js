@@ -89,30 +89,29 @@ export const apis = {
 
   getAllPost: (page) => api.get(`board?page=${page}&size=${10}`),
 
-  // getDetail: async (boardId) => {
-  //   const response = await api.get(`board/${boardId}`, {});
-  //   return response.data;
-  // },
+  // meetingCommnet
+  getMeetingCommentList: async (id) => {
+    const response = await api.get(`meetingComment/${id}`);
+    console.log(response.data, id);
+    return response.data;
+  },
 
-  // addPost: async (data) => {
-  //   console.log(data);
-  //   const response = await api.post('board', data, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data',
-  //       Authorization: sessionStorage.getItem('Access_token'),
-  //     },
-  //   });
-  //   return response;
-  // },
+  addMeetingComment: async (id, data) => {
+    const response = await api.post(`meetingComment/${id}`, data);
+    return response.data;
+  },
 
-  // deletePost: async (boardId) => {
-  //   const response = await api.delete(`board/${boardId}`, {
-  //     headers: {
-  //       Authorization: sessionStorage.getItem('Access_token'),
-  //     },
-  //   });
-  //   return response;
-  // },
+  deleteMeetingComment: async (commnetId) => {
+    const response = await api.delete(`meetingComment/${commnetId}`);
+    return response.data;
+  },
+
+  upDateMeetingComment: async (commnetId, data) => {
+    const response = await api.put(`meetingComment/${commnetId}`, data);
+    return response.data;
+  },
+
+  //heart
 
   getHeart: async (boardId) => {
     const response = await api.get(`board/heart/${boardId}`, {});
@@ -156,7 +155,9 @@ export const apis = {
       headers: {
         'Content-Type': `multipart/form-data`,
       },
-    }), //모임수정
+    }),
+
+  //모임수정
   // getMyMeeting: () => api.get(`mypage/meeting`),
   deleteMeeting: (meetingID) => api.delete(`meeting/${meetingID}`), //모임삭제
   applyMeeting: (meetingID) => api.post(`meeting/join/${meetingID}`), //모임참여
@@ -190,6 +191,10 @@ export const apis = {
   //tag
   searchMeetingTag: (pageNum, meetingTag) => api.post(`/meeting/tag?page=${pageNum}`, meetingTag),
   searchPostTag: (page, postTag) => api.post(`/board/tag?page=${page}`, postTag),
+
+  //search
+  searchMeeting: (keyword, page) => api.get(`/meeting/search?keyword=${keyword}&page=${page}`),
+  searchBoard: (keyword, page) => api.get(`/board/search?keyword=${keyword}&page=${page}`),
 
   //Onlineshop
   getShopList: async () => {

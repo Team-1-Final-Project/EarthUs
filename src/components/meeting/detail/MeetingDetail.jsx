@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { apis } from 'api/api';
 import { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
 import KakaoMap from 'components/map/Map';
@@ -65,89 +65,85 @@ const MeetingDetail = (props) => {
   }, [detail.meetingStatus]);
 
   return (
-    <>
-      <ToastContainer />
-
-      <div className="w-4/5 h-full px-5 py-5 flex flex-col">
-        <h1 className="mb-5 text-3xl mt-3">
-          <span
-            className={`min-w-fit text-3xl font-semibold ${
-              meetingStatus === '모집준비중'
-                ? `text-gray-400`
-                : meetingStatus === '모집중'
-                ? `text-defaultColor`
-                : meetingStatus === '모집완료'
-                ? `text-greenColor`
-                : `text-defaultLine`
-            }`}
-          >
-            {meetingStatus}
-          </span>
-          {' | ' + detail.title}
-        </h1>
-        <TagListLayout>
-          <div>
-            {detail.tagMeetings &&
-              Array.from(detail.tagMeetings).map((tag) => (
-                <Tagbutton key={tag.id}># {tag.name}</Tagbutton>
-              ))}
-          </div>
-          <div className="flex justify-center items-center">
-            {liked ? (
-              <BsHeartFill
-                className="w-6 h-6 m-2 text-red-600 cursor-pointer"
-                onClick={likeHandler}
-              />
-            ) : (
-              <BsHeart className="w-6 h-6 m-2 text-red-600 cursor-pointer" onClick={likeHandler} />
-            )}
-            <span className="text-xl text-defaultText">{likeNums}</span>
-          </div>
-        </TagListLayout>
-        <StyledDiv className="flex w-full py-2">
-          <div className="w-1/2 p-5 flex justify-center">
-            {detail && detail.meetingImage && (
-              <img
-                className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
-                src={detail.meetingImage}
-                alt="meetingImage"
-              />
-            )}
-          </div>
-          <div className="w-1/2">
-            <div className="flex items-center">
-              <AiOutlineCalendar />
-              <h1 className="text-xl px-2 py-2">
-                모집기간 : {detail.joinStartDate}~{detail.joinEndDate}
-              </h1>
-            </div>
-            <div className="flex items-center">
-              <AiOutlineCalendar />
-              <h1 className="text-xl px-2 py-2">
-                활동기간 : {detail.meetingStartDate}~{detail.meetingEndDate}
-              </h1>
-            </div>
-            <div className="flex items-center">
-              <IoMdPeople />
-              <h1 className="text-xl px-2 py-2">
-                {detail.nowPeople}/{detail.limitPeople}명 참여중
-              </h1>
-            </div>
-            <div className="flex items-center">
-              <GrLocation />
-              <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
-            </div>
-            <div className="rounded-xl overflow-hidden w-3/4">
-              {detail.location && <KakaoMap address={detail.location}></KakaoMap>}
-            </div>
-          </div>
-        </StyledDiv>
-        <div className="mt-2">
-          <h1 className="text-2xl py-4">모임 설명</h1>{' '}
-          <div className="text-ellipsis overflow-hidden">{detail.content}</div>
+    <div className="w-4/5 h-full px-5 py-5 flex flex-col">
+      <h1 className="mb-5 text-3xl mt-3">
+        <span
+          className={`min-w-fit text-3xl font-semibold ${
+            meetingStatus === '모집준비중'
+              ? `text-defaultLine`
+              : meetingStatus === '모집중'
+              ? `text-defaultColor`
+              : meetingStatus === '모집완료'
+              ? `text-greenColor`
+              : `text-gray-400`
+          }`}
+        >
+          {meetingStatus}
+        </span>
+        {' | ' + detail.title}
+      </h1>
+      <TagListLayout>
+        <div>
+          {detail.tagMeetings &&
+            Array.from(detail.tagMeetings).map((tag) => (
+              <Tagbutton key={tag.id}># {tag.name}</Tagbutton>
+            ))}
         </div>
+        <div className="flex justify-center items-center">
+          {liked ? (
+            <BsHeartFill
+              className="w-6 h-6 m-2 text-red-600 cursor-pointer"
+              onClick={likeHandler}
+            />
+          ) : (
+            <BsHeart className="w-6 h-6 m-2 text-red-600 cursor-pointer" onClick={likeHandler} />
+          )}
+          <span className="text-xl text-defaultText">{likeNums}</span>
+        </div>
+      </TagListLayout>
+      <StyledDiv className="flex w-full py-2">
+        <div className="w-1/2 p-5 flex justify-center">
+          {detail && detail.meetingImage && (
+            <img
+              className="rounded-2xl object-cover outline outline-2 outline-[#eaecee] shadow-lg"
+              src={detail.meetingImage}
+              alt="meetingImage"
+            />
+          )}
+        </div>
+        <div className="w-1/2">
+          <div className="flex items-center">
+            <AiOutlineCalendar />
+            <h1 className="text-xl px-2 py-2">
+              모집기간 : {detail.joinStartDate}~{detail.joinEndDate}
+            </h1>
+          </div>
+          <div className="flex items-center">
+            <AiOutlineCalendar />
+            <h1 className="text-xl px-2 py-2">
+              활동기간 : {detail.meetingStartDate}~{detail.meetingEndDate}
+            </h1>
+          </div>
+          <div className="flex items-center">
+            <IoMdPeople />
+            <h1 className="text-xl px-2 py-2">
+              {detail.nowPeople}/{detail.limitPeople}명 참여중
+            </h1>
+          </div>
+          <div className="flex items-center">
+            <GrLocation />
+            <h1 className="text-xl px-2 py-2">모임 장소 : {detail.location}</h1>
+          </div>
+          <div className="rounded-xl overflow-hidden w-3/4">
+            {detail.location && <KakaoMap address={detail.location}></KakaoMap>}
+          </div>
+        </div>
+      </StyledDiv>
+      <div className="mt-2">
+        <h1 className="text-2xl py-4">모임 설명</h1>{' '}
+        <div className="text-ellipsis overflow-hidden">{detail.content}</div>
       </div>
-    </>
+    </div>
   );
 };
 

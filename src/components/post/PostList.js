@@ -1,6 +1,6 @@
 import Post from './Post';
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PostingButton from 'components/button/PostingButton';
 import { useInView } from 'react-intersection-observer';
@@ -29,7 +29,6 @@ const PostList = ({ selectedTag }) => {
 
   return (
     <>
-      <ToastContainer />
       {isSuccess && postList?.pages
         ? postList.pages.map((page, pageIndex) => {
             const posts = page.posts.content;

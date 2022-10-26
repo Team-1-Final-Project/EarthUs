@@ -69,19 +69,21 @@ const MeetingCard = (props) => {
       <StyledCardContainer onClick={() => navigate(`/meeting/detail/${data.id}`)}>
         <StyledCard>
           <div>
-            {data?.meetingImage ? <img src={data.meetingImage} alt="meetingImage" /> : null}
+            {data?.meetingThumbImage ? (
+              <img src={data.meetingThumbImage} alt="meetingThumbImage" />
+            ) : null}
           </div>
           <StyledDetail>
             <div>
               <span
                 className={`mr-1 min-w-fit font-semibold text-sm ${
                   meetingStatus === '모집준비중'
-                    ? `text-gray-400`
+                    ? `text-defaultLine`
                     : meetingStatus === '모집중'
                     ? `text-defaultColor`
                     : meetingStatus === '모집완료'
                     ? `text-greenColor`
-                    : `text-defaultLine`
+                    : `text-gray-400`
                 }`}
               >
                 {meetingStatus}
