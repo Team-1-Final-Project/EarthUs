@@ -9,7 +9,6 @@ const AddMeetingComment = ({ setState }) => {
 
   const onClick = () => {
     apis.addMeetingComment(params, { content: ref.current.value }).then((res) => {
-      console.log(res);
       setState('add');
     });
 

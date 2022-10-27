@@ -218,7 +218,30 @@ export const apis = {
     return response.data;
   },
   getMyBadge: async () => {
-    const response = await api.get('/mypage/badge');
+    const response = await api.get('mypage/badge');
+    return response.data;
+  },
+  getMyMission: async () => {
+    const response = await api.get('mypage/daily');
+    return response.data;
+  },
+
+  updateProfileImage: async (data) => {
+    const response = await api.post('mypage/profile', data, {
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+    });
+    return response.data;
+  },
+  updateRepBadge: async () => {
+    const response = await api.post('mypage/badge');
+    return response.data;
+  },
+  updateNickname: async (nickname) => {
+    const response = await api.put('member/nickname', {
+      nickname: nickname,
+    });
     return response.data;
   },
 };
