@@ -23,8 +23,8 @@ export function WritePost({ writePost }) {
                   {post.tagBoard}
                 </div>
                 <div className="overflow-hidden h-28 text-ellipsis">
-                  <div className="text-lg font-bold">{post.title}</div>
-                  <div className="text-[0.9rem]">{post.content}</div>
+                  <div className="text-lg font-bold line-clamp-1">{post.title}</div>
+                  <div className="text-[0.9rem] line-clamp-3">{post.content}</div>
                 </div>
                 <div className="flex mt-2">
                   <div className="flex flex-row mr-2">
@@ -77,8 +77,8 @@ export function LikePost({ likePost }) {
                     {post.tagBoard}
                   </div>
                   <div className="overflow-hidden h-28 text-ellipsis">
-                    <div className="text-lg font-bold">{post.title}</div>
-                    <div className="text-[0.9rem]">{post.content}</div>
+                    <div className="text-lg font-bold line-clamp-1">{post.title}</div>
+                    <div className="text-[0.9rem] line-clamp-3">{post.content}</div>
                   </div>
                   <div className="flex mt-2">
                     <div className="flex flex-row mr-2">
