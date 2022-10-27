@@ -229,9 +229,14 @@ export const apis = {
     });
     return response.data;
   },
-
   updateRepBadge: async () => {
     const response = await api.post('mypage/badge');
+    return response.data;
+  },
+  updateNickname: async (nickname) => {
+    const response = await api.post('member/username', {
+      nickname: nickname,
+    });
     return response.data;
   },
 };
