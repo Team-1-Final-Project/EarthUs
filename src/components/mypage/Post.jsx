@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 export function WritePost({ writePost }) {
   const navigate = useNavigate();
-  console.log(writePost);
 
   return (
     <div>

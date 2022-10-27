@@ -7,7 +7,7 @@ import Mission from 'components/mypage/Mission';
 import Footer from 'components/footer/Footer';
 import { LikePost, WritePost } from 'components/mypage/Post';
 
-function MyPage({ meeting, writePost, likePost, myBadge }) {
+function MyPage({ meeting, writePost, likePost, myBadge, myMission }) {
   function sliceData(data) {
     return data?.slice(0, 2);
   }
@@ -20,7 +20,7 @@ function MyPage({ meeting, writePost, likePost, myBadge }) {
         <div className="w-3/6">
           <div className="m-4 mt-10 text-xl font-bold">획득한 뱃지</div>
           <Badge myBadge={myBadge} />
-          <Mission />
+          <Mission myMission={myMission} />
           <Meeting meeting={sliceData(meeting)} />
           <WritePost writePost={sliceData(writePost)} />
           <LikePost likePost={sliceData(likePost)} />

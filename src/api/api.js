@@ -221,6 +221,11 @@ export const apis = {
     const response = await api.get('mypage/badge');
     return response.data;
   },
+  getMyMission: async () => {
+    const response = await api.get('mypage/daily');
+    return response.data;
+  },
+
   updateProfileImage: async (data) => {
     const response = await api.post('mypage/profile', data, {
       headers: {
