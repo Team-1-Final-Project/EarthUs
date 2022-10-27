@@ -234,7 +234,7 @@ export const apis = {
     return response.data;
   },
   updateNickname: async (nickname) => {
-    const response = await api.post('member/username', {
+    const response = await api.put('member/nickname', {
       nickname: nickname,
     });
     return response.data;

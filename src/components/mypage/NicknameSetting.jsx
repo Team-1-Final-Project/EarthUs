@@ -1,18 +1,23 @@
 import { apis } from 'api/api';
 import React from 'react';
 
-function NicknameSetting({ nickname, nicknameChange }) {
+function NicknameSetting({ nickname, nicknameChange, updateNickname }) {
   return (
-    <div>
+    <div className="flex items-center justify-center my-6">
       <input
-        className="w-1/4 border-2"
-        placeholder={nickname == null ? '닉네임을 설정해주세요.' : nickname}
+        className="w-2/5 border-2"
+        placeholder={nickname}
         onChange={(e) => nicknameChange(e)}
       />
       <button
         className="w-20 ml-2 default_button"
         onClick={() =>
-          apis.updateNickname(nickname).then(() => sessionStorage.setItem('username', nickname))
+          // apis.updateNickname(nickname).then(() => {
+          //   alert(nickname);
+          //   sessionStorage.setItem('nickname', nickname);
+          //   sessionStorage.getItem('nickname');
+          // })
+          updateNickname(nickname)
         }
       >
         수정

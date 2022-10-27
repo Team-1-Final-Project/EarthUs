@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 
 function Badge({ myBadge, badgeSetting }) {
   const successId = myBadge?.map((myBadge) => myBadge.id);
+
   return (
     <div>
       <div className="flex justify-center">

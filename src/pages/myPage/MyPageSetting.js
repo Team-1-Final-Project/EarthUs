@@ -12,11 +12,11 @@ import Prepare from 'components/prepare/Prepare';
 function MyPageSetting({ myBadge }) {
   const badgeSetting = true;
   const profileImage = sessionStorage.getItem('profileImage');
-  const username = sessionStorage.getItem('username');
+  const defaultNickname = sessionStorage.getItem('nickname');
 
   const [repBadge, setRepBadge] = useState();
   const [repImage, setRepImage] = useState(profileImage);
-  const [nickname, setNickname, nicknameChange] = useInput(username);
+  const [nickname, setNickname, nicknameChange] = useInput(defaultNickname);
 
   let formData = new FormData();
 
@@ -38,6 +38,13 @@ function MyPageSetting({ myBadge }) {
     }
   };
 
+  const updateNickname = (e) => {
+    apis.updateNickname(e).then((res) => {
+      setNickname('');
+      sessionStorage.setItem('nickname', res.nickname);
+    });
+  };
+
   return (
     <>
       <div className="w-full">
@@ -48,12 +55,12 @@ function MyPageSetting({ myBadge }) {
             <div className="flex flex-col">
               <div className="m-4 text-xl font-bold">닉네임 설정</div>
               <div>
-                <Prepare />
-                {/* <NicknameSetting
+                <NicknameSetting
+                  updateNickname={updateNickname}
                   nicknameChange={nicknameChange}
                   nickname={nickname}
                   setNickname={setNickname}
-                /> */}
+                />
               </div>
               <div>
                 <div className="m-4 text-xl font-bold">대표 이미지 설정</div>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function WritePost({ writePost }) {
   const navigate = useNavigate();
+  console.log(writePost);
 
   return (
     <div>
@@ -22,14 +23,14 @@ export function WritePost({ writePost }) {
                 <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-[#EAECEE]">
                   {post.tagBoard}
                 </div>
-                <div className="h-24 overflow-hidden text-ellipsis">
+                <div className="overflow-hidden h-28 text-ellipsis">
                   <div className="text-lg font-bold">{post.title}</div>
                   <div className="text-[0.9rem]">{post.content}</div>
                 </div>
-                <div className="flex">
+                <div className="flex mt-2">
                   <div className="flex flex-row mr-2">
                     <AiOutlineComment className="m-auto" />
-                    <span>{post.commentsList?.length ? 'board.commentsList?.length' : '0'}</span>
+                    <span>{post.commentNums}</span>
                   </div>
                   <div className="flex flex-row">
                     <AiOutlineHeart className="m-auto" />
@@ -76,14 +77,14 @@ export function LikePost({ likePost }) {
                   <div className="w-12 my-2 text-sm text-center rounded-3xl text-defaultColor bg-[#EAECEE]">
                     {post.tagBoard}
                   </div>
-                  <div className="h-24 overflow-hidden text-ellipsis">
+                  <div className="overflow-hidden h-28 text-ellipsis">
                     <div className="text-lg font-bold">{post.title}</div>
                     <div className="text-[0.9rem]">{post.content}</div>
                   </div>
-                  <div className="flex">
+                  <div className="flex mt-2">
                     <div className="flex flex-row mr-2">
                       <AiOutlineComment className="m-auto" />
-                      <span>{post.commentsList?.length ? 'board.commentsList?.length' : '0'}</span>
+                      <span>{post.commentNums}</span>
                     </div>
                     <div className="flex flex-row">
                       <AiOutlineHeart className="m-auto" />
