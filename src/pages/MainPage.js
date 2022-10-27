@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from 'components/navbar/Navbar';
 import Dailymission from 'components/main/Dailymission';
-import { api, apis } from 'api/api';
+import { apis } from 'api/api';
 import TopPost from 'components/main/TopPost';
 import Meeting from 'components/main/Meeting';
 import Banner from 'components/banner/Banner';
@@ -55,7 +55,6 @@ function MainPage() {
             checkDailyMission={checkDailyMission}
             clearCount={clearCount}
           />
-
           <TopPost hitBoard={hitBoard} />
           <Meeting meeting={meeting} />
           <Footer />

@@ -3,7 +3,7 @@ import { Oval } from 'react-loader-spinner';
 
 const Loading = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="flex items-center justify-center w-full h-full">
       <Oval
         type="Oval"
         color="#3CC2DF"

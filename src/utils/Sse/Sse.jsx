@@ -22,6 +22,9 @@ export default function Sse() {
           theme: 'light',
         });
       });
+      sse.onerror = (err) => {
+        console.error('EventSource failed:', err);
+      };
     }
-  }, []);
+  });
 }
