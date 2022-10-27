@@ -11,22 +11,29 @@ import { apis } from 'api/api';
 function MyPageSetting({ myBadge }) {
   const badgeSetting = true;
   const profileImage = sessionStorage.getItem('profileImage');
+  const username = sessionStorage.getItem('username');
 
-  const [repBadge, setRepBadge] = useInput();
-  const [repImage, setRepImage, imageChange] = useInput(profileImage);
-  const [nickname, setNickname] = useInput();
+  const [repBadge, setRepBadge] = useState();
+  const [repImage, setRepImage] = useState(profileImage);
+  const [nickname, setNickname, nicknameChange] = useInput(username);
 
   let formData = new FormData();
 
   const deleteImage = () => {
-    formData.set('file', null);
-    apis.updateProfileImage(formData).then((res) => setRepImage(res));
+    formData.set('profileImage', null);
+    apis.updateProfileImage(formData).then((res) => {
+      setRepImage(res.profileImage);
+      sessionStorage.setItem('profileImage', res.profileImage);
+    });
   };
 
   const changeImage = (e) => {
     if (e.target.files[0]) {
-      formData.set('file', e.target.files[0]);
-      apis.updateProfileImage(formData).then((res) => setRepImage(res.profileImage));
+      formData.set('profileImage', e.target.files[0]);
+      apis.updateProfileImage(formData).then((res) => {
+        setRepImage(res.profileImage);
+        sessionStorage.setItem('profileImage', res.profileImage);
+      });
     }
   };
 
@@ -40,7 +47,11 @@ function MyPageSetting({ myBadge }) {
             <div className="flex flex-col">
               <div className="m-4 text-xl font-bold">닉네임 설정</div>
               <div>
-                <NicknameSetting />
+                <NicknameSetting
+                  nicknameChange={nicknameChange}
+                  nickname={nickname}
+                  setNickname={setNickname}
+                />
               </div>
               <div className="m-4 text-xl font-bold">대표 이미지 설정</div>
               <div>
