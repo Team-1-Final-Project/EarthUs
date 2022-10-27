@@ -46,7 +46,6 @@ const KakaoAuth = () => {
         apis
           .kakaoLogin()
           .then((res) => {
-            console.log(res);
             const nickname = res.data.nickname;
             const username = res.data.username;
             const image = res.data.profileImage;

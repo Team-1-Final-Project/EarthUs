@@ -17,7 +17,6 @@ const MeetingComment = ({ data, setState, state }) => {
         content: ref.current.value,
       })
       .then((res) => {
-        console.log(res);
         setUpdate(false);
         setState('put');
       });
