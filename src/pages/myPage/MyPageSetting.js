@@ -8,6 +8,7 @@ import NicknameSetting from 'components/mypage/NicknameSetting';
 import { useInput } from 'hooks/useInput';
 import { apis } from 'api/api';
 import Prepare from 'components/prepare/Prepare';
+import swal from 'sweetalert';
 
 function MyPageSetting({ myBadge }) {
   const badgeSetting = true;
@@ -39,10 +40,14 @@ function MyPageSetting({ myBadge }) {
   };
 
   const updateNickname = (e) => {
-    apis.updateNickname(e).then((res) => {
-      setNickname('');
-      sessionStorage.setItem('nickname', res.nickname);
-    });
+    if (nickname?.length <= 8) {
+      apis.updateNickname(e).then((res) => {
+        setNickname('');
+        sessionStorage.setItem('nickname', res.nickname);
+      });
+    } else {
+      swal('닉네임을 8글자 이하로 입력해주세요.');
+    }
   };
 
   return (
