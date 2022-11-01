@@ -28,7 +28,7 @@ const PostDetail = () => {
 
   const heartData = useSelector((state) => state.heart.heart);
 
-  const name = sessionStorage.getItem('nickname');
+  const email = sessionStorage.getItem('email');
 
   const loginState = sessionStorage.getItem('Access_token');
 
@@ -115,7 +115,7 @@ const PostDetail = () => {
                 </div>
               </ContentsWrapStyle>
 
-              {data?.writerName === name ? (
+              {data?.email === email ? (
                 <ButtonStyled>
                   <BsPencil
                     className="button cursor-pointer"
