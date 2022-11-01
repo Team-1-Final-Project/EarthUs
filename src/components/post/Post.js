@@ -98,7 +98,9 @@ const Post = ({ post, onToastifyHandler }) => {
           </div>
 
           <ImageStyled>
-            {post?.boardImage && <img className="boardImg" src={post?.boardImage} alt="img" />}
+            {post?.boardThumbnail && (
+              <img className="boardImg" src={post?.boardThumbnail} alt="img" />
+            )}
           </ImageStyled>
         </ContentWrapStyle>
       </ContentsWrapStyle>

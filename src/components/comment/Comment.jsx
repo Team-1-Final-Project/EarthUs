@@ -6,6 +6,7 @@ const Comment = ({
   content,
   commentId,
   commentWriter,
+  email,
   createdAt,
   profileImage,
   editCommentHandler,
@@ -16,7 +17,7 @@ const Comment = ({
   const [editToggle, setEditToggle] = useState(false);
   const [editContent, setEditContent] = useState(content);
 
-  const login = sessionStorage.getItem('nickname');
+  const login = sessionStorage.getItem('email');
 
   useEffect(() => {
     setEditContent(content);
@@ -63,7 +64,7 @@ const Comment = ({
             </div>
           </div>
           <div className="relative">
-            {login === commentWriter && !editToggle ? (
+            {login === email && !editToggle ? (
               <BsThreeDotsVertical
                 onClick={() => setEditDeleteToggle(!editDeleteToggle)}
                 className="cursor-pointer text-grayColor mb-2"
