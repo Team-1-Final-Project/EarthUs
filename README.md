@@ -121,4 +121,7 @@
 
 ## 👥 Team: 팀원 소개 
 
-추후 작성 예정
+|`FE`|`FE`| `FE`|`FE`|`BE`|`BE`|`BE`|
+|---|---|---|---|---|---|---|
+| 심유선 | 오정진 | 김민석 | 박세은 | 강윤주 | 안재원 | 전혜진 |
+| [@SimYuseon](https://github.com/SimYuseon) | [@OhJungJin](https://github.com/OhJungJin) | [@shackstack](https://github.com/shackstack) | [@sanasoon](https://github.com/senasoon) | [@glooooow](https://github.com/glooooow) | [@Ahnjaewon](https://github.com/Ahnjaewon) | [@decaf-latte](https://github.com/decaf-latte) |
